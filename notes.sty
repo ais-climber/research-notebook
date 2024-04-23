@@ -30,6 +30,7 @@
 %═══════════════════════════════════════════
 % Graphics packages
 %═══════════════════════════════════════════
+\usepackage{graphicx}
 \usepackage{tikz}
 \usetikzlibrary{positioning,calc,arrows.meta,shapes.geometric,fit, backgrounds}
 
@@ -135,3 +136,10 @@
 \newcommand{\diaHebbop}[1]{\langle #1\rangle}
 \newcommand{\diaUpdate}[1]{\langle #1\rangle}
 \newcommand{\diaBest}[1]{\langle \mathsf{best}\rangle #1}
+
+\newcommand{\spiral}[]{\includegraphics[
+    height=.7\baselineskip,
+    origin=c,% For rotation purposes, rotate around centre
+    viewport=154mm 173mm 176mm 194mm,clip
+    ]{spiral}%
+  }
