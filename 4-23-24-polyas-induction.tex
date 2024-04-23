@@ -28,6 +28,25 @@ P\'{o}lya wrote this 30 years before logics for plausibility upgrade were develo
 
 Suppose we have a plausibility model $\Model = \langle W, R, \leq, V \rangle$.  Let $\Update{P}$ be the action ``make $P$ more plausible,'' which updates $\Model$ to $\Model^{\star}_P$.  Let $[!P]$ be the action ``discover that $P$ is true, which updates $\Model$ to $\Model^{!}_P$ (we could do this by conditionalization / public announcement).
 
+To make things concrete, let's consider the full language
+\[
+    p \mid \neg \varphi \mid \varphi \land \psi \mid \Diamond \varphi \mid \Know{\varphi} \mid \Believe{\varphi}{\psi} \mid [!P] \varphi \mid \Update{P} \varphi
+\]
+with the semantics
+\[
+    \begin{array}{lcl}
+        \Model, w \Vdash p & \mbox{ iff } & w \in V(p)\\
+        \Model, w \Vdash \neg \varphi & \mbox{ iff } & \Model, w \not \Vdash \varphi\\
+        \Model, w \Vdash \varphi \land \psi & \mbox{ iff } & \Model, w \Vdash \varphi \mbox{ and } \Model, w \Vdash \psi\\
+        \Model, w \Vdash \Diamond \varphi & \mbox{ iff } & \mbox{there exists } u \mbox{ with } \Model, u \Vdash \varphi\\
+        \Model, w \Vdash \Know \varphi & \mbox{ iff } & \mbox{for all } u \mbox{ with } w{R}u, \Model, u \Vdash \varphi \\
+        \Model, w \Vdash \Believe{\varphi}{\psi} & \mbox{ iff } & \best_\leq(\semantics{\varphi}) \subseteq \semantics{\psi} \\
+        \Model, w \Vdash [!P] \varphi & \mbox{ iff } & \Model^{!}_P, w \models \varphi\\
+        \Model, w \Vdash \Update{P} \varphi & \mbox{ iff } & \Model^\star_P, w \models \varphi
+    \end{array}
+\]
+where $\semantics{\varphi} = \set{u \mid \Model, u \Vdash \varphi}$, and $\best_\leq(S) = \set{u \in S \mid u \mbox{ is } {\leq}\mbox{-minimal over } S}$.
+
 We can't express the rule in DEL as-stated, since $\Update{P}$ and $[!P]$ can't occur by themselves.  But we can rephrase the rule in terms of the \emph{effects} that the updates have: The rule says that any effect of making $P$ more plausible is also an effect of discovering that $Q$ is true.  More formally, if $\Model, w \Vdash P \to Q$ then
 \[
     \Model^{\star}_P, w \Vdash \varphi \mbox{ implies } \Model^{!}_Q, w \Vdash \varphi
@@ -64,7 +83,41 @@ I want to ask the same questions from before, but now zoomed-in at these two axi
 
 \subsection*{A Model for Shaded Stepwise Induction}
 
-Let's look at \textsc{(Shaded-Step-Ind)}.  What 
+\begin{definition}
+    Given $\Model = \langle W, R, \leq, V \rangle$, let the update $\Model^\star_P = \langle W, R, \leq^\star_P, V \rangle$, where $\leq^\star_P$ is reordered according to the rule:
+    \begin{center}
+    \begin{tabular}{l}
+        Put all states where \emph{some} consequence of
+        $P$ holds in front of all the other states;\\
+        the order within the two groups is kept the same.
+    \end{tabular}
+    \end{center}
+    Note that this is a variation on Lexicographic upgrade.
+
+    % In other words, this is a variation of Lexicographic upgrade, where we put the following set up front.
+    % \[ \set{u \mid \mbox{ there exists } X \mbox{ such that } \Model, w \Vdash P \to X \mbox{ and } \Model, u \Vdash X}\]
+\end{definition}
+
+\begin{theorem}
+    This update satisfies \textsc{(Shaded-Step-Ind)}.
+\end{theorem}
+\begin{proof}
+    TODO
+\end{proof}
+
+So we have a model for \textsc{(Shaded-Step-Ind)}.  I'll now try to completely axiomatize this update.
+
+\begin{proposition}
+    We can completely characterize the effect this update has on $\best$.  For all $S \subseteq W$,
+    \[
+        \best_{\leq^\star_P}(S) =
+        \begin{cases}
+             \best_\leq(S \cap \set{w \mid \exists X \mbox{ such that } \Model, w \Vdash P \to X \mbox{ and } \Model, w \Vdash X}) & \\
+             & \text{if } S \cap \set{w \mid \exists X \mbox{ such that } \Model, w \Vdash P \to X \mbox{ and } \Model, w \Vdash X} \ne \emptyset\\
+            0,              & \text{otherwise}
+        \end{cases}
+    \]
+\end{proposition}
 
 
 \printbibliography

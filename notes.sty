@@ -40,14 +40,14 @@
 \newtheorem{definition}{Definition}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{claim}{Claim}
+\newtheorem{claim}[theorem]{Claim}
 \newtheorem{postulate}{Postulate}
-\newtheorem{corollary}{Corollary}
-\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{example}{Example}
 \newtheorem{remark}[theorem]{Remark}
 \newtheorem*{aside}{Quick Aside}
-\newtheorem{question}[theorem]{Question}
+\newtheorem{question}{Question}
 \newenvironment{sketch}{\begin{proof}[Proof Sketch]}{\end{proof}}
 
 %═══════════════════════════════════════════
@@ -112,6 +112,7 @@
 \newcommand{\HebbstarNoArgs}{\mathsf{Hebb}^*}
 \newcommand{\hebbweight}{W_\mathsf{Hebb}}
 \newcommand{\hebbstarweight}{W_{\mathsf{Hebb}^*}}
+\newcommand{\best}{\mathsf{best}}
 
 \newcommand{\Typ}[1]{\textrm{\textup{\textbf{T}}} #1}
 \newcommand{\Know}[1]{\textrm{\textup{\textbf{K}}} #1}
@@ -122,9 +123,8 @@
 % \newcommand{\Hebbop}[1]{[#1]_{\HebbstarNoArgs}\:}
 \newcommand{\Hebbop}[1]{[#1]}
 \newcommand{\Update}[1]{[#1]}
-\newcommand{\Best}[1]{[\mathsf{best}] #1}
-\newcommand{\BestNoArgs}{[\mathsf{best}]}
-\newcommand{\Believe}[2]{\textrm{\textup{\textbf{K}}}^{#1} #2}
+% \newcommand{\BestNoArgs}{[\mathsf{best}]}
+\newcommand{\Believe}[2]{\textrm{\textup{\textbf{B}}}^{#1} #2}
 
 \newcommand{\diaTyp}[1]{\langle \textrm{\textup{\textbf{T}}} \rangle #1}
 \newcommand{\diaKnow}[1]{\langle \textrm{\textup{\textbf{K}}} \rangle #1}
