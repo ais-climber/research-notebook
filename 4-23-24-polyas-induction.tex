@@ -112,13 +112,30 @@ So we have a model for \textsc{(Shaded-Step-Ind)}.  I'll now try to completely a
     \[
         \best_{\leq^\star_P}(S) =
         \begin{cases}
-             \best_\leq(S \cap \set{w \mid \exists X \mbox{ such that } \Model, w \Vdash P \to X \mbox{ and } \Model, w \Vdash X}) & \\
-             & \text{if } S \cap \set{w \mid \exists X \mbox{ such that } \Model, w \Vdash P \to X \mbox{ and } \Model, w \Vdash X} \ne \emptyset\\
-            0,              & \text{otherwise}
+             \best_\leq(S \cap \set{w \mid \exists X \mbox{ such that } \Model, w \Vdash P \to X \mbox{ and } \Model, w \Vdash X})\\
+             \quad \quad \mbox{if } S \cap \set{w \mid \exists X \mbox{ such that } \Model, w \Vdash P \to X \mbox{ and } \Model, w \Vdash X} \ne \emptyset\\
+            \best_\leq(S) \quad \mbox{otherwise}
         \end{cases}
     \]
 \end{proposition}
-
+\begin{proof}
+    Notice that this expression is exactly the characterization of Lexicographic upgrade
+    \[  \best_{\leq^\Uparrow_P}(S) = 
+        \begin{cases}
+            \best_\leq(S \cap \semantics{P}) & \mbox{if } S \cap \semantics{P} \ne \emptyset\\
+            \best_\leq(S) & \mbox{otherwise}
+        \end{cases}
+    \]
+    except instead of putting up front the set
+    \[
+        \semantics{P} = \set{w \mid \Model, w \Vdash P}
+    \]
+    we put up front
+    \[
+        \set{w \mid \exists X \mbox{ such that } \Model, w \Vdash P \to X \mbox{ and } \Model, w \Vdash X}
+    \]
+    The proof is identical to the proof for Lexicographic upgrade.
+\end{proof}
 
 \printbibliography
 \end{document}
