@@ -1,15 +1,15 @@
 [0] Config.pm:307> INFO - This is Biber 2.17
-[1] Config.pm:310> INFO - Logfile is '4-22-24-satisfying-hebbian-reduction-axioms.blg'
-[100] biber:340> INFO - === Mon Apr 22, 2024, 21:35:45
-[117] Biber.pm:418> INFO - Reading '4-22-24-satisfying-hebbian-reduction-axioms.bcf'
-[191] Biber.pm:972> INFO - Found 3 citekeys in bib section 0
-[204] Biber.pm:4383> INFO - Processing section 0
-[216] Biber.pm:4574> INFO - Looking for bibtex file 'references.bib' for section 0
-[218] bibtex.pm:1713> INFO - LaTeX decoding ...
-[259] bibtex.pm:1518> INFO - Found BibTeX data source 'references.bib'
-[314] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[315] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[315] Biber.pm:4203> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'en-US'
-[315] Biber.pm:4209> INFO - No sort tailoring available for locale 'en-US'
-[320] bbl.pm:654> INFO - Writing '4-22-24-satisfying-hebbian-reduction-axioms.bbl' with encoding 'UTF-8'
-[322] bbl.pm:757> INFO - Output to 4-22-24-satisfying-hebbian-reduction-axioms.bbl
+[0] Config.pm:310> INFO - Logfile is '4-22-24-satisfying-hebbian-reduction-axioms.blg'
+[89] biber:340> INFO - === Tue Apr 23, 2024, 00:03:18
+[108] Biber.pm:418> INFO - Reading '4-22-24-satisfying-hebbian-reduction-axioms.bcf'
+[184] Biber.pm:972> INFO - Found 3 citekeys in bib section 0
+[197] Biber.pm:4383> INFO - Processing section 0
+[209] Biber.pm:4574> INFO - Looking for bibtex file 'references.bib' for section 0
+[211] bibtex.pm:1713> INFO - LaTeX decoding ...
+[248] bibtex.pm:1518> INFO - Found BibTeX data source 'references.bib'
+[298] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[299] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[299] Biber.pm:4203> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'en-US'
+[299] Biber.pm:4209> INFO - No sort tailoring available for locale 'en-US'
+[303] bbl.pm:654> INFO - Writing '4-22-24-satisfying-hebbian-reduction-axioms.bbl' with encoding 'UTF-8'
+[305] bbl.pm:757> INFO - Output to 4-22-24-satisfying-hebbian-reduction-axioms.bbl
