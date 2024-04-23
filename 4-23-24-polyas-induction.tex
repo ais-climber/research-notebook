@@ -1,0 +1,52 @@
+\documentclass[letterpaper]{article}
+\usepackage{notes}
+\begin{document}
+
+\section*{Problem Statement}
+
+One big open problem in belief revision, dynamic epistemic logic, and machine learning is to develop the ``model theory of learning,'' i.e.
+
+\begin{question}
+    What axioms capture important properties of learning (e.g.\ induction, no forgetting, no hallucinations, robustness)? What do models of these properties look like? Are there “correspondences” between axioms and properties of models, as there often are in modal logic?
+\end{question}
+
+A lot of work has already been done on this --- see the two very relevant papers~\cite{truthtracking, dellearningtheory}.  In particular,~\cite{truthtracking} shows that, given a stream of true data, announcement and lexicographic upgrade converge to the full truth (whereas conservative upgrade does not).  And if the stream has finitely many false data, only lexicographic upgrade converges to the full truth (of the three).
+
+I was reading the second volume of~\cite{polya1954mathematics} recently.  In it, George P\'{o}lya makes some empirical observations about the role of guessing and induction in mathematics, and then tries to formalize these as logical rules.  I got interested in this because I noticed that his rules of induction capture axioms for \emph{plausibility upgrade / belief revision} that I believe have been overlooked by work on DEL and belief revision.
+
+For the rest of this note, I want to formalize P\'{o}lya's inductive rules as DEL axioms and explore the models that satisfy them.  This is a bit of a detour from the question above, but I've been having fun thinking about it.
+
+\section*{P\'{o}lya's Stepwise Induction}
+
+P\'{o}lya charts about 16 different rules in his book, but for now I'm interested in the two that relate to induction.  First, let's look at his Stepwise Induction rule
+\[
+    \frac{P \to Q \quad \quad Q \mbox{ true}}{P \mbox{ more plausible}}
+\]
+P\'{o}lya gives this rule the following reading: If we discover that some consequence $Q$ of $P$ is true, then $P$ becomes more plausible.  He refers to this as just ``induction''; I prefer to call it \emph{stepwise} induction because a modern understanding of induction is \emph{convergence to the truth}, and this rule says what ought to happen in a single discovery step rather than at some point of convergence.
+
+P\'{o}lya wrote this 30 years before logics for plausibility upgrade were developed.  But with hindsight, it's clear that his rule expresses a DEL constraint for plausibility upgrade.  
+
+Suppose we have a plausibility model $\Model = \langle W, R, \leq, V \rangle$.  Let $\Update{P}$ be the action ``make $P$ more plausible,'' which updates $\Model$ to $\Model^{\star}_P$.  Let $[!P]$ be the action ``discover that $P$ is true, which updates $\Model$ to $\Model^{!}_P$ (we could do this by conditionalization / public announcement).
+
+We can't express the rule in DEL as-stated, since $\Update{P}$ and $[!P]$ can't occur by themselves.  But we can rephrase the rule in terms of the \emph{effects} that the updates have: The rule says that any effect of making $P$ more plausible is also an effect of discovering that $Q$ is true.  More formally, if $\Model, w \Vdash P \to Q$ then
+\[
+    \Model^{\star}_P, w \Vdash \varphi \mbox{ implies } \Model^{!}_Q, w \Vdash \varphi
+\]
+And this holds iff $\Model, w$ satisfies
+\[
+    (P \to Q) \to (\Update{P} \varphi \to [!Q] \varphi) \quad \mbox{\textsc{(Step-Ind)}}
+\]
+The second rule I'd like to explore is Shaded Stepwise Induction (``shaded'' is P\'{o}lya's terminology)
+\[
+    \frac{P \to Q \quad \quad Q \mbox{ more plausible}}{P \mbox{ more plausible}}
+\]
+We can do a similar analysis on this, and express it in DEL as
+\[
+    (P \to Q) \to (\Update{P} \varphi \to \Update{Q} \varphi) \quad \mbox{\textsc{(Shaded-Step-Ind)}}
+\]
+
+\section*{Progress So Far}
+
+
+\printbibliography
+\end{document}
