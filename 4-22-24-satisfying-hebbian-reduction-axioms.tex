@@ -72,6 +72,8 @@ I've somewhat misled you by talking in terms of plausibility models.  In fact, t
 
 \paragraph*{Discussion.} This immediately rules out lexicographic upgrade, conservative upgrade, and other variants, since these update policies just re-order the plausibility relation $\leq$.  The proof also shows that $\Update{P} \varphi \leftrightarrow \varphi$ rules out any upgrade that just re-assigns propositions (i.e.\ modifies $V$).  We might instead consider updates that add or remove states or change the knowledge relation $R$, but we have to be very careful --- for example, conditionalization (i.e.\ public announcement $[!P]$ for a single agent) is also ruled out by $\Update{P} \varphi \leftrightarrow \varphi$ as well as $\Update{P} \Know{\varphi} \leftrightarrow \Know{\Update{P} \varphi}$.
 
+Alternatively, we could try to impose frame properties to make counterexamples like the above impossible.  For example, we could require $u \leq v \to u{R}v$, or $u \leq v \to v{R}u$, or even $u{R}v \to u \leq v$.  But the counterexample above is robust against these constraints, and I can't come up with one that would work.
+
 I've considered looking at neighborhood models (e.g.\ evidence models) to model this update.  It's not clear to me what the neighborhood semantics for $\TypNoArgs$ should be, and I'm currently trying to find out.  What are your thoughts?
 
 \printbibliography
