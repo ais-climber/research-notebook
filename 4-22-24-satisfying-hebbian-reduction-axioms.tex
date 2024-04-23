@@ -51,29 +51,17 @@
 \newtheorem*{question}{Question}
 \newenvironment{sketch}{\begin{proof}[Proof Sketch]}{\end{proof}}
 
-\newcounter{section}
-\newcounter{subsection}[section]
-\setcounter{secnumdepth}{3}
-\makeatletter
-\newcommand\section{\@startsection {section}{1}{\z@}%
-                                   {-1ex \@plus -1ex \@minus -.2ex}%
-                                   {1ex \@plus.2ex}%
-                                   {\normalfont\large\bfseries}}
-\newcommand\subsection{\@startsection{subsection}{2}{\z@}%
-                                     {-1ex\@plus -1ex \@minus -.2ex}%
-                                     {0.5ex \@plus .2ex}%
-                                     {\normalfont\bfseries}}
-\renewcommand \thesection{\@arabic\c@section}
-\renewcommand\thesubsection{\thesection.\@arabic\c@subsection}
-
 %═══════════════════════════════════════════
 % References, Links, and Color
 %═══════════════════════════════════════════
 % AAAI requires that color is never used in text
 % (can be used in diagrams carefully though!)
+\usepackage{biblatex}
+\addbibresource{references.bib}
 \usepackage{xcolor}
 \definecolor{mygreen}{RGB}{107,203,119}
 \definecolor{myblue}{RGB}{77, 150, 255}
+\usepackage[colorlinks,allcolors=myblue]{hyperref}
 
 %═══════════════════════════════════════════
 % Custom Commands, General Use
@@ -149,14 +137,10 @@
 \newcommand{\diaUpdate}[1]{\langle #1\rangle}
 \newcommand{\diaBest}[1]{\langle \mathsf{best}\rangle #1}
 
-\signature{\unskip\vspace{5pt} Caleb}
-
 %═══════════════════════════════════════════
 % Beginning of Notes
 %═══════════════════════════════════════════
 \begin{document}
-\opening{Hi Alexandru and Sonja,}
-
 I would like your help with a problem I'm stuck on, if you don't mind giving it some thought.  I ran into this issue in my work on neural network update, but the question I have for you are about epistemic/plausibility models, not neural network models.  I'll try to state the question as cleanly as I can, and then if you're interested in knowing \emph{why} I care about all this I'll be happy to explain face-to-face.
 
 \section*{Problem Statement}
@@ -255,10 +239,7 @@ The proof is a simple extension of the above proof, replacing $p$ with $\diaTyp{
     TODO
 \end{proof}
 
-\closing{All the best,}
-
-
-\bibliography{references}
+\printbibliography
 
 \end{document}
 

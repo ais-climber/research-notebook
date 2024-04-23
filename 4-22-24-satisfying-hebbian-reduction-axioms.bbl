@@ -1,0 +1,80 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{van2007beliefrevision}{article}{}
+      \name{author}{1}{}{%
+        {{hash=5124f849336f0fee940c0f9baf3e2da2}{%
+           family={Van\bibnamedelima Benthem},
+           familyi={V\bibinitperiod\bibinitdelim B\bibinitperiod},
+           given={Johan},
+           giveni={J\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Taylor \& Francis}%
+      }
+      \strng{namehash}{5124f849336f0fee940c0f9baf3e2da2}
+      \strng{fullhash}{5124f849336f0fee940c0f9baf3e2da2}
+      \strng{bibnamehash}{5124f849336f0fee940c0f9baf3e2da2}
+      \strng{authorbibnamehash}{5124f849336f0fee940c0f9baf3e2da2}
+      \strng{authornamehash}{5124f849336f0fee940c0f9baf3e2da2}
+      \strng{authorfullhash}{5124f849336f0fee940c0f9baf3e2da2}
+      \field{extraname}{1}
+      \field{sortinit}{V}
+      \field{sortinithash}{afb52128e5b4dc4b843768c0113d673b}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of applied non-classical logics}
+      \field{number}{2}
+      \field{title}{Dynamic logic for belief revision}
+      \field{volume}{17}
+      \field{year}{2007}
+      \field{pages}{129\bibrangedash 155}
+      \range{pages}{27}
+    \endentry
+    \entry{van2011logical}{book}{}
+      \name{author}{1}{}{%
+        {{hash=5124f849336f0fee940c0f9baf3e2da2}{%
+           family={Van\bibnamedelima Benthem},
+           familyi={V\bibinitperiod\bibinitdelim B\bibinitperiod},
+           given={Johan},
+           giveni={J\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{5124f849336f0fee940c0f9baf3e2da2}
+      \strng{fullhash}{5124f849336f0fee940c0f9baf3e2da2}
+      \strng{bibnamehash}{5124f849336f0fee940c0f9baf3e2da2}
+      \strng{authorbibnamehash}{5124f849336f0fee940c0f9baf3e2da2}
+      \strng{authornamehash}{5124f849336f0fee940c0f9baf3e2da2}
+      \strng{authorfullhash}{5124f849336f0fee940c0f9baf3e2da2}
+      \field{extraname}{2}
+      \field{sortinit}{V}
+      \field{sortinithash}{afb52128e5b4dc4b843768c0113d673b}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Logical dynamics of information and interaction}
+      \field{year}{2011}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
