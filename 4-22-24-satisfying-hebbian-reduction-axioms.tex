@@ -141,15 +141,14 @@
 % Beginning of Notes
 %═══════════════════════════════════════════
 \begin{document}
-I would like your help with a problem I'm stuck on, if you don't mind giving it some thought.  I ran into this issue in my work on neural network update, but the question I have for you are about epistemic/plausibility models, not neural network models.  I'll try to state the question as cleanly as I can, and then if you're interested in knowing \emph{why} I care about all this I'll be happy to explain face-to-face.
 
 \section*{Problem Statement}
 
 Consider the dynamic epistemic language
 \[
-    p \mid \neg \varphi \mid \varphi \land \psi \mid \Box \varphi \mid \Know{\varphi} \mid \Typ{\varphi} \mid \Update{P} \varphi
+    p \mid \neg \varphi \mid \varphi \land \psi \mid \Know{\varphi} \mid \Typ{\varphi} \mid \Update{P} \varphi
 \]
-$\Box$ is the general universal (for all worlds), though I'll more often use its dual $\Diamond$ (there is a world). $\KnowNoArgs$ is knowledge.  $\TypNoArgs$ is more interesting --- $\Typ{\varphi}$ says that the current world is `minimal' or `most typical' over worlds satisfying $\varphi$.  (As far as I can tell, this is not quite the same as the $\BestNoArgs$ operator, see Remark 10 in \cite{van2007beliefrevision}).  $\Update{P}$ is some dynamic update given by $\Model \to \Model^\star_P$ (this is a free variable; the point will be to find the right update).  
+$\KnowNoArgs$ is knowledge.  $\TypNoArgs$ is more interesting --- $\Typ{\varphi}$ says that the current world is `minimal' or `most typical' over worlds satisfying $\varphi$.  (As far as I can tell, this is not quite the same as the $\BestNoArgs$ operator, see Remark 10 in \cite{van2007beliefrevision}).  $\Update{P}$ is some dynamic update given by $\Model \to \Model^\star_P$ (this is a free variable; the problem will be to find the right update).
 
 For the static part of the logic, choose your favorite semantics --- plausibility models, evidence models, etc.  For now, I'll take Johan's approach from \cite{van2011logical}, which I've been using as a desk reference for all this.  Let's assume we have a single-agent plausibility model, with an extra accessibility relation $R$ for knowledge: $\Model = \langle W, R, \leq, V \rangle$.  $\leq$ is uniform over all states; we do not have a different plausibility relation $\leq_s$ for each state.  As usual, $x \leq y$ reads ``the agent finds x at least as plausible as y.''
 
@@ -160,7 +159,6 @@ For the static part of the logic, choose your favorite semantics --- plausibilit
         \Model, w \Vdash p & \mbox{ iff } & w \in V(p)\\
         \Model, w \Vdash \neg \varphi & \mbox{ iff } & \Model, w \not \Vdash \varphi\\
         \Model, w \Vdash \varphi \land \psi & \mbox{ iff } & \Model, w \Vdash \varphi \mbox{ and } \Model, w \Vdash \psi\\
-        \Model, w \Vdash \Box \varphi & \mbox{ iff } & \mbox{for all } u, \Model, u \Vdash \varphi\\
         \Model, w \Vdash \Know \varphi & \mbox{ iff } & \mbox{for all } u \mbox{ with } w{R}u, \Model, u \Vdash \varphi \\
         \Model, w \Vdash \Typ{\varphi} & \mbox{ iff } & w \mbox{ is } {\leq}\mbox{-minimal over } \set{u \mid \Model, u \Vdash \varphi} \\
         \Model, w \Vdash \Update{P} \varphi & \mbox{ iff } & \Model^\star_P, w \models \varphi
@@ -170,42 +168,53 @@ For the static part of the logic, choose your favorite semantics --- plausibilit
 
 I will use the shorthand $\semantics{\varphi}_\Model =   \set{u \mid \Model, u \Vdash \varphi}$, and drop $\Model$ when it's understood from context.
 
-I have three very simple neural network updates, and they can each be reduced to this language.  I'd love to explain the details in the future, but for now these are the reduction laws I've found ``in the wild.'' (I'll give the $\Typ$ case for each; for the first two assume $\KnowNoArgs$ is not in the language, and for the third the update does not affect $\KnowNoArgs$):
-\begin{description}[leftmargin=1.25in]
-    \item[Axiom A.] $\Update{P} \Typ{\varphi} \leftrightarrow 
-    (\Diamond(P \land \diaTyp{\varphi}) \land \Typ{(P \land \Update{P} \varphi)}) \\
-    \quad\quad\quad\quad\quad\quad\quad \lor \quad (\neg \Diamond(P \land \diaTyp{\varphi}) \land \Typ{\Update{P} \varphi})$
-    \item[Axiom B.] $\Update{P} \Typ{\varphi} \leftrightarrow 
-    (\Diamond(\diaTyp{P} \land \diaTyp{\varphi}) \land \Typ{(\diaTyp{P} \land \Update{P} \varphi)}) \\
-    \lor \quad (\neg \Diamond(\diaTyp{P} \land \diaTyp{\varphi}) \land \Typ{\Update{P} \varphi})$
-    \item[Axiom C.] $\Hebbop{\varphi} \Typ{\psi} \leftrightarrow 
-    \Typ{(\Hebbop{\varphi}\psi \land (\Typ{\varphi \lor \Know{(\Typ{\varphi} \lor \Typ{\Hebbop{\varphi}\psi})}}))}$
-\end{description}
-
-
-I would like to understand what the neural network updates are doing ``classically,'' i.e.\ for each neural update, what is an ``equivalent'' update over possible worlds / plausibility / evidence models?  I've been stuck on this point since November (I probably should have reached out sooner).  My question for you two is:
+Iterated Hebbian learning, formalized as a dynamic update on neural network models, can be reduced to this language \cite{kisby2024hebbian}.  The reduction axioms are:
+\[
+    \begin{array}{lcll}
+        \Hebbop{P} p & \leftrightarrow & p \quad \quad \mbox{ for propositions } p \\
+        \Hebbop{P} \neg \varphi & \leftrightarrow & \neg \Hebbop{P} \varphi\\
+        \Hebbop{P} (\varphi \land \psi) & \leftrightarrow & \Hebbop{P} \varphi \land \Hebbop{P} \psi \\
+        \Hebbop{P} \Know{\varphi} & \leftrightarrow & \Know{\Hebbop{P} \varphi}\\
+        
+        \Hebbop{P} \Typ{\varphi} & \leftrightarrow & 
+        \Typ{(\Hebbop{P}\varphi \land (\Typ{P \lor \Know{(\Typ{P} \lor \Typ{\Hebbop{P}\varphi})}}))}
+    \end{array}
+\]
+I would like to understand what neural network updates are doing ``classically,'' i.e.\ for each neural network update, what is an ``equivalent'' update over possible worlds / plausibility / evidence models?  In this case, my question for you is:
 \begin{question}
-    Is there a dynamic model update (over your ``classical'' model of choice) that satisfies Axiom A? (and the same for Axioms B and C.)
+    Is there a dynamic model update (over your classical model of choice) that satisfies these reduction axioms?
 \end{question}
+I've been stuck on this since November (I probably should have reached out sooner).
 
 \section*{Progress So Far}
 
-I've somewhat misled you by talking in terms of plausibility models.  In fact, all three of these axioms are \emph{invalid} for plausibility upgrades.
+I've somewhat misled you by talking in terms of plausibility models.  In fact, the reduction above is \emph{invalid} for relational plausibility upgrades.
 
 \begin{proposition}
-    No plausibility upgrade $\Model \to \Model^\star$,  where $\Model = \langle W, \leq, V \rangle$ and $\Model^\star = \langle W, \leq^\star, V \rangle$ can make Axiom A valid.
+    No plausibility upgrade $\Model \to \Model^\star$,  where $\Model = \langle W, \leq, V \rangle$ and $\Model^\star = \langle W, \leq^\star, V \rangle$ can make the axioms for iterated Hebbian learning valid.
 \end{proposition}
 \begin{proof}
-    Consider the propositional instance of Axiom A:
+    Let $\Model \to \Model^\star$ be any plausibility upgrade.  I will show that the very last axiom cannot hold for all $\Model, w$; specifically, this propositional instance will fail:
     \[
         \Update{p} \Typ{q} \leftrightarrow 
-        (\Diamond(p \land \diaTyp{q}) \land \Typ{(p \land q)}) \lor (\neg \Diamond(p \land \diaTyp{q}) \land \Typ{\Update{p} q})
+        \Typ{(q \land (\Typ{p} \lor \Know{(\Typ{p} \lor \Typ{q})}))}
     \]
-    Let $\Model \to \Model^\star$ be any plausibility upgrade.  We want to show that the propositional instance above cannot hold for all $\Model, w$; I will construct such a $\Model$ and $w$.  Let $\Model$ be
-    
-    [PICTURE]
+    Let's construct a $\Model$ and $w$ that make it fail.  Let $\Model$ be
 
-    Note that $\Model \to \Model^\star$ only modifies $\leq$.  This means that $\semantics{q}_\Model = \semantics{q}_{\Model^\star_p}$.  In other words, $\Update{p} q \leftrightarrow q$ is valid.  So in particular, $\semantics{q}_{\Model^\star_p}$ is finite and nonempty.  So there is some $w$ that is ${\leq}$-minimal over $\semantics{q}_{\Model^\star_p}$.  So $\Model, w \Vdash \Update{p} \Typ{q}$.  I will now show that $\Model, w$ does not satisfy either of the disjuncts.  In particular:
+    \begin{center}
+    \includegraphics[scale=0.18]{4-22-24-mockup.png}
+    \end{center}
+
+    Note that $\Model \to \Model^\star$ only modifies $\leq$.  This means that $\semantics{q}_\Model = \semantics{q}_{\Model^\star_p}$.  So in particular, $\semantics{q}_{\Model^\star_p}$ is finite and nonempty.  So there is some $w$ that is ${\leq}$-minimal over $\semantics{q}_{\Model^\star_p}$.  So $\Model, w \Vdash \Update{p} \Typ{q}$.
+
+    WHOOPS, THINK ABOUT IT MORE 
+    
+    I will now show that no choice of $w$ can satisfy $\Typ{(q \land (\Typ{p} \lor \Know{(\Typ{p} \lor \Typ{q})}))}$.  Well, the only $u$ such that $\Model, u \Vdash q$ is $a$.  But $\Model, a \not \Vdash \Typ{p}$ (since $a$ is not a $\leq$-minimal element of $\semantics{p}$).  Additionally, there \emph{is} $b$ with $a{R}b$ such that $b$ is not a $\leq$-minimal element of either $\semantics{p}$ \emph{or} $\semantics{q}$.  So $\Model, b \not \Vdash \Typ{p} \lor \Typ{q}$, and thus $\Model, a \not \Vdash \Know{\Typ{p} \lor \Typ{q}}$.
+    
+    
+    --------------------------
+
+    I will now show that $\Model, w$ does not satisfy either of the disjuncts.  In particular:
     \begin{enumerate}
         \item $\Model, w \not \Vdash \Typ{(p \land q)}$, since $\semantics{p} \cap \semantics{q} = \emptyset$ (and so there is no ${\leq}$-minimal element of $\semantics{p} \cap \semantics{q}$).  So $\Model, w$ does not satisfy the left disjunct.
         
@@ -244,3 +253,4 @@ The proof is a simple extension of the above proof, replacing $p$ with $\diaTyp{
 \end{document}
 
 % I'll also assume for now that $\leq$ is well-founded (there are no infinite descending chains).
+% I would like your help with a problem I'm stuck on, if you don't mind giving it some thought.  I ran into this issue in my work on neural network update, but the question I have for you are about epistemic/plausibility models, not neural network models.  I'll try to state the question as cleanly as I can, and then if you're interested in knowing \emph{why} I care about all this I'll be happy to explain face-to-face.

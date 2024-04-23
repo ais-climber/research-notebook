@@ -19,6 +19,42 @@
 
 \refsection{0}
   \datalist[entry]{nty/global//global/global}
+    \entry{kisby2024hebbian}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=c09a3e995e0ba25fdacde62585c12b17}{%
+           family={Kisby},
+           familyi={K\bibinitperiod},
+           given={Caleb\bibnamedelima Schultz},
+           giveni={C\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=6f07a748bd59244a9077b282335e0703}{%
+           family={Blanco},
+           familyi={B\bibinitperiod},
+           given={Saúl\bibnamedelima A},
+           giveni={S\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=9aff59892df95703ccd30472dc4f1ec1}{%
+           family={Moss},
+           familyi={M\bibinitperiod},
+           given={Lawrence\bibnamedelima S},
+           giveni={L\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+      }
+      \strng{namehash}{24636c2df8b22090da113541e56ea99d}
+      \strng{fullhash}{24636c2df8b22090da113541e56ea99d}
+      \strng{bibnamehash}{24636c2df8b22090da113541e56ea99d}
+      \strng{authorbibnamehash}{24636c2df8b22090da113541e56ea99d}
+      \strng{authornamehash}{24636c2df8b22090da113541e56ea99d}
+      \strng{authorfullhash}{24636c2df8b22090da113541e56ea99d}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the AAAI Conference on Artificial Intelligence}
+      \field{number}{13}
+      \field{title}{What Do Hebbian Learners Learn? Reduction Axioms for Iterated Hebbian Learning}
+      \field{volume}{38}
+      \field{year}{2024}
+      \field{pages}{14894\bibrangedash 14901}
+      \range{pages}{8}
+    \endentry
     \entry{van2007beliefrevision}{article}{}
       \name{author}{1}{}{%
         {{hash=5124f849336f0fee940c0f9baf3e2da2}{%

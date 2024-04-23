@@ -1,13 +1,13 @@
 # Fdb version 3
-["biber 4-22-24-satisfying-hebbian-reduction-axioms"] 1713835614 "4-22-24-satisfying-hebbian-reduction-axioms.bcf" "4-22-24-satisfying-hebbian-reduction-axioms.bbl" "4-22-24-satisfying-hebbian-reduction-axioms" 1713835620
-  "4-22-24-satisfying-hebbian-reduction-axioms.bcf" 1713835620 107223 2b6bffb34e54a0e45c73576609358f9c "pdflatex"
+["biber 4-22-24-satisfying-hebbian-reduction-axioms"] 1713836144 "4-22-24-satisfying-hebbian-reduction-axioms.bcf" "4-22-24-satisfying-hebbian-reduction-axioms.bbl" "4-22-24-satisfying-hebbian-reduction-axioms" 1713838595
+  "4-22-24-satisfying-hebbian-reduction-axioms.bcf" 1713838595 107339 3c5f41308d986de80b7b0d0a64521e9e "pdflatex"
   "references.bib" 1713834296 11964 2b8b111b4a9bbc97521a2f2c855fba04 ""
   (generated)
   "4-22-24-satisfying-hebbian-reduction-axioms.bbl"
   "4-22-24-satisfying-hebbian-reduction-axioms.blg"
-["pdflatex"] 1713835618 "/home/cckisby/research-notebook/4-22-24-satisfying-hebbian-reduction-axioms.tex" "4-22-24-satisfying-hebbian-reduction-axioms.pdf" "4-22-24-satisfying-hebbian-reduction-axioms" 1713835620
+["pdflatex"] 1713838593 "/home/cckisby/research-notebook/4-22-24-satisfying-hebbian-reduction-axioms.tex" "4-22-24-satisfying-hebbian-reduction-axioms.pdf" "4-22-24-satisfying-hebbian-reduction-axioms" 1713838595
   "/etc/texmf/web2c/texmf.cnf" 1671501686 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/cckisby/research-notebook/4-22-24-satisfying-hebbian-reduction-axioms.tex" 1713835510 14595 b7317a721f2e69ae2df6995ada104979 ""
+  "/home/cckisby/research-notebook/4-22-24-satisfying-hebbian-reduction-axioms.tex" 1713838592 14530 0d1b5187ce45ee09e31de00206212f1c ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm" 1136768653 2172 fd0c924230362ff848a33632ed45dc23 ""
@@ -212,11 +212,12 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1671501966 4379155 98693266ff65f58d9f98aff394de12d2 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1710442709 2801097 2bf86cc85be94e2c66dc7540aafac0f2 ""
-  "4-22-24-satisfying-hebbian-reduction-axioms.aux" 1713835620 1942 a4057d41da4ebb02857132c95760c247 "pdflatex"
-  "4-22-24-satisfying-hebbian-reduction-axioms.bbl" 1713835615 2804 3f86384158055f700adbbfeb90911a51 "biber 4-22-24-satisfying-hebbian-reduction-axioms"
-  "4-22-24-satisfying-hebbian-reduction-axioms.out" 1713835620 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "4-22-24-satisfying-hebbian-reduction-axioms.run.xml" 1713835620 2578 b9a089d62ff48eb9a019747f23380883 "pdflatex"
-  "4-22-24-satisfying-hebbian-reduction-axioms.tex" 1713835510 14595 b7317a721f2e69ae2df6995ada104979 ""
+  "4-22-24-mockup.png" 1713838088 48485 afc8c691e113c974365061a8df2ed337 ""
+  "4-22-24-satisfying-hebbian-reduction-axioms.aux" 1713838595 2090 204ffdd4dd53b3064a19ffb7e428407f "pdflatex"
+  "4-22-24-satisfying-hebbian-reduction-axioms.bbl" 1713836145 4446 5e6a5c36078f400f0fc3b2ecdc70ec48 "biber 4-22-24-satisfying-hebbian-reduction-axioms"
+  "4-22-24-satisfying-hebbian-reduction-axioms.out" 1713838594 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "4-22-24-satisfying-hebbian-reduction-axioms.run.xml" 1713838595 2578 b9a089d62ff48eb9a019747f23380883 "pdflatex"
+  "4-22-24-satisfying-hebbian-reduction-axioms.tex" 1713838592 14530 0d1b5187ce45ee09e31de00206212f1c ""
   (generated)
   "4-22-24-satisfying-hebbian-reduction-axioms.aux"
   "4-22-24-satisfying-hebbian-reduction-axioms.bcf"
