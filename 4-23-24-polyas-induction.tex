@@ -14,7 +14,7 @@ A lot of work has already been done on this --- see the two very relevant papers
 
 I was reading the second volume of~\cite{polya1954mathematics} recently.  In it, George P\'{o}lya makes some empirical observations about the role of guessing and induction in mathematics, and then tries to formalize these as logical rules.  I got interested in this because I noticed that his rules of induction capture axioms for \emph{plausibility upgrade / belief revision} that I believe have been overlooked by work on DEL and belief revision.
 
-For the rest of this note, I want to formalize P\'{o}lya's inductive rules as DEL axioms and explore the models that satisfy them.  This is a bit of a detour from the question above, but I've been having fun thinking about it.
+For the rest of this note, I want to formalize P\'{o}lya's inductive rules as DEL axioms and explore the models that satisfy them.  This is a bit of a detour from the question above, but I've been having fun thinking about it (and I hope you do too)!
 
 \section*{P\'{o}lya's Stepwise Induction}
 
@@ -45,7 +45,26 @@ We can do a similar analysis on this, and express it in DEL as
     (P \to Q) \to (\Update{P} \varphi \to \Update{Q} \varphi) \quad \mbox{\textsc{(Shaded-Step-Ind)}}
 \]
 
+I want to ask the same questions from before, but now zoomed-in at these two axioms.  Specifically,
+
+\begin{question}
+    What do satisfying models of \textsc{(Step-Ind)} and \textsc{(Shaded-Step-Ind)} look like?  I'll be happy to find just one for each, but I'd like to completely axiomatize them if possible.
+\end{question}
+
+\begin{question}
+    What is the relationship between \textsc{(Step-Ind)} and \textsc{(Shaded-Step-Ind)}?  Is one `stronger' than the other, and in what sense?
+\end{question}
+
+\begin{question}
+    What is the relationship between \emph{stepwise} induction and induction understood as convergence to the truth?  Does stepwise induction imply regular induction (as the name suggests)?  Or is this notion of stepwise induction irrelevant to regular induction?
+\end{question}
+
+
 \section*{Progress So Far}
+
+\subsection*{A Model for Shaded Stepwise Induction}
+
+Let's look at \textsc{(Shaded-Step-Ind)}.  What 
 
 
 \printbibliography
