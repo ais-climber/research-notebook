@@ -141,11 +141,63 @@ So we have a model for \textsc{(Shaded-Step-Ind)}. My goal will now be to comple
 \[
     \exists X \mbox{ such that } \Model, w \Vdash P \to X \mbox{ and } \Model, w \Vdash X
 \]
-If we could express this in DEL, we would have a complete axiomatization for the upgrade (just modify the reduction axioms for lexicographic upgrade).  This has an undeniably modal flavor to it, but it doesn't seem to be expressible in our language so far.  Let's go ahead and define it as a new operator in our language.
+If we could express this in DEL, we would have a complete axiomatization for the upgrade (just modify the reduction axioms for lexicographic upgrade).  This has an undeniably modal flavor to it (think of $P \to X$ as an accessibility relation over formulas), but it doesn't seem to be expressible in our language so far.  Let's go ahead and define it.
 
 \begin{definition}
-    Let \spiral
+    Let $\spiral$ be a new operator in our language, with semantics given by
+    \[
+        \Model, w \Vdash \spiral P \mbox{ iff } \exists \mbox{ formula } X \mbox{ such that } \Model, w \Vdash P \to X \mbox{ and } \Model, w \Vdash X
+    \]
+    We read $\spiral P$ as ``some consequence of $P$ holds.''  We define the dual $\squareSpiral P \leftrightarrow \neg \spiral \neg P$ (``all consequences of $P$ hold'').  (The $\spiral$ symbol evokes an image of the winding paths we may take in finding consequences of $P$.)
 \end{definition}
+
+\begin{proposition}
+    The following are sound:
+    \begin{enumerate}
+        \item If $\proves P$ then $\proves \squareSpiral P$ \quad \textsc{(Necess)}
+        \item $(P \to Q) \to (\spiral Q \to \spiral P)$ \quad \textsc{(Flip)}
+        \item $P \to \spiral P$ \quad \textsc{(Refl)}
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    TODO
+\end{proof}
+
+One interesting consequence of \textsc{(Flip)} and \textsc{(Refl)} is transitivity, i.e. $\spiral \spiral P \to \spiral P$ is sound.  And importantly, $\spiral$ is \emph{not} a normal modality --- $\spiral(P \land Q) \to (\spiral P \land \spiral Q)$ is not sound.
+
+Surprisingly, $\spiral$ is completely axiomatized by \textsc{(Necess)}, \textsc{(Flip)}, and \textsc{(Refl)}.
+
+\begin{proposition}
+    Suppose we build the canonical model $\Model^c$ using the usual maximally-consistent set construction for the base logic of $\Diamond \varphi$, $\Know{\varphi}$, $\Believe{\varphi}{\psi}$.  The $\spiral$-case of the truth lemma holds, i.e. for all maximally consistent $\Delta$,
+    \[
+        \Model^c, \Delta \Vdash \spiral \varphi \quad \mbox{iff} \quad \spiral \varphi \in \Delta
+    \]
+\end{proposition}
+\begin{proof}
+    TODO
+\end{proof}
+
+\begin{proposition}
+    Assuming completeness for the logic $\set{\Diamond \varphi, \Know{\varphi}, \Believe{\varphi}{\psi}}$, the logic\\
+    $\set{\Diamond \varphi, \Know{\varphi}, \Believe{\varphi}{\psi}, \spiral \varphi}$ is also complete.
+\end{proposition}
+\begin{proof}
+    TODO
+\end{proof}
+
+\begin{theorem}
+    The upgrade defined above is completely axiomatized by the reduction axioms (over DEL + $\spiral$):
+    
+    TODO.
+\end{theorem}
+
+\section*{Things To Try}
+\begin{enumerate}
+    \item Prove that $\spiral$ is not expressible in the base language (it is a genuine language extension).
+    \item Find a model satisfying \textsc{(Step-Ind)} (do a similar analysis of this upgrade).
+    \item Think about Question 3: What is the relationship between \textsc{(Step-Ind)} and \textsc{(Shaded-Step-Ind)}?
+    \item Think about Question 4: Do either of these axioms gurantee convergence to the truth, under reasonable assumptions?
+\end{enumerate}
 
 \printbibliography
 \end{document}
