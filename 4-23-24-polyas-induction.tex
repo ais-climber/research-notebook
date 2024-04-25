@@ -24,7 +24,7 @@ P\'{o}lya charts about 16 different rules in his book, but for now I'm intereste
 \]
 P\'{o}lya gives this rule the following reading: If we discover that some consequence $Q$ of $P$ is true, then $P$ becomes more plausible.  He refers to this as just ``induction''; I prefer to call it \emph{stepwise} induction because a modern understanding of induction is \emph{convergence to the truth}, and this rule says what ought to happen in a single discovery step rather than at some point of convergence.
 
-P\'{o}lya wrote this 30 years before logics for plausibility upgrade were developed.  But with hindsight, it's clear that his rule expresses a DEL constraint for plausibility upgrade.  
+P\'{o}lya wrote this 30 years before logics for plausibility upgrade were developed.  But with the hindsight we have today, it's clear that his rule expresses a DEL constraint for plausibility upgrade.  
 
 Suppose we have a plausibility model $\Model = \langle W, R, \leq, V \rangle$.  Let $\Update{P}$ be the action ``make $P$ more plausible,'' which updates $\Model$ to $\Model^{\star}_P$.  Let $[!P]$ be the action ``discover that $P$ is true, which updates $\Model$ to $\Model^{!}_P$ (we could do this by conditionalization / public announcement).
 
@@ -87,7 +87,7 @@ I want to ask the same questions from before, but now zoomed-in at these two axi
     Given $\Model = \langle W, R, \leq, V \rangle$, let the update $\Model^\star_P = \langle W, R, \leq^\star_P, V \rangle$, where $\leq^\star_P$ is reordered according to the rule:
     \begin{center}
     \begin{tabular}{l}
-        Put all states where \emph{some} consequence of
+        Put all states where \emph{some} (non-$\top$) consequence of
         $P$ holds in front of all the other states;\\
         the order within the two groups is kept the same.
     \end{tabular}
@@ -112,8 +112,8 @@ So we have a model for \textsc{(Shaded-Step-Ind)}. My goal will now be to comple
     \[
         \best_{\leq^\star_P}(S) =
         \begin{cases}
-             \best_\leq(S \cap \set{w \mid \exists X \mbox{ such that } \Model, w \Vdash P \to X \mbox{ and } \Model, w \Vdash X})\\
-             \quad \quad \mbox{if } S \cap \set{w \mid \exists X \mbox{ such that } \Model, w \Vdash P \to X \mbox{ and } \Model, w \Vdash X} \ne \emptyset\\
+             \best_\leq(S \cap \set{w \mid \exists X\not\equiv\top \mbox{ such that } \Model, w \Vdash P \to X \mbox{ and } \Model, w \Vdash X})\\
+             \quad \quad \mbox{if } S \cap \set{w \mid \exists X\not\equiv\top \mbox{ such that } \Model, w \Vdash P \to X \mbox{ and } \Model, w \Vdash X} \ne \emptyset\\
             \best_\leq(S) \quad \mbox{otherwise}
         \end{cases}
     \]
@@ -126,29 +126,29 @@ So we have a model for \textsc{(Shaded-Step-Ind)}. My goal will now be to comple
             \best_\leq(S) & \mbox{otherwise}
         \end{cases}
     \]
-    except instead of putting up front the set
+    except instead of upgrading the set
     \[
         \semantics{P} = \set{w \mid \Model, w \Vdash P}
     \]
-    we put up front
+    we upgrade
     \[
-        \set{w \mid \exists X \mbox{ such that } \Model, w \Vdash P \to X \mbox{ and } \Model, w \Vdash X}
+        \set{w \mid \exists X\not\equiv\top \mbox{ such that } \Model, w \Vdash P \to X \mbox{ and } \Model, w \Vdash X}
     \]
-    The proof is identical to the proof for lexicographic upgrade.
+    From here, the proof is identical to the proof for lexicographic upgrade.
 \end{proof}
 
 \paragraph*{Discussion.} Consider the expression
 \[
-    \exists X \mbox{ such that } \Model, w \Vdash P \to X \mbox{ and } \Model, w \Vdash X
+    \exists X\not\equiv\top \mbox{ such that } \Model, w \Vdash P \to X \mbox{ and } \Model, w \Vdash X
 \]
-If we could express this in DEL, we would have a complete axiomatization for the upgrade (just modify the reduction axioms for lexicographic upgrade).  This has an undeniably modal flavor to it (think of $P \to X$ as an accessibility relation over formulas), but it doesn't seem to be expressible in our language so far.  Let's go ahead and define it.
+If we could express this in DEL, we would have a complete axiomatization for the upgrade (just modify the reduction axioms for lexicographic upgrade).  This has an undeniably modal flavor to it; think of $P \to X$ as an accessibility relation over formulas.  It doesn't seem to be expressible in our language so far, so let's go ahead and define it.
 
 \begin{definition}
     Let $\spiral$ be a new operator in our language, with semantics given by
     \[
-        \Model, w \Vdash \spiral P \mbox{ iff } \exists \mbox{ formula } X \mbox{ such that } \Model, w \Vdash P \to X \mbox{ and } \Model, w \Vdash X
+        \Model, w \Vdash \spiral P \mbox{ iff } \exists \mbox{ formula } X\not\equiv\top \mbox{ such that } \Model, w \Vdash P \to X \mbox{ and } \Model, w \Vdash X
     \]
-    We read $\spiral P$ as ``some consequence of $P$ holds.''  We define the dual $\squareSpiral P \leftrightarrow \neg \spiral \neg P$ (``all consequences of $P$ hold'').  (The $\spiral$ symbol evokes an image of the winding paths we may take in finding consequences of $P$.)
+    We read $\spiral P$ as ``some consequence of $P$ holds.''  $\spiral$ is an existential modality; we define the dual $\squareSpiral P \leftrightarrow \neg \spiral \neg P$ (``all consequences of $P$ hold'').  (The $\spiral$ symbol evokes an image of the winding paths we may take in finding consequences of $P$.)
 \end{definition}
 
 \begin{proposition}
@@ -160,7 +160,9 @@ If we could express this in DEL, we would have a complete axiomatization for the
     \end{enumerate}
 \end{proposition}
 \begin{proof}
-    TODO
+    (1) is easy: If $P$ holds in all $\Model, w$, then so do all of its (nontrivial) consequences.  (3) is also easy, since $P$ is a consequence of itself.
+
+    For (2), suppose $\Model, w \Vdash P \to Q$ and $\Model, w \Vdash \spiral Q$.  Then $\Model, w \Vdash X$ for some $X\not\equiv\top$ such that $\Model, w \Vdash Q \to X$.  But then by transitivity of consequence ($X$ is a consequence of $Q$, which is a consequence of $P$), $\Model, w \Vdash P \to X$, which gives us $\Model, w \Vdash \spiral P$.
 \end{proof}
 
 One interesting consequence of \textsc{(Flip)} and \textsc{(Refl)} is transitivity, i.e. $\spiral \spiral P \to \spiral P$ is sound.  And importantly, $\spiral$ is \emph{not} a normal modality --- $\spiral(P \land Q) \to (\spiral P \land \spiral Q)$ is not sound.
@@ -174,7 +176,18 @@ Surprisingly, $\spiral$ is completely axiomatized by \textsc{(Necess)}, \textsc{
     \]
 \end{proposition}
 \begin{proof}
-    TODO
+    $(\rightarrow)$ Suppose $\Model^c, \Delta \Vdash \spiral \varphi$.  So $\Model^c, \Delta \Vdash X$ for some $X\not\equiv\top$ such that $\Model^c, \Delta \Vdash \varphi \to X$.  Now apply the inductive hypothesis to both $\varphi \to X$ and $X$ to get $\varphi \to X \in \Delta$ and $X \in \Delta$.  From $X \in \Delta$ and \textsc{(Refl)} we have $\spiral X \in \Delta$.  And from $\varphi \to X \in \Delta$, $\spiral X \in \Delta$, and \textsc{(Flip)}, we have $\spiral \varphi \in \Delta$.
+    
+    $(\leftarrow)$ Now suppose $\spiral \varphi \in \Delta$.  In order to show $\Model^c, \Delta \Vdash \spiral \varphi$, we need to find some $X\not\equiv\top$ such that $\Model^c, \Delta \Vdash \varphi \to X$ and $\Model^c, \Delta \Vdash X$.  
+    
+    TODO --- I got stuck!
+    
+    % Consider two cases:
+    % \begin{description}
+    %     \item[Case 1.] $\Model^c, \Delta \Vdash \varphi$.  In this case, let $X$ be $\varphi$.  This case is easy: we have $\Model^c, \Delta \Vdash \varphi \to \varphi$, and $\Model^c, \Delta \Vdash \varphi$.  
+        
+    %     \item[Case 2.] $\Model^c, \Delta \not \Vdash \varphi$, i.e.\ $\Model^c, \Delta \Vdash \neg \varphi$.  In this case, let $X$ be 
+    % \end{description}
 \end{proof}
 
 \begin{proposition}
