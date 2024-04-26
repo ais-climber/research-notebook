@@ -155,7 +155,7 @@ If we could express this in DEL, we would have a complete axiomatization for the
     The following are sound:
     \begin{enumerate}
         \item If $\proves P$ then $\proves \squareSpiral P$ \quad \textsc{(Necess)}
-        \item $(P \to Q) \to (\spiral Q \to \spiral P)$ \quad \textsc{(Flip)}
+        \item $(P \to Q) \to (\spiral Q \to \spiral P)$ \quad \textsc{(Antitone)}
         \item $P \to \spiral P$ \quad \textsc{(Refl)}
     \end{enumerate}
 \end{proposition}
@@ -165,9 +165,46 @@ If we could express this in DEL, we would have a complete axiomatization for the
     For (2), suppose $\Model, w \Vdash P \to Q$ and $\Model, w \Vdash \spiral Q$.  Then $\Model, w \Vdash X$ for some $X\not\equiv\top$ such that $\Model, w \Vdash Q \to X$.  But then by transitivity of consequence ($X$ is a consequence of $Q$, which is a consequence of $P$), $\Model, w \Vdash P \to X$, which gives us $\Model, w \Vdash \spiral P$.
 \end{proof}
 
-One interesting consequence of \textsc{(Flip)} and \textsc{(Refl)} is transitivity, i.e. $\spiral \spiral P \to \spiral P$ is sound.  And importantly, $\spiral$ is \emph{not} a normal modality --- $\spiral(P \land Q) \to (\spiral P \land \spiral Q)$ is not sound.
+\begin{corollary}
+    Here are some interesting consequences of \textsc{(Antitone)} and \textsc{(Refl)}.  Notice that they are flipped from their usual $\Box$ presentation.
+    \begin{enumerate}
+        \item $\spiral P \land \spiral Q \to \spiral(P \land Q)$ \quad \textsc{(M)}
+        \item $\spiral(P \lor Q) \to \spiral P \lor \spiral Q$ \quad \textsc{(Or)}
+        \item $\spiral \spiral P \leftrightarrow \spiral P$ \quad \textsc{(Trans)}
+    \end{enumerate}
+\end{corollary}
+\begin{proof}
+    For (1), since $\proves P \land Q \to P$, by \textsc{(Antitone)} we have $\proves \spiral P \to \spiral (P \land Q)$.  But then we have $\proves \spiral P \land \spiral Q \to \spiral (P \land Q)$.  (2) is similar:  Since $\proves P \to P \lor Q$, by \textsc{(Antitone)} we have $\proves \spiral (P \lor Q) \to \spiral P$.  Consequently, $\proves \spiral (P \lor Q) \to \spiral P \lor \spiral Q$.
 
-Surprisingly, $\spiral$ is completely axiomatized by \textsc{(Necess)}, \textsc{(Flip)}, and \textsc{(Refl)}.
+    Now consider (3).  The backwards direction is just \textsc{(Refl)}.  As for the other direction, \textsc{(Refl)} gives us $\proves P \to \spiral P$.  Applying \textsc{(Antitone)} we get $\proves \spiral \spiral P \to \spiral P$. \qedhere
+
+    % Finally, for (4) suppose $\proves \spiral P \to \spiral Q$.  We first apply \textsc{(Antitone)} to get $\proves \spiral \spiral Q \to \spiral \spiral P$.  We can simplify both terms with \textsc{(Trans)}, resulting in our goal $\proves \spiral Q \to \spiral P$.
+\end{proof}
+
+Importantly, $\spiral$ is \emph{not} a normal modality --- the converse of \textsc{(M)}, $\spiral(P \land Q) \to (\spiral P \land \spiral Q)$, is not sound.  Surprisingly, $\spiral$ is completely axiomatized by \textsc{(Necess)}, \textsc{(Antitone)}, and \textsc{(Refl)}.
+
+\begin{lemma}\label{lemma-existence}
+    (Existence Lemma). Suppose $\Delta$ is a maximally consistent set with $\spiral \varphi \in \Delta$.  Then there is a formula $X\not\equiv\top$ of complexity less than or equal to $\varphi$ with $\varphi \to X \in \Delta$ and $X \in \Delta$.
+\end{lemma}
+\begin{proof}
+    Suppose for contradiction that there is no such $X$, i.e.\ for all $X$ of complexity less than or equal to $\varphi$, if $\varphi \to X \in \Delta$ then $X \not \in \Delta$.  Let's now construct the formula
+    \[
+        \psi = \bigvee \set{X \not\equiv\top \mid X \mbox{ has complexity} \leq \varphi \mbox{ and } \varphi \to \spiral X \in \Delta}
+    \]
+    Intuitively, this formula says ``some consequence of some consequence of $\varphi$ holds.''  Is it well-defined?  Well, by \textsc{(Refl)} $\varphi \to \spiral \varphi \in \Delta$, so the set is nonempty.  Moreover, since the complexity of these formulas is bounded there are only finitely many of them.  So this formula is well-defined.
+
+    % First, notice that $\varphi \to \psi \in \Delta$, since $\varphi$ is one of the disjuncts of $\psi$.  But then \textsc{(Antitone)} gives $\spiral \psi \to \spiral \varphi \in \Delta$.  By \textsc{(Flip)} we then have $\spiral \varphi \to \spiral \psi \in \Delta$.
+    
+    First, since $\spiral \varphi \in \Delta$ and $\Delta$ is maximally consistent, $\psi \to \spiral \varphi \in \Delta$ (by $\to$-introduction: if we suppose $\psi \in \Delta$ then trivially $\spiral \varphi \in \Delta$).
+    
+    Second, I claim that $\neg \spiral \psi \in \Delta$.  Why?  Let $\psi = X_1 \lor \ldots \lor X_k$.  For each $X_i$ occurring in $\psi$, $\varphi \to \spiral X_i \in \Delta$.  By our very first assumption, every $\spiral X_i \not \in \Delta$.  So $\spiral X_1 \lor \ldots \lor \spiral X_k \not \in \Delta$.  But then by \textsc{(Or)},
+    \[
+        \spiral \psi = \spiral (X_1 \lor \ldots \lor X_k) \not \in \Delta
+    \]
+    And since $\Delta$ is maximally consistent, we have $\neg \spiral \psi \in \Delta$.
+    
+    Let's put everything together.  Since $\psi \to \spiral \varphi \in \Delta$, by \textsc{(Antitone)} we have $\spiral \spiral \varphi \to \spiral \psi \in \Delta$.  \textsc{(Refl)} gives us $\spiral \varphi \to \spiral \spiral \varphi$, and then by modus ponens we have $\spiral \varphi \to \spiral \psi \in \Delta$.  But since $\neg \spiral \psi \in \Delta$, by contraposition $\neg \spiral \varphi \in \Delta$.  But $\spiral \varphi \in \Delta$, so this contradicts the fact that $\Delta$ is consistent.
+\end{proof}
 
 \begin{proposition}
     Suppose we build the canonical model $\Model^c$ using the usual maximally-consistent set construction for the base logic of $\Diamond \varphi$, $\Know{\varphi}$, $\Believe{\varphi}{\psi}$.  The $\spiral$-case of the truth lemma holds, i.e. for all maximally consistent $\Delta$,
@@ -176,7 +213,7 @@ Surprisingly, $\spiral$ is completely axiomatized by \textsc{(Necess)}, \textsc{
     \]
 \end{proposition}
 \begin{proof}
-    $(\rightarrow)$ Suppose $\Model^c, \Delta \Vdash \spiral \varphi$.  So $\Model^c, \Delta \Vdash X$ for some $X\not\equiv\top$ such that $\Model^c, \Delta \Vdash \varphi \to X$.  Now apply the inductive hypothesis to both $\varphi \to X$ and $X$ to get $\varphi \to X \in \Delta$ and $X \in \Delta$.  From $X \in \Delta$ and \textsc{(Refl)} we have $\spiral X \in \Delta$.  And from $\varphi \to X \in \Delta$, $\spiral X \in \Delta$, and \textsc{(Flip)}, we have $\spiral \varphi \in \Delta$.
+    $(\rightarrow)$ Suppose $\Model^c, \Delta \Vdash \spiral \varphi$.  So $\Model^c, \Delta \Vdash X$ for some $X\not\equiv\top$ such that $\Model^c, \Delta \Vdash \varphi \to X$.  Now apply the inductive hypothesis to both $\varphi \to X$ and $X$ to get $\varphi \to X \in \Delta$ and $X \in \Delta$.  From $X \in \Delta$ and \textsc{(Refl)} we have $\spiral X \in \Delta$.  And from $\varphi \to X \in \Delta$, $\spiral X \in \Delta$, and \textsc{(Antitone)}, we have $\spiral \varphi \in \Delta$.
     
     $(\leftarrow)$ Now suppose $\spiral \varphi \in \Delta$.  In order to show $\Model^c, \Delta \Vdash \spiral \varphi$, we need to find some $X\not\equiv\top$ such that $\Model^c, \Delta \Vdash \varphi \to X$ and $\Model^c, \Delta \Vdash X$.  
     
@@ -206,6 +243,7 @@ Surprisingly, $\spiral$ is completely axiomatized by \textsc{(Necess)}, \textsc{
 
 \section*{Things To Try}
 \begin{enumerate}
+    \item go through mathreviews and google scholar to make sure this hasn't been done yet
     \item Prove that $\spiral$ is not expressible in the base language (it is a genuine language extension).
     \item Find a model satisfying \textsc{(Step-Ind)} (do a similar analysis of this upgrade).
     \item Think about Question 3: What is the relationship between \textsc{(Step-Ind)} and \textsc{(Shaded-Step-Ind)}?
