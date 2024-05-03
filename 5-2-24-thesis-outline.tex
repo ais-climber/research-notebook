@@ -1,0 +1,135 @@
+\documentclass[letterpaper]{article}
+\usepackage{notes}
+\begin{document}
+
+\section*{Neural Network Models: Thesis Outline}
+
+\begin{enumerate}
+    \item \textbf{Introduction}
+    \begin{enumerate}
+        \item 
+    \end{enumerate}
+
+    \item \textbf{Basics of Neural Network Models}
+    \begin{enumerate}
+        \item Neural Network Preliminaries
+
+        \item State and Forward Propagation
+        \begin{itemize}
+            \item The idea is very simple: Neural network models are just ordinary neural networks, plus its current 'state'
+            \item Clarify what we mean by state in a general sense, assumptions we make on state (allowing both binary and fuzzy)
+            \item Some examples!  Clarify what we mean by the net's ``inference''
+            \item The state of a neural network changes (according to its activation function)
+            \item Assumptions we make about the forward propagation closure operator (e.g. it stabilizes).
+            \item properties of propagation
+        \end{itemize}
+
+        \item Neural Network Semantics for Belief
+        \begin{itemize}
+            \item Give several languages in increasing order of expressive power: Belief, conditional belief, and `best'/prototypes.  Since the `best' language can express both belief and conditional belief, I'll stick with it for the rest of this thesis.
+        \end{itemize}
+
+        \item Inference and Axioms
+        \begin{itemize}
+            \item These neural network semantics satisfy exactly the axioms of `best' given in Appendix A (prove them each individually here, although it's just a quick check)
+        \end{itemize}
+        
+        \item Model Building and Completeness
+        \begin{itemize}
+            \item Include the modifications to the completeness proof for each conditional axiom we could satisfy.
+        \end{itemize}
+        
+        \item Reflections on Methodology
+        \begin{itemize}
+            \item The main point: Forward propagation is a sort of prototype --- generally, identify \emph{what closure operators over the network are important}.  For forward propagation, we mapped it to the `best' modality
+            \item (new subsection) Graph Reachability is another good example --- show that our completeness proof extends to $\KnowNoArgs$: $\Reach$ (Alexandru said he is skeptical of this point, so I should clarify that the network flips in the construction, so ``worlds above'' also flips)
+            \item Determining which closure operators are most relevant for understanding a neural network architecture is an art.  For feed-forward nets (in general, terminating nets), it's clear that forward propagation carries the full information of its inference.  What about unstable/oscillating nets?  What about first-order quantifiers? etc.
+            \item Our story doesn't end at the dynamics of inference/forward propagation.  In fact, the main contribution of this thesis is an account for \emph{learning} on neural network models.  The trick is essentially the same, extending it with the DEL methodology (will explain)
+        \end{itemize}
+
+    \end{enumerate}
+
+    \item \textbf{Dynamics on Neural Network Models}
+    \begin{enumerate}
+        \item Hebbian Learning Inspired Update
+        \begin{itemize}
+            \item Explain the idea behind Hebbian learning (we're using it as a simple update on neural networks)
+            \item Give the four updates that I've come up with (``make neurons wire together''; ``only if they fired together''; ``iterated Hebbian learning''; ``single-step Hebbian learning'') and the relationships between these methods
+            \item Reduction Axioms and Completeness
+        \end{itemize}
+
+        \item Properties of Hebbian Update
+
+        \item Reduction Axioms and Completeness
+        \begin{itemize}
+            \item Give reduction axioms for all three of the methods, and then also think about completeness for single-step update!
+        \end{itemize}
+        
+        \item Expressive Power of Neural Network Update
+        \begin{itemize}
+            \item Answer the questions: Are there any classical updates (over plausibility models) corresponding to our three neural network updates (turns out to be no! --- consider graded plausibility and in the worst-case think about neighborhood models)?  Are there any neural network updates corresponding to plausiblity updates (conditioning, lexicographic, conservative)?
+        \end{itemize}
+    \end{enumerate}
+
+    \item \textbf{Bridges and Applications}
+    \begin{enumerate}
+        \item Bridge to Other Neural-Symbolic Proposals
+        \begin{itemize}
+            \item Understand the recent survey by Simon \& Artur
+            \item Understand \& relate Logic Tensor Networks
+            \item Understand \& relate Neural ProbLog
+        \end{itemize}
+        
+        
+        \item Bridge to Cognitive Science
+        \begin{itemize}
+            \item A simple idea that connects neuroscience/connectionism with psychology/conceptual cognition.  Does this say anything about linguistics?  What exactly does this suggest / what assumptions are we making about how we should interpret the conceptual contents of brains?
+        \end{itemize}
+        
+        \item Bridge to Computational Learning Theory
+        \begin{itemize}
+            \item Here it would be good to formalize the learning method corresponding to neural network update (see Alexandru, Sonja, and Nina's paper, and model it in a similar way)
+        \end{itemize}
+
+        \item Reflections on Neural Network Extraction
+        \begin{itemize}
+            \item We assumed that the interpretation of neurons is given to us.  But the task of neural network extraction is identifying these variables!  But this work does give some perspective to neural network extraction (think of it as coming up with a valuation function without knowing it a priori).  Think about how this relates to Thomas Icard's work
+        \end{itemize}
+
+        \item Reflections on Interpretability and Alignment
+        \begin{itemize}
+            \item give an explicit example!  Show an actual neural network with learning guarantees!
+            \item Mention the caveat on interpretability, which is that we \emph{don't} have a classical model corresponding to Hebbian learning
+        \end{itemize}
+
+    \end{enumerate}
+    
+    \item \textbf{Future Directions and Open Problems}
+    \begin{enumerate}
+        \item 
+    \end{enumerate}
+\end{enumerate}
+
+\section*{Appendix}
+
+\begin{enumerate}[label=\Alph*]
+    \item \textbf{``Classical'' Plausibility Models}
+    \begin{enumerate}
+        \item Plausibility Models and Properties
+        \item Language and Semantics
+        \item Inference and Axioms
+        \item Model Building and Completeness
+    \end{enumerate}
+    
+    \item \textbf{Dynamics on Plausibility Models}
+    \begin{enumerate}
+        \item Belief Update with Hard Information
+        \item Belief Update with Soft Information
+        \item Language and Semantics
+        \item The DEL Methodology
+        \item Reduction Axioms and Completeness
+    \end{enumerate}
+
+\end{enumerate}
+
+\end{document}
