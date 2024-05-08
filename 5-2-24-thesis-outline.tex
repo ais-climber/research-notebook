@@ -9,6 +9,26 @@
     \begin{itemize}
         \item Introduce in the modern context of GPT \& transformers not being able to reason / explain their reasoning, ``black boxes'' making important decisions, of ``AI Alignment'', interpretability, explainability, self-driving cars making mistakes due to lack of reasoning.  There have been many, many proposals for fixing this, but the choices are disparate and it's not clear how they relate to each other, or if there are any mathematical guarantees we can make, etc.  Emphasize the need for principled, mathematical foundations of neural networks, especially of integrating \emph{learning and reasoning}, as well as \emph{neural and symbolic systems}.  (\emph{So many} speakers have emphasized this point, draw on all of the ones I know)  This thesis stands in the center of this tension.  (Make claims about what this thesis does.  Since the consequences of this work are interdisciplinary, I'll follow this up with different introductions depending on where the reader is coming from (literally just tell the reader to skip to their section first, then return to the others):)
         
+        \item Main Thesis
+        \begin{itemize}
+            \item \textbf{Simple Idea:} Take ordinary neural networks, attach a valuation function (interpretation) to them, and then apply standard logic techniques (treat neural networks as a model for logic).  The claim is that this is a fruitful approach for understanding neural networks --- many things a logician wants to know turn out to correspond to things a machine learning researcher wants to know:
+            \begin{itemize}
+                \item Static Logic:
+                \begin{itemize}
+                    \item Soundness : Formally verifying properties of neural network inference
+                    \item Completeness : Neural network model building (encoding desired inferences in a net)
+                    \item Expressive Power --- ``What is the minimal logic that can express closure properties of neural networks'' is a sort of descriptive complexity version of ``What functions can neural networks encode/represent?'' (It would be cool to relate this work to Will \& Lena \& et al's work on this.)
+                \end{itemize}
+                
+                \item Dynamic Logic:
+                \begin{itemize}
+                    \item Soundness : Formally verifying properties of neural network \emph{learning}
+                    \item Completeness : Neural network model building with \emph{learning} constraints (one of the goals of AI Alignment)
+                    \item Expressive Power --- Somehow related to ``What functions can neural networks \emph{learn}''.  Though be careful here; most properties of learning probably won't be expressible \emph{in} the logic per se.
+                \end{itemize}
+            \end{itemize}
+        \end{itemize}
+        
         \item Logic
         \begin{itemize}
             \item The bulk of the work in this thesis really is standard logic methodology stuff --- we define models for a language, give formal semantics, prove soundness and completeness of axioms, etc.  We expect logicians to feel the most at home here.  Consider neural network models as an \emph{alternative choice} to, e.g., possible-worlds models, KLM-style plausibility models, neighborhood models, etc.  This work spans all sorts of different logic systems, including conditional logics, modal logics, epistemic and doxastic logics, dynamic logics, and belief revision.
