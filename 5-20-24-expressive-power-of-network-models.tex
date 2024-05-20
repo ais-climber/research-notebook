@@ -1,0 +1,65 @@
+\documentclass[letterpaper]{article}
+\usepackage{notes}
+\begin{document}
+
+\section*{Problem Statement}
+
+These days I've been trying to understand the bigger picture of our work on neural network models.  I'll start by asking some suggestive questions, to point us in the right direction. I've been wondering:
+
+\begin{question}
+    How do neural network models relate to other models for conditional \& modal logic?  What about the dynamics --- how do policies like Hebbian learning relate to belief revision policies such as lexicographic \& conservative upgrade?
+\end{question}
+
+\begin{question}
+    The \href{http://flann.super.site/}{FLaNN Group}, specifically the work~\cite{merrill2019sequential,merrill2020formal,strobl2024formal} considers neural networks as automata, and asks the question ``what functions can different neural networks encode?''  Similarly, we consider neural networks as models for logic, and ask the question ``what formulas can different neural networks model?''  These questions are clearly related --- but how, precisely?
+\end{question}
+
+\begin{question}
+    The FLaNN perspective (neural networks as automata) is one way to characterize the computational power of neural networks.  Can we use neural network models to characterize the \emph{expressive} power of neural networks?  How does this all relate to the computational and descriptive complexity hierarchies?
+\end{question}
+
+\section*{Progress So Far}
+
+\subsection*{The Expressive Power of Neural Network Models}
+
+In our work \cite{kisby2024hebbian} so far, I've only defined the neural network state operators $\Prop$ and $\Reach$.  But in principle, we could define other closure operators, each reflecting a different kind of modality or conditional.  I want to characterize what a neural network model can \emph{in principle model}, and for this we need the more general notion.
+
+The goal here is to compare neural network models against other models.  Here are some classes of models I'm interested in:
+
+\paragraph*{Relational (Kripke) Models.} $\Rel$
+
+\paragraph*{Plausibility Models.} $\Plaus$
+
+\paragraph*{Neighborhood Models.} $\Nbhd$
+
+\paragraph*{Stable Neural Network Models.} $\StableNet$
+
+\paragraph*{}
+
+[to make things fair, interpret over the same language.  Make sure to define $\Vdash, \models$]
+
+\begin{definition}
+    Let $\Class$ be a class of models, and $\Model$ be a model in $\Class$.  The \emph{theory} of $\Model$ is given by $\Theory{\Model} = \set{\varphi \in \lang \mid \Model \models \varphi}$.  The \emph{theory of class $\Class$} is given by 
+    \[
+        \Theory{\Class} = \set{\varphi \in \lang \mid \textrm{there is some } \Model \in \Class \textrm{ such that } \Model \models \varphi}
+    \]
+\end{definition}
+
+\begin{example}
+    Consider relational models $\Rel$.  The formulas $\Box(\varphi \land \psi) \leftrightarrow (\Box \varphi \land \Box \psi)$ and $\Box \top$ are valid in every relational model.  Consequently, \emph{no} $\Model \in \Rel$ can satisfy, e.g. $\neg (\Box(\varphi \land \psi) \to (\Box \varphi \land \Box \psi))$ or $\Diamond \bot$.
+
+    [Go to $\Plaus$ next --- show how it can satisfy one of these]
+
+    This is the famous use case for neighborhood models $\Nbhd$: Neighborhood models \emph{can} model these formulas.  In fact, [neighborhood models are very general, and can model any formula expressible in this modal language --- check!!!]
+    
+    Rel (gives us a bound on the modelling power of relational models.  Also, this is different from characterizing the formulas that correspond to \emph{first-order frame properties} over Rel)
+    $\textbf{Rel}$
+\end{example}
+
+\subsection*{Neural Networks and the Complexity Hierarchy}
+
+[Include big picture relating Chomsky hierarchy, neural networks as automata (Will Merill's work), and descriptive complexity, done in Inkscape]
+
+\printbibliography
+\end{document}
+
