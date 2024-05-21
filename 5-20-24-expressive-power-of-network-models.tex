@@ -24,11 +24,43 @@ These days I've been trying to understand the bigger picture of our work on neur
 
 In our work \cite{kisby2024hebbian} so far, I've only defined the neural network state operators $\Prop$ and $\Reach$.  But in principle, we could define other closure operators, each reflecting a different kind of modality or conditional.  I want to characterize what a neural network model can \emph{in principle model}, and for this we need the more general notion.
 
-The goal here is to compare neural network models against other models.  Here are some classes of models I'm interested in:
+The goal here is to compare neural network models against other models.  To make the comparison fair, all models will share the basic modal language
+\[
+    p \mid \neg \varphi \mid \varphi \land \psi \mid \Box \varphi
+\]
 
-\paragraph*{Relational (Kripke) Models.} $\Rel$
+Here are some classes of models I'm interested in:
 
-\paragraph*{Plausibility Models.} $\Plaus$
+\paragraph*{Relational (Kripke) Models.} A relational model is $\Model = \langle W, R, V \rangle$, where 
+\begin{itemize}
+    \item $W$ is some set of worlds (or states)
+    \item $R \subseteq W \times W$ (the accessibility relation)
+    \item $V : \textrm{Proposition} \to \mathcal{P}(W)$ (the valuation function)
+\end{itemize}
+Define $\Rel$ to be the class of all such models.  A relational model may have many relations $R_i$ each modelling a different notion of accessibility.  But for the purpose of comparing $\Rel$ to neural networks, I'm only interested in the modelling power of a single relation.
+
+The semantics for $\Model \in \Rel$ is given by:
+\[
+\begin{array}{lcl}
+    \Model, w \Vdash p & \mbox{ iff } & w \in V(p)\\
+    \Model, w \Vdash \neg \varphi & \mbox{ iff } & \Model, w \not \Vdash \varphi\\
+    \Model, w \Vdash \varphi \land \psi & \mbox{ iff } & \Model, w \Vdash \varphi \mbox{ and } \Model, w \Vdash \psi\\
+    \Model, w \Vdash \Box \varphi & \mbox{ iff } & \mbox{for all } u \mbox{ with } w{R}u, \Model, u \Vdash \varphi
+\end{array}
+\]
+
+\paragraph*{Plausibility Models.}
+A plausibility model is $\Model = \langle W, R, V \rangle$, i.e. the models themselves are just relational models.  The key difference is that we interpret $\Box \varphi$ to hold in the best (or most plausible) states satisfying $\varphi$.  Formally, let $\best_R{(S)} = \set{w \in S \mid w \textrm{ is } R\textrm{-minimal in } S}$.  The new semantics for $\Box$ is
+\[
+\begin{array}{lcl}
+    \Model, w \Vdash \Box \varphi & \mbox{ iff } & w \in \best_R{(\semantics{\varphi})}
+\end{array}
+\]
+where $\semantics{\varphi} = \set{u \mid \Model, u \Vdash \varphi}$.
+
+Usually, these plausibility semantics coexist alongside traditional relational semantics.  So I'll define $\Plaus$ to be the class of all plausibility models \emph{union} the class $\Rel$.
+
+Any plausibility operator $\Box$ picks out a corresponding conditional: $\Box \varphi \to \psi$ reads ``the best $\varphi$ are $\psi$,'' which in the KLM tradition is the semantics for the conditional $\varphi \Rightarrow \psi$.
 
 \paragraph*{Neighborhood Models.} $\Nbhd$
 
@@ -36,7 +68,9 @@ The goal here is to compare neural network models against other models.  Here ar
 
 \paragraph*{}
 
-[to make things fair, interpret over the same language.  Make sure to define $\Vdash, \models$]
+\begin{definition}
+    Let $\Model$ be any model whatsoever with universe $W$ and satisfaction relation $\Vdash$.  $\Model \models \varphi$ if for all $w \in W$, $\Model, w \Vdash \varphi$.
+\end{definition}
 
 \begin{definition}
     Let $\Class$ be a class of models, and $\Model$ be a model in $\Class$.  The \emph{theory} of $\Model$ is given by $\Theory{\Model} = \set{\varphi \in \lang \mid \Model \models \varphi}$.  The \emph{theory of class $\Class$} is given by 
@@ -56,9 +90,15 @@ The goal here is to compare neural network models against other models.  Here ar
     $\textbf{Rel}$
 \end{example}
 
+\subsubsection*{The Dynamic Case.}
+
 \subsection*{Neural Networks and the Complexity Hierarchy}
 
 [Include big picture relating Chomsky hierarchy, neural networks as automata (Will Merill's work), and descriptive complexity, done in Inkscape]
+
+\subsubsection*{The Dynamic Case.}
+
+[All of this suggests a whole research program --- identify important classes of \emph{dynamic updates} and explore the \emph{dynamic} complexity hierarchy! Say what this means for automata, neural networks, and logic expressivity.  Open problems abound, this is very unexplored territory!]
 
 \printbibliography
 \end{document}
