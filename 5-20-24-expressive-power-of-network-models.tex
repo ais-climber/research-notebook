@@ -62,11 +62,17 @@ Usually, these plausibility semantics coexist alongside traditional relational s
 
 Any plausibility operator $\Box$ picks out a corresponding conditional: $\Box \varphi \to \psi$ reads ``the best $\varphi$ are $\psi$,'' which in the KLM tradition is the semantics for the conditional $\varphi \Rightarrow \psi$.
 
-\paragraph*{Neighborhood Models.} $\Nbhd$
+\paragraph*{Neighborhood Models.} A neighborhood model is $\Model = \langle W, f, V \rangle$, where $W$ and $V$ are as before and $f : W \to \mathcal{P}(\mathcal{P})$ is an accessibility \emph{function}.  The intuition is that $f$ maps each state $w$ to the ``formulas'' (sets of states) that hold at $w$.  Define $\Nbhd$ to be the class of all neighborhood models.
+
+The semantics for $\Model \in \Nbhd$ is the same as the previous two, except the $\Box$ case is now:
+\[
+\begin{array}{lcl}
+    \Model, w \Vdash \Box \varphi & \mbox{ iff } & \semantics{\varphi} \in f(w)
+\end{array}
+\]
+where again $\semantics{\varphi} = \set{u \mid \Model, u \Vdash \varphi}$.
 
 \paragraph*{Stable Neural Network Models.} $\StableNet$
-
-\paragraph*{}
 
 \begin{definition}
     Let $\Model$ be any model whatsoever with universe $W$ and satisfaction relation $\Vdash$.  $\Model \models \varphi$ if for all $w \in W$, $\Model, w \Vdash \varphi$.
