@@ -11,68 +11,125 @@ These days I've been trying to understand the bigger picture of our work on neur
 \end{question}
 
 \begin{question}
-    The \href{http://flann.super.site/}{FLaNN Group}, specifically the work~\cite{merrill2019sequential,merrill2020formal,strobl2024formal} considers neural networks as automata, and asks the question ``what functions can different neural networks encode?''  Similarly, we consider neural networks as models for logic, and ask the question ``what formulas can different neural networks model?''  These questions are clearly related --- but how, precisely?
+    The \href{http://flann.super.site/}{FLaNN Group}, specifically the work~\cite{merrill2019sequential,merrill2020formal,merrill2023expressive,strobl2024formal} considers neural networks as automata, and asks the question ``what functions can different neural networks encode?''  Similarly, we consider neural networks as models for logic, and ask the question ``what formulas can different neural networks model?''  These questions are clearly related --- but how, precisely?
 \end{question}
 
 \begin{question}
     The FLaNN perspective (neural networks as automata) is one way to characterize the computational power of neural networks.  Can we use neural network models to characterize the \emph{expressive} power of neural networks?  How does this all relate to the computational and descriptive complexity hierarchies?
 \end{question}
 
-\section*{Progress So Far}
+\section*{The Expressive Power of Neural Network Models}
 
-\subsection*{The Expressive Power of Neural Network Models}
+\subsection*{Basic Setup and Definitions}
 
-In our work \cite{kisby2024hebbian} so far, I've only defined the neural network state operators $\Prop$ and $\Reach$.  But in principle, we could define other closure operators, each reflecting a different kind of modality or conditional.  I want to characterize what a neural network model can \emph{in principle model}, and for this we need the more general notion.
-
-The goal here is to compare neural network models against other models.  To make the comparison fair, all models will share the basic modal language
+My first goal is to compare neural network models against other models.  To make the comparison fair, all models will share the basic multi-modal language
 \[
-    p \mid \neg \varphi \mid \varphi \land \psi \mid \Box \varphi
+    p \mid \neg \varphi \mid \varphi \land \psi \mid \set{\Box_i}_{i \in \textbf{I}} \hspace*{0.5em} \varphi
 \]
+where \textbf{I} is some fixed set of indices.  I have in mind that each $\Box_i$ represents a different modality per use-case (e.g. belief vs knowledge), although they could also be used to model a multi-agent setting (e.g. agent 1's belief vs agent 2's belief).
 
 Here are some classes of models I'm interested in:
 
-\paragraph*{Relational (Kripke) Models.} A relational model is $\Model = \langle W, R, V \rangle$, where 
+\paragraph*{Relational (Kripke) Models.} A relational model is $\Model = \langle W, \set{R_i}_{i \in \textbf{I}}, V \rangle$, where 
 \begin{itemize}
     \item $W$ is some set of worlds (or states)
-    \item $R \subseteq W \times W$ (the accessibility relation)
+    \item Each $R_i \subseteq W \times W$ (the accessibility relations)
     \item $V : \textrm{Proposition} \to \mathcal{P}(W)$ (the valuation function)
 \end{itemize}
-Define $\Rel$ to be the class of all such models.  A relational model may have many relations $R_i$ each modelling a different notion of accessibility.  But for the purpose of comparing $\Rel$ to neural networks, I'm only interested in the modelling power of a single relation.
-
-The semantics for $\Model \in \Rel$ is given by:
+Define $\Rel$ to be the class of all such models.  The semantics for $\Model \in \Rel$ is given by:
 \[
 \begin{array}{lcl}
     \Model, w \Vdash p & \mbox{ iff } & w \in V(p)\\
     \Model, w \Vdash \neg \varphi & \mbox{ iff } & \Model, w \not \Vdash \varphi\\
     \Model, w \Vdash \varphi \land \psi & \mbox{ iff } & \Model, w \Vdash \varphi \mbox{ and } \Model, w \Vdash \psi\\
-    \Model, w \Vdash \Box \varphi & \mbox{ iff } & \mbox{for all } u \mbox{ with } w{R}u, \Model, u \Vdash \varphi
+    \Model, w \Vdash \Box_i \varphi & \mbox{ iff } & \mbox{for all } u \mbox{ with } w{R_i}u, \Model, u \Vdash \varphi
 \end{array}
 \]
 
 \paragraph*{Plausibility Models.}
-A plausibility model is $\Model = \langle W, R, V \rangle$, i.e. the models themselves are just relational models.  The key difference is that we interpret $\Box \varphi$ to hold in the best (or most plausible) states satisfying $\varphi$.  Formally, let $\best_R{(S)} = \set{w \in S \mid w \textrm{ is } R\textrm{-minimal in } S}$.  The new semantics for $\Box$ is
+A plausibility model is $\Model = \langle W, \set{R_i}_{i \in \textbf{I}}, V \rangle$, i.e. the models themselves are just relational models.  The key difference is that we interpret $\Box_i \varphi$ to hold in the best (or most plausible) states satisfying $\varphi$.  Formally, let $\best_{R_i}{(S)} = \set{w \in S \mid w \textrm{ is } R_i\textrm{-minimal in } S}$.  The new semantics for $\Box_i$ is
 \[
 \begin{array}{lcl}
-    \Model, w \Vdash \Box \varphi & \mbox{ iff } & w \in \best_R{(\semantics{\varphi})}
+    \Model, w \Vdash \Box_i \varphi & \mbox{ iff } & w \in \best_{R_i}{(\semantics{\varphi})}
 \end{array}
 \]
 where $\semantics{\varphi} = \set{u \mid \Model, u \Vdash \varphi}$.
 
-Usually, these plausibility semantics coexist alongside traditional relational semantics.  So I'll define $\Plaus$ to be the class of all plausibility models \emph{union} the class $\Rel$.
+Usually, these plausibility semantics coexist alongside traditional relational semantics.  So I'll allow the option of assigning certain $\Box_i \varphi$ relational semantics instead.  Let $\Plaus$ be the class of all such models.
 
-Any plausibility operator $\Box$ picks out a corresponding conditional: $\Box \varphi \to \psi$ reads ``the best $\varphi$ are $\psi$,'' which in the KLM tradition is the semantics for the conditional $\varphi \Rightarrow \psi$.
+Any plausibility operator $\Box_i$ picks out a corresponding conditional: $\Box_i \varphi \to \psi$ reads ``the best $\varphi$ are $\psi$,'' which in the KLM tradition is the semantics for the conditional $\varphi \Rightarrow \psi$.
 
-\paragraph*{Neighborhood Models.} A neighborhood model is $\Model = \langle W, f, V \rangle$, where $W$ and $V$ are as before and $f : W \to \mathcal{P}(\mathcal{P})$ is an accessibility \emph{function}.  The intuition is that $f$ maps each state $w$ to the ``formulas'' (sets of states) that hold at $w$.  Define $\Nbhd$ to be the class of all neighborhood models.
+\paragraph*{Neighborhood Models.} A neighborhood model is $\Model = \langle W, \set{f_i}_{i \in \textbf{I}}, V \rangle$, where $W$ and $V$ are as before and each $f_i : W \to \mathcal{P}(\mathcal{P}(W))$ is an accessibility \emph{function}.  The intuition is that $f_i$ maps each state $w$ to the ``formulas'' (sets of states) that hold at $w$.  Define $\Nbhd$ to be the class of all neighborhood models.
 
-The semantics for $\Model \in \Nbhd$ is the same as the previous two, except the $\Box$ case is now:
+The semantics for $\Model \in \Nbhd$ is the same as the previous two, except the $\Box_i$ case is now:
 \[
 \begin{array}{lcl}
-    \Model, w \Vdash \Box \varphi & \mbox{ iff } & \semantics{\varphi} \in f(w)
+    \Model, w \Vdash \Box_i \varphi & \mbox{ iff } & \semantics{\varphi} \in f_i(w)
 \end{array}
 \]
 where again $\semantics{\varphi} = \set{u \mid \Model, u \Vdash \varphi}$.
 
-\paragraph*{Stable Neural Network Models.} $\StableNet$
+\paragraph*{Weighted Neural Network Models.} 
+In our work \cite{kisby2024hebbian} so far, we've only defined the neural network state operators $\Prop$ and $\Reach$.  But in principle, we could define other closure operators, each reflecting a different kind of modality or conditional.  I want to characterize what a neural network model can \emph{in principle model}, and for this we need a more general definition.
+
+A neural network model is $\Net = \langle N, \set{E_i}_{i \in \textbf{I}}, \set{W_i}_{i \in \textbf{I}}, \set{A}_{i \in \textbf{I}}, \set{F^i}_{i \in \textbf{I}}, V \rangle$, where
+\begin{itemize}
+    \item $N$ is a finite nonempty set (the set of neurons)
+    \item Each $E_i \subseteq N \times N$ (the edge relations)
+    \item $W_i : E_i \to \mathbb{Q}$ (the weights for each edge relation)
+    \item $A_i : \mathbb{Q} \to \mathbb{Q}$ (the activation function for each edge relation)
+    \item For each index $i$ and each state $S \in \mathcal{P}(N)$, $F^i_S : N \to \mathbb{Q}$ is a function depending only on input $n$, the predecessors of $n$ given by $E_i$, the weights $W_i$, and the activation function $A_i$.
+    \item $V : \textrm{Proposition} \to \mathcal{P}(N)$ (the valuation function)
+\end{itemize}
+I assume that each $A_i$ is a binary step functions.  I also assume that each $F^i$ is binary as well (its codomain is $\set{0, 1}$).  Using the terminology of \cite{merrill2020formal}, this means the net is \emph{saturated}.  Later, I will assume one more constraint on the architecture of these nets.
+
+I've generalized the definition from before in two ways.  First, these neural network models can have multiple kinds of edges (indexed by $i \in \textbf{I}$) connecting the same nodes, along with their weights and a corresponding activation function for each $i$.  I won't use this feature so much --- it's mainly to allow a fair comparison to the other classes of models.
+
+Second, I now allow different kinds of state transitions; each $F^i$ specifies how the net will use the edges, weights, and activation function to transition into the next state.  Specifically, $F^i_S(n)$ gives the activation of $n$ in the next state, given that the current state is $S$.  You can think of $E_i$, $W_i$, and $A_i$ as ``optional parameters'' that $F^i$ may make use of.
+
+\begin{example*}
+    Here are some example functions $F^i$ we could pick:
+    \begin{enumerate}
+        \item $F^i_S(n) = A_i(\sum_{m \in \preds{n}} W_i(m, n) \cdot \bigchi_S(m))$, where $\bigchi_S(m) = 1$ iff $m \in S$ is the indicator function.  This is the usual choice for artificial neural networks.
+        \item $F^i_S(n) = 1$ whenever there is some $E_i$-predecessor $m$ of $n$ in $S$.
+        \item $F_S(n) = 1$ whenever more than half of the $E_i$-predecessors of $n$ are in $S$.  This is one of the choices that \cite{baltag2019socialnetworks} consider for modelling influence in social networks.
+    \end{enumerate}
+\end{example*}
+
+Let $\NetModels$ be the class of all neural network models (with one more constraint that I'll say soon).  The semantics for $\Net \in \NetModels$ is a bit more roundabout than for the previous classes.  First, we define a ``next state'' function $\nextstate_i : \mathcal{P}(N) \to \mathcal{P}(N)$ for each $i \in \textbf{I}$ as follows:
+\[
+    \nextstate_i(S) = S \cup \set{n \mid F^i_S(n) = 1}
+\]
+Notice that $\nextstate(S)$ is extensive --- once activated, a node will stay activated in the next state.
+
+\begin{postulate*}
+    I assume that for all $i \in \textbf{I}$ and all states $S$, $\nextstate_i$ applied to $S$, i.e.
+    \[
+        S, \nextstate_i(S), \nextstate_i(\nextstate_i(S)), \ldots, \nextstate^k_i(S), \ldots
+    \]
+    has a least fixed point, and moreover that it is \emph{unique}.  Let $\Closure_i : \mathcal{P}(N) \to \mathcal{P}(N)$ (``closure'') be the function that produces that least fixed point.
+\end{postulate*}
+This assumption implicitly constrains the allowed neural network architectures: We allow feed-forward nets, as well as certain controlled forms of recurrence.  Characterizing nets that have a unique least fixed point is a big open problem.
+
+\begin{example*}
+    Different choices of $F^i_S$ give different interpretations for $\Closure(S)$.  Consider the functions from the previous example.  For (1) we have $\Closure_i(S) = \Prop(S)$, the forward-propagation (or diffusion) of the activation pattern $S$ in a neural network.  (2) gives us $\Closure_i(S) = \Reach(S)$, the nodes graph-reachable from $S$.  Finally, $\Closure_i$ for (3) can be interpreted as the diffusion of an opinion or attitude through a social network (see \cite{baltag2019socialnetworks}).
+\end{example*}
+
+I can now state the semantics for $\Net \in \Nbhd$:
+\[
+\begin{array}{lcl}
+    \Net, n \Vdash p & \mbox{ iff } & n \in V(p)\\
+    \Net, n \Vdash \neg \varphi & \mbox{ iff } & \Net, n \not \Vdash \varphi\\
+    \Net, n \Vdash \varphi \land \psi & \mbox{ iff } & \Net, n \Vdash \varphi \mbox{ and } \Model, n \Vdash \psi\\
+    \Net, n \Vdash \Diamond_i \varphi & \mbox{ iff } & 
+    n \in \Closure_i(\semantics{\varphi})
+\end{array}
+\]
+where $\semantics{\varphi} = \set{n \mid \Net, n \Vdash \varphi}$.  
+
+Any network diffusion operator $\Diamond_i$ picks out a corresponding neural network inference: $\Diamond_i \varphi \leftarrow \psi$ says that on input $\varphi$ the neural network ``answers'' with classification $\psi$.  This is analogous to the way a plausibility operator picks out a conditional (I will say more about this later).
+
+\paragraph*{Theories of Model Classes.} 
 
 \begin{definition}
     Let $\Model$ be any model whatsoever with universe $W$ and satisfaction relation $\Vdash$.  $\Model \models \varphi$ if for all $w \in W$, $\Model, w \Vdash \varphi$.
@@ -85,7 +142,7 @@ where again $\semantics{\varphi} = \set{u \mid \Model, u \Vdash \varphi}$.
     \]
 \end{definition}
 
-\begin{example}
+\begin{example*}
     Consider relational models $\Rel$.  The formulas $\Box(\varphi \land \psi) \leftrightarrow (\Box \varphi \land \Box \psi)$ and $\Box \top$ are valid in every relational model.  Consequently, \emph{no} $\Model \in \Rel$ can satisfy, e.g. $\neg (\Box(\varphi \land \psi) \to (\Box \varphi \land \Box \psi))$ or $\Diamond \bot$.
 
     [Go to $\Plaus$ next --- show how it can satisfy one of these]
@@ -94,7 +151,10 @@ where again $\semantics{\varphi} = \set{u \mid \Model, u \Vdash \varphi}$.
     
     Rel (gives us a bound on the modelling power of relational models.  Also, this is different from characterizing the formulas that correspond to \emph{first-order frame properties} over Rel)
     $\textbf{Rel}$
-\end{example}
+\end{example*}
+
+\subsection*{Progress So Far}
+
 
 \subsubsection*{The Dynamic Case.}
 
