@@ -115,7 +115,7 @@ This assumption implicitly constrains the allowed neural network architectures: 
     Different choices of $F^i_S$ give different interpretations for $\Closure(S)$.  Consider the functions from the previous example.  For (1) we have $\Closure_i(S) = \Prop(S)$, the forward-propagation (or diffusion) of the activation pattern $S$ in a neural network.  (2) gives us $\Closure_i(S) = \Reach(S)$, the nodes graph-reachable from $S$.  Finally, $\Closure_i$ for (3) can be interpreted as the diffusion of an opinion or attitude through a social network (see \cite{baltag2019socialnetworks}).
 \end{example*}
 
-I can now state the semantics for $\Net \in \Nbhd$:
+I can now state the semantics for $\Net \in \NetModels$:
 \[
 \begin{array}{lcl}
     \Net, n \Vdash p & \mbox{ iff } & n \in V(p)\\
@@ -129,6 +129,34 @@ where $\semantics{\varphi} = \set{n \mid \Net, n \Vdash \varphi}$.
 
 Any network diffusion operator $\Diamond_i$ picks out a corresponding neural network inference: $\Diamond_i \varphi \leftarrow \psi$ says that on input $\varphi$ the neural network ``answers'' with classification $\psi$.  This is analogous to the way a plausibility operator picks out a conditional (I will say more about this later).
 
+\paragraph*{Dynamic Models.}
+
+I would also like to compare neural network \emph{update} against other model updates --- what kind of updates are neural networks capable of modelling, and how expressive are they in this sense?  We can ``dynamify'' each of the models above using the dynamic epistemic logic trick.  First, we extend our language to include dynamic modal operators:
+\[
+    p \mid \neg \varphi \mid \varphi \land \psi \mid \set{\Box_i}_{i \in \textbf{I}} \hspace*{0.5em} \varphi \mid \set{\Update{\varphi}_j}_{j \in \textbf{J}} \hspace*{0.5em} \psi
+\]
+where \textbf{J} is a new set of indices.  As before, the idea is that each $\Update{\varphi}_i$ represents a different update per use-case, although taking $\textbf{I} = \textbf{J}$ these could also be used to model different updates per agent.  
+
+I will define the semantics for dynamic models by example.  First, consider $\Rel$.  For any $\Model \in \Rel$ and $S \in \mathcal{P}(W)$, we can define a variety of dynamic update functions $\set{\UpdateVerbatim_j}_{j \in \textbf{J}}$, where each $\UpdateVerbatim_j : \Rel \times \mathcal{P}(W) \to \Rel$.  A classical example is public announcement, where $\UpdateVerbatim(\langle W, R, V \rangle, S) = \langle W \cap S, R, V \rangle$.  Note that we're using sets $S$ as input rather than formulas, although the choice of one over the other is just my preference.
+
+Also note that these updates don't depend on the current world $w$.  I've read a good bit of \cite{van2011logicaldynamics} (a great book on dynamic epistemic logics), and while Johan includes dependence on $w$ I haven't yet run across an update that uses this extra information.  I'll drop it for now, but if we need it later I can add it back in.
+
+The semantics for $\Model \in \Rel$ over the dynamic language is exactly as before, with an additional case for $\Update{\varphi}_j \psi$.  We just interpret $\Update{\varphi}_j \psi$ as ``$\psi$ holds after updating by $\varphi$'':
+\[
+\begin{array}{lcl}
+    \Model, w \Vdash \Update{\varphi}_j \psi & \mbox{ iff } & \Model^\star_{\semantics{\varphi}}, w \Vdash \psi
+\end{array}
+\]
+
+
+% A dynamic relational model is $\Model' = \langle W, \set{R_i}_{i \in \textbf{I}}, \set{\UpdateVerbatim_j}_{j \in \textbf{J}}, V \rangle$, where each $\UpdateVerbatim_j : \Rel \times \mathcal{P}(W) \to \Rel$ is a dynamic update function that produces a new model given a set $S \in \mathcal{P}(W)$.  Given $\Model \in \Rel$ and $S \in \mathcal{P}(W)$, I'll write $\Model_S^{\star_j} = \UpdateVerbatim_j(\Model, S)$ as shorthand.  Define $\Rel^\star$ to be the class of all such models.
+
+% $\Plaus^\star$, $\Nbhd^\star$, and $\NetModels^\star$ are defined similarly --- just extend the model with update functions $\UpdateVerbatim_j$ and the semantics are the same.
+
+
+% P ] is some dynamic update given by M → M⋆
+% P (this is a free variable; the problem will be to find the right update).
+
 \paragraph*{Theories of Model Classes.} 
 
 \begin{definition}
@@ -136,25 +164,61 @@ Any network diffusion operator $\Diamond_i$ picks out a corresponding neural net
 \end{definition}
 
 \begin{definition}
-    Let $\Class$ be a class of models, and $\Model$ be a model in $\Class$.  The \emph{theory} of $\Model$ is given by $\Theory{\Model} = \set{\varphi \in \lang \mid \Model \models \varphi}$.  The \emph{theory of class $\Class$} is given by 
+    Let $\Class$ be a class of models, $\Model$ be a model in $\Class$, and $\lang$ be a language.  The \emph{theory} of $\Model$ over $\lang$ is given by $\Theory{\Model} = \set{\varphi \in \lang \mid \Model \models \varphi}$.  The \emph{theory of class $\Class$} over $\lang$ is given by 
     \[
         \Theory{\Class} = \set{\varphi \in \lang \mid \textrm{there is some } \Model \in \Class \textrm{ such that } \Model \models \varphi}
     \]
 \end{definition}
 
 \begin{example*}
-    Consider relational models $\Rel$.  The formulas $\Box(\varphi \land \psi) \leftrightarrow (\Box \varphi \land \Box \psi)$ and $\Box \top$ are valid in every relational model.  Consequently, \emph{no} $\Model \in \Rel$ can satisfy, e.g. $\neg (\Box(\varphi \land \psi) \to (\Box \varphi \land \Box \psi))$ or $\Diamond \bot$.
+    Here's a classical example that illustrates how we can separate the expressive power of different classes using $\Theory{\Class}$.  Consider relational models $\Rel$ over the static language.  Here are some formulas that are valid in every relational model (see \cite{pacuit2017neighborhood} for details):
+    \begin{itemize}
+        \item $\Box_i(\varphi \land \psi) \to (\Box_i \varphi \land \Box_i \psi)$
+        \item $(\Box_i \varphi \land \Box_i \psi) \to \Box_i(\varphi \land \psi)$
+        \item $\Box_i \top$
+    \end{itemize}
+    This means that \emph{no} $\Model \in \Rel$ can satisfy their negations.  But plausibility models can: Let $\Model = \langle W, \leq, V \rangle$ be a plausibility model with $W = \set{a, b, c}$, $\leq$ is $\set{(a, b), (b, c)}$, and propositions $\set{p, q}$ with $V(p) = \set{a, c}, V(q) = \set{b, c}$. [A picture would be nice].  For this model, $\best(\semantics{p} \cap \semantics{q}) = \best(\set{c}) = \set{c}$, but $\best(\semantics{p}) \cap \best(\semantics{q}) = \set{a} \cap \set{b} = \emptyset$.  This means that for \emph{all} $w$, $\Model, w \not \Vdash \Box(\varphi \land \psi) \to (\Box \varphi \land \Box \psi)$ --- in other words, $\Model \models \neg (\Box(\varphi \land \psi) \to (\Box \varphi \land \Box \psi))$.  Consequently, this formula is in $\Theory{\Plaus}$, but \emph{not} in $\Theory{\Rel}$.
 
-    [Go to $\Plaus$ next --- show how it can satisfy one of these]
+    Since we allow relational semantics in plausibility models, every $\Model \in \Rel$ is also in $\Plaus$.  So $\Plaus$ is strictly more expressive than $\Rel$: $\Theory{\Rel} \subset \Theory{\Plaus}$.
 
-    This is the famous use case for neighborhood models $\Nbhd$: Neighborhood models \emph{can} model these formulas.  In fact, [neighborhood models are very general, and can model any formula expressible in this modal language --- check!!!]
+    % This is the famous use case for neighborhood models $\Nbhd$: Neighborhood models \emph{can} model these formulas.  In fact, [neighborhood models are very general, and can model any formula expressible in this modal language --- check!!!]
     
-    Rel (gives us a bound on the modelling power of relational models.  Also, this is different from characterizing the formulas that correspond to \emph{first-order frame properties} over Rel)
-    $\textbf{Rel}$
+    % Rel (gives us a bound on the modelling power of relational models.  Also, this is different from characterizing the formulas that correspond to \emph{first-order frame properties} over Rel)
+    % $\textbf{Rel}$
 \end{example*}
 
 \subsection*{Progress So Far}
 
+\subsubsection*{The Static Case.}
+
+We are now set up to answer the first part of Question 1.  We can see how the expressive power of neural network models compares against the rest by arranging their theories in an ``expressivity hierarchy.''  Over the static language (no dynamic operators), we have:
+\[
+    \Theory{\Rel} \subset \Theory{\Plaus} = \Theory{\NetModels} \subset \Theory{\Nbhd}
+\]
+These inclusions are mostly already-known.  $\Theory{\Rel} \subset \Theory{\Plaus}$ is a classical result, and I already gave the proof in the previous example.  In \cite{pacuit2017neighborhood}, Eric Pacuit shows that $\Theory{\Rel} \subset \Theory{\Nbhd}$ --- but we can show $\Theory{\Plaus} \subset \Theory{\Nbhd}$ by a straightforward extension of his argument.
+
+\begin{proposition}
+    $\Theory{\Plaus} \subset \Theory{\Nbhd}$
+\end{proposition}
+\begin{proof}
+    This seems like it ought to be a classical result about neighborhood models, but I can't source it.  If you happen to know of a source for this, let me know.
+
+    [sorry]
+\end{proof}
+
+As for $\Theory{\NetModels} = \Theory{\Plaus}$, Hannes in \cite{leitgeb2001nonmonotonic, leitgeb2003nonmonotonic} proved this for particular classes of plausibility models and networks over a conditional language.  Since my models are somewhat more general, and I use a modal language, I just need to lift his result to the new setting:
+
+\begin{proposition}
+    $\Theory{\NetModels} = \Theory{\Plaus}$
+\end{proposition}
+\begin{proof}
+    sorry
+\end{proof}
+
+\paragraph*{What does this say about interpreting neural networks?}
+The popular conception of neural networks is that they are ``black boxes'' whose behavior is difficult to understand.  This last fact tells us, however, that neural network inference (classification) corresponds precisely to defeasible conditionals.  When Thomas Icard last visited, he pointed out to me that this intuition is only helpful for describing the net's input/output behavior of a neural network, but not for explaining the net's hidden states.  Because of this, Thomas thinks that the ``neural network model'' formalism is on the wrong track (or at least, unenlightening).
+
+I take this criticism seriously, but to me the underlying issue is that the hidden states are determined through learning, and we don't yet have a classical intuition for neural network learning.  If we did, then we could understand and track the changes in the hidden states during the learning process, and there would be no need for extraction.  I'll revisit this point at the end of the next section.
 
 \subsubsection*{The Dynamic Case.}
 
