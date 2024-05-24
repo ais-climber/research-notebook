@@ -31,8 +31,17 @@
 % Graphics packages
 %═══════════════════════════════════════════
 \usepackage{graphicx}
-\usepackage{tikz}
-\usetikzlibrary{positioning,calc,arrows.meta,shapes.geometric,fit, backgrounds}
+% \usepackage{tikz}
+% \usetikzlibrary{positioning,calc,arrows.meta,shapes.geometric,fit, backgrounds}
+\usepackage{tikz-cd}
+
+\tikzset{
+  symbol/.style={
+    draw=none,
+    every to/.append style={
+      edge node={node [sloped, allow upside down, auto=false]{$#1$}}}
+  }
+}
 
 %═══════════════════════════════════════════
 % Environments
@@ -82,6 +91,7 @@
 \newcommand{\Class}{\mathscr{C}}
 \newcommand{\Theory}[1]{\mathrm{Th}( #1 )}
 \newcommand{\Rel}{\textrm{\textbf{Rel}}}
+\newcommand{\Relrefl}{\textrm{\textbf{Rel}}_\textrm{\textbf{S4}}}
 \newcommand{\Plaus}{\textrm{\textbf{Plaus}}}
 \newcommand{\Nbhd}{\textrm{\textbf{Nbhd}}}
 \newcommand{\NetModels}{\textrm{\textbf{Net}}}

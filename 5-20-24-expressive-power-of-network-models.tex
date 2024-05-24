@@ -32,11 +32,11 @@ Here are some classes of models I'm interested in:
 
 \paragraph*{Relational (Kripke) Models.} A relational model is $\Model = \langle W, \set{R_i}_{i \in \textbf{I}}, V \rangle$, where 
 \begin{itemize}
-    \item $W$ is some set of worlds (or states)
+    \item $W$ is some finite set of worlds (or states)
     \item Each $R_i \subseteq W \times W$ (the accessibility relations)
     \item $V : \textrm{Proposition} \to \mathcal{P}(W)$ (the valuation function)
 \end{itemize}
-Define $\Rel$ to be the class of all such models.  The semantics for $\Model \in \Rel$ is given by:
+Define $\Rel$ to be the class of all such models, and define $\Relrefl$ to be the class of all such models where each $R_i$ is additionally reflexive and transitive.  The semantics for both classes is given by:
 \[
 \begin{array}{lcl}
     \Model, w \Vdash p & \mbox{ iff } & w \in V(p)\\
@@ -47,15 +47,13 @@ Define $\Rel$ to be the class of all such models.  The semantics for $\Model \in
 \]
 
 \paragraph*{Plausibility Models.}
-A plausibility model is $\Model = \langle W, \set{R_i}_{i \in \textbf{I}}, V \rangle$, i.e. the models themselves are just relational models.  The key difference is that we interpret $\Box_i \varphi$ to hold in the best (or most plausible) states satisfying $\varphi$.  Formally, let $\best_{R_i}{(S)} = \set{w \in S \mid w \textrm{ is } R_i\textrm{-minimal in } S}$.  The new semantics for $\Box_i$ is
+A plausibility model is $\Model = \langle W, \set{R_i}_{i \in \textbf{I}}, V \rangle$, i.e. the models themselves are just relational models.  As before, I assume that $W$ is finite, and $R_i$ is reflexive and transitive.  The key difference is that we interpret $\Box_i \varphi$ to hold in the best (or most plausible) states satisfying $\varphi$.  Formally, let $\best_{R_i}{(S)} = \set{w \in S \mid \textrm{For all } u \in S, \neg u {R_i} w}$ (the $R_i$-minimal states over $S$).  The new semantics for $\Box_i$ is
 \[
 \begin{array}{lcl}
     \Model, w \Vdash \Box_i \varphi & \mbox{ iff } & w \in \best_{R_i}{(\semantics{\varphi})}
 \end{array}
 \]
-where $\semantics{\varphi} = \set{u \mid \Model, u \Vdash \varphi}$.
-
-Usually, these plausibility semantics coexist alongside traditional relational semantics.  So I'll allow the option of assigning certain $\Box_i \varphi$ relational semantics instead.  Let $\Plaus$ be the class of all such models.
+where $\semantics{\varphi} = \set{u \mid \Model, u \Vdash \varphi}$.  Let $\Plaus$ be the class of all such models.
 
 Any plausibility operator $\Box_i$ picks out a corresponding conditional: $\Box_i \varphi \to \psi$ reads ``the best $\varphi$ are $\psi$,'' which in the KLM tradition is the semantics for the conditional $\varphi \Rightarrow \psi$.
 
@@ -171,21 +169,40 @@ The semantics for $\Model \in \Rel$ over the dynamic language is exactly as befo
 \end{definition}
 
 \begin{example*}
-    Here's a classical example that illustrates how we can separate the expressive power of different classes using $\Theory{\Class}$.  Consider relational models $\Rel$ over the static language.  Here are some formulas that are valid in every relational model (see \cite{pacuit2017neighborhood} for details):
+    Here's an example that's a sort of tutorial for comparing the expressive power of different classes using $\Theory{\Class}$.  Consider relational models $\Rel$ over the static language.  Here are some formulas that are valid in every relational model:
     \begin{itemize}
         \item $\Box_i(\varphi \land \psi) \to (\Box_i \varphi \land \Box_i \psi)$
         \item $(\Box_i \varphi \land \Box_i \psi) \to \Box_i(\varphi \land \psi)$
         \item $\Box_i \top$
     \end{itemize}
-    This means that \emph{no} $\Model \in \Rel$ can satisfy their negations.  But plausibility models can: Let $\Model = \langle W, \leq, V \rangle$ be a plausibility model with $W = \set{a, b, c}$, $\leq$ is $\set{(a, b), (b, c)}$, and propositions $\set{p, q}$ with $V(p) = \set{a, c}, V(q) = \set{b, c}$. [A picture would be nice].  For this model, $\best(\semantics{p} \cap \semantics{q}) = \best(\set{c}) = \set{c}$, but $\best(\semantics{p}) \cap \best(\semantics{q}) = \set{a} \cap \set{b} = \emptyset$.  This means that for \emph{all} $w$, $\Model, w \not \Vdash \Box(\varphi \land \psi) \to (\Box \varphi \land \Box \psi)$ --- in other words, $\Model \models \neg (\Box(\varphi \land \psi) \to (\Box \varphi \land \Box \psi))$.  Consequently, this formula is in $\Theory{\Plaus}$, but \emph{not} in $\Theory{\Rel}$.
-
-    Since we allow relational semantics in plausibility models, every $\Model \in \Rel$ is also in $\Plaus$.  So $\Plaus$ is strictly more expressive than $\Rel$: $\Theory{\Rel} \subset \Theory{\Plaus}$.
-
-    % This is the famous use case for neighborhood models $\Nbhd$: Neighborhood models \emph{can} model these formulas.  In fact, [neighborhood models are very general, and can model any formula expressible in this modal language --- check!!!]
+    This means that \emph{no} $\Model \in \Rel$ can satisfy their negations (for details, see \cite{pacuit2017neighborhood}, page 8).  But neighborhood models can: Let $\Model = \langle W, f, V \rangle$ be a neighborhood model with $W = \set{a, b, c}$, propositions $\set{p, q}$ with $V(p) = \set{a, b}, V(q) = \set{b, c}$, and $f$ given by
+    \[
+    \begin{tikzcd}[column sep=1em]
+        \set{a, c} & \set{c} & \set{b} & \emptyset & \set{a} & \set{b,c} & \set{b} \\
+           &  a \arrow{lu} \arrow{u} \arrow{ru}  &     &  b \arrow{lu} \arrow{u} \arrow{ru}  &    &  c \arrow{lu} \arrow{u} \arrow{ru} &
+    \end{tikzcd}
+    \]
+    For all $w \in W$ we have $\semantics{p} \cap \semantics{q} = \set{b} \in f(w)$, but also $\semantics{p} = \set{a, b} \not \in f(w)$. This means that for all $w$, $\Model, w \not \Vdash \Box(\varphi \land \psi) \to (\Box \varphi \land \Box \psi)$ --- in other words, $\Model \models \neg (\Box(\varphi \land \psi) \to (\Box \varphi \land \Box \psi))$.  Consequently, this formula is in $\Theory{\Nbhd}$, but \emph{not} in $\Theory{\Rel}$.
     
-    % Rel (gives us a bound on the modelling power of relational models.  Also, this is different from characterizing the formulas that correspond to \emph{first-order frame properties} over Rel)
-    % $\textbf{Rel}$
+    Moreover, neighborhood models are at least as expressive as relational models: $\Theory{\Rel} \subseteq \Theory{\Nbhd}$.  Let $\varphi \in \lang$ and suppose $\Model \models \varphi$ for some $\Model = \langle W, \set{R_i}_{i \in \textbf{I}}, V \rangle \in \Rel$.  Eric Pacuit in \cite{pacuit2017neighborhood}, page 47 shows how to construct an equivalent neighborhood model:  Let $\Model' = \langle W, \set{f_i}_{i \in \textbf{I}}, V \rangle$, where each $f_i(w) = \set{X \mid \set{v \mid w{R_i}v } \subseteq X}$.  All we need to show is $\Model' \models \varphi$, but we are able to prove something even stronger:
+    \begin{proposition}
+        For all $\varphi$ and all $w$, $\Model, w \Vdash \varphi$ iff $\Model', w \Vdash \varphi$.
+    \end{proposition}
+    \begin{proof}
+        By induction on $\varphi$.  The key case is $\Box_i \varphi$.  
+        
+        $(\to)$: Suppose $\Model, w \Vdash \Box_i \varphi$, i.e. for all $u$ with $w{R_i}u$, $\Model, u \Vdash \varphi$.  It follows that $\set{u \mid w{R_i}u } \subseteq \semantics{\varphi}$. By construction of $\Model'$, this means $\semantics{\varphi} \in f_i(w)$, and so $\Model', w \Vdash \Box_i \varphi$.
+
+        $(\leftarrow)$: Now suppose $\Model', w \Vdash \Box_i \varphi$, i.e. $\semantics{\varphi} \in f_i(w)$.  By construction of $\Model'$, we have $\set{u \mid w{R_i}u } \subseteq \semantics{\varphi}$.  So for all $u$ with $w{R_i}u$, $\Model, u \Vdash \varphi$.  This gives us $\Model, w \Vdash \Box_i \varphi$.
+    \end{proof}
+
+    Putting everything together, neighborhood models are \emph{strictly} more expressive than relational models:
+    \begin{proposition}
+        $\Theory{\Plaus} \subset \Theory{\Nbhd}$
+    \end{proposition}
+
 \end{example*}
+
 
 \subsection*{Progress So Far}
 
@@ -193,30 +210,43 @@ The semantics for $\Model \in \Rel$ over the dynamic language is exactly as befo
 
 We are now set up to answer the first part of Question 1.  We can see how the expressive power of neural network models compares against the rest by arranging their theories in an ``expressivity hierarchy.''  Over the static language (no dynamic operators), we have:
 \[
-    \Theory{\Rel} \subset \Theory{\Plaus} = \Theory{\NetModels} \subset \Theory{\Nbhd}
+\begin{tikzcd}
+    & \Theory{\Nbhd} \arrow[symbol=\supset]{ld} \arrow[symbol=\supset]{rd} & & \\
+    \Theory{\Rel} \arrow[symbol=\supset]{rd} & & \Theory{\Plaus} \arrow[symbol={=}]{r} \arrow[symbol=\supset]{ld} & \Theory{\NetModels} \\
+    & \Theory{\Relrefl} & &
+    % A \arrow[r,symbol=\supseteq] &B \arrow[d] \\
+    % & G \arrow[r,symbol=\leq] & H
+\end{tikzcd}
 \]
-These inclusions are mostly already-known.  $\Theory{\Rel} \subset \Theory{\Plaus}$ is a classical result, and I already gave the proof in the previous example.  In \cite{pacuit2017neighborhood}, Eric Pacuit shows that $\Theory{\Rel} \subset \Theory{\Nbhd}$ --- but we can show $\Theory{\Plaus} \subset \Theory{\Nbhd}$ by a straightforward extension of his argument.
+These inclusions are all either already known or are folklore.  We already proved $\Theory{\Rel} \subset \Theory{\Nbhd}$ in the example above.  It's easy to see that $\Theory{\Relrefl} \subset \Theory{\Rel}$: Given any $\Model \in \Relrefl$ satisfying $\varphi$, the very same model is $\in \Rel$.  As for the strictness, the negation of the reflexivity axiom $\neg (\Box{\varphi} \to \varphi) \in \Theory{\Rel}$, yet $\neg (\Box{\varphi} \to \varphi) \not \in \Theory{\Relrefl}$.
+
+Neither $\Theory{\Rel}$ nor $\Theory{\Plaus}$ are contained in the other.  On the one hand, nonmonotonicity $\neg (\Box (\varphi \land \psi) \to \Box \varphi \land \Box \psi)$ is satisfiable by $\Model \in \Plaus$ but not by $\Model \in \Rel$.  On the other hand, the negation of the reflexivity axiom $\Box \varphi \to \varphi$ is satisfiable by $\Model \in \Rel$, but reflexivity and transitivity hold in all plausibility models (we could have also taken the corresponding transitive or cumulative axioms).  Because of this, it's more helpful to compare $\Theory{\Plaus}$ with $\Theory{\Relrefl}$.
+
+Now for the more interesting inclusions:
+
+\begin{proposition}
+    $\Theory{\Relrefl} \subset \Theory{\Plaus}$
+\end{proposition}
 
 \begin{proposition}
     $\Theory{\Plaus} \subset \Theory{\Nbhd}$
 \end{proposition}
-\begin{proof}
-    This seems like it ought to be a classical result about neighborhood models, but I can't source it.  If you happen to know of a source for this, let me know.
+% \begin{proof}
+%     This seems like it ought to be a classical result about neighborhood models, but I can't source it.  If you happen to know of a source for this, let me know.
 
-    [sorry]
-\end{proof}
-
-As for $\Theory{\NetModels} = \Theory{\Plaus}$, Hannes in \cite{leitgeb2001nonmonotonic, leitgeb2003nonmonotonic} proved this for particular classes of plausibility models and networks over a conditional language.  Since my models are somewhat more general, and I use a modal language, I just need to lift his result to the new setting:
+%     [sorry]
+% \end{proof}
 
 \begin{proposition}
     $\Theory{\NetModels} = \Theory{\Plaus}$
 \end{proposition}
-\begin{proof}
-    sorry
-\end{proof}
+% \begin{proof}
+%     As for $\Theory{\NetModels} = \Theory{\Plaus}$, Hannes in \cite{leitgeb2001nonmonotonic, leitgeb2003nonmonotonic} proved this for particular classes of plausibility models and networks over a conditional language.  Since my models are somewhat more general, and I use a modal language, I just need to lift his result to the new setting:
+%     sorry
+% \end{proof}
 
 \paragraph*{What does this say about interpreting neural networks?}
-The popular conception of neural networks is that they are ``black boxes'' whose behavior is difficult to understand.  This last fact tells us, however, that neural network inference (classification) corresponds precisely to defeasible conditionals.  When Thomas Icard last visited, he pointed out to me that this intuition is only helpful for describing the net's input/output behavior of a neural network, but not for explaining the net's hidden states.  Because of this, Thomas thinks that the ``neural network model'' formalism is on the wrong track (or at least, unenlightening).
+The popular conception of neural networks is that they are ``black boxes'' whose behavior is difficult to understand.  This last fact tells us, however, that neural network inference (classification) corresponds precisely to defeasible conditionals.  When Thomas Icard last visited, he pointed out to me that this intuition is only helpful for describing the net's input/output behavior, but not for explaining the net's hidden states.  Because of this, Thomas thinks that the ``neural network model'' formalism is on the wrong track (or at least, unenlightening), and he decided not to continue working on it.
 
 I take this criticism seriously, but to me the underlying issue is that the hidden states are determined through learning, and we don't yet have a classical intuition for neural network learning.  If we did, then we could understand and track the changes in the hidden states during the learning process, and there would be no need for extraction.  I'll revisit this point at the end of the next section.
 
