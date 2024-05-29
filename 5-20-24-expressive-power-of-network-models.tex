@@ -198,7 +198,7 @@ The semantics for $\Model \in \Rel$ over the dynamic language is exactly as befo
 
     Putting everything together, neighborhood models are \emph{strictly} more expressive than relational models:
     \begin{proposition}
-        $\Theory{\Plaus} \subset \Theory{\Nbhd}$
+        $\Theory{\Rel} \subset \Theory{\Nbhd}$
     \end{proposition}
 
 \end{example*}
@@ -238,8 +238,14 @@ Now for the more interesting inclusions:
 % \end{proof}
 
 \begin{proposition}
-    $\Theory{\NetModels} = \Theory{\Plaus}$
+    $\Theory{\Plaus} \subseteq \Theory{\NetModels}$
 \end{proposition}
+
+\begin{proposition}
+    $\Theory{\NetModels} \subseteq \Theory{\Plaus}$
+\end{proposition}
+
+
 % \begin{proof}
 %     As for $\Theory{\NetModels} = \Theory{\Plaus}$, Hannes in \cite{leitgeb2001nonmonotonic, leitgeb2003nonmonotonic} proved this for particular classes of plausibility models and networks over a conditional language.  Since my models are somewhat more general, and I use a modal language, I just need to lift his result to the new setting:
 %     sorry
