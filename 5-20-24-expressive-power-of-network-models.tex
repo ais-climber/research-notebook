@@ -47,13 +47,13 @@ Define $\Rel$ to be the class of all such models, and define $\Relrefl$ to be th
 \]
 
 \paragraph*{Plausibility Models.}
-A plausibility model is $\Model = \langle W, \set{R_i}_{i \in \textbf{I}}, V \rangle$, i.e. the models themselves are just relational models.  As before, I assume that $W$ is finite, and $R_i$ is reflexive and transitive.  The key difference is that we interpret $\Box_i \varphi$ to hold in the best (or most plausible) states satisfying $\varphi$.  Formally, let $\best_{R_i}{(S)} = \set{w \in S \mid \textrm{For all } u \in S, \neg u {R_i} w}$ (the $R_i$-minimal states over $S$).  The new semantics for $\Box_i$ is
+A plausibility model is $\Model = \langle W, \set{R_i}_{i \in \textbf{I}}, V \rangle$, i.e. the models themselves are just relational models.  As before, I assume that $W$ is finite, and as with $\Relrefl$, $R_i$ is reflexive and transitive.  The key difference is that we interpret $\Box_i \varphi$ to hold in the best (or most plausible) states satisfying $\varphi$.  Formally, let $\best_{R_i}{(S)} = \set{w \in S \mid \textrm{For all } u \in S, \neg u {R_i} w}$ (the $R_i$-minimal states over $S$).  The new semantics for $\Box_i$ is
 \[
 \begin{array}{lcl}
     \Model, w \Vdash \Box_i \varphi & \mbox{ iff } & w \in \best_{R_i}{(\semantics{\varphi})}
 \end{array}
 \]
-where $\semantics{\varphi} = \set{u \mid \Model, u \Vdash \varphi}$.  Let $\Plaus$ be the class of all such models.
+where $\semantics{\varphi} = \set{u \mid \Model, u \Vdash \varphi}$.  In practice, plausibility semantics coexist alongside relational semantics, so I allow some $\Box_i \varphi$ to be given relational semantics instead.  Let $\Plaus$ be the class of all such models.  Since we include relational operators, note that $\Relrefl \subseteq \Plaus$.
 
 Any plausibility operator $\Box_i$ picks out a corresponding conditional: $\Box_i \varphi \to \psi$ reads ``the best $\varphi$ are $\psi$,'' which in the KLM tradition is the semantics for the conditional $\varphi \Rightarrow \psi$.
 
@@ -218,19 +218,39 @@ We are now set up to answer the first part of Question 1.  We can see how the ex
     % & G \arrow[r,symbol=\leq] & H
 \end{tikzcd}
 \]
-These inclusions are all either already known or are folklore.  We already proved $\Theory{\Rel} \subset \Theory{\Nbhd}$ in the example above.  It's easy to see that $\Theory{\Relrefl} \subset \Theory{\Rel}$: Given any $\Model \in \Relrefl$ satisfying $\varphi$, the very same model is $\in \Rel$.  As for the strictness, the negation of the reflexivity axiom $\neg (\Box{\varphi} \to \varphi) \in \Theory{\Rel}$, yet $\neg (\Box{\varphi} \to \varphi) \not \in \Theory{\Relrefl}$.
-
-Neither $\Theory{\Rel}$ nor $\Theory{\Plaus}$ are contained in the other.  On the one hand, nonmonotonicity $\neg (\Box (\varphi \land \psi) \to \Box \varphi \land \Box \psi)$ is satisfiable by $\Model \in \Plaus$ but not by $\Model \in \Rel$.  On the other hand, the negation of the reflexivity axiom $\Box \varphi \to \varphi$ is satisfiable by $\Model \in \Rel$, but reflexivity and transitivity hold in all plausibility models (we could have also taken the corresponding transitive or cumulative axioms).  Because of this, it's more helpful to compare $\Theory{\Plaus}$ with $\Theory{\Relrefl}$.
+These inclusions are all either already known or are folklore.  First, the easy ones:
+\begin{itemize}
+    \item $\Theory{\Rel} \subset \Theory{\Nbhd}$: We already proved this in the example above.
+    
+    \item $\Theory{\Relrefl} \subset \Theory{\Rel}$: Given any $\Model \in \Relrefl$ satisfying $\varphi$, the very same model is $\in \Rel$.  As for the strictness, the negation of the reflexivity axiom $\neg (\Box{\varphi} \to \varphi) \in \Theory{\Rel}$, yet $\neg (\Box{\varphi} \to \varphi) \not \in \Theory{\Relrefl}$.
+    
+    \item $\Theory{\Relrefl} \subset \Theory{\Plaus}$: First, since I allowed relational operators in plausibility models, we immediately have $\Relrefl \subseteq \Plaus$.  This means that given any $\Model \in \Relrefl$ satisfying $\varphi$, the very same model is $\in \Rel$.  As for strictness, nonmonotonicity $\neg (\Box(\varphi \land \psi) \to (\Box \varphi \land \Box \psi)) \in \Theory{\Plaus}$, yet it is not satisfiable by $\Model \in \Relrefl$.
+    
+    \item Neither $\Theory{\Rel}$ nor $\Theory{\Plaus}$ are contained in the other:  On the one hand, nonmonotonicity $\neg (\Box (\varphi \land \psi) \to \Box \varphi \land \Box \psi)$ is satisfiable by $\Model \in \Plaus$ but not by $\Model \in \Rel$.  On the other hand, the negation of the reflexivity axiom $\Box \varphi \to \varphi$ is satisfiable by $\Model \in \Rel$, but reflexivity and transitivity hold in all plausibility models (we could have also taken the corresponding transitive or cumulative axioms).  Because of this, it's more helpful to compare $\Theory{\Plaus}$ with $\Theory{\Relrefl}$.
+\end{itemize}
 
 Now for the more interesting inclusions:
 
 \begin{proposition}
-    $\Theory{\Relrefl} \subset \Theory{\Plaus}$
-\end{proposition}
-
-\begin{proposition}
     $\Theory{\Plaus} \subset \Theory{\Nbhd}$
 \end{proposition}
+\begin{proof}
+    First, let's show inclusion.  Let $\Model = \langle W, \set{R_i}_{i \in \textbf{I}} \rangle$ be a plausibility model satisfying $\varphi$.  We construct the neighborhood model $\Model' = \langle W, \set{f_i}_{i \in \textbf{I}}, V \rangle$, where $f_i$ is given as follows.  If $\Box_i$ is given relational semantics, then $f_i = \set{X \mid \set{v \mid w{R_i}v \subseteq X}}$ as in our example above.  But if $\Box_i$ has plausibility semantics,
+    \[
+        f_i(w) = \set{X \in \mathcal{P}(W) \mid w \in \best_{R_i}(X)}
+    \]
+    We show that for all $\varphi, w$, $\Model, w \Vdash \varphi$ iff $\Model', w \Vdash \varphi$ by induction on $\varphi$.  The key inductive case is $\Box_i \varphi$.  The relational case is handled by the example in the previous section.  For plausibility operators $\Box_i$, we have
+    \[
+    \begin{array}{lcl}
+        \Model, w \Vdash \varphi & \mbox{ iff } & w \in \best_{R_i}(X) \\
+        & \mbox{ iff } & X \in f_i(w) \\
+        & \mbox{ iff } & \Model', w \Vdash \Box_i \varphi
+    \end{array}
+    \]
+    We conclude that for our particular $\varphi$, $\Model \models \varphi$ implies $\Model' \models \varphi$.
+
+    Strictness is easy: nonreflexivity $\neg (\Box \varphi \to \varphi) \in \Theory{\Nbhd}$, but $\neg (\Box \varphi \to \varphi) \in \Theory{\Plaus}$ (since both relational \emph{and} plausibility operators are always reflexive).
+\end{proof}
 % \begin{proof}
 %     This seems like it ought to be a classical result about neighborhood models, but I can't source it.  If you happen to know of a source for this, let me know.
 
