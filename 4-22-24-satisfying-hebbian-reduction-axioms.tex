@@ -65,7 +65,7 @@ I've somewhat misled you by talking in terms of plausibility models.  In fact, t
     \includegraphics[scale=0.2]{4-22-24-mockup.png}
     \end{center}
 
-    Since $\Update{p} q \leftrightarrow q$ is valid, $\semantics{q}_{\Model^\star_p} = \semantics{q}_\Model = \set{a}$.  We pick $w$ to be $a$: $a$ is $\leq$-minimal over $\semantics{q}_{\Model^\star_p}$, and so $\Model, a \Vdash \Update{p} \Typ{q}$.
+    Since $\Update{p} q \leftrightarrow q$ is valid, $\semantics{q}_{\Model^\star_p} = \semantics{q}_\Model = \set{a}$.  We pick $w$ to be $a$. Since $a$ is the only element of $\semantics{q}_{\Model^\star_p}$, $a$ is $\leq^\star$-minimal over $\semantics{q}_{\Model^\star_p}$.  And so $\Model, a \Vdash \Update{p} \Typ{q}$.
     
     However, $\Model, a \not \Vdash \Typ{(q \land (\Typ{p} \lor \Know{(\Typ{p} \lor \Typ{q})}))}$.  If it did, then by reflexivity of $\Typ$ we would have $\Model, a \Vdash q \land (\Typ{p} \lor \Know{(\Typ{p} \lor \Typ{q})})$.  But $a$ does not satisfy the right conjunct.  First, $\Model, a \not \Vdash \Typ{p}$ (since $a$ is not a $\leq$-minimal element of $\semantics{p}$).  And second, there \emph{is} $b$ with $a{R}b$ such that $b$ is not a $\leq$-minimal element of either $\semantics{p}$ \emph{or} $\semantics{q}$.  So $\Model, b \not \Vdash \Typ{p} \lor \Typ{q}$, and thus $\Model, a \not \Vdash \Know{(\Typ{p} \lor \Typ{q})}$. \qedhere
 \end{proof}
