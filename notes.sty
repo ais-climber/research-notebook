@@ -27,6 +27,19 @@
 \setlist[itemize]{itemsep=0mm}
 \setlist[description]{itemsep=0mm}
 
+%-- Redefining title to reduce space in notes files.
+\makeatletter
+\def\@maketitle{%
+  \newpage
+  \null
+  \begin{center}%
+  \let \footnote \thanks
+    {\Large \bfseries{\@title}\par}
+  \end{center}%
+  \par
+}
+\makeatother
+
 %═══════════════════════════════════════════
 % Graphics packages
 %═══════════════════════════════════════════
@@ -90,10 +103,13 @@
 \newcommand{\Nodel}{\mathcal{N}}
 \newcommand{\Class}{\mathscr{C}}
 \newcommand{\Theory}[1]{\mathrm{Th}( #1 )}
+\newcommand{\Satisfy}[1]{\mathrm{Sat}( #1 )}
+\newcommand{\Definable}[1]{\mathrm{Def}( #1 )}
 \newcommand{\Rel}{\textrm{\textbf{Rel}}}
 \newcommand{\Relrefl}{\textrm{\textbf{Rel}}_\textrm{\textbf{S4}}}
 \newcommand{\Plaus}{\textrm{\textbf{Plaus}}}
 \newcommand{\Nbhd}{\textrm{\textbf{Nbhd}}}
+\newcommand{\Nbhdrefl}{\textrm{\textbf{Nbhd}}_\textrm{\textbf{S4}}}
 \newcommand{\NetModels}{\textrm{\textbf{Net}}}
 \newcommand{\lang}{\mathcal{L}}
 \newcommand{\uplang}{\mathcal{L}^\ast}

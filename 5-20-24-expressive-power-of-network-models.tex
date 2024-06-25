@@ -1,6 +1,9 @@
 \documentclass[letterpaper]{article}
 \usepackage{notes}
+\title{The Expressive Power of Neural Network Models}
 \begin{document}
+
+\maketitle
 
 \section*{Problem Statement}
 
@@ -18,9 +21,7 @@ These days I've been trying to understand the bigger picture of our work on neur
     The FLaNN perspective (neural networks as automata) is one way to characterize the computational power of neural networks.  Can we use neural network models to characterize the \emph{expressive} power of neural networks?  How does this all relate to the computational and descriptive complexity hierarchies?
 \end{question}
 
-\section*{The Expressive Power of Neural Network Models}
-
-\subsection*{Basic Setup and Definitions}
+\section*{Basic Setup and Definitions}
 
 My first goal is to compare neural network models against other models.  To make the comparison fair, all models will share the basic multi-modal language
 \[
@@ -57,9 +58,11 @@ where $\semantics{\varphi} = \set{u \mid \Model, u \Vdash \varphi}$.  In practic
 
 Any plausibility operator $\Box_i$ picks out a corresponding conditional: $\Box_i \varphi \to \psi$ reads ``the best $\varphi$ are $\psi$,'' which in the KLM tradition is the semantics for the conditional $\varphi \Rightarrow \psi$.
 
-\paragraph*{Neighborhood Models.} A neighborhood model is $\Model = \langle W, \set{f_i}_{i \in \textbf{I}}, V \rangle$, where $W$ and $V$ are as before and each $f_i : W \to \mathcal{P}(\mathcal{P}(W))$ is an accessibility \emph{function}.  The intuition is that $f_i$ maps each state $w$ to the ``formulas'' (sets of states) that hold at $w$.  Define $\Nbhd$ to be the class of all neighborhood models.
+\paragraph*{Neighborhood Models.} A neighborhood model is $\Model = \langle W, \set{f_i}_{i \in \textbf{I}}, V \rangle$, where $W$ and $V$ are as before and each $f_i : W \to \mathcal{P}(\mathcal{P}(W))$ is an accessibility \emph{function}.  The intuition is that $f_i$ maps each state $w$ to the ``formulas'' (sets of states) that hold at $w$.  Define $\Nbhd$ to be the class of all neighborhood models.  
 
-The semantics for $\Model \in \Nbhd$ is the same as the previous two, except the $\Box_i$ case is now:
+Moreover, the \emph{core} of $f$ is $\cap f(x) = \bigcap_{X \in f(w)} X$.  As with $\Rel$, let $\Nbhdrefl$ be the class of all neighborhood models that are additionally reflexive ($\forall w, w \in \cap f(w)$) and transitive ($\forall w$, if $X \in f(w)$ then $\set{v \mid X \in f(v)} \in f(w)$).
+
+The semantics for both classes is the same as the previous classes, except the $\Box_i$ case is now:
 \[
 \begin{array}{lcl}
     \Model, w \Vdash \Box_i \varphi & \mbox{ iff } & \semantics{\varphi} \in f_i(w)
@@ -155,21 +158,35 @@ The semantics for $\Model \in \Rel$ over the dynamic language is exactly as befo
 % P ] is some dynamic update given by M → M⋆
 % P (this is a free variable; the problem will be to find the right update).
 
-\paragraph*{Theories of Model Classes.} 
+\section*{Measuring Expressive Power.} 
+
+To compare the expressive power of neural networks with other logic models, I need to pick a measure of complexity.  I would like to focus on the question ``what formulas can a neural network architecture in-principle model (satisfy)?'' as a proxy for ``what functions can a neural network architecture in-principle compute?''
 
 \begin{definition}
     Let $\Model$ be any model whatsoever with universe $W$ and satisfaction relation $\Vdash$.  $\Model \models \varphi$ if for all $w \in W$, $\Model, w \Vdash \varphi$.
 \end{definition}
 
 \begin{definition}
-    Let $\Class$ be a class of models, $\Model$ be a model in $\Class$, and $\lang$ be a language.  The \emph{theory} of $\Model$ over $\lang$ is given by $\Theory{\Model} = \set{\varphi \in \lang \mid \Model \models \varphi}$.  The \emph{theory of class $\Class$} over $\lang$ is given by 
+    Let $\Class$ be a class of models, $\Model$ be a model in $\Class$, and $\lang$ be a language.  The \emph{formulas satisfiable by} $\Model$ over $\lang$ is given by $\Satisfy{\Model} = \set{\varphi \in \lang \mid \Model \models \varphi}$.  The \emph{formulas satisfiable by class $\Class$} over $\lang$ is given by 
     \[
-        \Theory{\Class} = \set{\varphi \in \lang \mid \textrm{there is some } \Model \in \Class \textrm{ such that } \Model \models \varphi}
+        \Satisfy{\Class} = \set{\varphi \in \lang \mid \textrm{there is some } \Model \in \Class \textrm{ such that } \Model \models \varphi}
     \]
 \end{definition}
 
+\paragraph*{Note.}  I want to point out two things.  First, $\Satisfy{\Class}$ is the dual of the \emph{theory} of $\Class$, i.e.
+\[
+    \Theory{\Class} = \set{\varphi \in \lang \mid \textrm{for all } \Model \in \Class \textrm{ we have } \Model \models \varphi}
+\]
+Because of this dual nature, these two operators are just two different perspectives on the expressive power of a model.  Model theorists tend to prefer studying $\Theory{\Class}$.  I personally prefer $\Satisfy{\Class}$, since I want to emphasize what a model can in-principle satisfy (or not satisfy), rather than what properties a model \emph{must} satisfy.
+
+Second, $\Satisfy{\Class}$ is different from the measure of expressive power normally used by descriptive complexity theorists.  Descriptive complexity focuses on the \emph{properties definable in $\lang$}, i.e.
+\[
+    \Definable{\Class} = \set{P \mid \textrm{there exists } \varphi \in \lang \textrm{ such that for all } \Model \in \Class, \Model \in P \textrm{ iff } \Model \models \varphi}
+\]
+This is an important distinction between focus and the focus of descriptive complexity.  Descriptive complexity compares the expressive power of different \emph{languages} when we keep their \emph{models} fixed -- definability is an appropriate measure for that.  But I want to look at the expressive power of different \emph{models} when we keep their \emph{languages} fixed -- I believe satisfiability is a good measure for this.
+
 \begin{example*}
-    Here's an example that's a sort of tutorial for comparing the expressive power of different classes using $\Theory{\Class}$.  Consider relational models $\Rel$ over the static language.  Here are some formulas that are valid in every relational model:
+    Here's an example that's a sort of tutorial for comparing the expressive power of different classes using $\Satisfy{\Class}$.  Consider relational models $\Rel$ over the static language.  Here are some formulas that are valid in every relational model:
     \begin{itemize}
         \item $\Box_i(\varphi \land \psi) \to (\Box_i \varphi \land \Box_i \psi)$
         \item $(\Box_i \varphi \land \Box_i \psi) \to \Box_i(\varphi \land \psi)$
@@ -182,9 +199,9 @@ The semantics for $\Model \in \Rel$ over the dynamic language is exactly as befo
            &  a \arrow{lu} \arrow{u} \arrow{ru}  &     &  b \arrow{lu} \arrow{u} \arrow{ru}  &    &  c \arrow{lu} \arrow{u} \arrow{ru} &
     \end{tikzcd}
     \]
-    For all $w \in W$ we have $\semantics{p} \cap \semantics{q} = \set{b} \in f(w)$, but also $\semantics{p} = \set{a, b} \not \in f(w)$. This means that for all $w$, $\Model, w \not \Vdash \Box(\varphi \land \psi) \to (\Box \varphi \land \Box \psi)$ --- in other words, $\Model \models \neg (\Box(\varphi \land \psi) \to (\Box \varphi \land \Box \psi))$.  Consequently, this formula is in $\Theory{\Nbhd}$, but \emph{not} in $\Theory{\Rel}$.
+    For all $w \in W$ we have $\semantics{p} \cap \semantics{q} = \set{b} \in f(w)$, but also $\semantics{p} = \set{a, b} \not \in f(w)$. This means that for all $w$, $\Model, w \not \Vdash \Box(\varphi \land \psi) \to (\Box \varphi \land \Box \psi)$ --- in other words, $\Model \models \neg (\Box(\varphi \land \psi) \to (\Box \varphi \land \Box \psi))$.  Consequently, this formula is in $\Satisfy{\Nbhd}$, but \emph{not} in $\Satisfy{\Rel}$.
     
-    Moreover, neighborhood models are at least as expressive as relational models: $\Theory{\Rel} \subseteq \Theory{\Nbhd}$.  Let $\varphi \in \lang$ and suppose $\Model \models \varphi$ for some $\Model = \langle W, \set{R_i}_{i \in \textbf{I}}, V \rangle \in \Rel$.  Eric Pacuit in \cite{pacuit2017neighborhood}, page 47 shows how to construct an equivalent neighborhood model:  Let $\Model' = \langle W, \set{f_i}_{i \in \textbf{I}}, V \rangle$, where each $f_i(w) = \set{X \mid \set{v \mid w{R_i}v } \subseteq X}$.  All we need to show is $\Model' \models \varphi$, but we are able to prove something even stronger:
+    Moreover, neighborhood models are at least as expressive as relational models: $\Satisfy{\Rel} \subseteq \Satisfy{\Nbhd}$.  Let $\varphi \in \lang$ and suppose $\Model \models \varphi$ for some $\Model = \langle W, \set{R_i}_{i \in \textbf{I}}, V \rangle \in \Rel$.  Eric Pacuit in \cite{pacuit2017neighborhood}, page 47 shows how to construct an equivalent neighborhood model:  Let $\Model' = \langle W, \set{f_i}_{i \in \textbf{I}}, V \rangle$, where each $f_i(w) = \set{X \mid \set{v \mid w{R_i}v } \subseteq X}$.  All we need to show is $\Model' \models \varphi$, but we are able to prove something even stronger:
     \begin{proposition}
         For all $\varphi$ and all $w$, $\Model, w \Vdash \varphi$ iff $\Model', w \Vdash \varphi$.
     \end{proposition}
@@ -198,41 +215,42 @@ The semantics for $\Model \in \Rel$ over the dynamic language is exactly as befo
 
     Putting everything together, neighborhood models are \emph{strictly} more expressive than relational models:
     \begin{proposition}
-        $\Theory{\Rel} \subset \Theory{\Nbhd}$
+        $\Satisfy{\Rel} \subset \Satisfy{\Nbhd}$
     \end{proposition}
 
 \end{example*}
 
 
-\subsection*{Progress So Far}
+\section*{Progress So Far}
 
-\subsubsection*{The Static Case.}
+\subsection*{The Static Case.}
 
-We are now set up to answer the first part of Question 1.  We can see how the expressive power of neural network models compares against the rest by arranging their theories in an ``expressivity hierarchy.''  Over the static language (no dynamic operators), we have:
+We are now set up to answer the first part of Question 1.  We can see how the expressive power of neural network models compares against known models in logic by arranging their satisfiable sets in an ``expressivity hierarchy.''  Over the static language (no dynamic operators), we have:
 \[
-\begin{tikzcd}
-    & \Theory{\Nbhd} \arrow[symbol=\supset]{ld} \arrow[symbol=\supset]{rd} & & \\
-    \Theory{\Rel} \arrow[symbol=\supset]{rd} & & \Theory{\Plaus} \arrow[symbol={=}]{r} \arrow[symbol=\supset]{ld} & \Theory{\NetModels} \\
-    & \Theory{\Relrefl} & &
-    % A \arrow[r,symbol=\supseteq] &B \arrow[d] \\
-    % & G \arrow[r,symbol=\leq] & H
-\end{tikzcd}
+\Satisfy{\Relrefl} \subset \Satisfy{\Plaus} = \Satisfy{\NetModels} \subset \Satisfy{\Nbhdrefl}
+% \begin{tikzcd}
+%     & \Satisfy{\Nbhd} \arrow[symbol=\supset]{ld} \arrow[symbol=\supset]{rd} & & \\
+%     \Satisfy{\Rel} \arrow[symbol=\supset]{rd} & & \Satisfy{\Plaus} \arrow[symbol={=}]{r} \arrow[symbol=\supset]{ld} & \Satisfy{\NetModels} \\
+%     & \Satisfy{\Relrefl} & &
+%     % A \arrow[r,symbol=\supseteq] &B \arrow[d] \\
+%     % & G \arrow[r,symbol=\leq] & H
+% \end{tikzcd}
 \]
 These inclusions are all either already known or are folklore.  First, the easy ones:
 \begin{itemize}
-    \item $\Theory{\Rel} \subset \Theory{\Nbhd}$: We already proved this in the example above.
+    \item $\Satisfy{\Rel} \subset \Satisfy{\Nbhd}$: We already proved this in the example above.
     
-    \item $\Theory{\Relrefl} \subset \Theory{\Rel}$: Given any $\Model \in \Relrefl$ satisfying $\varphi$, the very same model is $\in \Rel$.  As for the strictness, the negation of the reflexivity axiom $\neg (\Box{\varphi} \to \varphi) \in \Theory{\Rel}$, yet $\neg (\Box{\varphi} \to \varphi) \not \in \Theory{\Relrefl}$.
+    \item $\Satisfy{\Relrefl} \subset \Satisfy{\Rel}$: Given any $\Model \in \Relrefl$ satisfying $\varphi$, the very same model is $\in \Rel$.  As for the strictness, the negation of the reflexivity axiom $\neg (\Box{\varphi} \to \varphi) \in \Satisfy{\Rel}$, yet $\neg (\Box{\varphi} \to \varphi) \not \in \Satisfy{\Relrefl}$.
     
-    \item $\Theory{\Relrefl} \subset \Theory{\Plaus}$: First, since I allowed relational operators in plausibility models, we immediately have $\Relrefl \subseteq \Plaus$.  This means that given any $\Model \in \Relrefl$ satisfying $\varphi$, the very same model is $\in \Rel$.  As for strictness, nonmonotonicity $\neg (\Box(\varphi \land \psi) \to (\Box \varphi \land \Box \psi)) \in \Theory{\Plaus}$, yet it is not satisfiable by $\Model \in \Relrefl$.
+    \item $\Satisfy{\Relrefl} \subset \Satisfy{\Plaus}$: First, since I allowed relational operators in plausibility models, we immediately have $\Relrefl \subseteq \Plaus$.  This means that given any $\Model \in \Relrefl$ satisfying $\varphi$, the very same model is $\in \Rel$.  As for strictness, nonmonotonicity $\neg (\Box(\varphi \land \psi) \to (\Box \varphi \land \Box \psi)) \in \Satisfy{\Plaus}$, yet it is not satisfiable by $\Model \in \Relrefl$.
     
-    \item Neither $\Theory{\Rel}$ nor $\Theory{\Plaus}$ are contained in the other:  On the one hand, nonmonotonicity $\neg (\Box (\varphi \land \psi) \to \Box \varphi \land \Box \psi)$ is satisfiable by $\Model \in \Plaus$ but not by $\Model \in \Rel$.  On the other hand, the negation of the reflexivity axiom $\Box \varphi \to \varphi$ is satisfiable by $\Model \in \Rel$, but reflexivity and transitivity hold in all plausibility models (we could have also taken the corresponding transitive or cumulative axioms).  Because of this, it's more helpful to compare $\Theory{\Plaus}$ with $\Theory{\Relrefl}$.
+    \item Neither $\Satisfy{\Rel}$ nor $\Satisfy{\Plaus}$ are contained in the other:  On the one hand, nonmonotonicity $\neg (\Box (\varphi \land \psi) \to \Box \varphi \land \Box \psi)$ is satisfiable by $\Model \in \Plaus$ but not by $\Model \in \Rel$.  On the other hand, the negation of the reflexivity axiom $\Box \varphi \to \varphi$ is satisfiable by $\Model \in \Rel$, but reflexivity and transitivity hold in all plausibility models (we could have also taken the corresponding transitive or cumulative axioms).  Because of this, it's more helpful to compare $\Satisfy{\Plaus}$ with $\Satisfy{\Relrefl}$.
 \end{itemize}
 
 Now for the more interesting inclusions:
 
 \begin{proposition}
-    $\Theory{\Plaus} \subset \Theory{\Nbhd}$
+    $\Satisfy{\Plaus} \subset \Satisfy{\Nbhd}$
 \end{proposition}
 \begin{proof}
     First, let's show inclusion.  Let $\Model = \langle W, \set{R_i}_{i \in \textbf{I}} \rangle$ be a plausibility model satisfying $\varphi$.  We construct the neighborhood model $\Model' = \langle W, \set{f_i}_{i \in \textbf{I}}, V \rangle$, where $f_i$ is given as follows.  If $\Box_i$ is given relational semantics, then $f_i = \set{X \mid \set{v \mid w{R_i}v \subseteq X}}$ as in our example above.  But if $\Box_i$ has plausibility semantics,
@@ -249,7 +267,7 @@ Now for the more interesting inclusions:
     \]
     We conclude that for our particular $\varphi$, $\Model \models \varphi$ implies $\Model' \models \varphi$.
 
-    Strictness is easy: nonreflexivity $\neg (\Box \varphi \to \varphi) \in \Theory{\Nbhd}$, but $\neg (\Box \varphi \to \varphi) \in \Theory{\Plaus}$ (since both relational \emph{and} plausibility operators are always reflexive).
+    Strictness is easy: nonreflexivity $\neg (\Box \varphi \to \varphi) \in \Satisfy{\Nbhd}$, but $\neg (\Box \varphi \to \varphi) \in \Satisfy{\Plaus}$ (since both relational \emph{and} plausibility operators are always reflexive).
 \end{proof}
 % \begin{proof}
 %     This seems like it ought to be a classical result about neighborhood models, but I can't source it.  If you happen to know of a source for this, let me know.
@@ -258,16 +276,16 @@ Now for the more interesting inclusions:
 % \end{proof}
 
 \begin{proposition}
-    $\Theory{\Plaus} \subseteq \Theory{\NetModels}$
+    $\Satisfy{\Plaus} \subseteq \Satisfy{\NetModels}$
 \end{proposition}
 
 \begin{proposition}
-    $\Theory{\NetModels} \subseteq \Theory{\Plaus}$
+    $\Satisfy{\NetModels} \subseteq \Satisfy{\Plaus}$
 \end{proposition}
 
 
 % \begin{proof}
-%     As for $\Theory{\NetModels} = \Theory{\Plaus}$, Hannes in \cite{leitgeb2001nonmonotonic, leitgeb2003nonmonotonic} proved this for particular classes of plausibility models and networks over a conditional language.  Since my models are somewhat more general, and I use a modal language, I just need to lift his result to the new setting:
+%     As for $\Satisfy{\NetModels} = \Satisfy{\Plaus}$, Hannes in \cite{leitgeb2001nonmonotonic, leitgeb2003nonmonotonic} proved this for particular classes of plausibility models and networks over a conditional language.  Since my models are somewhat more general, and I use a modal language, I just need to lift his result to the new setting:
 %     sorry
 % \end{proof}
 
@@ -276,15 +294,15 @@ The popular conception of neural networks is that they are ``black boxes'' whose
 
 I take this criticism seriously, but to me the underlying issue is that the hidden states are determined through learning, and we don't yet have a classical intuition for neural network learning.  If we did, then we could understand and track the changes in the hidden states during the learning process, and there would be no need for extraction.  I'll revisit this point at the end of the next section.
 
-\subsubsection*{The Dynamic Case.}
+\subsection*{The Dynamic Case.}
 
-\subsection*{Neural Networks and the Complexity Hierarchy}
+% \subsection*{Neural Networks and the Complexity Hierarchy}
 
-[Include big picture relating Chomsky hierarchy, neural networks as automata (Will Merill's work), and descriptive complexity, done in Inkscape]
+% [Include big picture relating Chomsky hierarchy, neural networks as automata (Will Merill's work), and descriptive complexity, done in Inkscape]
 
-\subsubsection*{The Dynamic Case.}
+% \subsubsection*{The Dynamic Case.}
 
-[All of this suggests a whole research program --- identify important classes of \emph{dynamic updates} and explore the \emph{dynamic} complexity hierarchy! Say what this means for automata, neural networks, and logic expressivity.  Open problems abound, this is very unexplored territory!]
+% [All of this suggests a whole research program --- identify important classes of \emph{dynamic updates} and explore the \emph{dynamic} complexity hierarchy! Say what this means for automata, neural networks, and logic expressivity.  Open problems abound, this is very unexplored territory!]
 
 \printbibliography
 \end{document}
