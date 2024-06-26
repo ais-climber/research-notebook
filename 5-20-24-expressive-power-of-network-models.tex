@@ -73,33 +73,46 @@ where again $\semantics{\varphi} = \set{u \mid \Model, u \Vdash \varphi}$.
 \paragraph*{Weighted Neural Network Models.} 
 In our work \cite{kisby2024hebbian} so far, we've only defined the neural network state operators $\Prop$ and $\Reach$.  But in principle, we could define other closure operators, each reflecting a different kind of modality or conditional.  I want to characterize what a neural network  can \emph{in principle model}, and for this we need a more general definition.
 
-A neural network model is $\Net = \langle N, \set{E_i}_{i \in \textbf{I}}, \set{W_i}_{i \in \textbf{I}}, \set{A}_{i \in \textbf{I}}, \set{F^i}_{i \in \textbf{I}}, V \rangle$, where
+A neural network model is $\Net = \langle N, \set{E_i}_{i \in \textbf{I}}, \set{W_i}_{i \in \textbf{I}}, \set{A}_{i \in \textbf{I}}, V \rangle$, where
 \begin{itemize}
     \item $N$ is a finite nonempty set (the set of neurons)
     \item Each $E_i \subseteq N \times N$ (the edge relations)
     \item $W_i : E_i \to \mathbb{Q}$ (the weights for each edge relation)
     \item $A_i : \mathbb{Q} \to \mathbb{Q}$ (the activation function for each edge relation)
-    \item For each index $i$ and each state $S \in \mathcal{P}(N)$, $F^i_S : N \to \mathbb{Q}$ is a function depending only on input $n$, the predecessors of $n$ given by $E_i$, the weights $W_i$, and the activation function $A_i$.
     \item $V : \textrm{Proposition} \to \mathcal{P}(N)$ (the valuation function)
 \end{itemize}
-I assume that each $A_i$ is a binary step functions.  I also assume that each $F^i$ is binary as well (its codomain is $\set{0, 1}$).  Using the terminology of \cite{merrill2020formal}, this means the net is \emph{saturated}.  Later, I will assume one more constraint on the architecture of these nets.
+I assume that each $A_i$ is a binary step function.  Using the terminology of \cite{merrill2020formal}, this means the net is \emph{saturated}.  Later, I will assume one more constraint on the architecture of these nets.
 
-I've generalized the definition from before in two ways.  First, these neural network models can have multiple kinds of edges (indexed by $i \in \textbf{I}$) connecting the same nodes, along with their weights and a corresponding activation function for each $i$.  I won't use this feature so much --- it's mainly to allow a fair comparison to the other classes of models.
+I've generalized the definition from previous papers: These neural network models can have multiple kinds of edges (indexed by $i \in \textbf{I}$) connecting the same nodes, along with their weights and a corresponding activation function for each $i$.  Each choice $E_i, W_i, A_i$ specifies a state transition function from state $S \in \mathcal{P}(W)$ to the next state, given by
+\[
+    F_i(S) = \set{n \mid A_i(\sum_{m \in \preds{n}} W_i(m, n) \cdot \bigchi_S(m)) = 1}
+\]
+where $\bigchi_S(m) = 1$ iff $m \in S$ is the indicator function.  In other words, $F_i(S)$ is the set of all nodes that are activated by their predecessors in $S$.
 
-Second, I now allow different kinds of state transitions; each $F^i$ specifies how the net will use the edges, weights, and activation function to transition into the next state.  Specifically, $F^i_S(n)$ gives the activation of $n$ in the next state, given that the current state is $S$.  You can think of $E_i$, $W_i$, and $A_i$ as ``optional parameters'' that $F^i$ may make use of.
+% I won't use this feature so much --- it's mainly to allow a fair comparison to the other classes of models.
+
+% Second, I now allow different kinds of state transitions; each $F^i$ specifies how the net will use the edges, weights, and activation function to transition into the next state.  Specifically, $F^i_S(n)$ gives the activation of $n$ in the next state, given that the current state is $S$.  You can think of $E_i$, $W_i$, and $A_i$ as ``optional parameters'' that $F^i$ may make use of.
 
 \begin{example*}
-    Here are some example functions $F^i$ we could pick:
+    Here are some choices of $E_i, W_i, A_i$ that give us common constructions for $F_i(S)$:
     \begin{enumerate}
-        \item $F^i_S(n) = A_i(\sum_{m \in \preds{n}} W_i(m, n) \cdot \bigchi_S(m))$, where $\bigchi_S(m) = 1$ iff $m \in S$ is the indicator function.  This is the usual choice for artificial neural networks.
-        \item $F^i_S(n) = 1$ whenever there is some $E_i$-predecessor $m$ of $n$ in $S$.
-        \item $F_S(n) = 1$ whenever more than half of the $E_i$-predecessors of $n$ are in $S$.  This is one of the choices that \cite{baltag2019socialnetworks} consider for modelling influence in social networks.
+        \item Given a graph $E_i$, pick 
+        \[
+            W_i(m, n) = 
+            \begin{cases}
+                1 & \mbox{if } m{E_i}n \\
+                0 & \mbox{otherwise}
+            \end{cases}
+        \]
+        Then pick $A_i(x) = 1$ iff $x > 0$. This gives us $n \in F_i(S)$ whenever at least one $E_i$-predecessor $m$ of $n$ is in $S$.  Call this the \emph{graph-reachability construction}.
+        
+        \item Given a graph $E_i$, pick $W_i(m, n) = \frac{1}{|\preds{n}|}$, and then pick $A_i(x) = 1$ iff $x \geq \frac{1}{2}$.  This gives us $n \in F_i(S)$ if the majority of $E_i$-predecessors are in $S$.  This is one of the choices that \cite{baltag2019socialnetworks} consider for modelling influence in social networks.
     \end{enumerate}
 \end{example*}
 
 Let $\NetModels$ be the class of all neural network models (with one more constraint that I'll say soon).  The semantics for $\Net \in \NetModels$ is a bit more roundabout than for the previous classes.  First, we define a ``next state'' function $\nextstate_i : \mathcal{P}(N) \to \mathcal{P}(N)$ for each $i \in \textbf{I}$ as follows:
 \[
-    \nextstate_i(S) = S \cup \set{n \mid F^i_S(n) = 1}
+    \nextstate_i(S) = S \cup F_i(S)
 \]
 Notice that $\nextstate(S)$ is extensive --- once activated, a node will stay activated in the next state.
 
@@ -113,7 +126,9 @@ Notice that $\nextstate(S)$ is extensive --- once activated, a node will stay ac
 This assumption implicitly constrains the allowed neural network architectures: We allow feed-forward nets, as well as certain controlled forms of recurrence.  Characterizing nets that have a unique least fixed point is a big open problem.
 
 \begin{example*}
-    Different choices of $F^i_S$ give different interpretations for $\Closure(S)$.  Consider the functions from the previous example.  For (1) we have $\Closure_i(S) = \Prop(S)$, the forward-propagation (or diffusion) of the activation pattern $S$ in a neural network.  (2) gives us $\Closure_i(S) = \Reach(S)$, the nodes graph-reachable from $S$.  Finally, $\Closure_i$ for (3) can be interpreted as the diffusion of an opinion or attitude through a social network (see \cite{baltag2019socialnetworks}).
+    In general, $\Closure_i(S)$ is exactly $\Prop(S)$, the forward propagation (or diffusion) of the signal $S$ through the net.  But different constructions for $F_i(S)$ give different interpretations for $\Closure(S)$.  
+    
+    Consider the constructions from the previous example.  The graph-reachability construction gives us $\Closure_i(S) = \Reach(S)$, the nodes graph-reachable from $S$.  Similarly, $\Closure_i$ for the social majority construction can be interpreted as the diffusion of an opinion or attitude through a social network (see \cite{baltag2019socialnetworks}).
 \end{example*}
 
 I can now state the semantics for $\Net \in \NetModels$:
