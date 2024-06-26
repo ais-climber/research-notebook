@@ -71,7 +71,7 @@ The semantics for both classes is the same as the previous classes, except the $
 where again $\semantics{\varphi} = \set{u \mid \Model, u \Vdash \varphi}$.
 
 \paragraph*{Weighted Neural Network Models.} 
-In our work \cite{kisby2024hebbian} so far, we've only defined the neural network state operators $\Prop$ and $\Reach$.  But in principle, we could define other closure operators, each reflecting a different kind of modality or conditional.  I want to characterize what a neural network model can \emph{in principle model}, and for this we need a more general definition.
+In our work \cite{kisby2024hebbian} so far, we've only defined the neural network state operators $\Prop$ and $\Reach$.  But in principle, we could define other closure operators, each reflecting a different kind of modality or conditional.  I want to characterize what a neural network  can \emph{in principle model}, and for this we need a more general definition.
 
 A neural network model is $\Net = \langle N, \set{E_i}_{i \in \textbf{I}}, \set{W_i}_{i \in \textbf{I}}, \set{A}_{i \in \textbf{I}}, \set{F^i}_{i \in \textbf{I}}, V \rangle$, where
 \begin{itemize}
@@ -148,7 +148,7 @@ The semantics for $\Model \in \Rel$ over the dynamic language is exactly as befo
     \Model, w \Vdash \Update{\varphi}_j \psi & \mbox{ iff } & \Model^\star_{\semantics{\varphi}}, w \Vdash \psi
 \end{array}
 \]
-
+We make the same move for each of the other model classes.  For all classes $\Class$, define $\Class^\star$ to be the class of all such models with the new semantics over the dynamic language (e.g. $\Rel^\star$).
 
 % A dynamic relational model is $\Model' = \langle W, \set{R_i}_{i \in \textbf{I}}, \set{\UpdateVerbatim_j}_{j \in \textbf{J}}, V \rangle$, where each $\UpdateVerbatim_j : \Rel \times \mathcal{P}(W) \to \Rel$ is a dynamic update function that produces a new model given a set $S \in \mathcal{P}(W)$.  Given $\Model \in \Rel$ and $S \in \mathcal{P}(W)$, I'll write $\Model_S^{\star_j} = \UpdateVerbatim_j(\Model, S)$ as shorthand.  Define $\Rel^\star$ to be the class of all such models.
 
@@ -183,10 +183,10 @@ Second, $\Satisfy{\Class}$ is different from the measure of expressive power nor
 \[
     \Definable{\Class} = \set{P \mid \textrm{there exists } \varphi \in \lang \textrm{ such that for all } \Model \in \Class, \Model \in P \textrm{ iff } \Model \models \varphi}
 \]
-This is an important distinction between focus and the focus of descriptive complexity.  Descriptive complexity compares the expressive power of different \emph{languages} when we keep their \emph{models} fixed -- definability is an appropriate measure for that.  But I want to look at the expressive power of different \emph{models} when we keep their \emph{languages} fixed -- I believe satisfiability is a good measure for this.
+This is an important distinction between my focus and the focus of descriptive complexity.  Descriptive complexity compares the expressive power of different \emph{languages} when we keep their \emph{models} fixed -- definability is an appropriate measure for that.  But I want to look at the expressive power of different \emph{models} when we keep their \emph{languages} fixed -- I believe satisfiability is a good measure for this.
 
 \begin{example*}
-    Here's an example that's a sort of tutorial for comparing the expressive power of different classes using $\Satisfy{\Class}$.  Consider relational models $\Rel$ over the static language.  Here are some formulas that are valid in every relational model:
+    Here's an example that's a sort of tutorial for comparing the expressive power of different model classes using $\Satisfy{\Class}$.  Consider relational models $\Rel$ over the static language.  Here are some formulas that are valid in every relational model:
     \begin{itemize}
         \item $\Box_i(\varphi \land \psi) \to (\Box_i \varphi \land \Box_i \psi)$
         \item $(\Box_i \varphi \land \Box_i \psi) \to \Box_i(\varphi \land \psi)$
@@ -225,7 +225,7 @@ This is an important distinction between focus and the focus of descriptive comp
 
 \subsection*{The Static Case.}
 
-We are now set up to answer the first part of Question 1.  We can see how the expressive power of neural network models compares against known models in logic by arranging their satisfiable sets in an ``expressivity hierarchy.''  Over the static language (no dynamic operators), we have:
+We are now set up to answer the first part of Question 1.  We can see how the expressive power of neural network models compares against known models in logic by arranging their satisfiable sets in an ``expressivity hierarchy.''  To make the comparison with neural networks fair, I will only consider the reflexive and transitive variants $\Relrefl, \Nbhdrefl$ of relational and neighborhood models.  Over the static language (no dynamic operators), we have:
 \[
 \Satisfy{\Relrefl} \subset \Satisfy{\Plaus} = \Satisfy{\NetModels} \subset \Satisfy{\Nbhdrefl}
 % \begin{tikzcd}
@@ -236,28 +236,40 @@ We are now set up to answer the first part of Question 1.  We can see how the ex
 %     % & G \arrow[r,symbol=\leq] & H
 % \end{tikzcd}
 \]
-These inclusions are all either already known or are folklore.  First, the easy ones:
-\begin{itemize}
-    \item $\Satisfy{\Rel} \subset \Satisfy{\Nbhd}$: We already proved this in the example above.
-    
-    \item $\Satisfy{\Relrefl} \subset \Satisfy{\Rel}$: Given any $\Model \in \Relrefl$ satisfying $\varphi$, the very same model is $\in \Rel$.  As for the strictness, the negation of the reflexivity axiom $\neg (\Box{\varphi} \to \varphi) \in \Satisfy{\Rel}$, yet $\neg (\Box{\varphi} \to \varphi) \not \in \Satisfy{\Relrefl}$.
-    
-    \item $\Satisfy{\Relrefl} \subset \Satisfy{\Plaus}$: First, since I allowed relational operators in plausibility models, we immediately have $\Relrefl \subseteq \Plaus$.  This means that given any $\Model \in \Relrefl$ satisfying $\varphi$, the very same model is $\in \Rel$.  As for strictness, nonmonotonicity $\neg (\Box(\varphi \land \psi) \to (\Box \varphi \land \Box \psi)) \in \Satisfy{\Plaus}$, yet it is not satisfiable by $\Model \in \Relrefl$.
-    
-    \item Neither $\Satisfy{\Rel}$ nor $\Satisfy{\Plaus}$ are contained in the other:  On the one hand, nonmonotonicity $\neg (\Box (\varphi \land \psi) \to \Box \varphi \land \Box \psi)$ is satisfiable by $\Model \in \Plaus$ but not by $\Model \in \Rel$.  On the other hand, the negation of the reflexivity axiom $\Box \varphi \to \varphi$ is satisfiable by $\Model \in \Rel$, but reflexivity and transitivity hold in all plausibility models (we could have also taken the corresponding transitive or cumulative axioms).  Because of this, it's more helpful to compare $\Satisfy{\Plaus}$ with $\Satisfy{\Relrefl}$.
-\end{itemize}
 
-Now for the more interesting inclusions:
+The first and last inclusions are folklore.  I haven't found a reference yet, but here are the proofs for completeness.
 
 \begin{proposition}
-    $\Satisfy{\Plaus} \subset \Satisfy{\Nbhd}$
+    $\Satisfy{\Relrefl} \subset \Satisfy{\Plaus}$
 \end{proposition}
 \begin{proof}
-    First, let's show inclusion.  Let $\Model = \langle W, \set{R_i}_{i \in \textbf{I}} \rangle$ be a plausibility model satisfying $\varphi$.  We construct the neighborhood model $\Model' = \langle W, \set{f_i}_{i \in \textbf{I}}, V \rangle$, where $f_i$ is given as follows.  If $\Box_i$ is given relational semantics, then $f_i = \set{X \mid \set{v \mid w{R_i}v \subseteq X}}$ as in our example above.  But if $\Box_i$ has plausibility semantics,
+    First, since I allowed relational operators in plausibility models, we immediately have $\Relrefl \subseteq \Plaus$.  This means that, given any $\Model \in \Relrefl$ satisfying $\varphi$, the very same model is $\in \Rel$.  As for strictness, nonmonotonicity $\neg (\Box(\varphi \land \psi) \to (\Box \varphi \land \Box \psi)) \in \Satisfy{\Plaus}$, yet it is not satisfiable by $\Model \in \Relrefl$.
+\end{proof}
+
+% These inclusions are all either already known or are folklore.  First, the easy ones:
+% \begin{itemize}
+%     \item $\Satisfy{\Rel} \subset \Satisfy{\Nbhd}$: We already proved this in the example above.
+    
+%     \item $\Satisfy{\Relrefl} \subset \Satisfy{\Rel}$: Given any $\Model \in \Relrefl$ satisfying $\varphi$, the very same model is $\in \Rel$.  As for the strictness, the negation of the reflexivity axiom $\neg (\Box{\varphi} \to \varphi) \in \Satisfy{\Rel}$, yet $\neg (\Box{\varphi} \to \varphi) \not \in \Satisfy{\Relrefl}$.
+    
+%     \item $\Satisfy{\Relrefl} \subset \Satisfy{\Plaus}$: First, since I allowed relational operators in plausibility models, we immediately have $\Relrefl \subseteq \Plaus$.  This means that given any $\Model \in \Relrefl$ satisfying $\varphi$, the very same model is $\in \Rel$.  As for strictness, nonmonotonicity $\neg (\Box(\varphi \land \psi) \to (\Box \varphi \land \Box \psi)) \in \Satisfy{\Plaus}$, yet it is not satisfiable by $\Model \in \Relrefl$.
+    
+%     \item Neither $\Satisfy{\Rel}$ nor $\Satisfy{\Plaus}$ are contained in the other:  On the one hand, nonmonotonicity $\neg (\Box (\varphi \land \psi) \to \Box \varphi \land \Box \psi)$ is satisfiable by $\Model \in \Plaus$ but not by $\Model \in \Rel$.  On the other hand, the negation of the reflexivity axiom $\Box \varphi \to \varphi$ is satisfiable by $\Model \in \Rel$, but reflexivity and transitivity hold in all plausibility models (we could have also taken the corresponding transitive or cumulative axioms).  Because of this, it's more helpful to compare $\Satisfy{\Plaus}$ with $\Satisfy{\Relrefl}$.
+% \end{itemize}
+
+% Now for the more interesting inclusions:
+
+\begin{proposition}
+    $\Satisfy{\Plaus} \subset \Satisfy{\Nbhdrefl}$
+\end{proposition}
+\begin{proof}
+    First, let's show inclusion.  Let $\Model = \langle W, \set{R_i}_{i \in \textbf{I}} \rangle$ be a plausibility model satisfying $\varphi$.  We construct the neighborhood model $\Model' = \langle W, \set{f_i}_{i \in \textbf{I}}, V \rangle$, where $f_i$ is given as follows.  If $\Box_i$ is given relational semantics, then $f_i(w) = \set{X \mid \set{v \mid w{R_i}v }\subseteq X}$ as in our example above.  But if $\Box_i$ has plausibility semantics,
     \[
         f_i(w) = \set{X \in \mathcal{P}(W) \mid w \in \best_{R_i}(X)}
     \]
-    We show that for all $\varphi, w$, $\Model, w \Vdash \varphi$ iff $\Model', w \Vdash \varphi$ by induction on $\varphi$.  The key inductive case is $\Box_i \varphi$.  The relational case is handled by the example in the previous section.  For plausibility operators $\Box_i$, we have
+    First, we need to check that this is in fact in $\Nbhdrefl$, i.e. these choices of $f_i$ are reflexive and transitive.  \textbf{TODO}
+
+    Next, we will show that for all $\varphi, w$, $\Model, w \Vdash \varphi$ iff $\Model', w \Vdash \varphi$.  We do this by induction on $\varphi$.  The key inductive case is $\Box_i \varphi$.  The relational case is handled by the example in the previous section.  For plausibility operators $\Box_i$, we have
     \[
     \begin{array}{lcl}
         \Model, w \Vdash \varphi & \mbox{ iff } & w \in \best_{R_i}(X) \\
@@ -267,13 +279,10 @@ Now for the more interesting inclusions:
     \]
     We conclude that for our particular $\varphi$, $\Model \models \varphi$ implies $\Model' \models \varphi$.
 
-    Strictness is easy: nonreflexivity $\neg (\Box \varphi \to \varphi) \in \Satisfy{\Nbhd}$, but $\neg (\Box \varphi \to \varphi) \in \Satisfy{\Plaus}$ (since both relational \emph{and} plausibility operators are always reflexive).
+    Strictness is easy: nonreflexivity $\neg (\Box \varphi \to \varphi) \in \Satisfy{\Nbhd}$, but $\neg (\Box \varphi \to \varphi) \not \in \Satisfy{\Plaus}$ (since both relational \emph{and} plausibility operators are always reflexive).
 \end{proof}
-% \begin{proof}
-%     This seems like it ought to be a classical result about neighborhood models, but I can't source it.  If you happen to know of a source for this, let me know.
 
-%     [sorry]
-% \end{proof}
+Let's move to the neural network inclusions.  I claim that $\Satisfy{\NetModels} = \Satisfy{\Plaus}$: neural network and plausibility models are equally expressive (up to inference in the static language).  It is known that neural network models and plausibility models are both complete with respect to the proof system of cumulative conditionals \cite{leitgeb2001nonmonotonic, leitgeb2003nonmonotonic} -- the fact that $\Satisfy{\NetModels} = \Satisfy{\Plaus}$ should follow.  But (1) Hannes shows how to construct a net from a plausibility model, but not the other way around, and (2) my definitions are slightly different from Hannes'.  So I will re-prove this result, adapted for my setting, as a sort of sanity check.
 
 \begin{proposition}
     $\Satisfy{\Plaus} \subseteq \Satisfy{\NetModels}$
@@ -295,6 +304,15 @@ The popular conception of neural networks is that they are ``black boxes'' whose
 I take this criticism seriously, but to me the underlying issue is that the hidden states are determined through learning, and we don't yet have a classical intuition for neural network learning.  If we did, then we could understand and track the changes in the hidden states during the learning process, and there would be no need for extraction.  I'll revisit this point at the end of the next section.
 
 \subsection*{The Dynamic Case.}
+
+\section*{Todo List}
+\begin{todolist}
+    \item Prove that the model we construct in $\Nbhdrefl$ is actually reflexive and transitive.
+    \item Re-write neural network section -- no more general transition functions, instead give a list of common constructions (how we can simulate different transition/accessibility functions).
+    \item Prove that $\Satisfy{\Plaus} \subseteq \Satisfy{\NetModels}$ by construction.
+    \item Prove that $\Satisfy{\NetModels} \subseteq \Satisfy{\Plaus}$ by construction.
+    \item Write out the dynamic case (dump my thoughts out for starters)
+\end{todolist}
 
 % \subsection*{Neural Networks and the Complexity Hierarchy}
 
