@@ -192,7 +192,7 @@ To compare the expressive power of neural networks with other logic models, I ne
 \[
     \Theory{\Class} = \set{\varphi \in \lang \mid \textrm{for all } \Model \in \Class \textrm{ we have } \Model \models \varphi}
 \]
-Because of this dual nature, these two operators are just two different perspectives on the expressive power of a model.  Model theorists tend to prefer studying $\Theory{\Class}$.  I personally prefer $\Satisfy{\Class}$, since I want to emphasize what a model can in-principle satisfy (or not satisfy), rather than what properties a model \emph{must} satisfy.
+It follows from duality that $\Satisfy{\Class_1} \subseteq \Satisfy{\Class_2}$ iff $\Theory{\Class_2} \subseteq \Theory{\Class_1}$.  In this sense, these two operators are just two different perspectives on the expressive power of a model.  Model theorists tend to prefer studying $\Theory{\Class}$.  I personally prefer $\Satisfy{\Class}$, since it puts less expressive models on the bottom and more expressive ones on top.
 
 Second, $\Satisfy{\Class}$ is different from the measure of expressive power normally used by descriptive complexity theorists.  Descriptive complexity focuses on the \emph{properties definable in $\lang$}, i.e.
 \[
@@ -258,7 +258,7 @@ The first and last inclusions are folklore.  I haven't found a reference yet, bu
     $\Satisfy{\Relrefl} \subset \Satisfy{\Plaus}$
 \end{proposition}
 \begin{proof}
-    First, since I allowed relational operators in plausibility models, we immediately have $\Relrefl \subseteq \Plaus$.  This means that, given any $\Model \in \Relrefl$ satisfying $\varphi$, the very same model is $\in \Rel$.  As for strictness, nonmonotonicity $\neg (\Box(\varphi \land \psi) \to (\Box \varphi \land \Box \psi)) \in \Satisfy{\Plaus}$, yet it is not satisfiable by $\Model \in \Relrefl$.
+    First, since I allowed reflexive, transitive relational operators in plausibility models, we immediately have $\Relrefl \subseteq \Plaus$.  This means that, given any $\Model \in \Relrefl$ satisfying $\varphi$, the very same model is $\in \Rel$.  As for strictness, nonmonotonicity $\neg (\Box(\varphi \land \psi) \to (\Box \varphi \land \Box \psi)) \in \Satisfy{\Plaus}$, yet it is not satisfiable by $\Model \in \Relrefl$.
 \end{proof}
 
 % These inclusions are all either already known or are folklore.  First, the easy ones:
@@ -282,7 +282,25 @@ The first and last inclusions are folklore.  I haven't found a reference yet, bu
     \[
         f_i(w) = \set{X \in \mathcal{P}(W) \mid w \in \best_{R_i}(X)}
     \]
-    First, we need to check that this is in fact in $\Nbhdrefl$, i.e. these choices of $f_i$ are reflexive and transitive.  \textbf{TODO}
+    First, we need to check that this is in fact in $\Nbhdrefl$, i.e. these choices of $f_i$ are reflexive and transitive.
+    \begin{description}
+        \item[$f_i$ is reflexive (relational case).]
+        We want to show that for all $w$, $w \in \cap f_i(w)$.  First, since $R_i$ is reflexive, for all $w$, $w{R_i}w$.  So $w \in \set{u \mid w{R_i}u}$.  But this means $\set{u \mid w{R_i}u}$ implies $w \in X$.  Applying our choice of $f_i$, we have $X \in f(w)$ implies $w \in X$.  This immediately gives $w \in \bigcap_{X \in f_i(w)} X = \cap f_i(w)$.
+
+        \item[$f_i$ is transitive (relational case).]
+        We want to show that for all $w$ and $X$, if $X \in f_i(w)$ then $\set{u \mid X \in f_i(u)} \in f_i(w)$.  Suppose that $X \in f_i(w)$.  By definition, $\set{u \mid w{R_i}u} \subseteq X$.  Now let $u, v$ be arbitrary, and suppose $w{R_i}u, u{R_i}v$.  Since $R_i$ is transitive, $w{R_i}v$.  But then $v \in \set{u \mid w{R_i}u} \subseteq X$, so $v \in X$.  Since $u$ and $v$ were chosen arbitrarily, in general we have
+        \[
+            \set{u \mid w{R_i}u} \subseteq \set{u \mid \set{v \mid u{R_i}v} \subseteq X}
+        \]
+        But by choice of $f_i$, this is exactly $\set{u \mid X \in f(u)} \in f(w)$.
+
+        \item[$f_i$ is reflexive (plausibility case).]
+        We want to show that for all $w$, $w \in \cap f_i(w)$.  First, for all sets $X$ we have $\best_i(X) \subseteq X$.  In other words, $w \in \best_i(X)$ implies $w \in X$.  So $X \in f_i(w)$ implies $w \in X$.  But this immediately gives $w \in \bigcap_{X \in f_i(w)} X = \cap f_i(w)$.
+
+        \item[$f_i$ is transitive (plausibility case).]
+        We want to show that for all $w$ and $X$, if $X \in f_i(w)$ then $\set{u \mid X \in f_i(u)} \in f_i(w)$.  Suppose that $X \in f_i(w)$.  By definition, $w \in \best_i(X)$.  But by idempotence of $\best$, $w \in \best_i(\best_i(X))$.  Applying our choice of $f_i$ to the inner $\best$, we get $w \in \best_i(\set{u \mid X \in f(u)})$.  Applying the definition once more, we have $\set{u \mid X \in f(u)} \in f(w)$.
+
+    \end{description}
 
     Next, we will show that for all $\varphi, w$, $\Model, w \Vdash \varphi$ iff $\Model', w \Vdash \varphi$.  We do this by induction on $\varphi$.  The key inductive case is $\Box_i \varphi$.  The relational case is handled by the example in the previous section.  For plausibility operators $\Box_i$, we have
     \[
@@ -322,7 +340,7 @@ I take this criticism seriously, but to me the underlying issue is that the hidd
 
 \section*{Todo List}
 \begin{todolist}
-    \item Prove that the model we construct in $\Nbhdrefl$ is actually reflexive and transitive.
+    % \item Prove that the model we construct in $\Nbhdrefl$ is actually reflexive and transitive.
     % \item Re-write neural network section -- no more general transition functions, instead give a list of common constructions (how we can simulate different transition/accessibility functions).
     \item Prove that $\Satisfy{\Plaus} \subseteq \Satisfy{\NetModels}$ by construction.
     \item Prove that $\Satisfy{\NetModels} \subseteq \Satisfy{\Plaus}$ by construction.

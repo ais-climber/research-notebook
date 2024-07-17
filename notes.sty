@@ -1,3 +1,4 @@
+\usepackage[left=1.25in, right=1.25in, top=1.25in, bottom=1.25in]{geometry}
 \usepackage{times}
 \usepackage{helvet}
 \usepackage{courier}
@@ -44,10 +45,27 @@
 }
 \makeatother
 
+%-- New quote environment with attribution
+\let\oldquote\quote
+\let\endoldquote\endquote
+\renewenvironment{quote}[2][]
+  {\if\relax\detokenize{#1}\relax
+     \def\quoteauthor{#2}%
+   \else
+     \def\quoteauthor{#2~---~#1}%
+   \fi
+   \oldquote}
+  {\par\nobreak\smallskip\hfill---\quoteauthor%
+   \endoldquote\addvspace{\bigskipamount}}
+
+\newcommand{\quotecite}[1]{\citeauthor{#1}, \citetitle{#1} \cite{#1}}
+
 %═══════════════════════════════════════════
 % Graphics packages
 %═══════════════════════════════════════════
 \usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{adjustbox}
 % \usepackage{tikz}
 % \usetikzlibrary{positioning,calc,arrows.meta,shapes.geometric,fit, backgrounds}
 \usepackage{tikz-cd}
@@ -91,7 +109,7 @@
 \usepackage{biblatex}
 \addbibresource{references.bib}
 \usepackage{xcolor}
-\definecolor{mygreen}{RGB}{107,203,119}
+\definecolor{mygreen}{RGB}{171, 201, 120}
 \definecolor{myblue}{RGB}{77, 150, 255}
 \usepackage[colorlinks,allcolors=myblue]{hyperref}
 
@@ -128,7 +146,6 @@
 \newcommand{\bigandd}{\bigwedge}
 \newcommand{\quadiff}{\quad \mbox{ iff } \quad}
 \newcommand{\rem}[1]{\relax}
- \newcommand{\NP}{\mbox{\sc np}}
 \newcommand{\axiom}{\textsc}
 \newcommand*{\bigchi}{\mbox{\Large$\chi$}}% big chi
 \newcommand{\degree}[1]{\mathrm{deg}(#1)}
@@ -141,6 +158,33 @@
 \newcommand{\negweightscore}[1]{\mathsf{nws}(#1)}
 \newcommand{\minscore}{\mathsf{mnws}}
 \newcommand{\numiterations}{\mathsf{iter}}
+
+%═══════════════════════════════════════════
+% Custom Commands, Complexity Theory
+%═══════════════════════════════════════════
+% \newcommand{?}{\mbox{\sc ?}^0}
+\newcommand{\AC}{\mbox{\sc AC}^0}
+\newcommand{\Log}{\mbox{\sc L}}
+\newcommand{\Poly}{\mbox{\sc P}}
+\newcommand{\NP}{\mbox{\sc NP}}
+\newcommand{\PSPACE}{\mbox{\sc PSPACE}}
+\newcommand{\EXPTIME}{\mbox{\sc EXPTIME}}
+
+\newcommand{\Modal}{\mbox{\sc MODAL}}
+\newcommand{\FO}{\mbox{\sc FO}}
+\newcommand{\FODTC}{\mbox{\sc FO[DTC]}}
+\newcommand{\FOLFP}{\mbox{\sc FO[LFP]}}
+\newcommand{\SOex}{\mbox{\sc SO}\exists}
+\newcommand{\SOTC}{\mbox{\sc SO[TC]}}
+\newcommand{\SOLFP}{\mbox{\sc SO[LFP]}}
+
+\newcommand{\Modalnbhd}{\mbox{\sc MODAL}_\mathrm{Nbhd}}
+\newcommand{\FOnbhd}{\mbox{\sc FO}_\mathrm{Nbhd}}
+\newcommand{\FODTCnbhd}{\mbox{\sc FO[DTC]}_\mathrm{Nbhd}}
+\newcommand{\FOLFPnbhd}{\mbox{\sc FO[LFP]}_\mathrm{Nbhd}}
+\newcommand{\SOexnbhd}{\mbox{\sc SO}\exists_\mathrm{Nbhd}}
+\newcommand{\SOTCnbhd}{\mbox{\sc SO[TC]}_\mathrm{Nbhd}}
+\newcommand{\SOLFPnbhd}{\mbox{\sc SO[LFP]}_\mathrm{Nbhd}}
 
 %═══════════════════════════════════════════
 % Custom Commands, Hebbian Learning
