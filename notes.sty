@@ -66,8 +66,8 @@
 \usepackage{graphicx}
 \usepackage{wrapfig}
 \usepackage{adjustbox}
-% \usepackage{tikz}
-% \usetikzlibrary{positioning,calc,arrows.meta,shapes.geometric,fit, backgrounds}
+\usepackage{tikz}
+\usetikzlibrary{positioning,calc,arrows.meta,shapes.geometric,fit, backgrounds}
 \usepackage{tikz-cd}
 
 \tikzset{
@@ -78,19 +78,28 @@
   }
 }
 
+\makeatletter
+\DeclareRobustCommand{\rvdots}{%
+  \vbox{
+    \baselineskip4\p@\lineskiplimit\z@
+    \kern-\p@
+    \hbox{.}\hbox{.}\hbox{.}
+  }}
+\makeatother
+
 %═══════════════════════════════════════════
 % Environments
 %═══════════════════════════════════════════
+\usepackage{mdframed}
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}
-\newtheorem{theorem}{Theorem}
+\newmdtheoremenv{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{claim}[theorem]{Claim}
 \newtheorem*{claim*}{Claim}
-\newtheorem{postulate}{Postulate}
 \newtheorem*{postulate*}{Postulate}
-\newtheorem{corollary}[theorem]{Corollary}
-\newtheorem{proposition}[theorem]{Proposition}
+\newmdtheoremenv{corollary}[theorem]{Corollary}
+\newmdtheoremenv{proposition}[theorem]{Proposition}
 \newtheorem{example}{Example}
 \newtheorem*{example*}{Example}
 \newtheorem{remark}[theorem]{Remark}
@@ -194,6 +203,7 @@
 \newcommand{\op}{\mathsf{op}}
 \newcommand{\Prop}{\mathsf{Prop}}
 \newcommand{\Reach}{\mathsf{Reach}}
+\newcommand{\bias}{\mathsf{bias}}
 \newcommand{\Closure}{\mathsf{Cl}}
 \newcommand{\Hebb}[2]{\mathsf{Hebb}(#1, #2)}
 \newcommand{\HebbNoArgs}{\mathsf{Hebb}}

@@ -73,15 +73,21 @@ where again $\semantics{\varphi} = \set{u \mid \Model, u \Vdash \varphi}$.
 \paragraph*{Weighted Neural Network Models.} 
 In our work \cite{kisby2024hebbian} so far, we've only defined the neural network state operators $\Prop$ and $\Reach$.  But in principle, we could define other closure operators, each reflecting a different kind of modality or conditional.  I want to characterize what a neural network  can \emph{in principle model}, and for this we need a more general definition.
 
-A neural network model is $\Net = \langle N, \set{E_i}_{i \in \textbf{I}}, \set{W_i}_{i \in \textbf{I}}, \set{A}_{i \in \textbf{I}}, V \rangle$, where
+A neural network model is $\Net = \langle N, \bias, \set{E_i}_{i \in \textbf{I}}, \set{W_i}_{i \in \textbf{I}}, \set{A}_{i \in \textbf{I}}, V \rangle$, where
 \begin{itemize}
     \item $N$ is a finite nonempty set (the set of neurons)
+    \item $\bias$ is a fixed node (the bias node)
     \item Each $E_i \subseteq N \times N$ (the edge relations)
     \item $W_i : E_i \to \mathbb{Q}$ (the weights for each edge relation)
     \item $A_i : \mathbb{Q} \to \mathbb{Q}$ (the activation function for each edge relation)
     \item $V : \textrm{Proposition} \to \mathcal{P}(N)$ (the valuation function)
 \end{itemize}
-I assume that each $A_i$ is a binary step function.  Using the terminology of \cite{merrill2020formal}, this means the net is \emph{saturated}.  Later, I will assume one more constraint on the architecture of these nets.
+I assume that each $A_i$ is a binary step function. Using the terminology of \cite{merrill2020formal}, this means the net is \emph{saturated}.  Later, I will assume one more constraint on the architecture of these nets.
+
+A \emph{state} is just a possible activation pattern of the net. Since our activation functions $A_i$ are binary, either a neuron is active (1) or it is not (0).  So states are just binary sets of neurons. Additionally, the $\bias$ node is the only node active in every state. (Since it is active in every state, we can assume that no edges go into $\bias$.) Formally, we have
+\[
+    \State = \set{S \mid S \subseteq N \mbox{ and } \bias \in S}
+\]
 
 I've generalized the definition from previous papers: These neural network models can have multiple kinds of edges (indexed by $i \in \textbf{I}$) connecting the same nodes, along with their weights and a corresponding activation function for each $i$.  Each choice $E_i, W_i, A_i$ specifies a state transition function from state $S \in \mathcal{P}(W)$ to the next state, given by
 \[
@@ -106,7 +112,84 @@ where $\bigchi_S(m) = 1$ iff $m \in S$ is the indicator function.  In other word
         \]
         Then pick $A_i(x) = 1$ iff $x > 0$. This gives us $n \in F_i(S)$ whenever at least one $E_i$-predecessor $m$ of $n$ is in $S$.  Call this the \emph{graph-reachability construction}.
         
-        \item Given a graph $E_i$, pick $W_i(m, n) = \frac{1}{|\preds{n}|}$, and then pick $A_i(x) = 1$ iff $x \geq \frac{1}{2}$.  This gives us $n \in F_i(S)$ if the majority of $E_i$-predecessors are in $S$.  This is one of the choices that \cite{baltag2019socialnetworks} consider for modelling influence in social networks.
+        \item Given a graph $E_i$, pick $W_i(m, n) = \frac{1}{|\preds{n}|}$, and then pick $A_i(x) = 1$ iff $x \geq \frac{1}{2}$. Visually, for each node $n$ and its predecessors $m_1, \ldots, m_r$ we have
+        \begin{center}
+        \begin{tikzpicture}[loose/.style={inner sep=.  7em},edge/.style = {->,-Latex}, oval/.style={ellipse,draw}]
+            %--------------------------------------------
+            % Nodes
+            \node[circle,fill,inner sep=2pt,label=left:$m_1$](a){};
+            \node[below=0.75 of a,circle,fill,inner sep=2pt,label=left:$m_2$](b){};
+            
+            \node[below=0.5 of b](dots){$\rvdots$};
+
+            \node[below=0.5 of dots,circle,fill,inner sep=2pt,label=left:$m_{r}$](c){};
+            \coordinate (midway) at ($(a)!0.5!(c)$);
+            \node[right=3 of midway,circle,fill,inner sep=2pt,label=right:$n$](n){};
+            
+            %--------------------------------------------
+            % Excitatory edges
+            \draw[edge, color=black, opacity=0.4] (a) -- (n) node [near start, above] {$\frac{1}{r}$};
+            \draw[edge, color=black, opacity=0.4] (b) -- (n) node [near start, above] {$\frac{1}{r}$};
+            \draw[edge, color=black, opacity=0.4] (c) -- (n) node [near start, above] {$\frac{1}{r}$};
+        \end{tikzpicture}
+        \end{center}
+        This gives us $n \in F_i(S)$ if the majority (more than half) of $E_i$-predecessors are in $S$.  This is one of the choices that \cite{baltag2019socialnetworks} consider for modelling influence in social networks.
+        
+        \item Here is an interesting construction that Hannes uses in \cite{leitgeb2001nonmonotonic} to prove completeness for weighted neural network models.  He does this by way of inhibition nets, i.e. nets with inhibitory edges that block excitatory edges. I will give the full proof later, but for now the construction gives a taste of what weighted nets can do.
+        
+        Let $E_i$ be a given graph. First, create an edge from $\bias$ to every $n$ that is not $E_i$-minimal (in other words, if $n$ has any predecessors at all, then $\bias$ is one of them). Then for each node $n$ and its predecessors $\bias=m_0, m_1, \ldots, m_r$, connect inhibition edges as follows.
+        
+        \begin{center}
+        \begin{tikzpicture}[loose/.style={inner sep=.  7em},edge/.style = {->,-Latex}, oval/.style={ellipse,draw}]
+            %--------------------------------------------
+            % Nodes
+            \node[circle,fill,inner sep=2pt,label=left:$\bias$](a){};
+            \node[below=0.75 of a,circle,fill,inner sep=2pt,label=left:$m_1$](b){};
+            \node[below=0.75 of b,circle,fill,inner sep=2pt,label=left:$m_2$](c){};
+            
+            \node[below=0.5 of c](dots){$\rvdots$};
+
+            \node[below=0.5 of dots,circle,fill,inner sep=2pt,label=left:$m_{r-1}$](d){};
+            \node[below=0.75 of d,circle,fill,inner sep=2pt,label=left:$m_r$](e){};
+            
+            \coordinate (midway) at ($(a)!0.5!(e)$);
+            \node[right=3 of midway,circle,fill,inner sep=2pt,label=right:$n$](n){};
+            
+            % Draw the inhibitory edge that crosses over first
+            \draw[edge, -Circle, color=black, opacity=0.4] (e) -- ($(a)!0.35!(n)$) node [near start, above] {};
+
+            %--------------------------------------------
+            % Excitatory edges
+            % draw white over each of the middle ones to
+            % erase the crossover
+            \draw[edge, color=black, opacity=0.4] (a) -- (n) node [near start, above] {};
+            \draw[edge, color=white, opacity=1, line width=3pt, -, shorten >=10pt, shorten <=4pt] (b) -- (n) node [near start, above] {};
+            \draw[edge, color=black, opacity=0.4] (b) -- (n) node [near start, above] {};
+            \draw[edge, color=white, opacity=1, line width=3pt, -, shorten >=10pt, shorten <=4pt] (c) -- (n) node [near start, above] {};
+            \draw[edge, color=black, opacity=0.4] (c) -- (n) node [near start, above] {};
+            \draw[edge, color=white, opacity=1, line width=3pt, -, shorten >=10pt, shorten <=4pt] (d) -- (n) node [near start, above] {};
+            \draw[edge, color=black, opacity=0.4] (d) -- (n) node [near start, above] {};
+            \draw[edge, color=black, opacity=0.4] (e) -- (n) node [near start, above] {};
+
+            %--------------------------------------------
+            % Inhibitory edges
+            % draw white over each of them to erase the crossover
+            \draw[edge, color=white, opacity=1, line width=3pt, -, shorten >=10pt, shorten <=10pt] (a) -- ($(b)!0.5!(n)$) node [near start, above] {};
+            \draw[edge, -Circle, color=black, opacity=0.4] (a) -- ($(b)!0.5!(n)$) node [near start, above] {};
+            
+            \draw[edge, color=white, opacity=1, line width=3pt, -, shorten >=10pt, shorten <=4pt] (b) -- ($(c)!0.5!(n)$) node [near start, above] {};
+            \draw[edge, -Circle, color=black, opacity=0.4] (b) -- ($(c)!0.5!(n)$) node [near start, above] {};
+            
+            \node[right=1 of dots,yshift=0.5em](dotsb){$\rvdots$};
+
+            \draw[edge, color=white, opacity=1, line width=3pt, -, shorten >=10pt, shorten <=4pt] (d) -- ($(e)!0.5!(n)$) node [near start, above] {};
+            \draw[edge, -Circle, color=black, opacity=0.4] (d) -- ($(e)!0.5!(n)$) node [near start, above] {};
+        \end{tikzpicture}
+        \end{center}
+        
+        That is, each node $m_i$ is inhibited by $m_{i-1}$ ($\bias=m_0$ inhibited by $m_r$).  This has the following effect: if all $m_i$ activate, they each inhibit each other, and so $n$ does not activate.  If only \emph{some} $m_i$ activate, then there is some $m_i$ that is uninhibited, and so $n$ activates.  And finally, since $\bias$ is always active we cannot have \emph{no} $m_i$ active.  In other words, $n \in F_i(S)$ iff \emph{not all} predecessors $m_i$ are in $S$.
+        
+        We can simulate this effect with weighted neural networks. Create an edge from $\bias$ to every $n$ that is not $E_i$-minimal. Then pick $W_i(m, n) = \frac{1}{|\preds{n}|+1}$ (the extra $+1$ accounts for the $\bias$). Finally, pick $A_i(x) = 1$ iff $x < 1$.  Take a moment to check that $n \in F_i(S)$ iff not all predecessors $m_i$ are in $S$.  Call this the \emph{not-every construction}.
     \end{enumerate}
 \end{example*}
 
@@ -121,7 +204,10 @@ Notice that $\nextstate(S)$ is extensive --- once activated, a node will stay ac
     \[
         S, \nextstate_i(S), \nextstate_i(\nextstate_i(S)), \ldots, \nextstate^k_i(S), \ldots
     \]
-    has a least fixed point, and moreover that it is \emph{unique}.  Let $\Closure_i : \mathcal{P}(N) \to \mathcal{P}(N)$ (``closure'') be the function that produces that least fixed point.
+    has a (finite) least fixed point, and moreover that it is \emph{unique}.  Let $\Closure_i : \mathcal{P}(N) \to \mathcal{P}(N)$ (``closure'') be the function that produces that least fixed point.  For concreteness, we can say that there is some $k\in \mathbb{N}$ for which
+    \[
+        \Closure_i(S) = \nextstate_i^k(S)
+    \]
 \end{postulate*}
 This assumption implicitly constrains the allowed neural network architectures: We allow feed-forward nets, as well as certain controlled forms of recurrence.  Characterizing nets that have a unique least fixed point is a big open problem.
 
@@ -217,9 +303,9 @@ This is an important distinction between my focus and the focus of descriptive c
     For all $w \in W$ we have $\semantics{p} \cap \semantics{q} = \set{b} \in f(w)$, but also $\semantics{p} = \set{a, b} \not \in f(w)$. This means that for all $w$, $\Model, w \not \Vdash \Box(\varphi \land \psi) \to (\Box \varphi \land \Box \psi)$ --- in other words, $\Model \models \neg (\Box(\varphi \land \psi) \to (\Box \varphi \land \Box \psi))$.  Consequently, this formula is in $\Satisfy{\Nbhd}$, but \emph{not} in $\Satisfy{\Rel}$.
     
     Moreover, neighborhood models are at least as expressive as relational models: $\Satisfy{\Rel} \subseteq \Satisfy{\Nbhd}$.  Let $\varphi \in \lang$ and suppose $\Model \models \varphi$ for some $\Model = \langle W, \set{R_i}_{i \in \textbf{I}}, V \rangle \in \Rel$.  Eric Pacuit in \cite{pacuit2017neighborhood}, page 47 shows how to construct an equivalent neighborhood model:  Let $\Model' = \langle W, \set{f_i}_{i \in \textbf{I}}, V \rangle$, where each $f_i(w) = \set{X \mid \set{v \mid w{R_i}v } \subseteq X}$.  All we need to show is $\Model' \models \varphi$, but we are able to prove something even stronger:
-    \begin{proposition}
+    \begin{claim*}
         For all $\varphi$ and all $w$, $\Model, w \Vdash \varphi$ iff $\Model', w \Vdash \varphi$.
-    \end{proposition}
+    \end{claim*}
     \begin{proof}
         By induction on $\varphi$.  The key case is $\Box_i \varphi$.  
         
@@ -236,11 +322,11 @@ This is an important distinction between my focus and the focus of descriptive c
 \end{example*}
 
 
-\section*{Progress So Far}
+\section*{Known Results (The Static Case)}
 
-\subsection*{The Static Case.}
+Recall the first part of Question 1: ``how do neural network models relate to other models for conditional \& modal logic?'' The static case is already understood. I'll collect the known results in this section.
 
-We are now set up to answer the first part of Question 1.  We can see how the expressive power of neural network models compares against known models in logic by arranging their satisfiable sets in an ``expressivity hierarchy.''  To make the comparison with neural networks fair, I will only consider the reflexive and transitive variants $\Relrefl, \Nbhdrefl$ of relational and neighborhood models.  Over the static language (no dynamic operators), we have:
+We can see how the expressive power of neural network models compares against known models in logic by arranging their satisfiable sets in an ``expressivity hierarchy.''  To make the comparison with neural networks fair, I will only consider the reflexive and transitive variants $\Relrefl, \Nbhdrefl$ of relational and neighborhood models.  Over the static language (no dynamic operators), we have:
 \[
 \Satisfy{\Relrefl} \subset \Satisfy{\Plaus} = \Satisfy{\NetModels} \subset \Satisfy{\Nbhdrefl}
 % \begin{tikzcd}
@@ -278,7 +364,7 @@ The first and last inclusions are folklore.  I haven't found a reference yet, bu
     $\Satisfy{\Plaus} \subset \Satisfy{\Nbhdrefl}$
 \end{proposition}
 \begin{proof}
-    First, let's show inclusion.  Let $\Model = \langle W, \set{R_i}_{i \in \textbf{I}} \rangle$ be a plausibility model satisfying $\varphi$.  We construct the neighborhood model $\Model' = \langle W, \set{f_i}_{i \in \textbf{I}}, V \rangle$, where $f_i$ is given as follows.  If $\Box_i$ is given relational semantics, then $f_i(w) = \set{X \mid \set{v \mid w{R_i}v }\subseteq X}$ as in our example above.  But if $\Box_i$ has plausibility semantics,
+    First, let's show inclusion.  Let $\Model = \langle W, \set{R_i}_{i \in \textbf{I}}, V \rangle$ be a plausibility model satisfying $\varphi$.  We construct the neighborhood model $\Model' = \langle W, \set{f_i}_{i \in \textbf{I}}, V \rangle$, where $f_i$ is given as follows.  If $\Box_i$ is given relational semantics, then $f_i(w) = \set{X \mid \set{v \mid w{R_i}v }\subseteq X}$ as in our example above.  But if $\Box_i$ has plausibility semantics,
     \[
         f_i(w) = \set{X \in \mathcal{P}(W) \mid w \in \best_{R_i}(X)}
     \]
@@ -315,11 +401,23 @@ The first and last inclusions are folklore.  I haven't found a reference yet, bu
     Strictness is easy: nonreflexivity $\neg (\Box \varphi \to \varphi) \in \Satisfy{\Nbhd}$, but $\neg (\Box \varphi \to \varphi) \not \in \Satisfy{\Plaus}$ (since both relational \emph{and} plausibility operators are always reflexive).
 \end{proof}
 
-Let's move to the neural network inclusions.  I claim that $\Satisfy{\NetModels} = \Satisfy{\Plaus}$: neural network and plausibility models are equally expressive (up to inference in the static language).  It is known that neural network models and plausibility models are both complete with respect to the proof system of cumulative conditionals \cite{leitgeb2001nonmonotonic, leitgeb2003nonmonotonic} -- the fact that $\Satisfy{\NetModels} = \Satisfy{\Plaus}$ should follow.  But (1) Hannes shows how to construct a net from a plausibility model, but not the other way around, and (2) my definitions are slightly different from Hannes'.  So I will re-prove this result, adapted for my setting, as a sort of sanity check.
+Let's move on to the neural network inclusions.  I claim that $\Satisfy{\NetModels} = \Satisfy{\Plaus}$: neural network and plausibility models are equally expressive (up to inference in the static language).  The $(\to)$ direction follows from Hannes' completeness result \cite{leitgeb2001nonmonotonic, leitgeb2003nonmonotonic} --- he uses the \emph{not-every construction} from before to build a neural net from a plausibility model.  The $(\leftarrow)$ direction is essentially the soundness result \cite{leitgeb2001nonmonotonic, leitgeb2003nonmonotonic}. But explicitly building a plausibility model from a neural net has not been done, as far as I know.  So the proof of $(\leftarrow)$ is my own.
+
+% It is known that neural network models and plausibility models are both complete with respect to the proof system of cumulative conditionals \cite{leitgeb2001nonmonotonic, leitgeb2003nonmonotonic} -- the fact that $\Satisfy{\NetModels} = \Satisfy{\Plaus}$ should follow.  But (1) Hannes shows how to construct a net from a plausibility model, but not the other way around, and (2) my definitions are slightly different from Hannes'.  So I will re-prove this result, adapted for my setting, as a sort of sanity check.
 
 \begin{proposition}
     $\Satisfy{\Plaus} \subseteq \Satisfy{\NetModels}$
 \end{proposition}
+\begin{proof}
+    Let $\Model = \langle W, \set{R_i}_{i \in \textbf{I}}, V \rangle$ be a plausibility model satisfying $\varphi$.  We construct the neural network model $\Net = \langle N, \bias, \set{E_i}_{i \in \textbf{I}}, \set{W_i}_{i \in \textbf{I}}, \set{A_i}_{i \in \textbf{I}}, V \rangle$ as follows.  First, let $N = W$, let $\bias$ be a fresh node, and keep the propositional evaluation $V$ the same. \textbf{TODO}
+
+    We have two cases:
+    \begin{description}
+        \item[$\Box_i$ is given relational semantics.] 
+        
+        \item[$\Box_i$ is given plausibility semantics.]  
+    \end{description}
+\end{proof}
 
 \begin{proposition}
     $\Satisfy{\NetModels} \subseteq \Satisfy{\Plaus}$
@@ -331,12 +429,12 @@ Let's move to the neural network inclusions.  I claim that $\Satisfy{\NetModels}
 %     sorry
 % \end{proof}
 
-\paragraph*{What does this say about interpreting neural networks?}
-The popular conception of neural networks is that they are ``black boxes'' whose behavior is difficult to understand.  This last fact tells us, however, that neural network inference (classification) corresponds precisely to defeasible conditionals.  When Thomas Icard last visited, he pointed out to me that this intuition is only helpful for describing the net's input/output behavior, but not for explaining the net's hidden states.  Because of this, Thomas thinks that the ``neural network model'' formalism is on the wrong track (or at least, unenlightening), and he decided not to continue working on it.
+% \paragraph*{What does this say about interpreting neural networks?}
+% The popular conception of neural networks is that they are ``black boxes'' whose behavior is difficult to understand.  This last fact tells us, however, that neural network inference (classification) corresponds precisely to defeasible conditionals.  When Thomas Icard last visited, he pointed out to me that this intuition is only helpful for describing the net's input/output behavior, but not for explaining the net's hidden states.  Because of this, Thomas thinks that the ``neural network model'' formalism is on the wrong track (or at least, unenlightening), and he decided not to continue working on it.
 
-I take this criticism seriously, but to me the underlying issue is that the hidden states are determined through learning, and we don't yet have a classical intuition for neural network learning.  If we did, then we could understand and track the changes in the hidden states during the learning process, and there would be no need for extraction.  I'll revisit this point at the end of the next section.
+% I take this criticism seriously, but to me the underlying issue is that the hidden states are determined through learning, and we don't yet have a classical intuition for neural network learning.  If we did, then we could understand and track the changes in the hidden states during the learning process, and there would be no need for extraction.  I'll revisit this point at the end of the next section.
 
-\subsection*{The Dynamic Case.}
+\section*{Progress So Far (The Dynamic Case)}
 
 \section*{Todo List}
 \begin{todolist}
