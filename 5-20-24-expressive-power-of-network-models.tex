@@ -338,7 +338,7 @@ We can see how the expressive power of neural network models compares against kn
 % \end{tikzcd}
 \]
 
-The first and last inclusions are folklore.  I haven't found a reference yet, but here are the proofs for completeness.
+The first and last inclusions are folklore.  I haven't found a reference yet, but I was able to prove them by following the motions of our previous example.
 
 \begin{proposition}
     $\Satisfy{\Relrefl} \subset \Satisfy{\Plaus}$
@@ -435,6 +435,63 @@ Let's move on to the neural network inclusions.  I claim that $\Satisfy{\NetMode
 % I take this criticism seriously, but to me the underlying issue is that the hidden states are determined through learning, and we don't yet have a classical intuition for neural network learning.  If we did, then we could understand and track the changes in the hidden states during the learning process, and there would be no need for extraction.  I'll revisit this point at the end of the next section.
 
 \section*{Progress So Far (The Dynamic Case)}
+
+The dynamic case is much more interesting.  For a class of models $\Class$, $\Satisfy{\Class^\star}$ captures those dynamic updates that $\Class$ is capable of modelling.  This gets at the second part of Question 1: What updates are possible over neural networks?  What updates are possible over plausibility models?  What is the relationship between neural network updates and plausibility model updates?
+
+I'm not aware of any work that compares different model classes' capacity to model different dynamic updates --- this is unexplored turf.  I'll take a first stab by \textbf{conjecturing} the following:
+\[
+\begin{tikzcd}
+    & \Satisfy{\Nbhdrefl^\star} \arrow[symbol=\supset]{ld} \arrow[symbol=\supset]{rd} & \\
+    \Satisfy{\Plaus^\star} \arrow[symbol=\supset]{rd} \arrow[dash]{r} & \circled{?} & \Satisfy{\NetModels^\star} \arrow[symbol=\supset]{ld} \arrow[dash]{l} \\
+    & \Satisfy{\Relrefl^\star} & 
+\end{tikzcd}
+\]
+I expect that the outermost inclusions are going to be easy(ish).  The crucial inclusion is $\circled{?}$, which I'm not willing to conjecture on yet.  But the situation is interesting, since there are exactly four possibilities, all of which are exciting:
+\begin{description}
+    \item[$\Satisfy{\Plaus^\star} = \Satisfy{\NetModels^\star}$.] If the two are equal, this work creates a bridge between plausibility models and neural networks.  It would suggest that two groups of mostly independent researchers arrived at the same representation for learning.  And in this case, it would be nice to explicitly see (1) what neural network updates radical and conservative upgrade correspond to, and (2) what ``classical'' plausibility updates correspond to network policies such as Hebbian learning or backpropagation.
+    \item[$\Satisfy{\Plaus^\star} \subset \Satisfy{\NetModels^\star}$.] In this case, we discover that neural networks are strictly more powerful than plausibility models: for every plausibility upgrade there is a neural network equivalent, but not the other way around.  What kind of neural network policies cannot be represented as plausibility upgrade?  Is this what makes Hebbian learning or backpropagation special?  This possibility offers a theoretical justification for why we use neural networks in machine learning rather than plausibility models, and perhaps why classical models historically have not had the same kind of success as neural networks.
+    \item[$\Satisfy{\Plaus^\star} \supset \Satisfy{\NetModels^\star}$.] This flips the previous scenario, and perhaps goes counter to common wisdom.  Instead we discover that plausibility models can represent any kind of update neural networks can.  What kind of plausiblity updates can't be represented with a neural network?  This case offers a new direction for machine learning researchers to look for new learning algorithms, and suggests that they should adopt a different model. 
+    \item[$\Satisfy{\Plaus^\star}$ and $\Satisfy{\NetModels^\star}$ are incomparable.] This is the case that I personally believe is most likely.  As before, we can ask: what specific update policies aren't representable with the other model?  But we see that neither plausibility models nor neural networks are as rich as we would like them to be.  This puts us in the difficult --- but exciting! --- position of finding a model class $\Class$ that can model both types of update.  Of course, $\Nbhdrefl^\star$ will work, but it would be nice to find a tighter bound.
+\end{description}
+
+Okay, enough waxing philosophical. Let's get to work. A first observation is that we inherit inequalities from the static case.  This means that, for the outer inclusions, we only need to show $\subseteq$ (we get $\ne$ for free).
+\begin{lemma}
+    For all classes of models $\Class_1, \Class_2$, if $\Satisfy{\Class_1} \ne \Satisfy{\Class_2}$ then $\Satisfy{\Class_1^\star} \ne \Satisfy{\Class_2^\star}$.
+\end{lemma}
+\begin{proof}
+    \textbf{TODO}
+\end{proof}
+
+Now let's tackle the outer inclusions:
+\begin{proposition}
+    $\Satisfy{\Relrefl^\star} \subset \Satisfy{\Plaus^\star}$
+\end{proposition}
+\begin{proof}
+    \textbf{TODO}
+\end{proof}
+
+\begin{proposition}
+    $\Satisfy{\Plaus^\star} \subset \Satisfy{\Nbhdrefl^\star}$
+\end{proposition}
+\begin{proof}
+    \textbf{TODO}
+\end{proof}
+
+\begin{proposition}
+    $\Satisfy{\Relrefl^\star} \subset \Satisfy{\NetModels^\star}$
+\end{proposition}
+\begin{proof}
+    \textbf{TODO}
+\end{proof}
+
+\begin{proposition}
+    $\Satisfy{\NetModels^\star} \subset \Satisfy{\Nbhdrefl^\star}$
+\end{proposition}
+\begin{proof}
+    \textbf{TODO}
+\end{proof}
+
+
 
 \section*{Todo List}
 \begin{todolist}
