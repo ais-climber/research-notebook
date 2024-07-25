@@ -23,7 +23,7 @@ These days I've been trying to understand the bigger picture of our work on neur
 
 \section*{Basic Setup and Definitions}
 
-My first goal is to compare neural network models against other models.  To make the comparison fair, all models will share the basic multi-modal language
+My first goal is to compare neural network models against other models.  To make the comparison fair, all models will share the basic multi-modal language $\lang$, given by
 \[
     p \mid \neg \varphi \mid \varphi \land \psi \mid \set{\Box_i}_{i \in \textbf{I}} \hspace*{0.5em} \varphi
 \]
@@ -233,11 +233,11 @@ Any network diffusion operator $\Diamond_i$ picks out a corresponding neural net
 
 \paragraph*{Dynamic Models.}
 
-I would also like to compare neural network \emph{update} against other model updates --- what kind of updates are neural networks capable of modelling, and how expressive are they in this sense?  We can ``dynamify'' each of the models above using the dynamic epistemic logic trick.  First, we extend our language to include dynamic modal operators:
+I would also like to compare neural network \emph{update} against other model updates --- what kind of updates are neural networks capable of modelling, and how expressive are they in this sense?  We can ``dynamify'' each of the models above using the dynamic epistemic logic trick.  First, we extend our language $\lang$ to $\lang^\star$, which includes dynamic modal operators:
 \[
     p \mid \neg \varphi \mid \varphi \land \psi \mid \set{\Box_i}_{i \in \textbf{I}} \hspace*{0.5em} \varphi \mid \set{\Update{\varphi}_j}_{j \in \textbf{J}} \hspace*{0.5em} \psi
 \]
-where \textbf{J} is a new set of indices.  As before, the idea is that each $\Update{\varphi}_i$ represents a different update per use-case, although taking $\textbf{I} = \textbf{J}$ these could also be used to model different updates per agent.  
+where \textbf{J} is a new set of indices.  As before, the idea is that each $\Update{\varphi}_i$ represents a different update per use-case, although taking $\textbf{I} = \textbf{J}$ these could also be used to model different updates per agent.
 
 I will define the semantics for dynamic models by example.  First, consider $\Rel$.  For any $\Model \in \Rel$ and $S \in \mathcal{P}(W)$, we can define a variety of dynamic update functions $\set{\UpdateVerbatim_j}_{j \in \textbf{J}}$, where each $\UpdateVerbatim_j : \Rel \times \mathcal{P}(W) \to \Rel$.  A classical example is public announcement, where $\UpdateVerbatim(\langle W, R, V \rangle, S) = \langle W \cap S, R, V \rangle$.  Note that we're using sets $S$ as input rather than formulas, although the choice of one over the other is just my preference.
 
@@ -409,13 +409,13 @@ Let's move on to the neural network inclusions.  I claim that $\Satisfy{\NetMode
     $\Satisfy{\Plaus} \subseteq \Satisfy{\NetModels}$
 \end{proposition}
 \begin{proof}
-    Let $\Model = \langle W, \set{R_i}_{i \in \textbf{I}}, V \rangle$ be a plausibility model satisfying $\varphi$.  We construct the neural network model $\Net = \langle N, \bias, \set{E_i}_{i \in \textbf{I}}, \set{W_i}_{i \in \textbf{I}}, \set{A_i}_{i \in \textbf{I}}, V \rangle$ as follows.  First, let $N = W$, let $\bias$ be a fresh node, and keep the propositional evaluation $V$ the same. \textbf{TODO}
+    Let $\Model = \langle W, \set{R_i}_{i \in \textbf{I}}, V \rangle$ be a plausibility model satisfying $\varphi$.  We construct the neural network model $\Net = \langle N, \bias, \set{E_i}_{i \in \textbf{I}}, \set{W_i}_{i \in \textbf{I}}, \set{A_i}_{i \in \textbf{I}}, V \rangle$ as follows.  First, let $N = W$, let $\bias$ be a fresh node, and keep the propositional evaluation $V$ the same.
 
     We have two cases:
     \begin{description}
-        \item[$\Box_i$ is given relational semantics.] 
+        \item[$\Box_i$ is given relational semantics.] \textbf{TODO}
         
-        \item[$\Box_i$ is given plausibility semantics.]  
+        \item[$\Box_i$ is given plausibility semantics.] \textbf{TODO}
     \end{description}
 \end{proof}
 
@@ -446,7 +446,7 @@ I'm not aware of any work that compares different model classes' capacity to mod
     & \Satisfy{\Relrefl^\star} & 
 \end{tikzcd}
 \]
-I expect that the outermost inclusions are going to be easy(ish).  The crucial inclusion is $\circled{?}$, which I'm not willing to conjecture on yet.  But the situation is interesting, since there are exactly four possibilities, all of which are exciting:
+I expect that the outermost inclusions are going to be easy(ish).  The crucial inclusion is $\circled{?}$, which I'm not willing to conjecture on yet.  There are exactly four possibilities, and fortunately for us all of them are exciting:
 \begin{description}
     \item[$\Satisfy{\Plaus^\star} = \Satisfy{\NetModels^\star}$.] If the two are equal, this work creates a bridge between plausibility models and neural networks.  It would suggest that two groups of mostly independent researchers arrived at the same representation for learning.  And in this case, it would be nice to explicitly see (1) what neural network updates radical and conservative upgrade correspond to, and (2) what ``classical'' plausibility updates correspond to network policies such as Hebbian learning or backpropagation.
     \item[$\Satisfy{\Plaus^\star} \subset \Satisfy{\NetModels^\star}$.] In this case, we discover that neural networks are strictly more powerful than plausibility models: for every plausibility upgrade there is a neural network equivalent, but not the other way around.  What kind of neural network policies cannot be represented as plausibility upgrade?  Is this what makes Hebbian learning or backpropagation special?  This possibility offers a theoretical justification for why we use neural networks in machine learning rather than plausibility models, and perhaps why classical models historically have not had the same kind of success as neural networks.
@@ -454,12 +454,22 @@ I expect that the outermost inclusions are going to be easy(ish).  The crucial i
     \item[$\Satisfy{\Plaus^\star}$ and $\Satisfy{\NetModels^\star}$ are incomparable.] This is the case that I personally believe is most likely.  As before, we can ask: what specific update policies aren't representable with the other model?  But we see that neither plausibility models nor neural networks are as rich as we would like them to be.  This puts us in the difficult --- but exciting! --- position of finding a model class $\Class$ that can model both types of update.  Of course, $\Nbhdrefl^\star$ will work, but it would be nice to find a tighter bound.
 \end{description}
 
-Okay, enough waxing philosophical. Let's get to work. A first observation is that we inherit inequalities from the static case.  This means that, for the outer inclusions, we only need to show $\subseteq$ (we get $\ne$ for free).
+Okay, enough waxing philosophical. Let's get to work. A first observation is that if an inclusion holds in the dynamic case, it holds in the static case as well.  This is because the dynamic language $\lang^\star$ extends $\lang$, and static formulas have the exact same semantics in the dynamic setting.
+
 \begin{lemma}
-    For all classes of models $\Class_1, \Class_2$, if $\Satisfy{\Class_1} \ne \Satisfy{\Class_2}$ then $\Satisfy{\Class_1^\star} \ne \Satisfy{\Class_2^\star}$.
+    For all classes of models $\Class_1, \Class_2$, if $\Satisfy{\Class_1^\star} \subseteq \Satisfy{\Class_2^\star}$ then $\Satisfy{\Class_1} \subseteq \Satisfy{\Class_2}$.
 \end{lemma}
 \begin{proof}
-    \textbf{TODO}
+    Suppose $\Satisfy{\Class_1^\star} \subseteq \Satisfy{\Class_2^\star}$, and let $\varphi \in \lang$ be a static formula satisfied by some (static) model $\Model \in \Class_1$. \textbf{TODO}
+\end{proof}
+
+A major consequence is that we inherit inequalities from the static case.  This means that, for the outer inclusions, we only need to show $\subseteq$ (we get $\ne$ for free).
+
+\begin{corollary}
+    For all classes of models $\Class_1, \Class_2$, if $\Satisfy{\Class_1} \ne \Satisfy{\Class_2}$ then $\Satisfy{\Class_1^\star} \ne \Satisfy{\Class_2^\star}$.
+\end{corollary}
+\begin{proof}
+    Suppose $\Satisfy{\Class_1} \ne \Satisfy{\Class_2}$.  Then either $\Satisfy{\Class_1} \not \subseteq \Satisfy{\Class_2}$, or $\Satisfy{\Class_2} \not \subseteq \Satisfy{\Class_1}$.  In the first case, the previous lemma gives us $\Satisfy{\Class_1^\star} \not \subseteq \Satisfy{\Class_2^\star}$, and in the second case we have $\Satisfy{\Class_2^\star} \not \subseteq \Satisfy{\Class_1^\star}$.  Regardless of which case we're in, we see that $\Satisfy{\Class_1^\star} \ne \Satisfy{\Class_2^\star}$.
 \end{proof}
 
 Now let's tackle the outer inclusions:
@@ -491,15 +501,20 @@ Now let's tackle the outer inclusions:
     \textbf{TODO}
 \end{proof}
 
-
+As for the center relationship, for now I'll just pose the question. 
+\begin{question}
+    What is the relationship between $\Satisfy{\Plaus^\star}$ and $\Satisfy{\NetModels^\star}$?
+\end{question}
+My best guess is that they're incomparable.  I have a proof strategy that \emph{might} work --- see \textbf{4-22-24-satisfying-hebbian-reduction-axioms.tex} for the idea and beginnings of this approach.  But to avoid getting stuck on this proof, I think it's really important that I try to get a good intuition for which case we're in.  This means I should think about how to simulate randomly generated update policies on a computer, generate billions of explicit examples, and check how probable these cases are.
 
 \section*{Todo List}
 \begin{todolist}
-    % \item Prove that the model we construct in $\Nbhdrefl$ is actually reflexive and transitive.
-    % \item Re-write neural network section -- no more general transition functions, instead give a list of common constructions (how we can simulate different transition/accessibility functions).
     \item Prove that $\Satisfy{\Plaus} \subseteq \Satisfy{\NetModels}$ by construction.
     \item Prove that $\Satisfy{\NetModels} \subseteq \Satisfy{\Plaus}$ by construction.
-    \item Write out the dynamic case (dump my thoughts out for starters)
+    \item Prove Lemma 6.
+    \item Try to prove Propositions 7--10 (keeping in mind I may be wrong about any of them)
+    \item Write out my best attempt to prove that $\Satisfy{\Plaus^\star}$ and $\Satisfy{\NetModels^\star}$ are incomparable.
+    \item Write a program to generate possible model updates \& check inclusions (this is going to be hard!  But I expect that the proof itself will be harder.)
 \end{todolist}
 
 % \subsection*{Neural Networks and the Complexity Hierarchy}
