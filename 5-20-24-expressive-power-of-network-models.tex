@@ -99,105 +99,11 @@ where $\bigchi_S(m) = 1$ iff $m \in S$ is the indicator function.  In other word
 
 % Second, I now allow different kinds of state transitions; each $F^i$ specifies how the net will use the edges, weights, and activation function to transition into the next state.  Specifically, $F^i_S(n)$ gives the activation of $n$ in the next state, given that the current state is $S$.  You can think of $E_i$, $W_i$, and $A_i$ as ``optional parameters'' that $F^i$ may make use of.
 
-\begin{example*}
-    Here are some choices of $E_i, W_i, A_i$ that give us common constructions for $F_i(S)$:
-    \begin{enumerate}
-        \item Given a graph $E_i$, pick 
-        \[
-            W_i(m, n) = 
-            \begin{cases}
-                1 & \mbox{if } m{E_i}n \\
-                0 & \mbox{otherwise}
-            \end{cases}
-        \]
-        Then pick $A_i(x) = 1$ iff $x > 0$. This gives us $n \in F_i(S)$ whenever at least one $E_i$-predecessor $m$ of $n$ is in $S$.  Call this the \emph{graph-reachability construction}.
-        
-        \item Given a graph $E_i$, pick $W_i(m, n) = \frac{1}{|\preds{n}|}$, and then pick $A_i(x) = 1$ iff $x \geq \frac{1}{2}$. Visually, for each node $n$ and its predecessors $m_1, \ldots, m_r$ we have
-        \begin{center}
-        \begin{tikzpicture}[loose/.style={inner sep=.  7em},edge/.style = {->,-Latex}, oval/.style={ellipse,draw}]
-            %--------------------------------------------
-            % Nodes
-            \node[circle,fill,inner sep=2pt,label=left:$m_1$](a){};
-            \node[below=0.75 of a,circle,fill,inner sep=2pt,label=left:$m_2$](b){};
-            
-            \node[below=0.5 of b](dots){$\rvdots$};
-
-            \node[below=0.5 of dots,circle,fill,inner sep=2pt,label=left:$m_{r}$](c){};
-            \coordinate (midway) at ($(a)!0.5!(c)$);
-            \node[right=3 of midway,circle,fill,inner sep=2pt,label=right:$n$](n){};
-            
-            %--------------------------------------------
-            % Excitatory edges
-            \draw[edge, color=black, opacity=0.4] (a) -- (n) node [near start, above] {$\frac{1}{r}$};
-            \draw[edge, color=black, opacity=0.4] (b) -- (n) node [near start, above] {$\frac{1}{r}$};
-            \draw[edge, color=black, opacity=0.4] (c) -- (n) node [near start, above] {$\frac{1}{r}$};
-        \end{tikzpicture}
-        \end{center}
-        This gives us $n \in F_i(S)$ if the majority (more than half) of $E_i$-predecessors are in $S$.  This is one of the choices that \cite{baltag2019socialnetworks} consider for modelling influence in social networks.
-        
-        \item Here is an interesting construction that Hannes uses in \cite{leitgeb2001nonmonotonic} to prove completeness for weighted neural network models.  He does this by way of inhibition nets, i.e. nets with inhibitory edges that block excitatory edges. I will give the full proof later, but for now the construction gives a taste of what weighted nets can do.
-        
-        Let $E_i$ be a given graph. First, create an edge from $\bias$ to every $n$ that is not $E_i$-minimal (in other words, if $n$ has any predecessors at all, then $\bias$ is one of them). Then for each node $n$ and its predecessors $\bias=m_0, m_1, \ldots, m_r$, connect inhibition edges as follows.
-        
-        \begin{center}
-        \begin{tikzpicture}[loose/.style={inner sep=.  7em},edge/.style = {->,-Latex}, oval/.style={ellipse,draw}]
-            %--------------------------------------------
-            % Nodes
-            \node[circle,fill,inner sep=2pt,label=left:$\bias$](a){};
-            \node[below=0.75 of a,circle,fill,inner sep=2pt,label=left:$m_1$](b){};
-            \node[below=0.75 of b,circle,fill,inner sep=2pt,label=left:$m_2$](c){};
-            
-            \node[below=0.5 of c](dots){$\rvdots$};
-
-            \node[below=0.5 of dots,circle,fill,inner sep=2pt,label=left:$m_{r-1}$](d){};
-            \node[below=0.75 of d,circle,fill,inner sep=2pt,label=left:$m_r$](e){};
-            
-            \coordinate (midway) at ($(a)!0.5!(e)$);
-            \node[right=3 of midway,circle,fill,inner sep=2pt,label=right:$n$](n){};
-            
-            % Draw the inhibitory edge that crosses over first
-            \draw[edge, -Circle, color=black, opacity=0.4] (e) -- ($(a)!0.35!(n)$) node [near start, above] {};
-
-            %--------------------------------------------
-            % Excitatory edges
-            % draw white over each of the middle ones to
-            % erase the crossover
-            \draw[edge, color=black, opacity=0.4] (a) -- (n) node [near start, above] {};
-            \draw[edge, color=white, opacity=1, line width=3pt, -, shorten >=10pt, shorten <=4pt] (b) -- (n) node [near start, above] {};
-            \draw[edge, color=black, opacity=0.4] (b) -- (n) node [near start, above] {};
-            \draw[edge, color=white, opacity=1, line width=3pt, -, shorten >=10pt, shorten <=4pt] (c) -- (n) node [near start, above] {};
-            \draw[edge, color=black, opacity=0.4] (c) -- (n) node [near start, above] {};
-            \draw[edge, color=white, opacity=1, line width=3pt, -, shorten >=10pt, shorten <=4pt] (d) -- (n) node [near start, above] {};
-            \draw[edge, color=black, opacity=0.4] (d) -- (n) node [near start, above] {};
-            \draw[edge, color=black, opacity=0.4] (e) -- (n) node [near start, above] {};
-
-            %--------------------------------------------
-            % Inhibitory edges
-            % draw white over each of them to erase the crossover
-            \draw[edge, color=white, opacity=1, line width=3pt, -, shorten >=10pt, shorten <=10pt] (a) -- ($(b)!0.5!(n)$) node [near start, above] {};
-            \draw[edge, -Circle, color=black, opacity=0.4] (a) -- ($(b)!0.5!(n)$) node [near start, above] {};
-            
-            \draw[edge, color=white, opacity=1, line width=3pt, -, shorten >=10pt, shorten <=4pt] (b) -- ($(c)!0.5!(n)$) node [near start, above] {};
-            \draw[edge, -Circle, color=black, opacity=0.4] (b) -- ($(c)!0.5!(n)$) node [near start, above] {};
-            
-            \node[right=1 of dots,yshift=0.5em](dotsb){$\rvdots$};
-
-            \draw[edge, color=white, opacity=1, line width=3pt, -, shorten >=10pt, shorten <=4pt] (d) -- ($(e)!0.5!(n)$) node [near start, above] {};
-            \draw[edge, -Circle, color=black, opacity=0.4] (d) -- ($(e)!0.5!(n)$) node [near start, above] {};
-        \end{tikzpicture}
-        \end{center}
-        
-        That is, each node $m_i$ is inhibited by $m_{i-1}$ ($\bias=m_0$ inhibited by $m_r$).  This has the following effect: if all $m_i$ activate, they each inhibit each other, and so $n$ does not activate.  If only \emph{some} $m_i$ activate, then there is some $m_i$ that is uninhibited, and so $n$ activates.  And finally, since $\bias$ is always active we cannot have \emph{no} $m_i$ active.  In other words, $n \in F_i(S)$ iff \emph{not all} predecessors $m_i$ are in $S$.
-        
-        We can simulate this effect with weighted neural networks. Create an edge from $\bias$ to every $n$ that is not $E_i$-minimal. Then pick $W_i(m, n) = \frac{1}{|\preds{n}|+1}$ (the extra $+1$ accounts for the $\bias$). Finally, pick $A_i(x) = 1$ iff $x < 1$.  Take a moment to check that $n \in F_i(S)$ iff not all predecessors $m_i$ are in $S$.  Call this the \emph{not-every construction}.
-    \end{enumerate}
-\end{example*}
-
 Let $\NetModels$ be the class of all neural network models (with one more constraint that I'll say soon).  The semantics for $\Net \in \NetModels$ is a bit more roundabout than for the previous classes.  First, we define a ``next state'' function $\nextstate_i : \mathcal{P}(N) \to \mathcal{P}(N)$ for each $i \in \textbf{I}$ as follows:
 \[
     \nextstate_i(S) = S \cup F_i(S)
 \]
-Notice that $\nextstate(S)$ is extensive --- once activated, a node will stay activated in the next state.
+Notice that $\nextstate_i(S)$ is extensive --- once activated, a node will stay activated in the next state.
 
 \begin{postulate*}
     I assume that for all $i \in \textbf{I}$ and all states $S$, $\nextstate_i$ applied to $S$, i.e.
@@ -211,12 +117,6 @@ Notice that $\nextstate(S)$ is extensive --- once activated, a node will stay ac
 \end{postulate*}
 This assumption implicitly constrains the allowed neural network architectures: We allow feed-forward nets, as well as certain controlled forms of recurrence.  Characterizing nets that have a unique least fixed point is a big open problem.
 
-\begin{example*}
-    In general, $\Closure_i(S)$ is exactly $\Prop(S)$, the forward propagation (or diffusion) of the signal $S$ through the net.  But different constructions for $F_i(S)$ give different interpretations for $\Closure(S)$.  
-    
-    Consider the constructions from the previous example.  The graph-reachability construction gives us $\Closure_i(S) = \Reach(S)$, the nodes graph-reachable from $S$.  Similarly, $\Closure_i$ for the social majority construction can be interpreted as the diffusion of an opinion or attitude through a social network (see \cite{baltag2019socialnetworks}).
-\end{example*}
-
 I can now state the semantics for $\Net \in \NetModels$:
 \[
 \begin{array}{lcl}
@@ -227,9 +127,126 @@ I can now state the semantics for $\Net \in \NetModels$:
     n \in \Closure_i(\semantics{\varphi})
 \end{array}
 \]
-where $\semantics{\varphi} = \set{n \mid \Net, n \Vdash \varphi}$.  
+where $\semantics{\varphi} = \set{n \mid \Net, n \Vdash \varphi}$.  A technical point is that our semantics differ from Hannes' \cite{leitgeb2001nonmonotonic} in how we handle propositions and connectives --- his semantics are entirely neural, whereas the semantics above handle propositions and connectives classically.  He battles with this issue of how to correctly interpret negation; I sidestep this issue by using neural networks for interpreting $\Diamond_i \varphi$ (where the ``action'' happens), but not for the propositional base.
 
 Any network diffusion operator $\Diamond_i$ picks out a corresponding neural network inference: $\Diamond_i \varphi \leftarrow \psi$ says that on input $\varphi$ the neural network ``answers'' with classification $\psi$.  This is analogous to the way a plausibility operator picks out a conditional (I will say more about this later).
+
+In the following examples, I'll walk through common constructions for neural networks.  I mentioned before that each choice of $E_i, W_i, A_i$ specifices a transition function $F_i(S)$.  Different choices for $F_i(S)$ in turn give different interpretations for the closure function $\Closure_i(S)$.  These examples should give you a feel for what sorts of state transitions we can represent with neural networks.
+
+\paragraph*{Example: The Graph-Reachability Construction.}
+    Say we want to build a neural network 
+    \[\Net = \langle N, \bias, \set{E_i}_{i \in \textbf{I}}, \set{W_i}_{i \in \textbf{I}}, \set{A}_{i \in \textbf{I}}, V \rangle\]
+    Let's consider a particular $i$. Suppose the graph $\langle N, E_i \rangle$, $\bias$, and evaluation $V$ are given.  Pick 
+    \[
+        W_i(m, n) = 
+        \begin{cases}
+            1 & \mbox{if } m{E_i}n \\
+            0 & \mbox{otherwise}
+        \end{cases}
+    \]
+    Then pick $A_i(x) = 1$ iff $x > 0$. Recall that $n \in F_i(S)$ iff $n$ is activated by its predecessors in $S$ (by the weighted sum term, see the discussion earlier).  In this case, $n \in F_i(S)$ whenever at least one $E_i$-predecessor $m$ of $n$ is in $S$.  I call this the graph-reachability construction because the closure $\Closure_i(S)$ gives exactly the nodes graph-reachable from $S$:
+
+    \begin{claim*}
+        $\Closure_i(S) = \set{w \mid \exists \mbox{ an } E_i\mbox{-path from some } u \in S \mbox{ to } w}$
+    \end{claim*}
+    \begin{proof}
+        \textbf{TODO}
+    \end{proof}
+
+\paragraph*{Example: The Social Majority Construction.}
+    As before, we want to build a neural network $\Net$ where the graph $\langle N, E_i \rangle$, $\bias$, and evaluation $V$ are given.  This time, pick $W_i(m, n) = \frac{1}{|\preds{n}|}$, and then pick $A_i(x) = 1$ iff $x \geq \frac{1}{2}$. Visually, for each node $n$ and its predecessors $m_1, \ldots, m_r$ we have
+    \begin{center}
+    \begin{tikzpicture}[loose/.style={inner sep=.  7em},edge/.style = {->,-Latex}, oval/.style={ellipse,draw}]
+        %--------------------------------------------
+        % Nodes
+        \node[circle,fill,inner sep=2pt,label=left:$m_1$](a){};
+        \node[below=0.75 of a,circle,fill,inner sep=2pt,label=left:$m_2$](b){};
+        
+        \node[below=0.5 of b](dots){$\rvdots$};
+
+        \node[below=0.5 of dots,circle,fill,inner sep=2pt,label=left:$m_{r}$](c){};
+        \coordinate (midway) at ($(a)!0.5!(c)$);
+        \node[right=3 of midway,circle,fill,inner sep=2pt,label=right:$n$](n){};
+        
+        %--------------------------------------------
+        % Excitatory edges
+        \draw[edge, color=black, opacity=0.4] (a) -- (n) node [near start, above] {$\frac{1}{r}$};
+        \draw[edge, color=black, opacity=0.4] (b) -- (n) node [near start, above] {$\frac{1}{r}$};
+        \draw[edge, color=black, opacity=0.4] (c) -- (n) node [near start, above] {$\frac{1}{r}$};
+    \end{tikzpicture}
+    \end{center}
+    This gives us $n \in F_i(S)$ if the majority (more than half) of $E_i$-predecessors are in $S$.  In this case, the closure $\Closure_i$ can be interpreted as the diffusion of an opinion or attitude through a social network.  This is one of the choices that \cite{baltag2019socialnetworks} consider for modelling influence in social networks.
+
+\paragraph*{Example: The Not-Every Construction.}
+    Here is an interesting construction that Hannes uses in \cite{leitgeb2001nonmonotonic} to prove completeness for weighted neural network models.  He does this by way of inhibition nets, i.e. nets with inhibitory edges that block excitatory edges.
+    
+    As before, we want to build a neural network $\Net$ where the graph $\langle N, E_i \rangle$, $\bias$, and evaluation $V$ are given.  Here's the \emph{inhibition net} construction:  First, create an edge from $\bias$ to every $n$ that is not $E_i$-minimal (in other words, if $n$ has any predecessors at all, then $\bias$ is one of them). Then for each node $n$ and its predecessors $\bias=m_0, m_1, \ldots, m_r$, connect inhibition edges as follows.
+    
+    \begin{center}
+    \begin{tikzpicture}[loose/.style={inner sep=.  7em},edge/.style = {->,-Latex}, oval/.style={ellipse,draw}]
+        %--------------------------------------------
+        % Nodes
+        \node[circle,fill,inner sep=2pt,label=left:$\bias$](a){};
+        \node[below=0.75 of a,circle,fill,inner sep=2pt,label=left:$m_1$](b){};
+        \node[below=0.75 of b,circle,fill,inner sep=2pt,label=left:$m_2$](c){};
+        
+        \node[below=0.5 of c](dots){$\rvdots$};
+
+        \node[below=0.5 of dots,circle,fill,inner sep=2pt,label=left:$m_{r-1}$](d){};
+        \node[below=0.75 of d,circle,fill,inner sep=2pt,label=left:$m_r$](e){};
+        
+        \coordinate (midway) at ($(a)!0.5!(e)$);
+        \node[right=3 of midway,circle,fill,inner sep=2pt,label=right:$n$](n){};
+        
+        % Draw the inhibitory edge that crosses over first
+        \draw[edge, -Circle, color=black, opacity=0.4] (e) -- ($(a)!0.35!(n)$) node [near start, above] {};
+
+        %--------------------------------------------
+        % Excitatory edges
+        % draw white over each of the middle ones to
+        % erase the crossover
+        \draw[edge, color=black, opacity=0.4] (a) -- (n) node [near start, above] {};
+        \draw[edge, color=white, opacity=1, line width=3pt, -, shorten >=10pt, shorten <=4pt] (b) -- (n) node [near start, above] {};
+        \draw[edge, color=black, opacity=0.4] (b) -- (n) node [near start, above] {};
+        \draw[edge, color=white, opacity=1, line width=3pt, -, shorten >=10pt, shorten <=4pt] (c) -- (n) node [near start, above] {};
+        \draw[edge, color=black, opacity=0.4] (c) -- (n) node [near start, above] {};
+        \draw[edge, color=white, opacity=1, line width=3pt, -, shorten >=10pt, shorten <=4pt] (d) -- (n) node [near start, above] {};
+        \draw[edge, color=black, opacity=0.4] (d) -- (n) node [near start, above] {};
+        \draw[edge, color=black, opacity=0.4] (e) -- (n) node [near start, above] {};
+
+        %--------------------------------------------
+        % Inhibitory edges
+        % draw white over each of them to erase the crossover
+        \draw[edge, color=white, opacity=1, line width=3pt, -, shorten >=10pt, shorten <=10pt] (a) -- ($(b)!0.5!(n)$) node [near start, above] {};
+        \draw[edge, -Circle, color=black, opacity=0.4] (a) -- ($(b)!0.5!(n)$) node [near start, above] {};
+        
+        \draw[edge, color=white, opacity=1, line width=3pt, -, shorten >=10pt, shorten <=4pt] (b) -- ($(c)!0.5!(n)$) node [near start, above] {};
+        \draw[edge, -Circle, color=black, opacity=0.4] (b) -- ($(c)!0.5!(n)$) node [near start, above] {};
+        
+        \node[right=1 of dots,yshift=0.5em](dotsb){$\rvdots$};
+
+        \draw[edge, color=white, opacity=1, line width=3pt, -, shorten >=10pt, shorten <=4pt] (d) -- ($(e)!0.5!(n)$) node [near start, above] {};
+        \draw[edge, -Circle, color=black, opacity=0.4] (d) -- ($(e)!0.5!(n)$) node [near start, above] {};
+    \end{tikzpicture}
+    \end{center}
+    
+    That is, each node $m_i$ is inhibited by $m_{i-1}$ ($\bias=m_0$ inhibited by $m_r$).  This has the following effect: if all $m_i$ activate, they each inhibit each other, and so $n$ does not activate.  If only \emph{some} $m_i$ activate, then there is some $m_i$ that is uninhibited, and so $n$ activates.  And finally, since $\bias$ is always active we cannot have \emph{no} $m_i$ active.  In other words, $n \in F_i(S)$ iff \emph{at least one, but not all} predecessors $m_i$ are in $S$.
+    
+    We can simulate this effect with weighted neural networks. Create an edge from $\bias$ to every $n$ that is not $E_i$-minimal. Then pick $W_i(m, n) = \frac{1}{|\preds{n}|+1}$ (the extra $+1$ accounts for the $\bias$). Finally, pick $A_i(x) = 1$ iff $x < 1$.  Take a moment to check that $n \in F_i(S)$ iff at least one, but not all predecessors $m_i$ are in $S$.
+
+    Consider the $\best_i$ function from before, but over $E_i$.  That is, $\best_i(S)$ is the set of $E_i$-minimal nodes in $S$.  It turns out that the closure function $\Closure_i$ for the not-every construction is precisely the \emph{dual} of $\best_i$:
+    \begin{claim*}
+        For all $S$, $\Closure_i(S) = \best_i(S^\complement)^\complement$
+    \end{claim*}
+    \begin{proof}
+        \textbf{TODO}
+    \end{proof}
+
+% \begin{example*}
+%     In general, $\Closure_i(S)$ is exactly $\Prop(S)$, the forward propagation (or diffusion) of the signal $S$ through the net.  But different constructions for $F_i(S)$ give different interpretations for $\Closure(S)$.  
+    
+%     Consider the constructions from the previous example.  The graph-reachability construction gives us $\Closure_i(S) = \Reach(S)$, the nodes graph-reachable from $S$ (I will prove this later, when we need it).  Similarly, $\Closure_i$ for the social majority construction can be interpreted as the diffusion of an opinion or attitude through a social network (see \cite{baltag2019socialnetworks}).  As we'll see later, $\Closure_i$ for the not-every construction gives $\Closure_i(S) = \best_i(S^\complement)^\complement$, the dual to the set of $R_i$-minimal elements of $S$.
+% \end{example*}
 
 \paragraph*{Dynamic Models.}
 
@@ -409,20 +426,60 @@ Let's move on to the neural network inclusions.  I claim that $\Satisfy{\NetMode
     $\Satisfy{\Plaus} \subseteq \Satisfy{\NetModels}$
 \end{proposition}
 \begin{proof}
-    Let $\Model = \langle W, \set{R_i}_{i \in \textbf{I}}, V \rangle$ be a plausibility model satisfying $\varphi$.  We construct the neural network model $\Net = \langle N, \bias, \set{E_i}_{i \in \textbf{I}}, \set{W_i}_{i \in \textbf{I}}, \set{A_i}_{i \in \textbf{I}}, V \rangle$ as follows.  First, let $N = W$, let $\bias$ be a fresh node, and keep the propositional evaluation $V$ the same.
+    Let $\Model = \langle W, \set{R_i}_{i \in \textbf{I}}, V \rangle$ be a plausibility model satisfying $\varphi$.  We construct the neural network model $\Net = \langle N, \bias, \set{E_i}_{i \in \textbf{I}}, \set{W_i}_{i \in \textbf{I}}, \set{A_i}_{i \in \textbf{I}}, V \rangle$ as follows.  First, let $N = W$, let $\bias$ be a fresh node, and keep the propositional evaluation $V$ the same.  If $\Diamond_i$ is given relational semantics, then we first \emph{reverse} $R_i$, and then do the graph-reachability construction.  In other words, let $u{E_i}v$ iff $v{R_i}u$, 
+    \[
+        W_i(m, n) = 
+        \begin{cases}
+            1 & \mbox{if } m{E_i}n \\
+            0 & \mbox{otherwise}
+        \end{cases}
+    \]
+    Then pick $A_i(x) = 1$ iff $x > 0$.  Recall that this choice gives us
+    \[
+        \Closure_i(S) = \set{w \mid \exists \mbox{ an } E_i\mbox{-path from some } u \in S \mbox{ to } w}            
+    \]
 
-    We have two cases:
+    If instead $\Diamond_i$ is given plausibility semantics, we simply do the not-every construction.  In other words, let $E_i$ be $R_i$ (we do not reverse it), and create an edge from $\bias$ to every $n$ that is not $E_i$-minimal.  Then pick $W_i(m, n) = \frac{1}{|\preds{n}|+1}$.  Finally, pick $A_i(x) = 1$ iff $x < 1$.  Recall that this choice gives us
+    \[
+        \Closure_i(S) = \best_i(S^\complement)^\complement
+    \]
+    
+    From here, we need to show that for all $\varphi, w$, $\Model, w \Vdash \varphi$ iff $\Net, w \Vdash \varphi$.  We do this by induction on $\varphi$.  The key inductive case is $\Diamond_i \varphi$.  We have the two cases:
     \begin{description}
-        \item[$\Box_i$ is given relational semantics.] \textbf{TODO}
+        \item[$\Diamond_i$ is given relational semantics.] 
+        \[
+        \begin{array}{lcll}
+            \Model, w \Vdash \Diamond_i \varphi & \mbox{iff} & \exists \mbox{ some } u \mbox{ with } w{R_i}u \mbox{ and } \Model, u \Vdash \varphi & (\mbox{By relational semantics}) \\
+            & \mbox{iff} & \exists \mbox{ some } u \mbox{ with } u{E_i}w \mbox{ and } \Model, u \Vdash \varphi & (\mbox{Since we reversed } R_i) \\
+            & \mbox{iff} & \exists \mbox{ some } u \mbox{ with } u{E_i}w \mbox{ and } \Net, u \Vdash \varphi & (\mbox{Inductive hypothesis}) \\
+            & \mbox{iff} & \exists \mbox{ an } E_i\mbox{-path from some } u \in \semantics{\varphi}_\Net \mbox{ to } w & (\mbox{Defn of } \semantics{\varphi} \mbox{ and since } \\
+            & & & \quad E_i \mbox{ is refl and trans}) \\
+            & \mbox{iff} & w \in \Closure_i(\semantics{\varphi}_\Net) & (\mbox{By construction}) \\
+            & \mbox{iff} & \Net, w \Vdash \Diamond_i \varphi & 
+        \end{array}
+        \]
         
-        \item[$\Box_i$ is given plausibility semantics.] \textbf{TODO}
+        \item[$\Diamond_i$ is given plausibility semantics.]
+        \[
+        \begin{array}{lcll}
+            \Model, w \Vdash \Diamond_i \varphi & \mbox{iff} & \Model, w \Vdash \neg \Box_i \neg  \varphi & \\
+            & \mbox{iff} & w \in \best_i(\set{u \mid \Model, u \Vdash \varphi}^\complement)^\complement & (\mbox{By plausibility semantics}) \\
+            & \mbox{iff} & w \in \best_i(\set{u \mid \Net, u \Vdash \varphi}^\complement)^\complement & (\mbox{Inductive hypothesis})\\
+            & \mbox{iff} & w \in \best_i(\semantics{\varphi}_\Net^\complement)^\complement & (\mbox{Defn of } \semantics{\varphi}) \\
+            & \mbox{iff} & w \in \Closure_i(\semantics{\varphi}_\Net) & (\mbox{By construction}) \\
+            & \mbox{iff} & \Net, w \Vdash \Diamond_i \varphi & 
+        \end{array}
+        \]
     \end{description}
+    We conclude that for our particular $\varphi$, $\Model \models \varphi$ implies $\Net \models \varphi$.
 \end{proof}
 
 \begin{proposition}
     $\Satisfy{\NetModels} \subseteq \Satisfy{\Plaus}$
 \end{proposition}
-
+\begin{proof}
+    \textbf{TODO}
+\end{proof}
 
 % \begin{proof}
 %     As for $\Satisfy{\NetModels} = \Satisfy{\Plaus}$, Hannes in \cite{leitgeb2001nonmonotonic, leitgeb2003nonmonotonic} proved this for particular classes of plausibility models and networks over a conditional language.  Since my models are somewhat more general, and I use a modal language, I just need to lift his result to the new setting:
