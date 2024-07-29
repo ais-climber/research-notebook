@@ -91,28 +91,24 @@ A \emph{state} is just a possible activation pattern of the net. Since our activ
 
 I've generalized the definition from previous papers: These neural network models can have multiple kinds of edges (indexed by $i \in \textbf{I}$) connecting the same nodes, along with their weights and a corresponding activation function for each $i$.  Each choice $E_i, W_i, A_i$ specifies a state transition function from state $S \in \mathcal{P}(W)$ to the next state, given by
 \[
-    F_i(S) = \set{n \mid A_i(\sum_{m \in \preds{n}} W_i(m, n) \cdot \bigchi_S(m)) = 1}
+    F_i(S) = S \cup \set{n \mid A_i(\sum_{m \in \preds{n}} W_i(m, n) \cdot \bigchi_S(m)) = 1}
 \]
-where $\bigchi_S(m) = 1$ iff $m \in S$ is the indicator function.  In other words, $F_i(S)$ is the set of all nodes that are activated by their predecessors in $S$.
+where $\bigchi_S(m) = 1$ iff $m \in S$ is the indicator function.  In other words, $F_i(S)$ is the current state $S$, along with the set of nodes that are activated by their predecessors in $S$.  Notice that $F_i(S)$ is extensive --- once activated, a node will stay activated in the next state.
 
-% I won't use this feature so much --- it's mainly to allow a fair comparison to the other classes of models.
-
-% Second, I now allow different kinds of state transitions; each $F^i$ specifies how the net will use the edges, weights, and activation function to transition into the next state.  Specifically, $F^i_S(n)$ gives the activation of $n$ in the next state, given that the current state is $S$.  You can think of $E_i$, $W_i$, and $A_i$ as ``optional parameters'' that $F^i$ may make use of.
-
-Let $\NetModels$ be the class of all neural network models (with one more constraint that I'll say soon).  The semantics for $\Net \in \NetModels$ is a bit more roundabout than for the previous classes.  First, we define a ``next state'' function $\nextstate_i : \mathcal{P}(N) \to \mathcal{P}(N)$ for each $i \in \textbf{I}$ as follows:
-\[
-    \nextstate_i(S) = S \cup F_i(S)
-\]
-Notice that $\nextstate_i(S)$ is extensive --- once activated, a node will stay activated in the next state.
+Let $\NetModels$ be the class of all neural network models defined above, with the following additional constraint: 
+% (with one more constraint that I'll say soon).  The semantics for $\Net \in \NetModels$ is a bit more roundabout than for the previous classes.  First, we define a ``next state'' function $\nextstate_i : \mathcal{P}(N) \to \mathcal{P}(N)$ for each $i \in \textbf{I}$ as follows:
+% \[
+%     \nextstate_i(S) = S \cup F_i(S)
+% \]
 
 \begin{postulate*}
-    I assume that for all $i \in \textbf{I}$ and all states $S$, $\nextstate_i$ applied to $S$, i.e.
+    I assume that for all $i \in \textbf{I}$ and all states $S$, $F_i$ applied to $S$, i.e.
     \[
-        S, \nextstate_i(S), \nextstate_i(\nextstate_i(S)), \ldots, \nextstate^k_i(S), \ldots
+        S, F_i(S), F_i(F_i(S)), \ldots, F^k_i(S), \ldots
     \]
     has a (finite) least fixed point, and moreover that it is \emph{unique}.  Let $\Closure_i : \mathcal{P}(N) \to \mathcal{P}(N)$ (``closure'') be the function that produces that least fixed point.  For concreteness, we can say that there is some $k\in \mathbb{N}$ for which
     \[
-        \Closure_i(S) = \nextstate_i^k(S)
+        \Closure_i(S) = F_i^k(S)
     \]
 \end{postulate*}
 This assumption implicitly constrains the allowed neural network architectures: We allow feed-forward nets, as well as certain controlled forms of recurrence.  Characterizing nets that have a unique least fixed point is a big open problem.
@@ -144,13 +140,26 @@ In the following examples, I'll walk through common constructions for neural net
             0 & \mbox{otherwise}
         \end{cases}
     \]
-    Then pick $A_i(x) = 1$ iff $x > 0$. Recall that $n \in F_i(S)$ iff $n$ is activated by its predecessors in $S$ (by the weighted sum term, see the discussion earlier).  In this case, $n \in F_i(S)$ whenever at least one $E_i$-predecessor $m$ of $n$ is in $S$.  I call this the graph-reachability construction because the closure $\Closure_i(S)$ gives exactly the nodes graph-reachable from $S$:
+    Then pick $A_i(x) = 1$ iff $x > 0$. Recall that $n \in F_i(S)$ iff $n$ is activated by its predecessors in $S$ (by the weighted sum term, see the discussion earlier).  In this case, $n \in F_i(S)$ whenever $n$ is active ($n \in S$) or at least one $E_i$-predecessor $m$ of $n$ is in $S$.  I call this the graph-reachability construction because the closure $\Closure_i(S)$ gives exactly the nodes graph-reachable from $S$:
 
     \begin{claim*}
-        $\Closure_i(S) = \set{w \mid \exists \mbox{ an } E_i\mbox{-path from some } u \in S \mbox{ to } w}$
+        $\Closure_i(S) = \set{n \mid \exists \mbox{ an } E_i\mbox{-path from some } m \in S \mbox{ to } n}$
     \end{claim*}
     \begin{proof}
-        \textbf{TODO}
+        First, the $(\subseteq)$ direction.  Let $n \in \Closure_i(S) = F^k_i(S)$ for some $k \in \mathbb{N}$.  We proceed by induction on $k$.
+        \begin{description}
+            \item[Base Step.] $n \in F^0_i(S) = S$.  So there is a trivial $E_i$-path (length $= 0$) from $n \in S$ to itself.
+            
+            \item[Inductive Step.] Let $k \geq 0$.  We have $n \in F^k_i(S) = F_i(F^{k-1}_i(S))$.  By construction of $F_i$, we have two cases:
+            Either $n \in F^{k-1}_i(S)$ or at least one $E_i$-predecessor $x$ of $n$ is in $F^{k-1}_i(S)$.  In the first case, our inductive hypothesis gives a path from some $m \in S$ to $n$.  In the second case, our inductive hypothesis gives a path from some $m \in S$ to $x$.  But since $x{E_i}n$, we can extend this path to be from $m$ to $n$.
+        \end{description}
+
+        As for the $(\supseteq)$ direction, suppose there is an $E_i$-path from some $m \in S$ to $n$.  We proceed by induction on the length of that path.
+        \begin{description}
+            \item[Base Step.] The path is trivial, i.e. has length $0$.  So $n \in S$.  But $S = F^0_i(S) \subseteq \Closure_i(S)$, and so $n \in \Closure_i(S)$.
+            
+            \item[Inductive Step.] Say the path is of length $l \geq 0$.  Let $x$ be some immediate $E_i$-predecessor of $n$.  By the inductive hypothesis, $x \in \Closure_i(S)$, and so $x \in F^k_i(S)$ for some natural $k$.  But since $x$ is an $E_i$-predecessor of $n$, by construction of $F_i$, $n \in F_i(F^k_i(S)) = F^{k+1}_i(S)$.  Since $\Closure_i(S)$ is a closure, it includes $F^{k+1}_i(S)$.  So $n \in \Closure_i(S)$.
+        \end{description}
     \end{proof}
 
 \paragraph*{Example: The Social Majority Construction.}
@@ -175,7 +184,7 @@ In the following examples, I'll walk through common constructions for neural net
         \draw[edge, color=black, opacity=0.4] (c) -- (n) node [near start, above] {$\frac{1}{r}$};
     \end{tikzpicture}
     \end{center}
-    This gives us $n \in F_i(S)$ if the majority (more than half) of $E_i$-predecessors are in $S$.  In this case, the closure $\Closure_i$ can be interpreted as the diffusion of an opinion or attitude through a social network.  This is one of the choices that \cite{baltag2019socialnetworks} consider for modelling influence in social networks.
+    This gives us $n \in F_i(S)$ if $n$ is already active ($n \in S$) or if the majority (more than half) of $E_i$-predecessors are in $S$.  In this case, the closure $\Closure_i$ can be interpreted as the diffusion of an opinion or attitude through a social network.  This is one of the choices that \cite{baltag2019socialnetworks} consider for modelling influence in social networks.
 
 \paragraph*{Example: The Not-Every Construction.}
     Here is an interesting construction that Hannes uses in \cite{leitgeb2001nonmonotonic} to prove completeness for weighted neural network models.  He does this by way of inhibition nets, i.e. nets with inhibitory edges that block excitatory edges.
@@ -230,16 +239,23 @@ In the following examples, I'll walk through common constructions for neural net
     \end{tikzpicture}
     \end{center}
     
-    That is, each node $m_i$ is inhibited by $m_{i-1}$ ($\bias=m_0$ inhibited by $m_r$).  This has the following effect: if all $m_i$ activate, they each inhibit each other, and so $n$ does not activate.  If only \emph{some} $m_i$ activate, then there is some $m_i$ that is uninhibited, and so $n$ activates.  And finally, since $\bias$ is always active we cannot have \emph{no} $m_i$ active.  In other words, $n \in F_i(S)$ iff \emph{at least one, but not all} predecessors $m_i$ are in $S$.
+    That is, each node $m_i$ is inhibited by $m_{i-1}$ ($\bias=m_0$ inhibited by $m_r$).  This has the following effect: if all $m_i$ activate, they each inhibit each other, and so $n$ does not activate.  If only \emph{some} $m_i$ activate, then there is some $m_i$ that is uninhibited, and so $n$ activates.  And finally, since $\bias$ is always active we cannot have \emph{no} $m_i$ active.  In other words, $n \in F_i(S)$ iff $n$ is already active ($n \in S$), or \emph{at least one, but not all} predecessors $m_i$ are in $S$.
     
-    We can simulate this effect with weighted neural networks. Create an edge from $\bias$ to every $n$ that is not $E_i$-minimal. Then pick $W_i(m, n) = \frac{1}{|\preds{n}|+1}$ (the extra $+1$ accounts for the $\bias$). Finally, pick $A_i(x) = 1$ iff $x < 1$.  Take a moment to check that $n \in F_i(S)$ iff at least one, but not all predecessors $m_i$ are in $S$.
+    We can simulate this effect with weighted neural networks. Create an edge from $\bias$ to every $n$ that is not $E_i$-minimal. Then pick $W_i(m, n) = \frac{1}{|\preds{n}|+1}$ (the extra $+1$ accounts for the $\bias$). Finally, pick $A_i(x) = 1$ iff $x < 1$.  Take a moment to check that $n \in F_i(S)$ iff $n \in S$, or at least one, but not all predecessors $m_i$ are in $S$.
 
     Consider the $\best_i$ function from before, but over $E_i$.  That is, $\best_i(S)$ is the set of $E_i$-minimal nodes in $S$.  It turns out that the closure function $\Closure_i$ for the not-every construction is precisely the \emph{dual} of $\best_i$:
-    \begin{claim*}
+    \begin{claim*} (Leitgeb, \cite{leitgeb2001nonmonotonic})
         For all $S$, $\Closure_i(S) = \best_i(S^\complement)^\complement$
     \end{claim*}
     \begin{proof}
-        \textbf{TODO}
+        First, the $(\subseteq)$ direction.  Let $n \in \Closure_i(S) = F^k_i(S)$ for some $k \in \mathbb{N}$.  We proceed by induction on $k$.
+        \begin{description}
+            \item[Base Step.] $n \in F^0_i(S) = S$.  By $\best_i$-inclusion, $\best_i(S^\complement) \subseteq S^\complement$. Flipping this containment gives us $S \subseteq \best_i(S^\complement)^\complement$.  So $n \in \best_i(S^\complement)^\complement$.
+            
+            \item[Inductive Step.] Let $k \geq 0$.  We have $n \in F^k_i(S) = F_i(F^{k-1}_i(S))$.  By construction of $F_i$, we have two cases: $n$ is already active ($n \in F^{k-1}_i(S)$), or some predecessor (but not all) is $m \in F^{k-1}_i(S)$.  In the first case, our inductive hypothesis says $n \in \best_i(S^\complement)^\complement$.  In the latter case, \textbf{TODO}.
+        \end{description}
+
+        As for the $(\supseteq)$ direction, suppose contrapositively that $n \not \in \Closure_i(S)$.  I would first like to show that \emph{none} of $n$'s predecessors are in $\Closure_i(S)$. \textbf{TODO}.
     \end{proof}
 
 % \begin{example*}
