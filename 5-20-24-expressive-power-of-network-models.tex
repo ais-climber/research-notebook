@@ -48,7 +48,11 @@ Define $\Rel$ to be the class of all such models, and define $\Relrefl$ to be th
 \]
 
 \paragraph*{Plausibility Models.}
-A plausibility model is $\Model = \langle W, \set{R_i}_{i \in \textbf{I}}, V \rangle$, i.e. the models themselves are just relational models.  As before, I assume that $W$ is finite, and as with $\Relrefl$, $R_i$ is reflexive and transitive.  The key difference is that we interpret $\Box_i \varphi$ to hold in the best (or most plausible) states satisfying $\varphi$.  Formally, let $\best_{R_i}{(S)} = \set{w \in S \mid \textrm{For all } u \in S, \neg u {R_i} w}$ (the $R_i$-minimal states over $S$).  The new semantics for $\Box_i$ is
+A plausibility model, first introduced in \cite{kraus1990nonmonotonic}, is $\Model = \langle W, \set{R_i}_{i \in \textbf{I}}, V \rangle$, i.e. the models themselves are just relational models.  As before, I assume that $W$ is finite, and as with $\Relrefl$, $R_i$ is reflexive and transitive.  The key difference is that we interpret $\Box_i \varphi$ to hold in the best (or most plausible) states satisfying $\varphi$.  Formally, let $\best_{R_i}{(S)} = \set{w \in S \mid \textrm{For all } u \in S, \neg u {R_i} w}$ (the $R_i$-minimal states over $S$).  We additionally impose the following ``smoothness condition'' \cite{kraus1990nonmonotonic} on $\best_{R_i}$:
+\begin{postulate*}
+    For all models $\Model$, $i \in \textbf{I}$, sets $S$, and all $w \in W$, if $w \in S$ then either $w \in \best_{R_i}(S)$, or there is some $v{R_i}w$ better than $w$ that \emph{is} the best, i.e. $v \in \best_{R_i}(S)$.
+\end{postulate*}
+The new semantics for $\Box_i$ is
 \[
 \begin{array}{lcl}
     \Model, w \Vdash \Box_i \varphi & \mbox{ iff } & w \in \best_{R_i}{(\semantics{\varphi})}
@@ -243,25 +247,33 @@ In the following examples, I'll walk through common constructions for neural net
     
     We can simulate this effect with weighted neural networks. Create an edge from $\bias$ to every $n$ that is not $E_i$-minimal. Then pick $W_i(m, n) = \frac{1}{|\preds{n}|+1}$ (the extra $+1$ accounts for the $\bias$). Finally, pick $A_i(x) = 1$ iff $x < 1$.  Take a moment to check that $n \in F_i(S)$ iff $n \in S$, or at least one, but not all predecessors $m_i$ are in $S$.
 
-    Consider the $\best_i$ function from before, but over $E_i$.  That is, $\best_i(S)$ is the set of $E_i$-minimal nodes in $S$.  It turns out that the closure function $\Closure_i$ for the not-every construction is precisely the \emph{dual} of $\best_i$:
+    Consider the $\best$ function from before, but over $E_i$.  That is, $\best_{E_i}(S)$ is the set of $E_i$-minimal nodes in $S$.  It turns out that, \emph{if} $E_i$ is transitive (which is true in our use case), the closure function $\Closure_i$ for the not-every construction is precisely the \emph{dual} of $\best_{E_i}$:
     \begin{claim*} (Leitgeb, \cite{leitgeb2001nonmonotonic})
-        For all $S$, $\Closure_i(S) = \best_i(S^\complement)^\complement$
+        Suppose $E_i$ is transitive.  Then for all $S$, $\Closure_i(S) = \best_{E_i}(S^\complement)^\complement$
     \end{claim*}
     \begin{proof}
         First, the $(\subseteq)$ direction.  Let $n \in \Closure_i(S) = F^k_i(S)$ for some $k \in \mathbb{N}$.  We proceed by induction on $k$.
         \begin{description}
-            \item[Base Step.] $n \in F^0_i(S) = S$.  By $\best_i$-inclusion, $\best_i(S^\complement) \subseteq S^\complement$. Flipping this containment gives us $S \subseteq \best_i(S^\complement)^\complement$.  So $n \in \best_i(S^\complement)^\complement$.
+            \item[Base Step.] $n \in F^0_i(S) = S$.  By $\best_{E_i}$-inclusion, $\best_{E_i}(S^\complement) \subseteq S^\complement$. Flipping this containment gives us $S \subseteq \best_{E_i}(S^\complement)^\complement$.  So $n \in \best_{E_i}(S^\complement)^\complement$.
             
-            \item[Inductive Step.] Let $k \geq 0$.  We have $n \in F^k_i(S) = F_i(F^{k-1}_i(S))$.  By construction of $F_i$, we have two cases: $n$ is already active ($n \in F^{k-1}_i(S)$), or some predecessor (but not all) is $m \in F^{k-1}_i(S)$.  In the first case, our inductive hypothesis says $n \in \best_i(S^\complement)^\complement$.  In the latter case, \textbf{TODO}.
+            \item[Inductive Step.] Let $k \geq 0$.  We have $n \in F^k_i(S) = F_i(F^{k-1}_i(S))$.  By construction of $F_i$, we have two cases: $n$ is already active ($n \in F^{k-1}_i(S)$), or some predecessor is $m \in F^{k-1}_i(S)$, and not all predecessors are.  In the first case, our inductive hypothesis says $n \in \best_{E_i}(S^\complement)^\complement$.  In the latter case, the inductive hypothesis gives $m \in \best_{E_i}(S^\complement)^\complement$.  From here we split by cases: either $m \in S$ or $m \not \in S$.
+            \begin{description}
+                \item[Case: $m \in S$.] In this case, we trivially have $n \not \in \best_{E_i}(S^\complement)$, since $n$ is not even in $S^\complement$.
+
+                \item[Case: $m \not \in S$.]
+                Since $m \in S^\complement$ but $m \not \in \best_{E_i}(S^\complement)$, by the smoothness condition there must be some better $x$ with $x{E_i}m$ that \emph{is} the best, i.e. $x \in \best_{E_i}(S^\complement)$.  By $\best$-inclusion, $x \in S^\complement$.  Well, $x{E_i}m{E_i}n$, and since $E_i$ is transitive we have $x{E_i}n$.  And so we have an $x \in S^\complement$ that is $E_i$-better than $n$.  So $n \not \in \best_{E_i}(S^\complement)$, which is what we wanted to show.
+            \end{description}
         \end{description}
 
-        As for the $(\supseteq)$ direction, suppose contrapositively that $n \not \in \Closure_i(S)$.  I would first like to show that \emph{none} of $n$'s predecessors are in $\Closure_i(S)$. \textbf{TODO}.
+        As for the $(\supseteq)$ direction, suppose contrapositively that $n \not \in \Closure_i(S)$. Note that $n \not \in S$, by $\Closure$-inclusion.  First, I claim that every predecessor $m$ of $n$ is in $S$.  Suppose not, i.e. suppose that some predecessor $m \not \in S$.  Note that we always have $\bias \in S$.  By construction, we also have $\bias{E_i}n$.  So $n$ has one predecessor, $m$, not in $S$, and another predecessor, $\bias$, in $S$.  In other words, some but not all predecessors of $n$ are in $S$.  By construction of $F_i$, $n \in F_i(S)$.  But $F_i(S) \subseteq \Closure_i(S)$, so this contradicts $n \not \in \Closure_i(S)$.
+
+        So every predecessor $m$ of $n$ is in $S$.  But this implies that any $m \not \in S$ cannot be an $E_i$-predecessor of $n$.  In other words, $\forall m \in S^\complement, \neg m{E_i}n$.  Since $n \in S^\complement$ from before, we have $n \in \best_{E_i}(S)$ by the definition of $\best$.  This concludes this direction of the proof.
     \end{proof}
 
 % \begin{example*}
 %     In general, $\Closure_i(S)$ is exactly $\Prop(S)$, the forward propagation (or diffusion) of the signal $S$ through the net.  But different constructions for $F_i(S)$ give different interpretations for $\Closure(S)$.  
     
-%     Consider the constructions from the previous example.  The graph-reachability construction gives us $\Closure_i(S) = \Reach(S)$, the nodes graph-reachable from $S$ (I will prove this later, when we need it).  Similarly, $\Closure_i$ for the social majority construction can be interpreted as the diffusion of an opinion or attitude through a social network (see \cite{baltag2019socialnetworks}).  As we'll see later, $\Closure_i$ for the not-every construction gives $\Closure_i(S) = \best_i(S^\complement)^\complement$, the dual to the set of $R_i$-minimal elements of $S$.
+%     Consider the constructions from the previous example.  The graph-reachability construction gives us $\Closure_i(S) = \Reach(S)$, the nodes graph-reachable from $S$ (I will prove this later, when we need it).  Similarly, $\Closure_i$ for the social majority construction can be interpreted as the diffusion of an opinion or attitude through a social network (see \cite{baltag2019socialnetworks}).  As we'll see later, $\Closure_i$ for the not-every construction gives $\Closure_i(S) = \best_{R_i}(S^\complement)^\complement$, the dual to the set of $R_i$-minimal elements of $S$.
 % \end{example*}
 
 \paragraph*{Dynamic Models.}
@@ -414,10 +426,10 @@ The first and last inclusions are folklore.  I haven't found a reference yet, bu
         But by choice of $f_i$, this is exactly $\set{u \mid X \in f(u)} \in f(w)$.
 
         \item[$f_i$ is reflexive (plausibility case).]
-        We want to show that for all $w$, $w \in \cap f_i(w)$.  First, for all sets $X$ we have $\best_i(X) \subseteq X$.  In other words, $w \in \best_i(X)$ implies $w \in X$.  So $X \in f_i(w)$ implies $w \in X$.  But this immediately gives $w \in \bigcap_{X \in f_i(w)} X = \cap f_i(w)$.
+        We want to show that for all $w$, $w \in \cap f_i(w)$.  First, for all sets $X$ we have $\best_{R_i}(X) \subseteq X$.  In other words, $w \in \best_{R_i}(X)$ implies $w \in X$.  So $X \in f_i(w)$ implies $w \in X$.  But this immediately gives $w \in \bigcap_{X \in f_i(w)} X = \cap f_i(w)$.
 
         \item[$f_i$ is transitive (plausibility case).]
-        We want to show that for all $w$ and $X$, if $X \in f_i(w)$ then $\set{u \mid X \in f_i(u)} \in f_i(w)$.  Suppose that $X \in f_i(w)$.  By definition, $w \in \best_i(X)$.  But by idempotence of $\best$, $w \in \best_i(\best_i(X))$.  Applying our choice of $f_i$ to the inner $\best$, we get $w \in \best_i(\set{u \mid X \in f(u)})$.  Applying the definition once more, we have $\set{u \mid X \in f(u)} \in f(w)$.
+        We want to show that for all $w$ and $X$, if $X \in f_i(w)$ then $\set{u \mid X \in f_i(u)} \in f_i(w)$.  Suppose that $X \in f_i(w)$.  By definition, $w \in \best_{R_i}(X)$.  But by idempotence of $\best$, $w \in \best_{R_i}(\best_{R_i}(X))$.  Applying our choice of $f_i$ to the inner $\best$, we get $w \in \best_{R_i}(\set{u \mid X \in f(u)})$.  Applying the definition once more, we have $\set{u \mid X \in f(u)} \in f(w)$.
 
     \end{description}
 
@@ -455,9 +467,9 @@ Let's move on to the neural network inclusions.  I claim that $\Satisfy{\NetMode
         \Closure_i(S) = \set{w \mid \exists \mbox{ an } E_i\mbox{-path from some } u \in S \mbox{ to } w}            
     \]
 
-    If instead $\Diamond_i$ is given plausibility semantics, we simply do the not-every construction.  In other words, let $E_i$ be $R_i$ (we do not reverse it), and create an edge from $\bias$ to every $n$ that is not $E_i$-minimal.  Then pick $W_i(m, n) = \frac{1}{|\preds{n}|+1}$.  Finally, pick $A_i(x) = 1$ iff $x < 1$.  Recall that this choice gives us
+    If instead $\Diamond_i$ is given plausibility semantics, we simply do the not-every construction.  In other words, let $E_i$ be $R_i$ (we do not reverse it), and create an edge from $\bias$ to every $n$ that is not $E_i$-minimal.  Then pick $W_i(m, n) = \frac{1}{|\preds{n}|+1}$.  Finally, pick $A_i(x) = 1$ iff $x < 1$.  Recall that this choice gives us (since $E_i = R_i$ and $R_i$ is transitive):
     \[
-        \Closure_i(S) = \best_i(S^\complement)^\complement
+        \Closure_i(S) = \best_{R_i}(S^\complement)^\complement
     \]
     
     From here, we need to show that for all $\varphi, w$, $\Model, w \Vdash \varphi$ iff $\Net, w \Vdash \varphi$.  We do this by induction on $\varphi$.  The key inductive case is $\Diamond_i \varphi$.  We have the two cases:
@@ -479,9 +491,9 @@ Let's move on to the neural network inclusions.  I claim that $\Satisfy{\NetMode
         \[
         \begin{array}{lcll}
             \Model, w \Vdash \Diamond_i \varphi & \mbox{iff} & \Model, w \Vdash \neg \Box_i \neg  \varphi & \\
-            & \mbox{iff} & w \in \best_i(\set{u \mid \Model, u \Vdash \varphi}^\complement)^\complement & (\mbox{By plausibility semantics}) \\
-            & \mbox{iff} & w \in \best_i(\set{u \mid \Net, u \Vdash \varphi}^\complement)^\complement & (\mbox{Inductive hypothesis})\\
-            & \mbox{iff} & w \in \best_i(\semantics{\varphi}_\Net^\complement)^\complement & (\mbox{Defn of } \semantics{\varphi}) \\
+            & \mbox{iff} & w \in \best_{R_i}(\set{u \mid \Model, u \Vdash \varphi}^\complement)^\complement & (\mbox{By plausibility semantics}) \\
+            & \mbox{iff} & w \in \best_{R_i}(\set{u \mid \Net, u \Vdash \varphi}^\complement)^\complement & (\mbox{Inductive hypothesis})\\
+            & \mbox{iff} & w \in \best_{R_i}(\semantics{\varphi}_\Net^\complement)^\complement & (\mbox{Defn of } \semantics{\varphi}) \\
             & \mbox{iff} & w \in \Closure_i(\semantics{\varphi}_\Net) & (\mbox{By construction}) \\
             & \mbox{iff} & \Net, w \Vdash \Diamond_i \varphi & 
         \end{array}
