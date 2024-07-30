@@ -467,7 +467,7 @@ Let's move on to the neural network inclusions.  I claim that $\Satisfy{\NetMode
         \Closure_i(S) = \set{w \mid \exists \mbox{ an } E_i\mbox{-path from some } u \in S \mbox{ to } w}            
     \]
 
-    If instead $\Diamond_i$ is given plausibility semantics, we simply do the not-every construction.  In other words, let $E_i$ be $R_i$ (we do not reverse it), and create an edge from $\bias$ to every $n$ that is not $E_i$-minimal.  Then pick $W_i(m, n) = \frac{1}{|\preds{n}|+1}$.  Finally, pick $A_i(x) = 1$ iff $x < 1$.  Recall that this choice gives us (since $E_i = R_i$ and $R_i$ is transitive):
+    If instead $\Diamond_i$ is given plausibility semantics, we simply do the ``not-every'' construction.  In other words, let $E_i$ be $R_i$ (we do not reverse it), and create an edge from $\bias$ to every $n$ that is not $E_i$-minimal.  Then pick $W_i(m, n) = \frac{1}{|\preds{n}|+1}$.  Finally, pick $A_i(x) = 1$ iff $x < 1$.  Recall that this choice gives us (since $E_i = R_i$ and $R_i$ is transitive):
     \[
         \Closure_i(S) = \best_{R_i}(S^\complement)^\complement
     \]
