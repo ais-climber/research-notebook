@@ -506,7 +506,22 @@ Let's move on to the neural network inclusions.  I claim that $\Satisfy{\NetMode
     $\Satisfy{\NetModels} \subseteq \Satisfy{\Plaus}$
 \end{proposition}
 \begin{proof}
-    \textbf{TODO}
+    Let $\Net = \langle N, \bias, \set{E_i}_{i \in \textbf{I}}, \set{W_i}_{i \in \textbf{I}}, \set{A_i}_{i \in \textbf{I}}, V \rangle$ be a neural network model satisfying $\varphi$.  For each $i$, we have a closure operator $\Closure_i$ that is specified by the particular choice of $E_i, W_i, A_i$.  We construct the plausibility model $\Model = \langle W, \set{R_i}_{i \in \textbf{I}}, V \rangle$, where $W = N$, $V$ is kept the same, and
+    \[ u{R_i}v \mbox{ iff } u \in S \mbox{ and } v \in \Closure_i(S^\complement) \mbox{\textbf{TODO: Underspecified!}} \]
+    All $\Diamond_i$ are given plausibility semantics.  From here, I want to show:
+    
+    \begin{claim*}
+        For all $\varphi, w$, $\Net, w \Vdash \varphi$ iff $\Model, w \Vdash \varphi$.
+    \end{claim*}
+    \begin{proof}
+        By induction on $\varphi$.  As before, the key inductive case is $\Diamond_i \varphi$.
+
+        $(\rightarrow)$ Suppose $\Net, w \Vdash \Diamond_i \varphi$.  By definition, $w \in \Closure_i(\semantics{\varphi}_\Net)$. \textbf{TODO} 
+
+        $(\leftarrow)$ Suppose $\Model, w \Vdash \Diamond_i \varphi$.  \textbf{TODO}
+    \end{proof}
+
+    
 \end{proof}
 
 % \begin{proof}
