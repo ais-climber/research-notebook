@@ -507,21 +507,35 @@ Let's move on to the neural network inclusions.  I claim that $\Satisfy{\NetMode
 \end{proposition}
 \begin{proof}
     Let $\Net = \langle N, \bias, \set{E_i}_{i \in \textbf{I}}, \set{W_i}_{i \in \textbf{I}}, \set{A_i}_{i \in \textbf{I}}, V \rangle$ be a neural network model satisfying $\varphi$.  For each $i$, we have a closure operator $\Closure_i$ that is specified by the particular choice of $E_i, W_i, A_i$.  We construct the plausibility model $\Model = \langle W, \set{R_i}_{i \in \textbf{I}}, V \rangle$, where $W = N$, $V$ is kept the same, and
-    \[ u{R_i}v \mbox{ iff } u \in S \mbox{ and } v \in \Closure_i(S^\complement) \mbox{\textbf{TODO: Underspecified!}} \]
-    All $\Diamond_i$ are given plausibility semantics.  From here, I want to show:
+    \[ u{R_i}v \mbox{ iff } u \in \bigcap_{v \in \Closure_i(X^\complement)}X \]
+    
+    It helps to think of this as a kind of topological ``core'' construction.  As with the ``not-every'' construction from before, the $\best_{R_i}$ we get from this construction is precisely the dual of the neural network closure $\Closure_i$:
+    \begin{claim*}
+        For all $S$, $\best_{R_i}(S) = (\Closure_i(S^\complement))^\complement$
+    \end{claim*}
+    \begin{proof}
+        $(\rightarrow)$ Suppose $w \in \best_{R_i}(S)$. By definition, $w \in S$ and for all $u \in S$, $\neg u{R_i}w$.  By construction of $R_i$, $u \not \in \cap_{w \in \Closure_i(X^\complement)}X$.  Since $w \in S$, we have in particular $w \not \in \cap_{w \in \Closure_i(X^\complement)}X$.  \textbf{Wait, did I mess up the negation-intersection???}  We want to show that $w \not \in \Closure_i(S^\complement)$; suppose for contradiction that $w \in \Closure_i(S^\complement)$.  But then it follows from our choice of $R_i$ that $w \not \in S$, which is a contradiction.  This concludes this direction of the proof.
+    
+        $(\leftarrow)$ \textbf{TODO}
+    \end{proof}
+    For convenience, I'll deal with $\Box_i$ modalities.  All $\Box_i$ operators are given plausibility semantics.  From here, I want to show:
     
     \begin{claim*}
         For all $\varphi, w$, $\Net, w \Vdash \varphi$ iff $\Model, w \Vdash \varphi$.
     \end{claim*}
     \begin{proof}
-        By induction on $\varphi$.  As before, the key inductive case is $\Diamond_i \varphi$.
-
-        $(\rightarrow)$ Suppose $\Net, w \Vdash \Diamond_i \varphi$.  By definition, $w \in \Closure_i(\semantics{\varphi}_\Net)$. \textbf{TODO} 
-
-        $(\leftarrow)$ Suppose $\Model, w \Vdash \Diamond_i \varphi$.  \textbf{TODO}
+        By induction on $\varphi$.  The key inductive case is $\Box_i \varphi$, which each have plausibility semantics:
+        \[
+        \begin{array}{lcll}
+            \Net, w \Vdash \Box_i \varphi & \mbox{iff} & w \in (\Closure_i(\semantics{\varphi}_\Net^\complement))^\complement & (\mbox{By neural network semantics}) \\
+            & \mbox{iff} & w \in (\Closure_i(\set{u \mid \Net, u \Vdash \varphi}^\complement))^\complement & (\mbox{Defn of } \semantics{\varphi}) \\
+            & \mbox{iff} & w \in (\Closure_i(\set{u \mid \Model, u \Vdash \varphi}^\complement))^\complement & (\mbox{Inductive hypothesis}) \\
+            & \mbox{iff} & w \in \best_{R_i}(\set{u \mid \Model, u \Vdash \varphi}) & (\mbox{By construction}) \\
+            & \mbox{iff} & \Model, w \Vdash \Box_i \varphi & (\mbox{By plausibility semantics})
+        \end{array}
+        \]
     \end{proof}
-
-    
+    We conclude that for our particular $\varphi$, $\Model \models \varphi$ implies $\Net \models \varphi$.
 \end{proof}
 
 % \begin{proof}
