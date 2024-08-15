@@ -245,11 +245,11 @@ In the following examples, I'll walk through common constructions for neural net
     
     That is, each node $m_i$ is inhibited by $m_{i-1}$ ($\bias=m_0$ inhibited by $m_r$).  This has the following effect: if all $m_i$ activate, they each inhibit each other, and so $n$ does not activate.  If only \emph{some} $m_i$ activate, then there is some $m_i$ that is uninhibited, and so $n$ activates.  And finally, since $\bias$ is always active we cannot have \emph{no} $m_i$ active.  In other words, $n \in F_i(S)$ iff $n$ is already active ($n \in S$), or \emph{at least one, but not all} predecessors $m_i$ are in $S$.
     
-    We can simulate this effect with weighted neural networks. Create an edge from $\bias$ to every $n$ that is not $E_i$-minimal. Then pick $W_i(m, n) = \frac{1}{|\preds{n}|+1}$ (the extra $+1$ accounts for the $\bias$). Finally, pick $A_i(x) = 1$ iff $x < 1$.  Take a moment to check that $n \in F_i(S)$ iff $n \in S$, or at least one, but not all predecessors $m_i$ are in $S$.
+    We can simulate this effect with weighted neural networks. Create an edge from $\bias$ to every $n$ that is not $E_i$-minimal. Then pick $W_i(m, n) = \frac{1}{|\preds{n}|+1}$ (the extra $+1$ accounts for the $\bias$). Finally, pick $A_i(x) = 1$ iff $x < 1$.  Take a moment to check that $n \in F_i(S)$ iff $n \in S$, or at least one, but not all predecessors $m$ are in $S$.
 
     Consider the $\best$ function from before, but over $E_i$.  That is, $\best_{E_i}(S)$ is the set of $E_i$-minimal nodes in $S$.  It turns out that, \emph{if} $E_i$ is transitive (which is true in our use case), the closure function $\Closure_i$ for the not-every construction is precisely the \emph{dual} of $\best_{E_i}$:
     \begin{claim*} (Leitgeb, \cite{leitgeb2001nonmonotonic})
-        Suppose $E_i$ is transitive.  Then for all $S$, $\Closure_i(S) = \best_{E_i}(S^\complement)^\complement$
+        Suppose $E_i$ is transitive.  Then for all $S$, $\Closure_i(S) = (\best_{E_i}(S^\complement))^\complement$
     \end{claim*}
     \begin{proof}
         First, the $(\subseteq)$ direction.  Let $n \in \Closure_i(S) = F^k_i(S)$ for some $k \in \mathbb{N}$.  We proceed by induction on $k$.
@@ -258,7 +258,7 @@ In the following examples, I'll walk through common constructions for neural net
             
             \item[Inductive Step.] Let $k \geq 0$.  We have $n \in F^k_i(S) = F_i(F^{k-1}_i(S))$.  By construction of $F_i$, we have two cases: $n$ is already active ($n \in F^{k-1}_i(S)$), or some predecessor is $m \in F^{k-1}_i(S)$, and not all predecessors are.  In the first case, our inductive hypothesis says $n \in \best_{E_i}(S^\complement)^\complement$.  In the latter case, the inductive hypothesis gives $m \in \best_{E_i}(S^\complement)^\complement$.  From here we split by cases: either $m \in S$ or $m \not \in S$.
             \begin{description}
-                \item[Case: $m \in S$.] In this case, we trivially have $n \not \in \best_{E_i}(S^\complement)$, since $n$ is not even in $S^\complement$.
+                \item[Case: $m \in S$.] In this case, we trivially have $n \not \in \best_{E_i}(S^\complement)$, since $n$ is not even in $S^\complement$. \textbf{TODO: Hmm... why?}
 
                 \item[Case: $m \not \in S$.]
                 Since $m \in S^\complement$ but $m \not \in \best_{E_i}(S^\complement)$, by the smoothness condition there must be some better $x$ with $x{E_i}m$ that \emph{is} the best, i.e. $x \in \best_{E_i}(S^\complement)$.  By $\best$-inclusion, $x \in S^\complement$.  Well, $x{E_i}m{E_i}n$, and since $E_i$ is transitive we have $x{E_i}n$.  And so we have an $x \in S^\complement$ that is $E_i$-better than $n$.  So $n \not \in \best_{E_i}(S^\complement)$, which is what we wanted to show.
