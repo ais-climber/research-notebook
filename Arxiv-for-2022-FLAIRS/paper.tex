@@ -543,163 +543,121 @@ This follows straightforwardly from the previous lemma:
 \end{array} \qedhere
 \]
 \end{proof}
-This test reduces a \emph{global} condition about the net ($\Net_1 \preceq \Net_2$) to a \emph{local} condition for each node $n$ (a statement about the activation of $n$ with different predecessor weights in $\Net_1$ and $\Net_2$)
+This test is a convenient way to show $\Net_1 \preceq \Net_2$: prove that for all $n$, if $n$ activates in $\Net_1$ then $n$ activates in $\Net_2$. But the test is not always applicable --- often we still need to do a full proof by induction and leverage the inductive hypothesis to prove net containment properties. But the proof is still worth understanding, since it serves as an example for how to do these (somewhat nasty) inductive proofs.
 
-These two facts are helpful for proving the following algebraic characterization of $\Inc$.
+We are now ready to state and prove the following algebraic characterization of $\Inc$. Note that $\Prop(S)$ abbreviates $\Prop_\Net(S)$, the propagation in the net before update.
 
 \begin{theorem}
-For all $\Net, \Net_1, \Net_2 \in \AllNets$ and $S, S_1, S_2 \in \Set$, $\Inc$ satisfies
+For all $\Net, \Net_1, \Net_2 \in \AllNets$ and $A, B, B_1, \ldots, B_k \in \Set$, $\Inc$ satisfies
 \begin{description}
-    \item[(Inclusion)]
-    $\Net \preceq \Inc(\Net, S)$
-    
-    \item[(Absorption)]
-    $\Inc(\Net, \Prop(S)) \cong \Inc(\Net, S)$
-    
     \item[(Monotonicity in $\Net$)] if ${\Net_1 \preceq \Net_2}$
-    then ${\Inc(\Net_1, S) \preceq \Inc(\Net_2, S)}$
+    then ${\Inc(\Net_1, A) \preceq \Inc(\Net_2, A)}$
+
+    \item[(Absorption)]
+    $\Inc(\Net, \Prop(A)) \cong \Inc(\Net, A)$
     
     \item[(Local)]
-    $\Prop_{\Inc(\Net, S_2)}(S_1) \subseteq \Prop_\Net(S_1) \cup \Prop_\Net(S_2)$
+    $\Prop_{\Inc(\Net, A)}(B) \subseteq \Prop(A) \cup \Prop(B)$
     
-    \item[(Cumulative)] If ${\Prop_\Net(S_1) \subseteq \Prop_\Net(S_2)}$ and ${\Prop_\Net(S_2) \subseteq \Prop_{\Inc(\Net, S)}(S_1)}$,\\
-    then $\Prop_{\Inc(\Net, S)}(S_1) = \Prop_{\Inc(\Net, S)}(S_2)$
+    \item[(Cumulative)] If ${\Prop(B_1) \subseteq \Prop(B_2)}$ and ${\Prop(B_2) \subseteq \Prop_{\Inc(\Net, A)}(B_1)}$,\\
+    then $\Prop_{\Inc(\Net, A)}(B_1) = \Prop_{\Inc(\Net, A)}(B_2)$
     
-    \item[(Loop)] If ${\Prop_\Net(S_1) \subseteq \Prop_{\Inc(\Net, S)}(S_0)}$,
-    $\ldots, {\Prop_\Net(S_n) \subseteq \Prop_{\Inc(\Net, S)}(S_{n-1})}$,\\
+    \item[(Loop)] If ${\Prop(B_1) \subseteq \Prop_{\Inc(\Net, A)}(B_0)}$,
+    $\ldots, {\Prop(B_n) \subseteq \Prop_{\Inc(\Net, A)}(B_{n-1})}$,\\
     and 
-    ${\Prop_\Net(S_0) \subseteq \Prop_{\Inc(\Net, S)}(S_n)}$,
-    then ${\Prop_{\Inc(\Net, S)}(S_i) = \Prop_{\Inc(\Net, S)}(S_j)}$
+    ${\Prop(B_0) \subseteq \Prop_{\Inc(\Net, A)}(B_n)}$,
+    then ${\Prop_{\Inc(\Net, A)}(B_i) = \Prop_{\Inc(\Net, A)}(B_j)}$
     for all $i, j \in \set{0, \ldots, n}$
 \end{description}
 \label{thm:inc-props}
 \end{theorem}
-\begin{proof} For the first three properties, we apply Lemma~\ref{lemma:subnet->leq}.  Let $n, m_1, \ldots, m_k$ satisfy the conditions of Lemma~\ref{lemma:subnet->leq} (substituting $\Net_1$ and $\Net_2$ with the appropriate nets, in each case).
+\begin{proof} Unfortunately, we are not able to use Lemma~\ref{lemma:subnet->leq}, so we resort to doing full proofs by induction on $\Prop$.
 \begin{description}
     %═══════════════════════════════════════════%%%%%%%%%%
-    \item[(Inclusion)]
+    \item[(Monotonicity in $\Net$)] 
+    Suppose $\Net_1 \preceq \Net_2$, i.e.\ for all $B$, $\Prop_{\Net_1}(B) \subseteq \Prop_{\Net_2}(B)$. Now let $A, B \in \Set$. We want to show that $\Inc(\Net_1, A) \preceq \Inc(\Net_2, A)$; in other words, for all $A, B$,
     \[
-    \begin{array}{llr}
-    
-    &
-    O^{(n)}(A^{(n)}(\overrightarrow{W}_{\Net}(m_i, n))) &
-    \\
-    
-    \leq &
-    O^{(n)}(A^{(n)}(\overrightarrow{W}_{\Net}(m_i, n) + \eta \overrightarrow{\bigchi}_{\Prop(S)}(m_i, n))) & 
-    \mbox{(since $\eta \geq 0$ and (\ref{eqn:increasing}))}\\
-    
-    \leq &
-    O^{(n)}(A^{(n)}(\overrightarrow{W}_{\Inc(\Net, S)}(m_i, n))) & 
-    \mbox{(by Definition~\ref{def:inc})}
-    \end{array}
+        \Prop_{\Inc(\Net_1, A)}(B) \subseteq \Prop_{\Inc(\Net_2, A)}(B)
     \]
-    And since $O^{(n)}$ is binary, (\ref{eqn:weight-condition}) holds.
+    Let $n \in \Prop_{\Inc(\Net_1, A)}(B)$, and proceed by induction on the structure of this $\Prop$.
+    \begin{description}
+        \item[Base Step:] $n \in B$. So $n \in \Prop_{\Inc(\Net_2, A)}(B)$ by the base case of $\Prop$.
+        \item[Inductive Step:] We have $n \in \Prop_{\Inc(\Net_1, A)}(B)$ from the constructor case, i.e. because for those $m_1, \ldots, m_k$ such that $(m_i, n) \in E$,
+        \[
+            O^{(n)}(A^{(n)}(\sum_{m_i{E}n} W_{\Inc(\Net_1, A)}(m_i, n) \cdot \bigchi_{\Prop_{\Inc(\Net_1, A)}(B)}(m_i))) = 1
+        \]
+        \textbf{TODO}
+    \end{description}
     
+
     %═══════════════════════════════════════════%%%%%%%%%%
     \item[(Absorption)] 
+    To prove $\Inc(\Net, \Prop(A)) \cong \Inc(\Net, A)$, we need to show that for all sets $A, B$,
     \[
-    \begin{array}{llr}
-    
-    &
-    O^{(n)}(A^{(n)}(\overrightarrow{W}_{\Inc(\Net, \Prop_{\Net}(S))}(m_i, n))) & 
-    \\
-    
-    = &
-    O^{(n)}(A^{(n)}(\overrightarrow{W}_{\Net}(m_i, n) + \eta \overrightarrow{\bigchi}_{\Prop(\Prop(S))}(m_i, n))) &
-    \mbox{(by Definition~\ref{def:inc})}\\
-    
-    = &
-    O^{(n)}(A^{(n)}(\overrightarrow{W}_{\Net}(m_i, n) + \eta \overrightarrow{\bigchi}_{\Prop(S)}(m_i, n))) &
-    \mbox{(by Idempotence)}\\
-    
-    = &
-    O^{(n)}(A^{(n)}(\overrightarrow{W}_{\Inc(\Net, S)}(m_i, n))) & 
-    \mbox{(by Definition~\ref{def:inc})}
-    \end{array}
+        \Prop_{\Inc(\Net, \Prop(A))}(B) = \Prop_{\Inc(\Net, A)}(B)
     \]
-    Since $O^{(n)}$ is binary, (\ref{eqn:weight-condition}) and its converse hold.
-    
-    %═══════════════════════════════════════════%%%%%%%%%%
-    \item[(Monotonicity in $\Net$)] 
-    \[
-    \begin{array}{llr}
-    
-    &
-    O^{(n)}(A^{(n)}(\overrightarrow{W}_{\Inc(\Net_1, S)}(m_i, n))) & 
-    \\
-    
-    \leq &
-    O^{(n)}(A^{(n)}(\overrightarrow{W}_{\Net_1}(m_i, n) + \eta \overrightarrow{\bigchi}_{\Prop_{\Net_1}(S)}(m_i, n))) & 
-    \mbox{(by Definition~\ref{def:inc})}\\
-    
-    \leq &
-    O^{(n)}(A^{(n)}(\overrightarrow{W}_{\Net_2}(m_i, n) + \eta \overrightarrow{\bigchi}_{\Prop_{\Net_2}(S)}(m_i, n))) & 
-    (\dagger)\\
-    
-    \leq &
-    O^{(n)}(A^{(n)}(\overrightarrow{W}_{\Inc(\Net_2, S)}(m_i, n))) & 
-    \mbox{(by Definition~\ref{def:inc})}
-    \end{array}
-    \]
-    which again shows that (\ref{eqn:weight-condition}) holds.  To see $(\dagger)$, notice that from $\Net_1 \preceq \Net_2$ and (\ref{eqn:weight-condition}) we have that each
-    \[
-    O^{(n)}(A^{(n)}(W_{\Net_1}(m_i, n))) \leq O^{(n)}(A^{(n)}(W_{\Net_2}(m_i, n)))
-    \]
-    The backwards direction of (\ref{eqn:increasing}) gives
-    \[
-    W_{\Net_1}(m_i, n) \leq W_{\Net_2}(m_i, n)
-    \]
-    In addition, $\Net_1 \preceq \Net_2$ by definition means that for all $S$, $\Prop_{\Net_1}(S) \subseteq \Prop_{\Net_2}(S)$.  This in turn implies that each
-    \[
-    \bigchi_{\Prop_{\Net_1}(S)}(m_i, n) \leq \bigchi_{\Prop_{\Net_2}(S)}(m_i, n)
-    \]
-    And so the inner sum for $\Net_1$ is component-wise $\leq$ the inner sum for $\Net_2$.  Since ${O^{(n)} \circ A^{(n)}}$ is increasing (\ref{eqn:increasing}), we get $(\dagger)$.
+    For the $(\supseteq)$ direction, let $n \in \Prop_{\Inc(\Net, \Prop(A))}(B)$. We proceed by induction on this $\Prop$.
+    \begin{description}
+        \item[Base Step:] $n \in B$, and so $n \in \Prop_{\Inc(\Net, A)}(B)$ by the base case of $\Prop$.
+        \item[Inductive Step:] Let $m_1, \ldots, m_k$ be the predecessors of $n$. We have
+        \[
+            O^{(n)}(A^{(n)}(\sum_{m_i{E}n} W_{\Inc(\Net, \Prop(A))}(m_i, n) \cdot \bigchi_{\Prop_{\Inc(\Net, \Prop(A))}(B)}(m_i))) = 1
+        \]
+        First, by inductive hypothesis, each $m_i \in \Prop_{\Inc(\Net, \Prop(A))}(B)$ iff $m_i \in \Prop_{\Inc(\Net, A)}(B)$, and so 
+        \[
+            O^{(n)}(A^{(n)}(\sum_{m_i{E}n} W_{\Inc(\Net, \Prop(A))}(m_i, n) \cdot \bigchi_{\Prop_{\Inc(\Net, A)}(B)}(m_i))) = 1
+        \]
+        From here, we expand the weights in the updated net $\Inc(\Net, \Prop(A))$:
+        \[
+            O^{(n)}(A^{(n)}(\sum_{m_i{E}n} 
+            \left( W_\Net(m_i, n) \cdot \bigchi_{\Prop(\Prop(A))}(m_i) \cdot \bigchi_{\Prop(\Prop(A))}(n) \right) 
+            \cdot \bigchi_{\Prop_{\Inc(\Net, A)}(B)}(m_i))) = 1
+        \]
+        By idempotence of $\Prop$, we can collapse each $\Prop(\Prop(A)) = \Prop(A)$.
+        \[
+            O^{(n)}(A^{(n)}(\sum_{m_i{E}n} 
+            (W_\Net(m_i, n) \cdot \bigchi_{\Prop(A)}(m_i) \cdot \bigchi_{\Prop(A)}(n)) 
+            \cdot \bigchi_{\Prop_{\Inc(\Net, A)}(B)}(m_i))) = 1
+        \]
+        But these is exactly the weights for $\Inc(\Net, A)$, and so
+        \[
+            O^{(n)}(A^{(n)}(\sum_{m_i{E}n} W_{\Inc(\Net, A)}(m_i, n) \cdot \bigchi_{\Prop_{\Inc(\Net, A)}(B)}(m_i))) = 1
+        \]
+        We conclude that $n \in \Prop_{\Inc(\Net, A)}(B)$, by the constructor of $\Prop$.
+    \end{description}
+    As for the $(\supseteq)$ direction, both the base step and inductive step hold similarly (this time, expanding the nested $\Prop$ using idempotence in reverse).
     
     %═══════════════════════════════════════════%%%%%%%%%%
     \item[(Local)]
-    This property cannot be expressed in terms of $\Net$ containment, and so we prove it ``from scratch'' by induction on $\Prop_{\Inc(\Net, S_2)}(S_1)$.
-    
+    Rather than showing $\Prop_{\Inc(\Net, A)}(B) \subseteq \Prop(A) \cup \Prop(B)$ directly, we instead prove a stronger claim:
+    \begin{equation}\tag{$\ast\ast\ast$}
+    \label{local-lemma}
+        \Prop_{\Inc(\Net, A)}(B) - \Prop(A) = \Prop(B) - \Prop(A)
+    \end{equation}
+    First, let's explain why this is sufficient. Suppose $n \in \Prop_{\Inc(\Net, A)}(B)$. There are two cases:
+    \begin{itemize}
+        \item $n \in \Prop(A)$. So clearly $n \in \Prop(A) \cup \Prop(B)$.
+        \item $n \not \in \Prop(A)$. So $n \in \Prop_{\Inc(\Net, A)}(B) - \Prop(A)$. By (\ref{local-lemma}), this means $n \in \Prop(B) - \Prop(A)$. But then $n \in \Prop(B)$, so $n\in \Prop(A) \cup \Prop(B)$.
+    \end{itemize}
+    This means that (\ref{local-lemma}) implies the Local property. We have left to prove (\ref{local-lemma}). For the $(\subseteq)$ direction, suppose $n \in \Prop_{\Inc(\Net, A)}(B) - \Prop(A)$, and proceed by structural induction on $\Prop_{\Inc(\Net, A)}(B)$.
     \begin{description}
-    \item[Base Step:] We have
-    \[
-    \Prop_{\Inc(\Net, S_2)}(S_1) = S_1 \subseteq \Prop_\Net(S_1) \subseteq \Prop_\Net(S_1) \cup \Prop_\Net(S_2)
-    \]
-    
-    \item[Inductive Step:]
-    Suppose $n \in \Prop_{\Inc(\Net, S_2)(S_1)}$ holds because for those $m_1, \ldots, m_k$ such that $(m_i, n) \in E, m_i \in \Prop_{\Inc(\Net, S_2)(S_1)}$, we have
-    \[
-    O^{(n)}(A^{(n)}(\overrightarrow{W}_{\Inc(\Net, S_2)}(m_i, n))) = 1
-    \]
-    By inductive hypothesis, these $m_i \in \Prop_\Net(S_1) \cup \Prop_\Net(S_2)$.  Now suppose for contradiction that $n \not \in \Prop_\Net(S_1) \cup \Prop_\Net(S_2)$.  Notice that this means for all $m_i \in \Prop_\Net(S_1) \cup \Prop_\Net(S_2)$, we must have
-    \[
-    O^{(n)}(A^{(n)}(\overrightarrow{W}_{\Net}(m_i, n))) = 0
-    \]
-    And so
-    \[
-    \begin{array}{lclr}
-    
-    0 & = & O^{(n)}(A^{(n)}(\overrightarrow{W}_{\Net}(m_i, n))) & 
-    \\
-    
-    & = & O^{(n)}(A^{(n)}(\overrightarrow{W}_{\Net}(m_i, n)) + \overrightarrow{\bigchi}_{\Prop_{\Net}(S_2)}(m_i, n)) & 
-    \mbox{(Since } \bigchi_{\Prop_\Net(S_2)}(n) = 0)\\
-    
-    & = & O^{(n)}(A^{(n)}(\overrightarrow{W}_{\Inc(\Net, S_2)}(m_i, n))) & 
-    \mbox{(by Definition~\ref{def:inc})}\\
-    
-    & = & 1 & \mbox{(a contradiction)}
-    \end{array}
-    \]
+        \item[Base Step:] $n \in B$. By the base case of $\Prop$, $n \in \Prop(B)$. So $n \in \Prop(B) - \Prop(A)$.
+
+        \item[Inductive Step:] Let $m_1, \ldots, m_k$ be the predecessors of $n$. We have
+        \[
+            O^{(n)}(A^{(n)}(\sum_{m_i{E}n} W_{\Inc(\Net, A)}(m_i, n) \cdot \bigchi_{\Prop_{\Inc(\Net, A)}(B)}(m_i))) = 1
+        \]
+        
     \end{description}
+
     
     %═══════════════════════════════════════════%%%%%%%%%%
-    \item[(Cumulative \& Loop)] Finally, the Cumulative and Loop properties follow from the same properties for $\Prop$ in Theorem~\ref{thm:prop-props} by substituting (for each $i \in \set{0, \ldots, n}$)
+    \item[(Cumulative \& Loop)] Finally, the Cumulative and Loop properties for $\Inc$ follow from the Cumulative and Loop properties for $\Prop$ in Theorem~\ref{thm:prop-props} by substituting (for each $i \in \set{0, \ldots, n}$)
     \[
     \begin{array}{lcl}
     
-    \Net & \rightsquigarrow & \Inc(\Net, S)\\
-    S_i & \rightsquigarrow & \Prop_\Net(S_i)
+    \Net & \rightsquigarrow & \Inc(\Net, A)\\
+    B_i & \rightsquigarrow & \Prop_\Net(B_i)
     
     \end{array}
     \]
