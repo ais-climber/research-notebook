@@ -1,6 +1,6 @@
 \documentclass[letterpaper]{article}
 \usepackage{notes}
-\title{The Expressive Power of Neural Network Models}
+\title{The Modeling Power of Neural Network Models}
 \begin{document}
 
 \maketitle
@@ -18,7 +18,7 @@ These days I've been trying to understand the bigger picture of our work on neur
 \end{question}
 
 \begin{question}
-    The FLaNN perspective (neural networks as automata) is one way to characterize the computational power of neural networks.  Can we use neural network models to characterize the \emph{expressive} power of neural networks?  How does this all relate to the computational and descriptive complexity hierarchies?
+    The FLaNN perspective (neural networks as automata) is one way to characterize the computational power of neural networks.  Can we use neural network models to characterize the \emph{modeling} power of neural networks?  How does this all relate to the computational and descriptive complexity hierarchies?
 \end{question}
 
 \section*{Basic Setup and Definitions}
@@ -278,7 +278,7 @@ In the following examples, I'll walk through common constructions for neural net
 
 \paragraph*{Dynamic Models.}
 
-I would also like to compare neural network \emph{update} against other model updates --- what kind of updates are neural networks capable of modelling, and how expressive are they in this sense?  We can ``dynamify'' each of the models above using the dynamic epistemic logic trick.  First, we extend our language $\lang$ to $\lang^\star$, which includes dynamic modal operators:
+I would also like to compare neural network \emph{update} against other model updates --- what kind of updates are neural networks capable of modelling, and how powerful are they in this sense?  We can ``dynamify'' each of the models above using the dynamic epistemic logic trick.  First, we extend our language $\lang$ to $\lang^\star$, which includes dynamic modal operators:
 \[
     p \mid \neg \varphi \mid \varphi \land \psi \mid \set{\Box_i}_{i \in \textbf{I}} \hspace*{0.5em} \varphi \mid \set{\Update{\varphi}_j}_{j \in \textbf{J}} \hspace*{0.5em} \psi
 \]
@@ -304,9 +304,9 @@ We make the same move for each of the other model classes.  For all classes $\Cl
 % P ] is some dynamic update given by M → M⋆
 % P (this is a free variable; the problem will be to find the right update).
 
-\section*{Measuring Expressive Power.} 
+\section*{Measuring Modeling Power.}
 
-To compare the expressive power of neural networks with other logic models, I need to pick a measure of complexity.  I would like to focus on the question ``what formulas can a neural network architecture in-principle model (satisfy)?'' as a proxy for ``what functions can a neural network architecture in-principle compute?''
+To compare the modeling power of neural networks with other logic models, I need to pick a measure of complexity.  I would like to focus on the question ``what formulas can a neural network architecture in-principle model (satisfy)?'' as a proxy for ``what functions can a neural network architecture in-principle compute?''
 
 \begin{definition}
     Let $\Model$ be any model whatsoever with universe $W$ and satisfaction relation $\Vdash$.  $\Model \models \varphi$ if for all $w \in W$, $\Model, w \Vdash \varphi$.
@@ -319,20 +319,30 @@ To compare the expressive power of neural networks with other logic models, I ne
     \]
 \end{definition}
 
+For classes of dynamic models $\Class^\star$, I would like to ask ``what updates can a neural network (or other model) in-principle model?'' Naively, we might just consider
+\[
+    \Satisfy{\Class^\star} = \set{\varphi \in \lang^\star \mid \textrm{there is some } \Model \in \Class^\star \textrm{ such that } \Model \models \varphi}
+\]
+and call it a day. But there's a subtle danger here: $\Satisfy{\Class^\star}$ lets us choose not only an update, but also whatever starting point (initial model) we would like. Instead, I would like to characterize what updates a model can in-principle satisfy, \emph{independent of} the starting point. For dynamic models, I will instead consider a special ``dynamic satisfiability''
+\[
+    \DynSatisfy{\Class} = \set{\varphi \in \lang^\star \mid \textrm{there is some } F : \Class \to \Class \textrm{ such that for all } \Model \in \Class, \langle \Model, F \rangle \models \varphi}
+\]
+In other words, $\DynSatisfy{\Class}$ is the set of formulas such that some update $F$ over $\Class$ makes them valid. 
+
 \paragraph*{Note.}  I want to point out two things.  First, $\Satisfy{\Class}$ is the dual of the \emph{theory} of $\Class$, i.e.
 \[
     \Theory{\Class} = \set{\varphi \in \lang \mid \textrm{for all } \Model \in \Class \textrm{ we have } \Model \models \varphi}
 \]
-It follows from duality that $\Satisfy{\Class_1} \subseteq \Satisfy{\Class_2}$ iff $\Theory{\Class_2} \subseteq \Theory{\Class_1}$.  In this sense, these two operators are just two different perspectives on the expressive power of a model.  Model theorists tend to prefer studying $\Theory{\Class}$.  I personally prefer $\Satisfy{\Class}$, since it puts less expressive models on the bottom and more expressive ones on top.
+It follows from duality that $\Satisfy{\Class_1} \subseteq \Satisfy{\Class_2}$ iff $\Theory{\Class_2} \subseteq \Theory{\Class_1}$.  In this sense, these two operators are just two different perspectives on the power of a model.  Model theorists tend to prefer studying $\Theory{\Class}$.  I personally prefer $\Satisfy{\Class}$, since it puts less powerful models on the bottom and more powerful ones on top.
 
-Second, $\Satisfy{\Class}$ is different from the measure of expressive power normally used by descriptive complexity theorists.  Descriptive complexity focuses on the \emph{properties definable in $\lang$}, i.e.
+Second, $\Satisfy{\Class}$ is different from the measure of \emph{expressive} power normally used by descriptive complexity theorists.  Descriptive complexity focuses on the \emph{properties definable in $\lang$}, i.e.
 \[
     \Definable{\Class} = \set{P \mid \textrm{there exists } \varphi \in \lang \textrm{ such that for all } \Model \in \Class, \Model \in P \textrm{ iff } \Model \models \varphi}
 \]
-This is an important distinction between my focus and the focus of descriptive complexity.  Descriptive complexity compares the expressive power of different \emph{languages} when we keep their \emph{models} fixed -- definability is an appropriate measure for that.  But I want to look at the expressive power of different \emph{models} when we keep their \emph{languages} fixed -- I believe satisfiability is a good measure for this.
+This is an important distinction between my focus and the focus of descriptive complexity.  Descriptive complexity compares the expressive power of different \emph{languages} when we keep their \emph{models} fixed -- definability is an appropriate measure for that.  But I want to look at the power of different \emph{models} when we keep their \emph{languages} fixed -- I believe satisfiability is a good measure for this.
 
 \begin{example*}
-    Here's an example that's a sort of tutorial for comparing the expressive power of different model classes using $\Satisfy{\Class}$.  Consider relational models $\Rel$ over the static language.  Here are some formulas that are valid in every relational model:
+    Here's an example that's a sort of tutorial for comparing the modeling power of different model classes using $\Satisfy{\Class}$.  Consider relational models $\Rel$ over the static language.  Here are some formulas that are valid in every relational model:
     \begin{itemize}
         \item $\Box_i(\varphi \land \psi) \to (\Box_i \varphi \land \Box_i \psi)$
         \item $(\Box_i \varphi \land \Box_i \psi) \to \Box_i(\varphi \land \psi)$
@@ -347,7 +357,7 @@ This is an important distinction between my focus and the focus of descriptive c
     \]
     For all $w \in W$ we have $\semantics{p} \cap \semantics{q} = \set{b} \in f(w)$, but also $\semantics{p} = \set{a, b} \not \in f(w)$. This means that for all $w$, $\Model, w \not \Vdash \Box(\varphi \land \psi) \to (\Box \varphi \land \Box \psi)$ --- in other words, $\Model \models \neg (\Box(\varphi \land \psi) \to (\Box \varphi \land \Box \psi))$.  Consequently, this formula is in $\Satisfy{\Nbhd}$, but \emph{not} in $\Satisfy{\Rel}$.
     
-    Moreover, neighborhood models are at least as expressive as relational models: $\Satisfy{\Rel} \subseteq \Satisfy{\Nbhd}$.  Let $\varphi \in \lang$ and suppose $\Model \models \varphi$ for some $\Model = \langle W, \set{R_i}_{i \in \textbf{I}}, V \rangle \in \Rel$.  Eric Pacuit in \cite{pacuit2017neighborhood}, page 47 shows how to construct an equivalent neighborhood model:  Let $\Model' = \langle W, \set{f_i}_{i \in \textbf{I}}, V \rangle$, where each $f_i(w) = \set{X \mid \set{v \mid w{R_i}v } \subseteq X}$.  All we need to show is $\Model' \models \varphi$, but we are able to prove something even stronger:
+    Moreover, neighborhood models are at least as powerful as relational models: $\Satisfy{\Rel} \subseteq \Satisfy{\Nbhd}$.  Let $\varphi \in \lang$ and suppose $\Model \models \varphi$ for some $\Model = \langle W, \set{R_i}_{i \in \textbf{I}}, V \rangle \in \Rel$.  Eric Pacuit in \cite{pacuit2017neighborhood}, page 47 shows how to construct an equivalent neighborhood model:  Let $\Model' = \langle W, \set{f_i}_{i \in \textbf{I}}, V \rangle$, where each $f_i(w) = \set{X \mid \set{v \mid w{R_i}v } \subseteq X}$.  All we need to show is $\Model' \models \varphi$, but we are able to prove something even stronger:
     \begin{claim*}
         For all $\varphi$ and all $w$, $\Model, w \Vdash \varphi$ iff $\Model', w \Vdash \varphi$.
     \end{claim*}
@@ -359,7 +369,7 @@ This is an important distinction between my focus and the focus of descriptive c
         $(\leftarrow)$: Now suppose $\Model', w \Vdash \Box_i \varphi$, i.e. $\semantics{\varphi} \in f_i(w)$.  By construction of $\Model'$, we have $\set{u \mid w{R_i}u } \subseteq \semantics{\varphi}$.  So for all $u$ with $w{R_i}u$, $\Model, u \Vdash \varphi$.  This gives us $\Model, w \Vdash \Box_i \varphi$.
     \end{proof}
 
-    Putting everything together, neighborhood models are \emph{strictly} more expressive than relational models:
+    Putting everything together, neighborhood models are \emph{strictly} more powerful than relational models:
     \begin{proposition}
         $\Satisfy{\Rel} \subset \Satisfy{\Nbhd}$
     \end{proposition}
@@ -371,7 +381,7 @@ This is an important distinction between my focus and the focus of descriptive c
 
 Recall the first part of Question 1: ``how do neural network models relate to other models for conditional \& modal logic?'' The static case is already understood. I'll collect the known results in this section.
 
-We can see how the expressive power of neural network models compares against known models in logic by arranging their satisfiable sets in an ``expressivity hierarchy.''  To make the comparison with neural networks fair, I will only consider the reflexive and transitive variants $\Relrefl, \Nbhdrefl$ of relational and neighborhood models.  Over the static language (no dynamic operators), we have:
+We can see how the modeling power of neural network models compares against known models in logic by arranging their satisfiable sets in a ``modeling hierarchy.''  To make the comparison with neural networks fair, I will only consider the reflexive and transitive variants $\Relrefl, \Nbhdrefl$ of relational and neighborhood models.  Over the static language (no dynamic operators), we have:
 \[
 \Satisfy{\Relrefl} \subset \Satisfy{\Plaus} = \Satisfy{\NetModels} \subset \Satisfy{\Nbhdrefl}
 % \begin{tikzcd}
@@ -446,7 +456,7 @@ The first and last inclusions are folklore.  I haven't found a reference yet, bu
     Strictness is easy: nonreflexivity $\neg (\Box \varphi \to \varphi) \in \Satisfy{\Nbhd}$, but $\neg (\Box \varphi \to \varphi) \not \in \Satisfy{\Plaus}$ (since both relational \emph{and} plausibility operators are always reflexive).
 \end{proof}
 
-Let's move on to the neural network inclusions.  I claim that $\Satisfy{\NetModels} = \Satisfy{\Plaus}$: neural network and plausibility models are equally expressive (up to inference in the static language).  The $(\to)$ direction follows from Hannes' completeness result \cite{leitgeb2001nonmonotonic, leitgeb2003nonmonotonic} --- he uses the \emph{not-every construction} from before to build a neural net from a plausibility model.  The $(\leftarrow)$ direction is essentially the soundness result \cite{leitgeb2001nonmonotonic, leitgeb2003nonmonotonic}. But explicitly building a plausibility model from a neural net has not been done, as far as I know.  So the proof of $(\leftarrow)$ is my own.
+Let's move on to the neural network inclusions.  I claim that $\Satisfy{\NetModels} = \Satisfy{\Plaus}$: neural network and plausibility models are equally powerful (up to inference in the static language).  The $(\to)$ direction follows from Hannes' completeness result \cite{leitgeb2001nonmonotonic, leitgeb2003nonmonotonic} --- he uses the \emph{not-every construction} from before to build a neural net from a plausibility model.  The $(\leftarrow)$ direction is essentially the soundness result \cite{leitgeb2001nonmonotonic, leitgeb2003nonmonotonic}. But explicitly building a plausibility model from a neural net has not been done, as far as I know.  So the proof of $(\leftarrow)$ is my own.
 
 % It is known that neural network models and plausibility models are both complete with respect to the proof system of cumulative conditionals \cite{leitgeb2001nonmonotonic, leitgeb2003nonmonotonic} -- the fact that $\Satisfy{\NetModels} = \Satisfy{\Plaus}$ should follow.  But (1) Hannes shows how to construct a net from a plausibility model, but not the other way around, and (2) my definitions are slightly different from Hannes'.  So I will re-prove this result, adapted for my setting, as a sort of sanity check.
 
