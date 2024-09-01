@@ -276,25 +276,6 @@ In the following examples, I'll walk through common constructions for neural net
 %     Consider the constructions from the previous example.  The graph-reachability construction gives us $\Closure_i(S) = \Reach(S)$, the nodes graph-reachable from $S$ (I will prove this later, when we need it).  Similarly, $\Closure_i$ for the social majority construction can be interpreted as the diffusion of an opinion or attitude through a social network (see \cite{baltag2019socialnetworks}).  As we'll see later, $\Closure_i$ for the not-every construction gives $\Closure_i(S) = \best_{R_i}(S^\complement)^\complement$, the dual to the set of $R_i$-minimal elements of $S$.
 % \end{example*}
 
-\paragraph*{Dynamic Models.}
-
-I would also like to compare neural network \emph{update} against other model updates --- what kind of updates are neural networks capable of modelling, and how powerful are they in this sense?  We can ``dynamify'' each of the models above using the dynamic epistemic logic trick.  First, we extend our language $\lang$ to $\lang^\star$, which includes dynamic modal operators:
-\[
-    p \mid \neg \varphi \mid \varphi \land \psi \mid \set{\Box_i}_{i \in \textbf{I}} \hspace*{0.5em} \varphi \mid \set{\Update{\varphi}_j}_{j \in \textbf{J}} \hspace*{0.5em} \psi
-\]
-where \textbf{J} is a new set of indices.  As before, the idea is that each $\Update{\varphi}_i$ represents a different update per use-case, although taking $\textbf{I} = \textbf{J}$ these could also be used to model different updates per agent.
-
-I will define the semantics for dynamic models by example.  First, consider $\Rel$.  For any $\Model \in \Rel$ and $S \in \mathcal{P}(W)$, we can define a variety of dynamic update functions $\set{\UpdateVerbatim_j}_{j \in \textbf{J}}$, where each $\UpdateVerbatim_j : \Rel \times \mathcal{P}(W) \to \Rel$.  A classical example is public announcement, where $\UpdateVerbatim(\langle W, R, V \rangle, S) = \langle W \cap S, R, V \rangle$.  Note that we're using sets $S$ as input rather than formulas, although the choice of one over the other is just my preference.
-
-Also note that these updates don't depend on the current world $w$.  I've read a good bit of \cite{van2011logicaldynamics} (a great book on dynamic epistemic logics), and while Johan includes dependence on $w$ I haven't yet run across an update that uses this extra information.  I'll drop it for now, but if we need it later I can add it back in.
-
-The semantics for $\Model \in \Rel$ over the dynamic language is exactly as before, with an additional case for $\Update{\varphi}_j \psi$.  We just interpret $\Update{\varphi}_j \psi$ as ``$\psi$ holds after updating by $\varphi$'':
-\[
-\begin{array}{lcl}
-    \Model, w \Vdash \Update{\varphi}_j \psi & \mbox{ iff } & \Model^\star_{\semantics{\varphi}}, w \Vdash \psi
-\end{array}
-\]
-We make the same move for each of the other model classes.  For all classes $\Class$, define $\Class^\star$ to be the class of all such models with the new semantics over the dynamic language (e.g. $\Rel^\star$).
 
 % A dynamic relational model is $\Model' = \langle W, \set{R_i}_{i \in \textbf{I}}, \set{\UpdateVerbatim_j}_{j \in \textbf{J}}, V \rangle$, where each $\UpdateVerbatim_j : \Rel \times \mathcal{P}(W) \to \Rel$ is a dynamic update function that produces a new model given a set $S \in \mathcal{P}(W)$.  Given $\Model \in \Rel$ and $S \in \mathcal{P}(W)$, I'll write $\Model_S^{\star_j} = \UpdateVerbatim_j(\Model, S)$ as shorthand.  Define $\Rel^\star$ to be the class of all such models.
 
@@ -304,45 +285,61 @@ We make the same move for each of the other model classes.  For all classes $\Cl
 % P ] is some dynamic update given by M → M⋆
 % P (this is a free variable; the problem will be to find the right update).
 
-\section*{Measuring Modeling Power.}
+\subsection*{Measuring Modeling Power.}
 
-To compare the modeling power of neural networks with other logic models, I need to pick a measure of complexity.  I would like to focus on the question ``what formulas can a neural network architecture in-principle model (satisfy)?'' as a proxy for ``what functions can a neural network architecture in-principle compute?''
+To compare the modeling power of neural networks with other logic models, I need to pick a measure of complexity.  There are three questions about model complexity we can answer this way:
+\begin{description}
+    \item[Satisfiability.] ``What formulas can a class of models in-principle model (satisfy)?''
+    \item[Validity.] ``What formulas \emph{must} a class of models satisfy (make valid)?''
+    \item[Definability.] ``What properties (or formal languages) can a class of models \emph{define}?''
+\end{description}
+
+I will focus on comparing \emph{satisfiability}, in part because for neural networks it is a useful proxy for the question ``what functions can a neural network architecture in-principle compute?'' I'm going to state definability for the sake of completeness, and in the future I want to relate it to my work (to connect with descriptive complexity of neural networks). But at the moment, I don't have anything interesting to say about definability. (Maybe I'll add something here when I do.)
 
 \begin{definition}
     Let $\Model$ be any model whatsoever with universe $W$ and satisfaction relation $\Vdash$.  $\Model \models \varphi$ if for all $w \in W$, $\Model, w \Vdash \varphi$.
 \end{definition}
 
 \begin{definition}
-    Let $\Class$ be a class of models, $\Model$ be a model in $\Class$, and $\lang$ be a language.  The \emph{formulas satisfiable by} $\Model$ over $\lang$ is given by $\Satisfy{\Model} = \set{\varphi \in \lang \mid \Model \models \varphi}$.  The \emph{formulas satisfiable by class $\Class$} over $\lang$ is given by 
+    Let $\Class_1, \Class_2$ be two classes of models. A \emph{class embedding} $f : \Class_1 \to \Class_2$ is an injective function such that for all models $\Model \in \Class_1$, and formulas $\varphi \in \lang$, $\Model \models \varphi \mbox{ iff } f(\Model) \models \varphi$. If there is an embedding from $\Class_1$ into $\Class_2$, we write $\Class_1 \embed \Class_2$.
+\end{definition}
+
+Satisfiability and validity are the measures of complexity preferred in model theory. We define them as follows. Note that the two are duals of one another --- intuitively, $\Satisfy{\Class}$ puts more ``powerful'' models on top, whereas $\Theory{\Class}$ puts them on the bottom.
+
+\begin{definition}
+    Let $\Class$ be a class of models, $\Model$ be a model in $\Class$, and $\lang$ be a language.  The \emph{formulas satisfied by} $\Model$ over $\lang$ is given by $\Satisfy{\Model} = \set{\varphi \in \lang \mid \Model \models \varphi}$.  The \emph{formulas satisfiable by class $\Class$} over $\lang$ is given by 
     \[
         \Satisfy{\Class} = \set{\varphi \in \lang \mid \textrm{there is some } \Model \in \Class \textrm{ such that } \Model \models \varphi}
     \]
 \end{definition}
 
-For classes of dynamic models $\Class^\star$, I would like to ask ``what updates can a neural network (or other model) in-principle model?'' Naively, we might just consider
-\[
-    \Satisfy{\Class^\star} = \set{\varphi \in \lang^\star \mid \textrm{there is some } \Model \in \Class^\star \textrm{ such that } \Model \models \varphi}
-\]
-and call it a day. But there's a subtle danger here: $\Satisfy{\Class^\star}$ lets us choose not only an update, but also whatever starting point (initial model) we would like. Instead, I would like to characterize what updates a model can in-principle satisfy, \emph{independent of} the starting point. For dynamic models, I will instead consider a special ``dynamic satisfiability''
-\[
-    \DynSatisfy{\Class} = \set{\varphi \in \lang^\star \mid \textrm{there is some } F : \Class \to \Class \textrm{ such that for all } \Model \in \Class, \langle \Model, F \rangle \models \varphi}
-\]
-In other words, $\DynSatisfy{\Class}$ is the set of formulas such that some update $F$ over $\Class$ makes them valid. 
+\begin{definition}
+    Let $\Class$ be a class of models, and $\lang$ be a language. The \emph{theory} of $\Class$ over $\lang$ is given by
+    \[
+        \Theory{\Class} = \set{\varphi \in \lang \mid \textrm{for all } \Model \in \Class \textrm{ we have } \Model \models \varphi}
+    \]
+\end{definition}
 
-\paragraph*{Note.}  I want to point out two things.  First, $\Satisfy{\Class}$ is the dual of the \emph{theory} of $\Class$, i.e.
-\[
-    \Theory{\Class} = \set{\varphi \in \lang \mid \textrm{for all } \Model \in \Class \textrm{ we have } \Model \models \varphi}
-\]
-It follows from duality that $\Satisfy{\Class_1} \subseteq \Satisfy{\Class_2}$ iff $\Theory{\Class_2} \subseteq \Theory{\Class_1}$.  In this sense, these two operators are just two different perspectives on the power of a model.  Model theorists tend to prefer studying $\Theory{\Class}$.  I personally prefer $\Satisfy{\Class}$, since it puts less powerful models on the bottom and more powerful ones on top.
+\begin{proposition}
+    Suppose $\Class_1 \embed \Class_2$. We have $\Satisfy{\Class_1} \subseteq \Satisfy{\Class_2}$, and similarly, $\Theory{\Class_2} \subseteq \Theory{\Class_1}$.
+\end{proposition}
+\begin{proof}
+    \textbf{TODO}
+\end{proof}
 
-Second, $\Satisfy{\Class}$ is different from the measure of \emph{expressive} power normally used by descriptive complexity theorists.  Descriptive complexity focuses on the \emph{properties definable in $\lang$}, i.e.
-\[
-    \Definable{\Class} = \set{P \mid \textrm{there exists } \varphi \in \lang \textrm{ such that for all } \Model \in \Class, \Model \in P \textrm{ iff } \Model \models \varphi}
-\]
-This is an important distinction between my focus and the focus of descriptive complexity.  Descriptive complexity compares the expressive power of different \emph{languages} when we keep their \emph{models} fixed -- definability is an appropriate measure for that.  But I want to look at the power of different \emph{models} when we keep their \emph{languages} fixed -- I believe satisfiability is a good measure for this.
+Definability is the measure preferred in descriptive complexity. It's usually considered a measure of complexity of a \emph{language}, while the models are kept fixed. But we can also consider it a measure of complexity of models, with the language kept fixed.
+
+\begin{definition}
+    Let $\Class$ be a class of models. The \emph{properties (problems) definable by $\Class$ over $\lang$} is given by
+    \[
+        \Definable{\Class} = \set{P \subseteq \Class \mid \textrm{there exists } \varphi \in \lang \textrm{ such that for all } \Model \in \Class, \Model \in P \textrm{ iff } \Model \models \varphi}
+    \]
+\end{definition}
 
 \begin{example*}
-    Here's an example that's a sort of tutorial for comparing the modeling power of different model classes using $\Satisfy{\Class}$.  Consider relational models $\Rel$ over the static language.  Here are some formulas that are valid in every relational model:
+    Here's an example that's a sort of tutorial for comparing the modeling power of different model classes using $\Satisfy{\Class}$.  Let's compare relational models $\Rel$ with neighborhood models $\Nbhd$ over the static language.  Our goal is to show that neighborhood models are strictly more powerful than relational models: $\Satisfy{\Rel} \subset \Satisfy{\Nbhd}$.
+    
+    First, here are some formulas that are valid in every relational model:
     \begin{itemize}
         \item $\Box_i(\varphi \land \psi) \to (\Box_i \varphi \land \Box_i \psi)$
         \item $(\Box_i \varphi \land \Box_i \psi) \to \Box_i(\varphi \land \psi)$
@@ -357,7 +354,7 @@ This is an important distinction between my focus and the focus of descriptive c
     \]
     For all $w \in W$ we have $\semantics{p} \cap \semantics{q} = \set{b} \in f(w)$, but also $\semantics{p} = \set{a, b} \not \in f(w)$. This means that for all $w$, $\Model, w \not \Vdash \Box(\varphi \land \psi) \to (\Box \varphi \land \Box \psi)$ --- in other words, $\Model \models \neg (\Box(\varphi \land \psi) \to (\Box \varphi \land \Box \psi))$.  Consequently, this formula is in $\Satisfy{\Nbhd}$, but \emph{not} in $\Satisfy{\Rel}$.
     
-    Moreover, neighborhood models are at least as powerful as relational models: $\Satisfy{\Rel} \subseteq \Satisfy{\Nbhd}$.  Let $\varphi \in \lang$ and suppose $\Model \models \varphi$ for some $\Model = \langle W, \set{R_i}_{i \in \textbf{I}}, V \rangle \in \Rel$.  Eric Pacuit in \cite{pacuit2017neighborhood}, page 47 shows how to construct an equivalent neighborhood model:  Let $\Model' = \langle W, \set{f_i}_{i \in \textbf{I}}, V \rangle$, where each $f_i(w) = \set{X \mid \set{v \mid w{R_i}v } \subseteq X}$.  All we need to show is $\Model' \models \varphi$, but we are able to prove something even stronger:
+    Moreover, we can embed relational models into neighborhood models. That is, $\Rel \embed \Nbhd$, which gives us $\Satisfy{\Rel} \subseteq \Satisfy{\Nbhd}$.  Let $\varphi \in \lang$ and suppose $\Model \models \varphi$ for some $\Model = \langle W, \set{R_i}_{i \in \textbf{I}}, V \rangle \in \Rel$.  Eric Pacuit in \cite{pacuit2017neighborhood}, page 47 shows how to construct an equivalent neighborhood model:  Let $f(\Model) = \langle W, \set{f_i}_{i \in \textbf{I}}, V \rangle$, where each $f_i(w) = \set{X \mid \set{v \mid w{R_i}v } \subseteq X}$.  All we need to show is $\Model' \models \varphi$, but we are able to prove something even stronger:
     \begin{claim*}
         For all $\varphi$ and all $w$, $\Model, w \Vdash \varphi$ iff $\Model', w \Vdash \varphi$.
     \end{claim*}
@@ -368,17 +365,10 @@ This is an important distinction between my focus and the focus of descriptive c
 
         $(\leftarrow)$: Now suppose $\Model', w \Vdash \Box_i \varphi$, i.e. $\semantics{\varphi} \in f_i(w)$.  By construction of $\Model'$, we have $\set{u \mid w{R_i}u } \subseteq \semantics{\varphi}$.  So for all $u$ with $w{R_i}u$, $\Model, u \Vdash \varphi$.  This gives us $\Model, w \Vdash \Box_i \varphi$.
     \end{proof}
-
-    Putting everything together, neighborhood models are \emph{strictly} more powerful than relational models:
-    \begin{proposition}
-        $\Satisfy{\Rel} \subset \Satisfy{\Nbhd}$
-    \end{proposition}
-
 \end{example*}
 
 
 \section*{Known Results (The Static Case)}
-
 Recall the first part of Question 1: ``how do neural network models relate to other models for conditional \& modal logic?'' The static case is already understood. I'll collect the known results in this section.
 
 We can see how the modeling power of neural network models compares against known models in logic by arranging their satisfiable sets in a ``modeling hierarchy.''  To make the comparison with neural networks fair, I will only consider the reflexive and transitive variants $\Relrefl, \Nbhdrefl$ of relational and neighborhood models.  Over the static language (no dynamic operators), we have:
@@ -393,8 +383,17 @@ We can see how the modeling power of neural network models compares against know
 % \end{tikzcd}
 \]
 
-The first and last inclusions are folklore.  I haven't found a reference yet, but I was able to prove them by following the motions of our previous example.
+Both $\Plaus$-inclusions are folklore. Rather than showing these, I will instead prove $\Satisfy{\Relrefl} \subset \Satisfy{\NetModels}$ and $\Satisfy{\NetModels} \subseteq \Satisfy{\Nbhdrefl}$, putting the emphasis on how neural networks compare to the other models. The inclusion $\Satisfy{\Plaus} = \Satisfy{\NetModels}$ is already known, but the backwards direction has never been proven with an explicit model construction. So although the results in this section are already known, three of the four proofs I give here are totally new (indicated by \faHandPointRight[regular]).
 
+\begin{proposition}
+    (\faHandPointRight[regular])
+    $\Satisfy{\Relrefl} \subset \Satisfy{\NetModels}$
+\end{proposition}
+\begin{proof}
+    \textbf{TODO}
+\end{proof}
+
+\textbf{LEGACY:}
 \begin{proposition}
     $\Satisfy{\Relrefl} \subset \Satisfy{\Plaus}$
 \end{proposition}
@@ -402,19 +401,15 @@ The first and last inclusions are folklore.  I haven't found a reference yet, bu
     First, since I allowed reflexive, transitive relational operators in plausibility models, we immediately have $\Relrefl \subseteq \Plaus$.  This means that, given any $\Model \in \Relrefl$ satisfying $\varphi$, the very same model is $\in \Rel$.  As for strictness, nonmonotonicity $\neg (\Box(\varphi \land \psi) \to (\Box \varphi \land \Box \psi)) \in \Satisfy{\Plaus}$, yet it is not satisfiable by $\Model \in \Relrefl$.
 \end{proof}
 
-% These inclusions are all either already known or are folklore.  First, the easy ones:
-% \begin{itemize}
-%     \item $\Satisfy{\Rel} \subset \Satisfy{\Nbhd}$: We already proved this in the example above.
-    
-%     \item $\Satisfy{\Relrefl} \subset \Satisfy{\Rel}$: Given any $\Model \in \Relrefl$ satisfying $\varphi$, the very same model is $\in \Rel$.  As for the strictness, the negation of the reflexivity axiom $\neg (\Box{\varphi} \to \varphi) \in \Satisfy{\Rel}$, yet $\neg (\Box{\varphi} \to \varphi) \not \in \Satisfy{\Relrefl}$.
-    
-%     \item $\Satisfy{\Relrefl} \subset \Satisfy{\Plaus}$: First, since I allowed relational operators in plausibility models, we immediately have $\Relrefl \subseteq \Plaus$.  This means that given any $\Model \in \Relrefl$ satisfying $\varphi$, the very same model is $\in \Rel$.  As for strictness, nonmonotonicity $\neg (\Box(\varphi \land \psi) \to (\Box \varphi \land \Box \psi)) \in \Satisfy{\Plaus}$, yet it is not satisfiable by $\Model \in \Relrefl$.
-    
-%     \item Neither $\Satisfy{\Rel}$ nor $\Satisfy{\Plaus}$ are contained in the other:  On the one hand, nonmonotonicity $\neg (\Box (\varphi \land \psi) \to \Box \varphi \land \Box \psi)$ is satisfiable by $\Model \in \Plaus$ but not by $\Model \in \Rel$.  On the other hand, the negation of the reflexivity axiom $\Box \varphi \to \varphi$ is satisfiable by $\Model \in \Rel$, but reflexivity and transitivity hold in all plausibility models (we could have also taken the corresponding transitive or cumulative axioms).  Because of this, it's more helpful to compare $\Satisfy{\Plaus}$ with $\Satisfy{\Relrefl}$.
-% \end{itemize}
+\begin{proposition}
+    (\faHandPointRight[regular])
+    $\Satisfy{\Plaus} \subset \Satisfy{\Nbhdrefl}$
+\end{proposition}
+\begin{proof}
+    \textbf{TODO}
+\end{proof}
 
-% Now for the more interesting inclusions:
-
+\textbf{LEGACY:}
 \begin{proposition}
     $\Satisfy{\Plaus} \subset \Satisfy{\Nbhdrefl}$
 \end{proposition}
@@ -513,6 +508,7 @@ Let's move on to the neural network inclusions.  I claim that $\Satisfy{\NetMode
 \end{proof}
 
 \begin{proposition}
+    (\faHandPointRight[regular])
     $\Satisfy{\NetModels} \subseteq \Satisfy{\Plaus}$
 \end{proposition}
 \begin{proof}
@@ -559,6 +555,26 @@ Let's move on to the neural network inclusions.  I claim that $\Satisfy{\NetMode
 % I take this criticism seriously, but to me the underlying issue is that the hidden states are determined through learning, and we don't yet have a classical intuition for neural network learning.  If we did, then we could understand and track the changes in the hidden states during the learning process, and there would be no need for extraction.  I'll revisit this point at the end of the next section.
 
 \section*{Progress So Far (The Dynamic Case)}
+
+\paragraph*{Dynamic Models.}
+
+I would also like to compare neural network \emph{update} against other model updates --- what kind of updates are neural networks capable of modelling, and how powerful are they in this sense?  We can ``dynamify'' each of the models above using the dynamic epistemic logic trick.  First, we extend our language $\lang$ to $\lang^\star$, which includes dynamic modal operators:
+\[
+    p \mid \neg \varphi \mid \varphi \land \psi \mid \set{\Box_i}_{i \in \textbf{I}} \hspace*{0.5em} \varphi \mid \set{\Update{\varphi}_j}_{j \in \textbf{J}} \hspace*{0.5em} \psi
+\]
+where \textbf{J} is a new set of indices.  As before, the idea is that each $\Update{\varphi}_i$ represents a different update per use-case, although taking $\textbf{I} = \textbf{J}$ these could also be used to model different updates per agent.
+
+I will define the semantics for dynamic models by example.  First, consider $\Rel$.  For any $\Model \in \Rel$ and $S \in \mathcal{P}(W)$, we can define a variety of dynamic update functions $\set{\UpdateVerbatim_j}_{j \in \textbf{J}}$, where each $\UpdateVerbatim_j : \Rel \times \mathcal{P}(W) \to \Rel$.  A classical example is public announcement, where $\UpdateVerbatim(\langle W, R, V \rangle, S) = \langle W \cap S, R, V \rangle$.  Note that we're using sets $S$ as input rather than formulas, although the choice of one over the other is just my preference.
+
+Also note that these updates don't depend on the current world $w$.  I've read a good bit of \cite{van2011logicaldynamics} (a great book on dynamic epistemic logics), and while Johan includes dependence on $w$ I haven't yet run across an update that uses this extra information.  I'll drop it for now, but if we need it later I can add it back in.
+
+The semantics for $\Model \in \Rel$ over the dynamic language is exactly as before, with an additional case for $\Update{\varphi}_j \psi$.  We just interpret $\Update{\varphi}_j \psi$ as ``$\psi$ holds after updating by $\varphi$'':
+\[
+\begin{array}{lcl}
+    \Model, w \Vdash \Update{\varphi}_j \psi & \mbox{ iff } & \Model^\star_{\semantics{\varphi}}, w \Vdash \psi
+\end{array}
+\]
+We make the same move for each of the other model classes.  For all classes $\Class$, define $\Class^\star$ to be the class of all such models with the new semantics over the dynamic language (e.g. $\Rel^\star$).
 
 The dynamic case is much more interesting.  For a class of models $\Class$, $\Satisfy{\Class^\star}$ captures those dynamic updates that $\Class$ is capable of modelling.  This gets at the second part of Question 1: What updates are possible over neural networks?  What updates are possible over plausibility models?  What is the relationship between neural network updates and plausibility model updates?
 
