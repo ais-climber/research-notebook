@@ -390,16 +390,43 @@ Both $\Plaus$-inclusions are folklore. Rather than showing these, I will instead
     $\Satisfy{\Relrefl} \subset \Satisfy{\NetModels}$
 \end{proposition}
 \begin{proof}
-    \textbf{TODO}
+    First, let's show inclusion. Let $\Model = \langle W, \set{R_i}_{i \in \textbf{I}}, V \rangle \in \Relrefl$ be a model satisfying $\varphi$. We construct the neural network model $\Net = \langle N, \bias, \set{E_i}_{i \in \textbf{I}}, \set{W_i}_{i \in \textbf{I}}, \set{A_i}_{i \in \textbf{I}}, V \rangle$ as follows.  First, let $N = W$ and keep the propositional evaluation $V$ the same. We first \emph{reverse} $R_i$, and then do the graph-reachability construction.  In other words, let $u{E_i}v$ iff $v{R_i}u$,
+    \[
+        W_i(m, n) = 
+        \begin{cases}
+            1 & \mbox{if } m{E_i}n \\
+            0 & \mbox{otherwise}
+        \end{cases}
+    \]
+    Then pick $A_i(x) = 1$ iff $x > 0$.  Recall that this choice gives us
+    \[
+        \Closure_i(S) = \set{w \mid \exists \mbox{ an } E_i\mbox{-path from some } u \in S \mbox{ to } w}            
+    \]
+
+    From here, we need to show that for all $\varphi, w$, $\Model, w \Vdash \varphi$ iff $\Net, w \Vdash \varphi$.  We do this by induction on $\varphi$.  The key inductive case is $\Diamond_i \varphi$.
+    \[
+    \begin{array}{lcll}
+        \Model, w \Vdash \Diamond_i \varphi & \mbox{iff} & \exists \mbox{ some } u \mbox{ with } w{R_i}u \mbox{ and } \Model, u \Vdash \varphi & (\mbox{By relational semantics}) \\
+        & \mbox{iff} & \exists \mbox{ some } u \mbox{ with } u{E_i}w \mbox{ and } \Model, u \Vdash \varphi & (\mbox{Since we reversed } R_i) \\
+        & \mbox{iff} & \exists \mbox{ some } u \mbox{ with } u{E_i}w \mbox{ and } \Net, u \Vdash \varphi & (\mbox{Inductive hypothesis}) \\
+        & \mbox{iff} & \exists \mbox{ an } E_i\mbox{-path from some } u \in \semantics{\varphi}_\Net \mbox{ to } w & (\mbox{Defn of } \semantics{\varphi} \mbox{ and since } \\
+        & & & \quad E_i \mbox{ is refl and trans}) \\
+        & \mbox{iff} & w \in \Closure_i(\semantics{\varphi}_\Net) & (\mbox{By construction}) \\
+        & \mbox{iff} & \Net, w \Vdash \Diamond_i \varphi & 
+    \end{array}
+    \]
+    We conclude that for our particular $\varphi$, $\Model \models \varphi$ implies $\Net \models \varphi$.
+
+    As for strictness, nonmonotonicity $\neg (\Box(\varphi \land \psi) \to (\Box \varphi \land \Box \psi)) \in \Satisfy{\NetModels}$, yet it is not satisfiable by $\Model \in \Relrefl$.
 \end{proof}
 
-\textbf{LEGACY:}
-\begin{proposition}
-    $\Satisfy{\Relrefl} \subset \Satisfy{\Plaus}$
-\end{proposition}
-\begin{proof}
-    First, since I allowed reflexive, transitive relational operators in plausibility models, we immediately have $\Relrefl \subseteq \Plaus$.  This means that, given any $\Model \in \Relrefl$ satisfying $\varphi$, the very same model is $\in \Rel$.  As for strictness, nonmonotonicity $\neg (\Box(\varphi \land \psi) \to (\Box \varphi \land \Box \psi)) \in \Satisfy{\Plaus}$, yet it is not satisfiable by $\Model \in \Relrefl$.
-\end{proof}
+% \textbf{LEGACY:}
+% \begin{proposition}
+%     $\Satisfy{\Relrefl} \subset \Satisfy{\Plaus}$
+% \end{proposition}
+% \begin{proof}
+%     First, since I allowed reflexive, transitive relational operators in plausibility models, we immediately have $\Relrefl \subseteq \Plaus$.  This means that, given any $\Model \in \Relrefl$ satisfying $\varphi$, the very same model is $\in \Rel$.  As for strictness, nonmonotonicity $\neg (\Box(\varphi \land \psi) \to (\Box \varphi \land \Box \psi)) \in \Satisfy{\Plaus}$, yet it is not satisfiable by $\Model \in \Relrefl$.
+% \end{proof}
 
 \begin{proposition}
     (\faHandPointRight[regular])
@@ -441,8 +468,8 @@ Both $\Plaus$-inclusions are folklore. Rather than showing these, I will instead
     Next, we will show that for all $\varphi, w$, $\Model, w \Vdash \varphi$ iff $\Model', w \Vdash \varphi$.  We do this by induction on $\varphi$.  The key inductive case is $\Box_i \varphi$.  The relational case is handled by the example in the previous section.  For plausibility operators $\Box_i$, we have
     \[
     \begin{array}{lcl}
-        \Model, w \Vdash \varphi & \mbox{ iff } & w \in \best_{R_i}(X) \\
-        & \mbox{ iff } & X \in f_i(w) \\
+        \Model, w \Vdash \Box_i \varphi & \mbox{ iff } & w \in \best_{R_i}(\semantics{\varphi}) \\
+        & \mbox{ iff } & \semantics{\varphi} \in f_i(w) \\
         & \mbox{ iff } & \Model', w \Vdash \Box_i \varphi
     \end{array}
     \]
@@ -459,11 +486,14 @@ Let's move on to the neural network inclusions.  I claim that $\Satisfy{\NetMode
     $\Satisfy{\Plaus} \subseteq \Satisfy{\NetModels}$
 \end{proposition}
 \begin{proof}
-    Let $\Model = \langle W, \set{R_i}_{i \in \textbf{I}}, V \rangle$ be a plausibility model satisfying $\varphi$.  We construct the neural network model $\Net = \langle N, \bias, \set{E_i}_{i \in \textbf{I}}, \set{W_i}_{i \in \textbf{I}}, \set{A_i}_{i \in \textbf{I}}, V \rangle$ as follows.  First, let $N = W$, let $\bias$ be a fresh node, and keep the propositional evaluation $V$ the same.  If $\Diamond_i$ is given relational semantics, then we first \emph{reverse} $R_i$, and then do the graph-reachability construction.  In other words, let $u{E_i}v$ iff $v{R_i}u$, 
+    Let $\Model = \langle W, \set{R_i}_{i \in \textbf{I}}, V \rangle \in \Plaus$ be a plausibility model satisfying $\varphi$.  We construct the neural network model $\Net = \langle N, \bias, \set{E_i}_{i \in \textbf{I}}, \set{W_i}_{i \in \textbf{I}}, \set{A_i}_{i \in \textbf{I}}, V \rangle$ as follows.  First, let $N{=}W$, let $\bias$ be a fresh node, and keep the propositional evaluation $V$ the same.  If $\Diamond_i$ is given relational semantics, then we first \emph{reverse} $R_i$, and then do the graph-reachability construction.  In other words, let $u{E_i}v$ iff $v{R_i}u$, 
+    % \[
+    %     W_i(u, w) = 1 \quad \quad u{E_i}w
+    % \]
     \[
-        W_i(m, n) = 
+        W_i(u, v) = 
         \begin{cases}
-            1 & \mbox{if } m{E_i}n \\
+            1 & \mbox{if } u{E_i}v \\
             0 & \mbox{otherwise}
         \end{cases}
     \]
@@ -477,7 +507,7 @@ Let's move on to the neural network inclusions.  I claim that $\Satisfy{\NetMode
         \Closure_i(S) = \best_{R_i}(S^\complement)^\complement
     \]
     
-    From here, we need to show that for all $\varphi, w$, $\Model, w \Vdash \varphi$ iff $\Net, w \Vdash \varphi$.  We do this by induction on $\varphi$.  The key inductive case is $\Diamond_i \varphi$.  We have the two cases:
+    From here, we need to show that For all $\varphi, w$, $\Model, w \Vdash \varphi$ iff $\Net, w \Vdash \varphi$.  We do this by induction on $\varphi$.  The key inductive case is $\Diamond_i \varphi$.  We have the two cases:
     \begin{description}
         \item[$\Diamond_i$ is given relational semantics.] 
         \[
@@ -656,12 +686,48 @@ My best guess is that they're incomparable.  I have a proof strategy that \emph{
     \item Write out my best attempt to prove that $\Satisfy{\Plaus^\star}$ and $\Satisfy{\NetModels^\star}$ are incomparable.
     \item Write a program to generate possible model updates \& check inclusions (this is going to be hard!  But I expect that the proof itself will be harder.)
 \end{todolist}
-
+% \color[HTML]{9D0006}
 \textbf{Text for slides:}
-\begin{itemize}
+\begin{itemize}[]
     \item $\Satisfy{\Relrefl} \subset \Satisfy{\NetModels}$
+    \item $\Satisfy{\SocialNet} \subseteq \Satisfy{\NetModels}$
     \item $\Satisfy{\NetModels} \subset \Satisfy{\Nbhdrefl}$
+    \item $\Satisfy{\NetModels} = \Satisfy{\Plaus}$
+    
+    % In red
+    \item {\color[HTML]{9D0006} $\Satisfy{\Relrefl} \subset \Satisfy{\NetModels}$}
+    \item {\color[HTML]{9D0006} $\Satisfy{\SocialNet} \subseteq \Satisfy{\NetModels}$}
+    \item {\color[HTML]{9D0006} $\Satisfy{\NetModels} \subset \Satisfy{\Nbhdrefl}$}
+    \item {\color[HTML]{9D0006} $\Satisfy{\NetModels} = \Satisfy{\Plaus}$}
+    
+    \item $\varphi \in \Satisfy{\Relrefl}$
+    \item $\in \Satisfy{\NetModels}$
+    \item $\not \in \Satisfy{\Relrefl}$
+    \item $\Satisfy{\SocialNet} \subseteq \Satisfy{\NetModels}$
+    \item $\Closure_i(S) = \set{w \mid \exists \mbox{an } E\mbox{-path from } w \mbox{ to some } u \in S}$
+    \item $u{E_i}w$ iff $u{R_i}w$
 \end{itemize}
+
+\begin{enumerate}
+    \item To show inclusion: Given $\Model = \langle W, \set{R_i}_{i\in\textbf{I}}, V \rangle \in \Relrefl$, construct
+    \[
+        \Net = \langle N, \bias, \set{E_i}_{i\in\textbf{I}}, \set{W_i}_{i\in\textbf{I}}, \set{A_i}_{i\in\textbf{I}}, V \rangle 
+    \]
+    as follows:
+    \begin{itemize}
+        \item $N = W$ and keep $V$ the same ($\bias$ doesn't matter)
+        \item \textbf{Edges:} $E_i$ is just $R_i$
+        \item \textbf{Weights:} 
+    \end{itemize}
+\end{enumerate}
+
+\[
+\begin{tikzcd}
+    & \Satisfy{\Nbhdrefl} \arrow[symbol=\supset]{ld} \arrow[symbol=\supset]{rd} & \\
+    \Satisfy{\Plaus} \arrow[symbol=\supset]{rd} \arrow[dash,dotted]{r} & = & \Satisfy{\NetModels} \arrow[symbol=\supset]{ld} \arrow[dash,dotted]{l} \\
+    & \Satisfy{\Relrefl} & 
+\end{tikzcd}
+\]
 
 % \subsection*{Neural Networks and the Complexity Hierarchy}
 
