@@ -1,10 +1,12 @@
 <TeXmacs|2.1.1>
 
-<style|<tuple|book|indent-paragraphs|termes-font|python|cite-author-year|cite-sort>>
+<style|<tuple|book|indent-paragraphs|python|cite-author-year|cite-sort|termes-font|fontawesome>>
 
 <\body>
   <\hide-preamble>
     <assign|Model|<with|font|cal|M>>
+
+    <assign|Class|<with|font|cal*|C>>
 
     <assign|Net|<with|font|cal|N>>
 
@@ -94,7 +96,7 @@
 
     <assign|Rel|<with|font-family|rm|<with|font-series|bold|Rel>>>
 
-    <assign|Relrefl|<with|font-family|rm|<with|font-series|bold|Rel>>>
+    <assign|Relrefl|<with|font-family|rm|<with|font-series|bold|Rel>><rsub|<with|font-family|rm|S4>>>
 
     <assign|Nbhd|<with|font-family|rm|<with|font-series|bold|Nbhd>>>
 
@@ -106,9 +108,17 @@
 
     <assign|SocialNet|<with|font-family|rm|<with|font-series|bold|SocialNet>>>
 
-    <assign|st|<hspace|0.5fn>\<mid\><hspace|0.5fn>>
+    <assign|st|<hspace|0.25fn>\<mid\><hspace|0.25fn>>
 
     <assign|preds|<text|preds>>
+
+    <assign|Modal|<with|font-family|rm|Modal>>
+
+    <assign|Conditional|<with|font-family|rm|Conditional>>
+
+    <assign|FO|<with|font-family|rm|Modal>>
+
+    <assign|indices|<with|font-family|rm|<with|font-series|bold|I>>>
 
     \;
 
@@ -284,6 +294,12 @@
     <assign|large-padding-above|0.5fn>
 
     <assign|large-padding-below|0.5fn>
+
+    <assign|subsection-toc|<macro|name|>>
+
+    <assign|subsubsection-toc|<macro|name|>>
+
+    <assign|dueto|<macro|name|<with|font-shape|right|(<arg|name>)> >>
   </hide-preamble>
 
   <doc-data|<doc-title|Neural Network Semantics>|<doc-author|<author-data|<author-name|Caleb
@@ -335,212 +351,145 @@
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-4>
 
-    <with|par-left|1tab|2.1<space|0.5fn>Conditional Logic
-    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-5>>
-
-    <with|par-left|1tab|2.2<space|0.5fn>Modal Logic
-    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-6>>
-
-    <with|par-left|1tab|2.3<space|0.5fn>Dynamic Epistemic Logic and Belief
-    Revision <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-7>>
-
     <vspace*|1fn><\with|font-series|bold|math-font-series|bold>
       Neural Network Semantics
     </with> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-8><vspace|0.5fn>
+    <no-break><pageref|auto-5><vspace|0.5fn>
 
     1<space|0.5fn>Introduction <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-9>
+    <no-break><pageref|auto-6>
 
     2<space|0.5fn>Neural Network Models <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-10>
-
-    <with|par-left|1tab|2.1<space|0.5fn>The Forward Propagation Operator
-    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-11>>
-
-    <with|par-left|1tab|2.2<space|0.5fn>The Graph Reachability Operators
-    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-12>>
+    <no-break><pageref|auto-7>
 
     3<space|0.5fn>Neural Network Semantics
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-13>
-
-    <with|par-left|1tab|3.1<space|0.5fn>Using Conditional Logic
-    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-14>>
-
-    <with|par-left|1tab|3.2<space|0.5fn>Using Modal Logic
-    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-15>>
+    <no-break><pageref|auto-8>
 
     4<space|0.5fn>Dynamic Update in Neural Network Semantics
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-16>
+    <no-break><pageref|auto-9>
 
     5<space|0.5fn>Hebbian Learning: A Simple Neural Network Update Policy
+    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-10>
+
+    <vspace*|1fn><\with|font-series|bold|math-font-series|bold>
+      Soundness: Neural Network Verification
+    </with> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-11><vspace|0.5fn>
+
+    1<space|0.5fn>Introduction <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-12>
+
+    2<space|0.5fn>Properties of <with|mode|math|<with|font-family|ss|Clos>>,
+    <with|mode|math|<with|font-family|ss|Reach>>, and
+    <with|mode|math|<with|font-family|ss|Reach<rsup|\<downarrow\>>>>
+    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-13>
+
+    3<space|0.5fn>Soundness for the Base Semantics
+    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-14>
+
+    4<space|0.5fn>Properties of <with|mode|math|<with|font-family|ss|Hebb>>
+    and <with|mode|math|<with|font-family|ss|Hebb<rsup|\<star\>>>>
+    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-15>
+
+    5<space|0.5fn>Soundness for the Logic of Hebbian Learning
+    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-16>
+
+    6<space|0.5fn>Reflections on Verification and Extraction
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-17>
 
     <vspace*|1fn><\with|font-series|bold|math-font-series|bold>
-      Soundness: Neural Network Verification
+      Completeness: Neural Network Model Building
     </with> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-18><vspace|0.5fn>
 
     1<space|0.5fn>Introduction <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-19>
 
-    2<space|0.5fn>Properties of <with|mode|math|<with|font-family|ss|Clos>>,
-    <with|mode|math|<with|font-family|ss|Reach>>, and
-    <with|mode|math|<with|font-family|ss|Reach<rsup|\<downarrow\>>>>
+    2<space|0.5fn>Completeness for the Base Semantics
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-20>
 
-    3<space|0.5fn>Soundness for the Base Semantics
+    3<space|0.5fn>Reduction Axioms for Iterated Hebbian Update
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-21>
 
-    <with|par-left|1tab|3.1<space|0.5fn>Using Conditional Logic
-    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-22>>
-
-    <with|par-left|1tab|3.2<space|0.5fn>Using Modal Logic
-    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-23>>
-
-    <with|par-left|1tab|3.3<space|0.5fn>Example: Verifying a Neural Network's
-    Behavior <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-24>>
-
-    4<space|0.5fn>Properties of <with|mode|math|<with|font-family|ss|Hebb>>
-    and <with|mode|math|<with|font-family|ss|Hebb<rsup|\<star\>>>>
-    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-25>
-
-    5<space|0.5fn>Soundness for the Logic of Hebbian Learning
-    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-26>
-
-    <with|par-left|1tab|5.1<space|0.5fn>Example: Verifying a Neural Networks
-    Behavior After Learning <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-27>>
-
-    6<space|0.5fn>Reflections on Verification and Extraction
-    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-28>
-
-    <vspace*|1fn><\with|font-series|bold|math-font-series|bold>
-      Completeness: Neural Network Model Building
-    </with> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-29><vspace|0.5fn>
-
-    1<space|0.5fn>Introduction <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-30>
-
-    2<space|0.5fn>Completeness for the Base Semantics
-    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-31>
-
-    <with|par-left|1tab|2.1<space|0.5fn>Example: Building a Neural Network
-    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-32>>
-
-    3<space|0.5fn>Reduction Axioms for Iterated Hebbian Update
-    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-33>
-
     4<space|0.5fn>Completeness for Iterated Hebbian Update
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-34>
-
-    <with|par-left|1tab|4.1<space|0.5fn>Example: Building a Neural Network
-    with Learning Constraints <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-35>>
+    <no-break><pageref|auto-22>
 
     5<space|0.5fn>Reflections on Interpretability and Alignment
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-36>
+    <no-break><pageref|auto-23>
 
     <vspace*|1fn><\with|font-series|bold|math-font-series|bold>
       Expressivity: Measuring the Modeling Power of Neural Networks
     </with> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-37><vspace|0.5fn>
+    <no-break><pageref|auto-24><vspace|0.5fn>
 
     1<space|0.5fn>Introduction <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-38>
+    <no-break><pageref|auto-25>
 
-    2<space|0.5fn>Basic Setup <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-39>
-
-    <with|par-left|1tab|2.1<space|0.5fn>Relational Models
+    2<space|0.5fn>A Potpourri of Model Classes
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-40>>
+    <no-break><pageref|auto-26>
 
-    <with|par-left|1tab|2.2<space|0.5fn>Plausibility Models
+    3<space|0.5fn>Measuring Expressive Power through Translation
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-41>>
+    <no-break><pageref|auto-27>
 
-    <with|par-left|1tab|2.3<space|0.5fn>Social Network Models
+    4<space|0.5fn>Expressive Power of the Base Neural Network Semantics
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-42>>
+    <no-break><pageref|auto-28>
 
-    <with|par-left|1tab|2.4<space|0.5fn>Neighborhood Models
+    5<space|0.5fn>Expressive Power of Neural Network Update
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-43>>
+    <no-break><pageref|auto-29>
 
-    <with|par-left|1tab|2.5<space|0.5fn>Model Simulations
+    6<space|0.5fn>Neural Networks and Descriptive Complexity
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-44>>
+    <no-break><pageref|auto-30>
 
-    3<space|0.5fn>Modeling Power of the Base Neural Network Semantics
+    7<space|0.5fn>Reflections on the Complexity Hierarchy
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-45>
-
-    4<space|0.5fn>Modeling Power of Neural Network Update
-    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-46>
-
-    5<space|0.5fn>Definability and Expressivity
-    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-47>
-
-    6<space|0.5fn>Reflections on the Complexity Hierarchy
-    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-48>
+    <no-break><pageref|auto-31>
 
     <vspace*|1fn><\with|font-series|bold|math-font-series|bold>
       Conclusions
     </with> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-49><vspace|0.5fn>
+    <no-break><pageref|auto-32><vspace|0.5fn>
 
     Results \ <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-50>
+    <no-break><pageref|auto-33>
 
     Open Questions <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-51>
+    <no-break><pageref|auto-34>
 
     <vspace*|1fn><with|font-series|bold|math-font-series|bold|Appendix
     A<space|0.5fn>Relational (Kripke) Semantics>
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-52><vspace|0.5fn>
+    <no-break><pageref|auto-35><vspace|0.5fn>
 
     <vspace*|1fn><with|font-series|bold|math-font-series|bold|Appendix
     B<space|0.5fn>Plausibility Semantics>
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-53><vspace|0.5fn>
+    <no-break><pageref|auto-36><vspace|0.5fn>
 
     <vspace*|1fn><with|font-series|bold|math-font-series|bold|Appendix
     C<space|0.5fn>Neighborhood Semantics>
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-54><vspace|0.5fn>
+    <no-break><pageref|auto-37><vspace|0.5fn>
 
     <vspace*|1fn><with|font-series|bold|math-font-series|bold|References>
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-55><vspace|0.5fn>
+    <no-break><pageref|auto-38><vspace|0.5fn>
   </table-of-contents>
 
   <chapter|Introduction>
@@ -1009,8 +958,7 @@
       S<rsub|0>,F<rsub|S<rsub|0>><around*|(|S<rsub|0>|)>,F<rsub|S<rsub|0>><around*|(|F<rsub|S<rsub|0>><around*|(|S<rsub|0>|)>|)>,\<ldots\>,F<rsub|S<rsub|0>><rsup|k><around*|(|S<rsub|0>|)>,\<ldots\>
     </equation*>
 
-    has a (finite) least fixed point, and moreover that it is
-    <with|font-shape|italic|unique>. Let the closure
+    has a (finite) least fixed point. Let the closure
     <math|<value|Closure>:<value|State>\<rightarrow\><value|State>> be the
     function that produces that least fixed point. For concreteness, we can
     say that there is some <math|k\<in\><with|font|Bbb|N>> for which
@@ -1021,10 +969,14 @@
   </postulate>
 
   Let <math|<value|NetModel>> be the class of all binary neural network
-  models that satisfy this postulate. This assumption implicitly constraints
-  the allowed neural network architectures: I allow feed-forward nets, as
-  well as certain controlled forms of recurrence. Characterizing nets that
-  have a unique least fixed point is a big open problem.
+  models that satisfy this postulate. Not every neural network has a fixed
+  point. For example, consider the following recurrent neural network:
+
+  <todo|DIAGRAM, walk through example>
+
+  The neural nets I consider include feed-forward nets, as well as certain
+  controlled forms of recurrence. Characterizing nets that have a unique
+  least fixed point is a big open problem.
 
   An important feature of <math|<value|Closure>> is that it is nonmonotonic:
   it is not the case that for all <math|A,B\<in\><value|State>>, if
@@ -1126,6 +1078,19 @@
   \Paction\Q happens), but not for <math|\<neg\>> and <math|\<wedge\>>. The
   bottom line is this: proving completeness for this logic is not necessarily
   just a matter of importing the proof from <cite|leitgeb2018neural>.
+
+  <subsection|What Makes these Semantics \PNeural\Q>
+
+  What makes these semantics \Pneural\Q or \Pconnectionistic\Q? Easy answer:
+  the key operators for inference are implemented in a neural network. Better
+  answer: no single neuron/node holds the information for
+  <math|<value|diaTyp>\<varphi\>> How is this different from relational or
+  neighborhood semantics? Is this a meaningful difference? What does Hannes
+  have to say about it in his dissertation?
+
+  Tbh maybe it just means \Ploosely inspired by real neuron and synapse
+  behavior\Q, but even then there are probably properties we can write down
+  and check.
 
   <section|Dynamic Update in Neural Network Semantics>
 
@@ -1230,11 +1195,34 @@
   still binary, and closures <math|<value|Closure><around*|(|S|)>> still
   exist and are unique. Therefore <math|<value|Hebb>> is well-defined. This
   also means that <math|<value|Hebb>> does not affect the
-  <math|<value|Reach>> or <math|<value|Reaches>> operators. However, changing
-  the weights <with|font-shape|italic|does> affect closures
-  <math|<value|Closure><around*|(|S|)>>\Vthis interaction between
-  <math|<value|Hebb>> and <math|<value|Closure>> (learning and inference) is
-  a central issue in my thesis.
+  <math|<value|Reach>> or <math|<value|Reaches>> operators.
+
+  <\proposition>
+    <math|<Reach><rsub|<value|Hebb><around*|(|<value|Net>,A|)>><around|(|B|)>=<Reach><rsub|<Net>><around|(|B|)>>
+  </proposition>
+
+  <\proof>
+    <todo|>
+  </proof>
+
+  The following is easy to see <todo|I now have space to explain> (since
+  <math|\<eta\>\<geq\>0>).
+
+  <\proposition>
+    Let <math|m,n\<in\>N>. We have:
+
+    <\itemize>
+      <item><math|W<rsub|<Net>><around|(|m,n|)>\<leq\>W<rsub|<value|Hebb><around*|(|<value|Net>,S|)>><around|(|m,n|)>>
+
+      <item>If either <math|m\<nin\><Prop><around|(|S|)>> or
+      <math|n\<nin\><Prop><around|(|S|)>>, then
+      <math|W<rsub|<value|Hebb><around*|(|<value|Net>,S|)>><around|(|m,n|)>=W<rsub|<Net>><around|(|m,n|)>>.
+    </itemize>
+  </proposition>
+
+  <\proof>
+    <todo|>
+  </proof>
 
   <paragraph|Iterated Hebbian Update.>In addition to the single-step
   <math|<value|Hebb>> operator, in my thesis work I have also modelled
@@ -1291,10 +1279,13 @@
       <value|iter>=<choice|<tformat|<table|<row|<cell|<around*|\<lceil\>|<frac|t-<around*|\||N|\|>\<cdot\><with|font-family|ss|mnws>|\<eta\>>|\<rceil\>>>|<cell|<text|if
       >\<geq\>1>>|<row|<cell|1>|<cell|<text|otherwise>>>>>>
     </equation*>
-
-    Note that <math|<value|iter>> will always be a positive integer, and so
-    iterating <math|<value|iter>> times is well-defined.
   </definition>
+
+  Note that <math|<value|iter>> will always be a positive integer, and so
+  iterating <math|<value|iter>> times is well-defined. This choice for
+  <math|<value|iter>> may seem opaque, but we will see in Lemma <todo|which>
+  why it guarantees that the updated weights overpower competing edge
+  weights.
 
   <\definition>
     Let <math|<value|Hebbstar>:<value|NetModel>\<times\><value|State>\<rightarrow\><value|NetModel>>
@@ -1308,13 +1299,44 @@
   </definition>
 
   As with <math|<value|Hebb>>, <math|<value|Hebbstar>> does not affect the
-  edges, activation function, or evaluation of propositions, and the update
-  is well-defined. One worry we might have is that, in each iteration, we
-  always update by <math|<value|Closure><around*|(|S|)>> in the
-  <with|font-shape|italic|original> net. But it turns out that this
-  <math|<value|Closure><around*|(|S|)>> doesn't change with each iteration,
-  so <math|<value|Hebbstar>> is equivalent to repeatedly applying
-  <math|<value|Hebb>> until we reach a fixed point <cite|kisby2024hebbian>.
+  edges, activation function, or evaluation of propositions:
+
+  <\proposition>
+    <math|<Reach><rsub|<value|Hebbstar><around*|(|<value|Net>,A|)>><around|(|B|)>=<Reach><rsub|<Net>><around|(|B|)>>
+  </proposition>
+
+  <\proposition>
+    Let <math|m,n\<in\>N>. We have:
+
+    <\itemize>
+      <item><math|W<rsub|<Net>><around|(|m,n|)>\<leq\>W<rsub|<value|Hebbstar><around*|(|<value|Net>,S|)>><around|(|m,n|)>>
+
+      <item>If either <math|m\<nin\><value|Closure><around|(|S|)>> or
+      <math|n\<nin\><value|Closure><around|(|S|)>>, then
+      <math|W<rsub|<value|Hebbstar><around*|(|<value|Net>,S|)>><around|(|m,n|)>=W<rsub|<Net>><around|(|m,n|)>>
+    </itemize>
+  </proposition>
+
+  The following fact about <math|<value|Hebbstar>> is the most important. It
+  is a formal expression of our statement before: Updated weights
+  <math|W<rsub|<value|Hebbstar><around*|(|<value|Net>,A|)>><around|(|B|)>>
+  are so high that if <math|m> is active in <math|<Hebbstar|<Net>|A>> then
+  <math|n> must be as well.
+
+  <\lemma>
+    <dueto|<aw|hand-point-right|1fn>>Let <math|A,B\<in\><value|State>,m,n\<in\>N>.
+    If <math|m\<in\><preds|n>>, <math|m,n\<in\><value|Closure><around|(|A|)>>,
+    and <math|m\<in\><value|Closure><rsub|<value|Hebbstar><around*|(|<value|Net>,A|)>><around|(|B|)>>,
+    then
+
+    <\equation*>
+      A<around|(|<big|sum><rsub|i=1><rsup|deg<around*|(|n|)>>W<rsub|<Hebbstar|<Net>|A>><around|(|m<rsub|i>,n|)>\<cdot\><bigchi><rsub|<value|Closure><rsub|<value|Hebbstar><around*|(|<value|Net>,A|)>><around|(|B|)>><around|(|m<rsub|i>|)>|)>=1
+    </equation*>
+  </lemma>
+
+  <\proof>
+    <todo|>
+  </proof>
 
   <\chapter>
     Soundness: Neural Network Verification
@@ -1340,7 +1362,8 @@
   are correct.
 
   <\proposition>
-    For all <math|S,S<rsub|1>,\<ldots\>,S<rsub|k>\<in\><value|State>>,
+    <dueto|Leitgeb, <cite|leitgeb2001nonmonotonic|leitgeb2003nonmonotonic>>For
+    all <math|S,S<rsub|1>,\<ldots\>,S<rsub|k>\<in\><value|State>>,
 
     <\description>
       <item*|Inclusion><math|S\<subseteq\><value|Closure><around*|(|S|)>>
@@ -1356,24 +1379,137 @@
     I'll prove each in turn:
 
     <\description>
-      <item*|(Inclusion)><todo|Todo>
+      <item*|(Inclusion)>Let <math|n\<in\>S>. By definition,
+      <math|<value|Closure><around*|(|S|)>=F<rsup|k><rsub|S><around*|(|S|)>>
+      for some <math|k\<in\><with|font|Bbb|N>>, where
+      <math|F<rsub|S><rsup|k>> is the transition function from Definition
+      <todo|which?>. By induction on this k (the number of iterations needed
+      to construct the closure):
 
-      <item*|(Idempotence)>The (<math|\<subseteq\>>) direction is just
-      Inclusion. As for (<math|\<supseteq\>>), <todo|Todo>
+      <\description>
+        <item*|Base Step><math|k=0>, and so
+        <math|<value|Closure><around*|(|S|)>=S>. So
+        <math|n\<in\><value|Closure><around*|(|S|)>>.
 
-      <item*|(Cumulative)><todo|Todo>
+        <item*|Inductive Step>Let <math|k\<geq\>0>. We have
+        <math|<value|Closure><around*|(|S|)>=F<rsup|k><rsub|S><around*|(|S|)>=F<rsub|S><around*|(|F<rsup|k-1><rsub|S><around*|(|S|)>|)>>.
+        Expanding this term out, we have
 
-      Now consider the (<math|\<supseteq\>>) direction. <todo|Todo>
+        <\equation*>
+          F<rsub|S><around*|(|F<rsup|k-1><rsub|S><around*|(|S|)>|)>=S\<cup\><around*|{|n<value|st>A<around*|(|<big|sum><rsub|m\<in\><value|preds><around*|(|n|)>>W<around*|(|m,n|)>\<cdot\><value|bigchi><rsub|F<rsup|k-1><rsub|S><around*|(|S|)>><around*|(|m|)>|)>=1|}>
+        </equation*>
+
+        Since <math|n\<in\>S>, <math|n> is in the left-hand side of this
+        union. And so <math|n\<in\><value|Closure><around*|(|S|)>>.
+      </description>
+
+      <item*|(Idempotence)>I will prove a stronger claim: For all
+      <math|k\<in\><with|font|Bbb|N>>,
+
+      <\equation*>
+        F<rsup|k><rsub|S><around*|(|<value|Closure><around*|(|S|)>|)>=<value|Closure><around*|(|S|)>
+      </equation*>
+
+      In other words, applying the transition function <math|F<rsub|S>> any
+      number of times to <math|<value|Closure><around*|(|S|)>> has no effect.
+      Since <math|<value|Closure><around*|(|<value|Closure><around*|(|S|)>|)>=F<rsup|k><rsub|S><around*|(|<value|Closure><around*|(|S|)>|)>>
+      for some <math|k\<in\><with|font|Bbb|N>>, the Idempotence property
+      follows. Let's proceed by induction on <math|k>.
+
+      <\description>
+        <item*|Base Step><math|k=0>, and so the goal simplifies to
+        <math|<value|Closure><around*|(|S|)>=<value|Closure><around*|(|S|)>>,
+        which is true.
+
+        <item*|Inductive Step>Let <math|k\<geq\>0>. We have
+        <math|F<rsup|k><rsub|S><around*|(|<value|Closure><around*|(|S|)>|)>=F<rsub|S><around*|(|F<rsup|k-1><rsub|S><around*|(|<value|Closure><around*|(|S|)>|)>|)>>.
+        Our inductive hypothesis here is that, for <math|k-1>,
+        <math|F<rsup|k-1><rsub|S><rsup|><around*|(|<value|Closure><around*|(|S|)>|)>=<value|Closure><around*|(|S|)>>.
+        So we can subsitute that to get <math|F<rsup|k><rsub|S><around*|(|<value|Closure><around*|(|S|)>|)>=F<rsub|S><around*|(|<value|Closure><around*|(|S|)>|)>=<value|Closure><around*|(|S|)>>,
+        which is what we wanted to show.
+      </description>
+
+      <item*|(Cumulative)>Suppose <math|S<rsub|1>\<subseteq\>S<rsub|2>\<subseteq\><value|Closure><around*|(|S<rsub|1>|)>>
+      (see Figure <todo|DIAGRAM>). Here as well I will prove a stronger
+      claim: For all <math|k\<in\><with|font|Bbb|N>>, there exists an
+      <math|l\<in\><with|font|Bbb|N>> such that
+
+      <\equation*>
+        F<rsup|k><rsub|S<rsub|2>><around*|(|S<rsub|2>|)>=F<rsup|l><rsub|S<rsub|1>><around*|(|S<rsub|1>|)>
+      </equation*>
+
+      In other words, no matter how many times <math|k> we apply the
+      transition function <math|F<rsub|S<rsub|2>>> to <math|S<rsub|2>>, we
+      can match the same set by applying the transition function
+      <math|F<rsub|S<rsub|1>>> to <math|S<rsub|1>> some number <math|l>
+      times. Let's proceed by induction on <math|k>.
+
+      <\description>
+        <item*|Base Step><math|k=0>. Let <math|l> be that number such that
+        <math|<value|Closure><around*|(|S<rsub|2>|)>=F<rsup|l><rsub|S<rsub|2>><around*|(|S<rsub|2>|)>>
+        (guaranteed by the definition of <math|<value|Closure>>).\ 
+
+        <item*|Inductive Step>
+      </description>
+
+      Why does the Cumulative property follow from this? Well, let <math|k>
+      be that number such that <math|<value|Closure><around*|(|S<rsub|1>|)>=F<rsup|k><rsub|S<rsub|1>><around*|(|S<rsub|1>|)>>,
+      and let <math|l> be such that <math|F<rsup|k><rsub|S<rsub|1>><around*|(|S<rsub|1>|)>=F<rsup|l><rsub|S<rsub|2>><around*|(|S<rsub|2>|)>>.
+      To prove the Cumulative property, suppose
+      <math|n\<in\><value|Closure><around*|(|S<rsub|1>|)>>. So
+      <math|n\<in\>F<rsup|k><rsub|S<rsub|1>><around*|(|S<rsub|1>|)>=F<rsup|l><rsub|S<rsub|2>><around*|(|S<rsub|2>|)>\<subseteq\><value|Closure><around*|(|S<rsub|2>|)>>.
+      Now conversely, suppose <math|n\<in\><value|Closure><around*|(|S<rsub|2>|)>=F<rsub|S<rsub|2>><rsup|j><around*|(|F<rsup|l><rsub|S<rsub|2>><around*|(|S<rsub|2>|)>|)>>
+      for some <math|j\<in\><with|font|Bbb|N>>. Well,
+      <math|F<rsub|S<rsub|2>><rsup|j><around*|(|F<rsup|l><rsub|S<rsub|2>><around*|(|S<rsub|2>|)>|)>=F<rsub|S<rsub|2>><rsup|j><around*|(|F<rsup|k><rsub|S<rsub|1>><around*|(|S<rsub|1>|)>|)>=F<rsub|S<rsub|2>><rsup|j><around*|(|<value|Closure><around*|(|S<rsub|1>|)>|)>>.
+      <todo|todo>
+
+      \;
+
+      \;
+
+      The goal here is to show <math|<value|Closure><around*|(|S<rsub|1>|)>=<value|Closure><around*|(|S<rsub|2>|)>>.
+      Again I will prove a stronger claim: For all
+      <math|k\<in\><with|font|Bbb|N>>,
+
+      <\equation*>
+        F<rsup|k><rsub|S<rsub|2>><around*|(|S<rsub|2>|)>=<value|Closure><around*|(|S<rsub|1>|)>
+      </equation*>
+
+      \;
+
+      Suppose <math|S<rsub|1>\<subseteq\>S<rsub|2>\<subseteq\><value|Closure><around*|(|S<rsub|1>|)>>
+      (see Figure <todo|DIAGRAM>). By definition,
+      <math|<value|Closure><around*|(|S<rsub|2>|)>=F<rsup|k><rsub|S<rsub|1>><around*|(|S<rsub|2>|)>>
+      for some <math|k\<in\><with|font|Bbb|N>>. Our goal is to show
+      <math|<value|Closure><around*|(|S<rsub|2>|)>=<value|Closure><around*|(|S<rsub|1>|)>>,
+      i.e.
+
+      <\equation*>
+        F<rsup|k><rsub|S<rsub|2>><around*|(|S<rsub|2>|)>=<value|Closure><around*|(|S<rsub|1>|)>
+      </equation*>
+
+      By induction on <math|k>, the number of iterations needed to construct
+      this outer closure:
+
+      <\description>
+        <item*|Base Step><math|k=0>, and so the goal reduces to
+        <math|S<rsub|2>=<value|Closure><around*|(|S<rsub|1>|)>>.\ 
+
+        <item*|Inductive Step>
+      </description>
     </description>
+
+    \;
   </proof>
 
   In the terminology of <cite-parenthesized|kraus1990nonmonotonic>,
-  <math|<Prop>> is <em|cumulative>\Vit satisfies the cumulative property
-  above. In fact, <math|<value|Closure>> is <em|not> a fully monotonic
-  closure operator, as the following fact shows.
+  <math|<Prop>> is a <em|cumulative> closure operator (it satisfies the
+  cumulative property). <math|<value|Closure>> is <em|not> a fully monotonic
+  closure operator, however, primarily due to negative weights in the net.
 
   <\proposition>
-    It is not the case that for all <math|S<rsub|1>,S<rsub|2>\<in\><value|State>>,
+    <dueto|Leitgeb, <cite|leitgeb2001nonmonotonic|leitgeb2003nonmonotonic>>It
+    is not the case that for all <math|S<rsub|1>,S<rsub|2>\<in\><value|State>>,
     if <math|S<rsub|1>\<subseteq\>S<rsub|2>>, then
     <math|<value|Closure><around|(|S<rsub|1>|)>\<subseteq\><value|Closure><around|(|S<rsub|2>|)>>.
   </proposition>
@@ -1423,11 +1559,223 @@
 
   <subsection|Using Modal Logic>
 
+  For <math|<value|Typ>> alone,<nbsp><cite|leitgeb2001nonmonotonic> proves
+  that the properties in Proposition <todo|which?> are complete for
+  <math|<value|Closure>> over binary, feed-forward nets. We transcribe these
+  into our modal language.
+
+  <\description>
+    <item*|Nec>From <math|<proves>\<varphi\>> we can infer
+    <math|<proves><Typ|\<varphi\>>>
+
+    <item*|Dual><math|<diaTyp|\<varphi\>>\<leftrightarrow\>\<neg\><Typ|\<neg\>\<varphi\>>>
+
+    <item*|Refl><math|<Typ|\<varphi\>>\<to\>\<varphi\>>
+
+    <item*|Trans><math|<Typ|\<varphi\>>\<to\><Typ|<Typ|\<varphi\>>>>
+
+    <item*|Cumulative><math|<around|(|\<varphi\>\<to\>\<psi\>|)>\<wedge\><around|(|<Typ|\<psi\>>\<to\>\<varphi\>|)>\<to\><around|(|<Typ|\<varphi\>>\<to\>\<psi\>|)>>
+  </description>
+
+  As for <math|<value|Know>>, we at least have the following sound axioms,
+  transcribed from Proposition <todo|which?> <todo|Fix these, they're written
+  for <math|<value|Know><around*|(|\<varphi\>,\<psi\>|)>> but need to be
+  written for <math|<value|Know>\<varphi\>>>.
+
+  <\description>
+    <item*|Nec>From <math|<proves>\<varphi\>> we can infer
+    <math|<proves><Know|\<varphi\>>>
+
+    <item*|Dual><math|<diaKnow|\<varphi\>>\<leftrightarrow\>\<neg\><Know|\<neg\>\<varphi\>>>
+
+    <item*|Distr><math|<Know|<around|(|\<varphi\>\<to\>\<psi\>|)>>\<leftrightarrow\><around|(|<Know|\<varphi\>>\<to\><Know|\<psi\>>|)>>
+
+    <item*|Refl><math|<Know|\<varphi\>>\<to\>\<varphi\>>
+
+    <item*|Trans><math|<Know|\<varphi\>>\<to\><Know|<Know|\<varphi\>>>>
+  </description>
+
+  These axioms are the usual complete axioms for normal modal logic over
+  reflexive and transitive frames. So far these axioms seem innocuous enough.
+  But for completeness, the catch is that <math|<value|Know>> and
+  <math|<value|Typ>> may interact in ways that affect the model construction.
+  For example, the following axiom is easy to check, but it is not clear
+  whether it is sufficient.
+
+  <\description>
+    <item*|Incl><math|<Know|\<varphi\>>\<to\><Typ|\<varphi\>>>
+  </description>
+
   <subsection|Example: Verifying a Neural Network's Behavior>
 
   <section|Properties of <math|<value|Hebb>> and <math|<value|Hebbstar>>>
 
+  We have the following algebraic properties for <math|<value|Hebb>>.
+
+  <\theorem>
+    <dueto|<aw|hand-point-right|1fn>><todo|revise properties from FLAIRS
+    paper<text-dots>>
+  </theorem>
+
+  One worry we might have is that, in each iteration, we always update by
+  <math|<value|Closure><around*|(|S|)>> in the
+  <with|font-shape|italic|original> net. But it turns out that this
+  <math|<value|Closure><around*|(|S|)>> doesn't change with each iteration,
+  i.e.
+
+  <\proposition>
+    <dueto|<aw|hand-point-right|1fn>><math|<value|Closure><rsub|<value|Hebb><around*|(|<value|Net>,S|)>><around|(|S|)>=<value|Closure><rsub|<Net>><around|(|S|)>>
+  </proposition>
+
+  <\proof>
+    Recall that <math|F:<value|State>\<rightarrow\><value|State>> is the
+    transition function for <math|<value|Net>>, and
+    <math|F<rsup|\<star\>>:<value|State>\<rightarrow\><value|State>> is the
+    transition function for <math|<value|Hebb><around*|(|<value|Net>,S|)>>. I
+    will prove a slightly stronger claim: For all
+    <math|k\<in\><with|font|Bbb|N>>,
+
+    <\equation*>
+      <around*|(|F<rsup|\<star\>><rsub|S>|)><rsup|k><around*|(|S|)>=F<rsup|k><rsub|S><around*|(|S|)>
+    </equation*>
+
+    In other words, the original transition function <math|F<rsub|S>> and the
+    updated transition function <math|F<rsup|\<star\>><rsub|S>> have the same
+    effect on <math|S> no matter how many times they are applied. It follows
+    that <math|<value|Closure><rsub|<value|Hebb><around*|(|<value|Net>,S|)>><around|(|S|)>=<value|Closure><rsub|<Net>><around|(|S|)>>
+    <todo|should I say more about why?> Let's proceed by induction on
+    <math|k>.
+
+    <\description>
+      <item*|Base Step><math|k=0>, and so the goal simplifies to <math|S=S>,
+      which is true.
+
+      <item*|Inductive Step>Let <math|k\<geq\>0>. Well, by our inductive
+      hypothesis, <math|<around*|(|F<rsup|\<star\>><rsub|S>|)><rsup|k><around*|(|S|)>=<around*|(|F<rsup|\<star\>><rsub|S>|)><around*|(|<around*|(|F<rsup|\<star\>><rsub|S>|)><rsup|k-1><around*|(|S|)>|)>=<around*|(|F<rsup|\<star\>><rsub|S>|)><around*|(|F<rsup|k-1><rsub|S><around*|(|S|)>|)>>.
+      We want to show now that
+
+      <\equation*>
+        <around*|(|F<rsup|\<star\>><rsub|S>|)><around*|(|F<rsup|k-1><rsub|S><around*|(|S|)>|)>=F<rsup|k><rsub|S><around*|(|S|)>
+      </equation*>
+
+      <math|<around*|(|\<rightarrow\>|)>> Suppose
+      <math|n\<in\>><math|<around*|(|F<rsup|\<star\>><rsub|S>|)><around*|(|F<rsup|k-1><rsub|S><around*|(|S|)>|)>>.
+      So either <math|n\<in\>S>, in which case
+      <math|n\<in\>F<rsub|S><around*|(|F<rsup|k-1><rsub|S><around*|(|S|)>|)>>,
+      or <math|n> is activated by its predecessors in
+      <math|<value|Hebb><around*|(|<value|Net>,S|)>>, i.e.
+
+      <\equation*>
+        A<around*|(|<big|sum><rsub|m\<in\><value|preds><around*|(|n|)>>W<rsub|<value|Hebb><around*|(|<value|Net>,S|)>><around*|(|m,n|)>\<cdot\><value|bigchi><rsub|F<rsup|k-1><rsub|S><around*|(|S|)>><around*|(|m|)>|)>=1
+      </equation*>
+
+      Now suppose for contradiction that <math|n<neg|\<in\>>F<rsup|k><rsub|S><around*|(|S|)>>.
+      <todo|and then what???>
+
+      <math|<around*|(|\<leftarrow\>|)>>
+    </description>
+
+    \;
+  </proof>
+
+  \;
+
+  <with|font-series|bold|IDEMPOTENCE PROOF FROM ABOVE:>
+
+  I will prove a stronger claim: For all <math|k\<in\><with|font|Bbb|N>>,
+
+  <\equation*>
+    F<rsup|k><rsub|S><around*|(|<value|Closure><around*|(|S|)>|)>=<value|Closure><around*|(|S|)>
+  </equation*>
+
+  In other words, applying the transition function <math|F<rsub|S>> any
+  number of times to <math|<value|Closure><around*|(|S|)>> has no effect.
+  Since <math|<value|Closure><around*|(|<value|Closure><around*|(|S|)>|)>=F<rsup|k><rsub|S><around*|(|<value|Closure><around*|(|S|)>|)>>
+  for some <math|k\<in\><with|font|Bbb|N>>, the Idempotence property follows.
+  Let's proceed by induction on <math|k>.
+
+  <\description>
+    <item*|Base Step><math|k=0>, and so the goal simplifies to
+    <math|<value|Closure><around*|(|S|)>=<value|Closure><around*|(|S|)>>,
+    which is true.
+
+    <item*|Inductive Step>Let <math|k\<geq\>0>. We have
+    <math|F<rsup|k><rsub|S><around*|(|<value|Closure><around*|(|S|)>|)>=F<rsub|S><around*|(|F<rsup|k-1><rsub|S><around*|(|<value|Closure><around*|(|S|)>|)>|)>>.
+    Our inductive hypothesis here is that, for <math|k-1>,
+    <math|F<rsup|k-1><rsub|S><rsup|><around*|(|<value|Closure><around*|(|S|)>|)>=<value|Closure><around*|(|S|)>>.
+    So we can subsitute that to get <math|F<rsup|k><rsub|S><around*|(|<value|Closure><around*|(|S|)>|)>=F<rsub|S><around*|(|<value|Closure><around*|(|S|)>|)>=<value|Closure><around*|(|S|)>>,
+    which is what we wanted to show.
+  </description>
+
+  \;
+
+  \;
+
+  \;
+
+  \;
+
+  \;
+
+  \;
+
+  \ <no-indent>and so <math|<value|Hebbstar>> is equivalent to repeatedly
+  applying <math|<value|Hebb>> until we reach a fixed point
+  <cite|kisby2024hebbian>. <todo|Elaborate on this point, it's said a little
+  too quickly for the reader to internalize it! (maybe a picture would
+  help?)>
+
+  We have the following algebraic properties for <math|<value|Hebbstar>>.
+  Before proving these, I'll give some intuition for what these properties
+  say about <math|<value|Hebbstar>>. <todo|(1) is just used to show (2)> Part
+  (2) expresses a lower bound for <math|<value|Closure><rsub|<value|Hebbstar><around*|(|<value|Net>,A|)>><around|(|B|)>>,
+  whereas (3) gives an upper bound within
+  <math|<value|Closure><around*|(|A|)>>. <todo|There's got to be a better way
+  to explain what these mean<text-dots> this isn't clear or intuitive at
+  all.>
+
+  <\proposition>
+    <dueto|<aw|hand-point-right|1fn>><math|<value|Closure><rsub|<value|Hebbstar><around*|(|<value|Net>,S|)>><around|(|S|)>=<value|Closure><rsub|<Net>><around|(|S|)>>
+  </proposition>
+
+  <\proof>
+    <todo|>
+  </proof>
+
+  <\proposition>
+    <dueto|<aw|hand-point-right|1fn>>Let <math|<value|Net>\<in\><value|NetModel>>.
+    For all Let <math|A,B\<in\><value|State>>,
+
+    <\enumerate>
+      <item><math|<value|Closure><around|(|A|)>\<cap\><value|Closure><around|(|B|)>\<subseteq\><value|Closure><rsub|<value|Hebbstar><around*|(|<value|Net>,A|)>><around|(|B|)>>
+
+      <item><math|<value|Closure><around*|(|A|)>\<cap\><value|Reach><around*|(|<value|Closure><around*|(|A|)>\<cap\><value|Closure><around*|(|B|)>|)>\<subseteq\><value|Closure><rsub|<value|Hebbstar><around*|(|<value|Net>,A|)>><around*|(|B|)>>
+
+      <item><math|<value|Closure>(A)\<cap\><value|Closure><rsub|<value|Hebbstar><around*|(|<value|Net>,A|)>><around*|(|B|)>\<subseteq\><value|Closure><around*|(|A|)>\<cap\><value|Reach><around*|(|<value|Closure><around*|(|A|)>\<cap\><value|Closure><around*|(|B|)>|)>>
+    </enumerate>
+  </proposition>
+
+  <\proof>
+    <todo|>
+  </proof>
+
+  <\theorem>
+    <dueto|<aw|hand-point-right|1fn>>Let <math|<value|Net>\<in\><value|NetModel>>.
+    For all <math|A,B\<in\><value|State>>,
+
+    <\equation*>
+      <value|Closure><rsub|<value|Hebbstar><around*|(|<value|Net>,A|)>><around|(|B|)>=<value|Closure><around*|(|B\<cup\><around*|(|<value|Closure><around*|(|A|)>\<cap\><value|Reach><around*|(|<value|Closure><around*|(|A|)>\<cap\><value|Closure><around*|(|B|)>|)>|)>|)>
+    </equation*>
+  </theorem>
+
+  <\proof>
+    <todo|>
+  </proof>
+
   <section|Soundness for the Logic of Hebbian Learning>
+
+  <todo|Prove soundness of axioms for both single-step and iterated Hebbian
+  update!>
 
   <subsection|Example: Verifying a Neural Networks Behavior After Learning>
 
@@ -1457,8 +1805,9 @@
   \;
 
   <\theorem>
-    <dueto|Model Building>For all <math|\<Gamma\><rsup|\<ast\>>\<subseteq\><uplang>>,
-    there is <math|<Net>> such that <math|<Net>\<models\>\<Gamma\><rsup|\<ast\>>>.
+    <dueto|<aw|hand-point-right|1fn>>For all
+    <math|\<Gamma\><rsup|\<ast\>>\<subseteq\><uplang>>, there is <math|<Net>>
+    such that <math|<Net>\<models\>\<Gamma\><rsup|\<ast\>>>.
   </theorem>
 
   <\proof>
@@ -1550,7 +1899,8 @@
     things left to show:
 
     <\proposition*>
-      For all <math|\<varphi\>\<in\>\<Gamma\><rsup|\<ast\>>>, we have
+      <dueto|<aw|hand-point-right|1fn>>For all
+      <math|\<varphi\>\<in\>\<Gamma\><rsup|\<ast\>>>, we have
       <math|<value|proves>\<varphi\>\<leftrightarrow\><value|transl><around*|(|\<varphi\>|)>>
     </proposition*>
 
@@ -1685,8 +2035,13 @@
     Suppose contrapositively that <math|\<Gamma\><rsup|\<ast\>><neg|<proves>>\<varphi\>>.
     It follows that <math|\<Gamma\><rsup|\<ast\>><proves>\<neg\>\<varphi\>>.
     So <math|\<Gamma\><rsup|\<ast\>>\<cup\><around*|{|\<neg\>\<varphi\>|}>>
-    is consistent, and by Theorem <todo|todo>, we have
-    <math|<Net>\<in\><AllNets>> such that
+    is consistent, and by Theorem <todo|todo\Vneed to modify the construction
+    to make sure the net is fully connected. Quote: \PBut remember that our
+    nets are also fully connected! \ So we need to modify the model
+    construction from <cite|leitgeb2001nonmonotonic> by introducing a zero
+    weight edge between every pair of previously unconnected nodes. \ Note
+    that this change does not affect the $\\Prop$-structure of the net.\Q>,
+    we have <math|<Net>\<in\><AllNets>> such that
     <math|<Net>\<models\>\<Gamma\><rsup|\<ast\>>\<cup\><around*|{|\<neg\>\<varphi\>|}>>.
     But then <math|<Net>\<models\>\<Gamma\><rsup|\<ast\>>> yet
     <math|<Net><neg|\<models\>>\<varphi\>>, which is what we wanted to show.
@@ -1829,28 +2184,454 @@
 
   <section|Introduction>
 
-  <section|Basic Setup>
+  <section|A Potpourri of Model Classes>
 
-  [introduce a number of models that I will compare neural networks against;
-  all will share the same underlying language of K and T for fair comparison,
-  and I will give some examples of (1) properties and (2) updates that they
-  can support / define / model.]
+  <\itemize>
+    <item>In this section, I will introduce a number of models in the
+    literature that I will compare neural networks against.
+
+    <item>To make the comparison fair, I need to generalize the language
+    here. All semantics will be over the multi-modal language. You can think
+    of the <math|\<box\><rsub|i>>'s as different modalities for different
+    accessibility relations / transition functions (e.g. knowledge vs belief,
+    also done in FOL), or alternately as different per agent in a multi-agent
+    setting.
+
+    <item>Give this language. As an example, mention that our language above
+    of <math|<value|Know>>,<math|<value|Knownby>> and <math|<value|Typ>> is
+    an instance of this language, where the operators
+    <math|<value|Know>>,<math|<value|Knownby>> and <math|<value|Typ>> have
+    additional interaction axioms.
+
+    <item><math|<value|indices>> is some fixed set of indices.
+  </itemize>
 
   <subsection|Relational Models>
 
+  A relational model is <math|<Model>=<around|\<langle\>|W,<around*|{|R|}><rsub|i\<in\><value|indices>>,V|\<rangle\>>>,
+  where
+
+  <\itemize>
+    <item><math|W> is some finite set of worlds (or states)
+
+    <item>Each <math|R<rsub|i>\<subseteq\>W\<times\>W> (the accessibility
+    relations)
+
+    <item><math|V:<math-up|Proposition>\<to\>\<cal-P\><around|(|W|)>> (the
+    valuation function)
+  </itemize>
+
+  Define <math|<Rel>> to be the class of all such models, and define
+  <math|<Relrefl>> to be the class of all such models where <math|R> is
+  additionally reflexive and transitive. The semantics for both classes is
+  given by:
+
+  <\equation*>
+    <tabular*|<tformat|<cwith|1|-1|1|1|cell-halign|l>|<cwith|1|-1|1|1|cell-lborder|0ln>|<cwith|1|-1|2|2|cell-halign|c>|<cwith|1|-1|3|3|cell-halign|l>|<cwith|1|-1|3|3|cell-rborder|0ln>|<table|<row|<cell|<Model>,w\<Vdash\>p>|<cell|<text|iff
+    >>|<cell|w\<in\>V<around|(|p|)>>>|<row|<cell|<Model>,w\<Vdash\>\<neg\>\<varphi\>>|<cell|<text|iff
+    >>|<cell|<Model>,w<neg|\<Vdash\>>\<varphi\>>>|<row|<cell|<Model>,w\<Vdash\>\<varphi\>\<wedge\>\<psi\>>|<cell|<text|iff
+    >>|<cell|<Model>,w\<Vdash\>\<varphi\><text| and
+    ><Model>,w\<Vdash\>\<psi\>>>|<row|<cell|<Model>,w\<Vdash\>\<Box\><rsub|i>\<varphi\>>|<cell|<text|iff
+    >>|<cell|<text|for all >u*<text|with >w<op|<op|R<rsub|i>>>u,<Model>,u\<Vdash\>\<varphi\>>>>>>
+  </equation*>
+
+  <todo|Mention axioms, soundness, completeness (refer to the appendix!)>
+
   <subsection|Plausibility Models>
+
+  A plausibility model, first introduced in <cite|kraus1990nonmonotonic>, is
+  <math|<Model>=<around|\<langle\>|W,<around*|{|R|}><rsub|i\<in\><text|<with|font-series|bold|I>>>,V|\<rangle\>>>,
+  i.e. the models themselves are just relational models. As before, I assume
+  that <math|W> is finite, and as with <math|<Relrefl>>, each
+  <math|R<rsub|i>> is reflexive and transitive. The key difference is that we
+  interpret <math|\<Box\><rsub|i>\<varphi\>> to hold in the best (or most
+  plausible) states satisfying <math|\<varphi\>>. Formally, let
+  <math|<best><rsub|R<rsub|i>><around|(|S|)>=<around*|{|w\<in\>S<value|st><text|for
+  all >u\<in\>S,\<neg\>u<op|R<rsub|i>>w|}>> (the <math|R<rsub|i>>-minimal
+  states over <math|S>). We additionally impose the following \Psmoothness
+  condition\Q <cite|kraus1990nonmonotonic> on <math|<best><rsub|R<rsub|i>>>:\ 
+
+  <\postulate>
+    For all models <math|<Model>>, <math|i\<in\><value|indices>>, sets
+    <math|S>, and all <math|w\<in\>W>, if <math|w\<in\>S> then either
+    <math|w\<in\><best><rsub|R<rsub|i>><around|(|S|)>>, or there is some
+    <math|v<op|R<rsub|i>>w> better than <math|w> that <em|is> the best, i.e.
+    <math|v\<in\><best><rsub|R<rsub|i>><around|(|S|)>>.
+  </postulate>
+
+  The new semantics for <math|\<Box\><rsub|i>> is
+
+  <\equation*>
+    <tabular*|<tformat|<cwith|1|-1|1|1|cell-halign|l>|<cwith|1|-1|1|1|cell-lborder|0ln>|<cwith|1|-1|2|2|cell-halign|c>|<cwith|1|-1|3|3|cell-halign|l>|<cwith|1|-1|3|3|cell-rborder|0ln>|<table|<row|<cell|<Model>,w\<Vdash\>\<Box\><rsub|i>*\<varphi\>>|<cell|<text|iff
+    >>|<cell|w\<in\><best><rsub|R<rsub|i>><around|(|<semantics|\<varphi\>>|)>>>>>>
+  </equation*>
+
+  where <math|<semantics|\<varphi\>>=<around*|{|u<value|st><value|Model>,u\<Vdash\>\<varphi\>|}>>.
+  In practice, plausibility semantics coexist alongside relational semantics,
+  so I allow some <math|\<Box\><rsub|i>\<varphi\>> to be given relational
+  semantics instead. Let <math|<Plaus>> be the class of all such models.
+  Since we include relational operators, note that
+  <math|<Relrefl>\<subseteq\><Plaus>>.
+
+  Any plausibility operator <math|\<Box\><rsub|i>> picks out a corresponding
+  conditional: <math|\<Box\><rsub|i>\<varphi\>\<to\>\<psi\>> reads \Pthe best
+  <math|\<varphi\>> are <math|\<psi\>>,\Q which in the KLM tradition is the
+  semantics for the conditional <math|\<varphi\>\<Rightarrow\>\<psi\>>.
+
+  <todo|Mention axioms, soundness, completeness (refer to the appendix!)>
 
   <subsection|Social Network Models>
 
+  <\itemize>
+    <item>Introduce social network models, an example with a <todo|DIAGRAM>
+    would be nice!
+
+    <item>In these social network logics <cite|Christoff:2015aa|baltag2019socialnetworks|baccini2024dynamic>,
+    nodes in the graph represent individual agents, and each formula is
+    mapped to the set of agents that adopt a certain social attitude. Agents
+    influence each other, and the spread of their attitudes is modeled much
+    in the same way as forward propagation of a signal in a neural network.
+
+    <item>Give a concrete social network logic: Social majority. Make sure to
+    emphasize that social majority is one of many (!) choices, and is a
+    relatively simple choice to model.
+
+    <item>Both kinds of models use fundamentally the same approach (\PThis
+    work shares essentially the same premise and techniques as neural network
+    semantics\Q): distributed information over several connected nodes, modal
+    operator interpreted as the fixed-point of some diffusion
+
+    <item>But the two approaches still differ in interesting ways. First, in
+    some sense the two semantics are operating on different \Plevels\Q:
+    social networks model interactions between multiple agents, whereas
+    neural networks model interactions between components of the same
+    (single) agent. Second, the two differ in subject matter. Social network
+    semantics focuses on different social links between agents, and how these
+    links change <cite|baccini2024dynamic>. Neural network semantics, my own
+    work included, instead focuses on inferences and updates inspired by
+    artificial and natural neural networks.
+  </itemize>
+
   <subsection|Neighborhood Models>
 
-  <subsection|Model Simulations>
+  A neighborhood model is <math|<Model>=<around|\<langle\>|W,<around*|{|N|}><rsub|i\<in\><text|<with|font-series|bold|I>>>,V|\<rangle\>>>,
+  where <math|W> and <math|V> are as before and each
+  <math|N<rsub|i>:W\<to\>\<cal-P\><around|(|\<cal-P\><around|(|W|)>|)>> is an
+  accessibility <em|function>. The intuition is that <math|N<rsub|i>> maps
+  each state <math|w> to the \Pformulas\Q (sets of states) that hold at
+  <math|w>. Define <math|<Nbhd>> to be the class of all neighborhood models.
 
-  <section|Modeling Power of the Base Neural Network Semantics>
+  Moreover, the <em|core> of <math|N> is <math|\<cap\>N<around|(|x|)>=<big|cap><rsub|X\<in\>N<around|(|w|)>>X>.
+  As with <math|<Rel>>, let <math|<Nbhdrefl>> be the class of all
+  neighborhood models that are additionally reflexive
+  (<math|\<forall\>w,w\<in\>\<cap\>N<around|(|w|)>>) and transitive
+  (<math|\<forall\>w>, if <math|X\<in\>N<around|(|w|)>> then
+  <math|<around*|{|v<value|st>X\<in\>N<around*|(|v|)>|}>\<in\>N<around|(|w|)>>).
 
-  <section|Modeling Power of Neural Network Update>
+  The semantics for both classes is the same as the previous classes, except
+  the <math|\<Box\><rsub|i>> case is now:
 
-  <section|Definability and Expressivity>
+  <\equation*>
+    <tabular*|<tformat|<cwith|1|-1|1|1|cell-halign|l>|<cwith|1|-1|1|1|cell-lborder|0ln>|<cwith|1|-1|2|2|cell-halign|c>|<cwith|1|-1|3|3|cell-halign|l>|<cwith|1|-1|3|3|cell-rborder|0ln>|<table|<row|<cell|<Model>,w\<Vdash\>\<Box\><rsub|i>\<varphi\>>|<cell|<text|iff
+    >>|<cell|<semantics|\<varphi\>>\<in\>N<rsub|i><around|(|w|)>>>>>>
+  </equation*>
+
+  where again <math|<semantics|\<varphi\>>=<around*|{|u<value|st><value|Model>,u\<Vdash\>\<varphi\>|}>>.
+
+  <section|Measuring Expressive Power through Translation>
+
+  <\itemize>
+    <item>To compare the modeling power of neural networks with other logic
+    models, I need to pick a measure of expressivity.
+
+    <item>I will consider logics as languages paired with a class of models
+    <math|<around*|(|<value|lang>,<value|Class>|)>> (also known as
+    <with|font-shape|italic|institutions> in Institution Theory <todo|Cite
+    Institution theory, elaborate a bit more!>). I'll use this to compare the
+    expressive power of neural networks (using both Modal and Conditional
+    logics) against other models over those languages
+
+    <item>I will measure expressivity through
+    <with|font-shape|italic|translations> between two logics. Definition:
+    There is a translation (aka <with|font-shape|italic|infomorphism>) from
+    <math|<around*|(|<value|lang><rsub|1>,<value|Class><rsub|1>|)>> to
+    <math|<around*|(|<value|lang><rsub|2>,<value|Class><rsub|2>|)>> if there
+    exist <math|f:<value|Class><rsub|2>\<rightarrow\><value|Class><rsub|1>>,
+    <math|<value|transl>:<value|lang><rsub|1>\<rightarrow\><value|lang><rsub|2>>
+    such that for all <math|\<varphi\>\<in\><value|lang><rsub|1>,<value|Model>\<in\><value|Class><rsub|2>>
+
+    <\equation*>
+      f<around*|(|<value|Model>|)>\<models\>\<varphi\><infix-iff><value|Model>\<models\><value|transl><around*|(|\<varphi\>|)>
+    </equation*>
+
+    <item>Call the translation <with|font-shape|italic|strict> if there is
+    not a translation in the converse direction.
+
+    <item><todo|Cite infomorphism, either from the book \PInformation Flow:
+    The Logic of Distributed Systems\Q or alternatively the book
+    \PCategories, Allegories\Q>
+
+    <item><todo|DIAGRAM>
+
+    <item>\Pflipped/contravariant\Q, notice that we construct the model
+    backwards from <math|<value|Class><rsub|2>> to
+    <math|<value|Class><rsub|1>>.
+
+    <item>Proposition: If there is a translation from
+    <math|<around*|(|<value|lang><rsub|1>,<value|Class><rsub|1>|)>> to
+    <math|<around*|(|<value|lang><rsub|2>,<value|Class><rsub|2>|)>>, this
+    means that <math|<around*|(|<value|lang><rsub|1>,<value|Class><rsub|1>|)>>
+    is at least as <with|font-shape|italic|general> (i.e. requires fewer
+    axioms, i.e. <math|<value|Theory><around*|(|<value|lang><rsub|1>,<value|Class><rsub|1>|)>\<subseteq\><value|Theory><around*|(|<value|lang><rsub|2>,<value|Class><rsub|2>|)>>)
+
+    <item>This also means, in order to show that there is
+    <with|font-shape|italic|no> translation, all we need to do is show
+    <math|<value|Theory><around*|(|<value|lang><rsub|1>,<value|Class><rsub|1>|)><neg|\<subseteq\>><value|Theory><around*|(|<value|lang><rsub|2>,<value|Class><rsub|2>|)>>,
+    i.e. find an axiom <math|\<varphi\>\<in\><value|Theory><around*|(|<value|lang><rsub|1>,<value|Class><rsub|1>|)>>
+    such that <math|\<varphi\><neg|\<in\>><value|Theory><around*|(|<value|lang><rsub|2>,<value|Class><rsub|2>|)>>.
+
+    <item>Give an example that's a sort of tutorial for comparing the
+    modeling power of classes of modal logic: <math|<value|Relrefl>> and
+    <math|<value|Nbhdrefl>>. Show that there is a translation from
+    <math|<around*|(|<value|Modal>,<value|Relrefl>|)>> into
+    <math|<around*|(|<value|Modal>,<value|Nbhdrefl>|)>>, but also show that
+    there is <with|font-shape|italic|not> one the other way around. (This
+    example teaches us how to give a translation, but also how to show one
+    doesn't exist!)
+  </itemize>
+
+  <section|Expressive Power of the Base Neural Network Semantics>
+
+  <\itemize>
+    <item>Let's now do model translations to get at the expressivity of
+    neural networks (over Modal and Conditional logic). Here's a hierarchy of
+    the models above, to start:
+
+    <item>To make the comparison with neural networks fair, I will only
+    consider the reflexive and transitive variants <math|<value|Relrefl>>,
+    <math|<value|Nbhdrefl>> of relational and neighborhood models.
+
+    <item><todo|DIAGRAM>
+
+    <item>The translations from <value|Nbhdrefl> to <math|<value|Plaus>> and
+    from <math|<value|Plaus>> to <math|<value|Relrefl>> are folklore. Instead
+    of giving these translations, I will instead translate from
+    <math|<value|NetModel>> to <math|<value|Relrefl>> and from
+    <math|<value|Nbhdrefl>> to <math|<value|NetModel>> in order to explicilty
+    show how to translations involving neural networks (neural network model
+    constructions). The equivalence between <math|<value|Plaus>> and
+    <math|<value|NetModel>> is already known, but the backwards direction has
+    never been proven with an explicit model construction. So although the
+    results in this section are already known, the proofs I give here are
+    totally new.
+
+    <item>First, show translation from <math|<value|NetModel>> to
+    <math|<value|Relrefl>>, and show there is no translation the other way
+    around (axiom in <math|<value|Relrefl>> that is not an axiom in
+    <math|<value|NetModel>>)
+
+    <item>Next, show translation from <math|<value|Nbhdrefl>> to
+    <math|<value|NetModel>>, and show there is no translation the other way
+    around (axiom in <math|<value|NetModel>> that is not an axiom in
+    <math|<value|Nbhdrefl>>)
+
+    <item>Next, from the model-building construction in the completeness
+    chapter, we have a translation from <math|<value|NetModel>> to
+    <math|<value|Plaus>>.
+
+    <item>Explain that completeness implies that <with|font-shape|italic|in
+    principle> we have a translation the other way (<math|<value|Plaus>> to
+    <math|<value|NetModel>>), but it doesn't actually give the explicit model
+    building procedure! Here is where I will give my own.
+
+    <item>Make a note here about the social majority logic above: There is a
+    strict translation from <math|<value|NetModel>> to the social majority
+    logic (<math|<value|NetModel>> is more general, in the sense that it
+    requires fewer axioms).
+
+    <item>Give a brief note here on the expressive power of the conditional
+    logic <math|<value|NetModel>> vs the modal logic <math|<value|NetModel>>.
+  </itemize>
+
+  <\proposition>
+    <dueto|<aw|hand-point-right|1fn>>There is a strict translation from
+    <math|<around*|(|<value|Modal>,<value|NetModel>|)>> to
+    <math|<around*|(|<value|Modal>,<value|Relrefl>|)>>.
+  </proposition>
+
+  <\proof>
+    <todo|>
+  </proof>
+
+  <\proposition>
+    <dueto|<aw|hand-point-right|1fn>>There is a strict translation from
+    <math|<around*|(|<value|Modal>,<value|Nbhdrefl>|)>> to
+    <math|<around*|(|<value|Modal>,<value|NetModel>|)>>.
+  </proposition>
+
+  <\proof>
+    <todo|>
+  </proof>
+
+  <\proposition>
+    There is a translation from <math|<around*|(|<value|Modal>,<value|NetModel>|)>>
+    to <math|<around*|(|<value|Modal>,<value|Plaus>|)>>.
+  </proposition>
+
+  <\proof>
+    <todo|This is just a corollary of completeness: Mention that we just use
+    the NAND construction from the Completeness proof.>
+  </proof>
+
+  <\theorem>
+    <dueto|<aw|hand-point-right|1fn>>There is a translation from
+    <math|<around*|(|<value|Modal>,<value|Plaus>|)>> to
+    <math|<around*|(|<value|Modal>,<value|NetModel>|)>>
+  </theorem>
+
+  <\proof>
+    <todo|This is the hard part!! It deserves to be a theorem, imo.>
+  </proof>
+
+  <\theorem>
+    <dueto|<aw|hand-point-right|1fn>>There is a strict translation from
+    <math|<around*|(|<value|Modal>,<value|NetModel>|)>> to the social
+    majority logic <todo|give it a name>
+  </theorem>
+
+  <\proof>
+    <todo|>
+  </proof>
+
+  <\theorem>
+    <dueto|<aw|hand-point-right|1fn>>There is a strict translation from
+    <math|<around*|(|<value|Modal>,<value|NetModel>|)>> to
+    <math|<around*|(|<value|Conditional>,<value|NetModel>|)>>. <todo|does it
+    go this way, or the other way??>
+  </theorem>
+
+  <\proof>
+    <todo|>
+  </proof>
+
+  <section|Expressive Power of Neural Network Update>
+
+  <\itemize>
+    <item>Reference all work in dynamic logic where some operator is shown to
+    be not translatable into another! (Read these, they may help with the
+    proof.) List so far: <cite|baccini2024dynamic>
+
+    <item><todo|My thinking here is a mess. I need to sort out exactly what
+    questions about update I would like to answer (very general? very
+    specific? what do translations even look like in this context? what's
+    helpful to ask? what's even answerable?)>
+  </itemize>
+
+  <section|Neural Networks and Descriptive Complexity>
+
+  <\itemize>
+    <item>References: <cite|immerman1998descriptive>,
+    <cite|libkin2004elements>, <cite|sep-computational-complexity>,
+    <text-dots> (find more, including other Finite Model Theory books,
+    Fagin's original result, and more recent results that may be relevant in
+    descriptive complexity theory)
+
+    <item>Introduction to descriptive complexity, Fagin/Immerman style (base
+    it on the book Elements of Finite Model Theory by Libkin, since I
+    personally find this the easiest to follow.)
+
+    <item>Descriptive complexity largely takes the shared class of models for
+    granted, translations are largely syntactic (translations from one
+    language to another)
+
+    <item>The way to measuring expressive power is through definability.
+    Define problems (boolean queries where inputs are models over a certain
+    class. Then give definition of definability in this setting (we have no
+    free variables, so we don't have to worry about tuples of satisfying
+    elements, etc.):
+
+    <\equation*>
+      <value|Definable><around*|(|<value|lang>,<Class>|)>=<around*|{|P\<subseteq\><value|Class><value|st><text|There
+      is some> \<varphi\>\<in\><value|lang><text| such that
+      ><value|Model>\<in\><value|Class>,<value|Model>\<in\>P<infix-iff><value|Model>\<models\>\<varphi\>|}>
+    </equation*>
+
+    <item>Give a standard example: First-order logic can define strictly more
+    than Modal logic.
+
+    <item>Note that problems <math|P> are defined over a
+    <with|font-shape|italic|specific> class of models! If we want to compare
+    different model classes, we need a notion of
+    <with|font-shape|italic|translating> <math|P> to the other class. If
+    <math|P\<in\><value|Class><rsub|1>> and we want to translate it to
+    <math|<value|Class><rsub|2>>:
+
+    <\equation*>
+      f<rsup|-1><around*|(|P|)>=<around*|{|<value|Model>\<in\><value|Class><rsub|2><value|st>f<around*|(|<value|Model>|)>\<in\>P|}>
+    </equation*>
+
+    <item><todo|DIAGRAM> A picture showing how <math|f<rsup|-1>> maps back to
+    <math|<value|Class><rsub|2>> would be nice here!
+
+    <item>How do we connect the ideas of translation-expressivity and
+    definability-expressivity? The key result is this:
+
+    <\theorem>
+      Suppose there is a translation <math|f,<value|transl>> from
+      <math|<around*|(|<value|lang><rsub|1>,<value|Class><rsub|1>|)>> to
+      <math|<around*|(|<value|lang><rsub|2>,<value|Class><rsub|2>|)>>. For
+      all problems <math|P\<subseteq\><value|Class><rsub|1>>, if
+      <math|P\<in\><value|Definable><around*|(|<value|lang><rsub|1>,<value|Class><rsub|1>|)>>
+      then <math|f<rsup|-1><around*|(|P|)>\<in\><value|Definable><around*|(|<value|lang><rsub|2>,<value|Class><rsub|2>|)>>.
+    </theorem>
+
+    <\proof>
+      Suppose <math|P> is defined by <math|\<varphi\>\<in\><value|lang><rsub|1>>.
+      I will show that <math|f<rsup|-1><around*|(|P|)>> (that is, <math|P>
+      translated over to <math|<value|Class><rsub|2>>) is defined by
+      <math|<value|transl><around*|(|\<varphi\>|)>> (that is,
+      <math|\<varphi\>> translated over to <math|<value|lang><rsub|2>>).
+
+      Let <math|<value|Model>\<in\><value|Class><rsub|2>> be any model. Our
+      goal is to show that <math|<value|Model>\<in\>f<rsup|-1><around*|(|P|)>>
+      iff <math|<value|Model>\<models\><value|transl><around*|(|\<varphi\>|)>>.
+      Well,
+
+      <\equation*>
+        <tabular|<tformat|<table|<row|<cell|<value|Model>\<in\>f<rsup|-1><around*|(|P|)>>|<cell|<infix-iff>>|<cell|f<around*|(|<value|Model>|)>\<in\>P>|<cell|<around*|(|<text|by
+        definition of >f<rsup|-1>|)>>>|<row|<cell|>|<cell|<infix-iff>>|<cell|f<around*|(|<value|Model>|)>\<models\>\<varphi\>>|<cell|<around*|(|<text|since
+        >\<varphi\><text| defines >P<text|, and
+        >f<around*|(|<value|Model>|)>\<in\><value|Class><rsub|1>|)>>>|<row|<cell|>|<cell|<infix-iff>>|<cell|<value|Model>\<models\><value|transl><around*|(|\<varphi\>|)>>|<cell|<around*|(|<text|by
+        translation >f,<value|transl>|)>>>>>>
+      </equation*>
+
+      \;
+    </proof>
+
+    <item>I may also need the converse fact, which says that if there is
+    <with|font-shape|italic|not> a translation, the definability sets cannot
+    be equal.
+
+    <item>Revisit our example from before: Show that
+    <math|<value|Definable><around*|(|<value|Modal>,<value|Nbhd>|)>\<subset\><value|Definable><around*|(|<value|Modal>,<value|Rel>|)>>.
+    But also walk through what this means: What property is definable in
+    <math|<around*|(|<value|Modal>,<value|Rel>|)>> but not
+    <math|<around*|(|<value|Modal>,<value|Nbhd>|)>>?? (This has me a bit
+    stumped and confused<text-dots>)
+
+    <item>As a consequence of this connection, we can embed the neural
+    network translations above into the descriptive complexity hierarchy
+
+    <item>Corollaries for each of the inclusions, this time stated for
+    <math|<value|Definable><around*|(|<value|Modal>,<value|NetModel>|)>>
+    (using strict subset).
+
+    <item><todo|BIG DIAGRAM>, situating the results above into the
+    descriptive complexity hierarchy (these are all Modal or Conditional,
+    sub-FOL. It is currently an open problem to find sound and complete
+    neural network semantics for FOL, but once we have this it is possible to
+    do this for the classes above Modal.)
+  </itemize>
 
   <section|Reflections on the Complexity Hierarchy>
 
@@ -2458,129 +3239,112 @@
 
 <\references>
   <\collection>
-    <associate|auto-1|<tuple|1|9>>
-    <associate|auto-10|<tuple|2|16>>
-    <associate|auto-11|<tuple|2.1|17>>
-    <associate|auto-12|<tuple|2.2|19>>
-    <associate|auto-13|<tuple|3|19>>
-    <associate|auto-14|<tuple|3.1|19>>
-    <associate|auto-15|<tuple|3.2|19>>
-    <associate|auto-16|<tuple|4|21>>
-    <associate|auto-17|<tuple|5|22>>
-    <associate|auto-18|<tuple|4|25>>
-    <associate|auto-19|<tuple|1|25>>
-    <associate|auto-2|<tuple|2|15>>
-    <associate|auto-20|<tuple|2|25>>
-    <associate|auto-21|<tuple|3|26>>
-    <associate|auto-22|<tuple|3.1|26>>
-    <associate|auto-23|<tuple|3.2|26>>
-    <associate|auto-24|<tuple|3.3|26>>
-    <associate|auto-25|<tuple|4|27>>
-    <associate|auto-26|<tuple|5|27>>
-    <associate|auto-27|<tuple|5.1|27>>
-    <associate|auto-28|<tuple|6|27>>
-    <associate|auto-29|<tuple|5|28>>
-    <associate|auto-3|<tuple|1|15>>
-    <associate|auto-30|<tuple|1|28>>
-    <associate|auto-31|<tuple|2|28>>
-    <associate|auto-32|<tuple|2.1|28>>
-    <associate|auto-33|<tuple|3|28>>
-    <associate|auto-34|<tuple|4|28>>
-    <associate|auto-35|<tuple|4.1|32>>
-    <associate|auto-36|<tuple|5|32>>
-    <associate|auto-37|<tuple|6|35>>
-    <associate|auto-38|<tuple|1|35>>
-    <associate|auto-39|<tuple|2|35>>
-    <associate|auto-4|<tuple|2|15>>
-    <associate|auto-40|<tuple|2.1|35>>
-    <associate|auto-41|<tuple|2.2|35>>
-    <associate|auto-42|<tuple|2.3|35>>
-    <associate|auto-43|<tuple|2.4|35>>
-    <associate|auto-44|<tuple|2.5|35>>
-    <associate|auto-45|<tuple|3|35>>
-    <associate|auto-46|<tuple|4|35>>
-    <associate|auto-47|<tuple|5|36>>
-    <associate|auto-48|<tuple|6|36>>
-    <associate|auto-49|<tuple|7|39>>
-    <associate|auto-5|<tuple|2.1|15>>
-    <associate|auto-50|<tuple|7|39>>
-    <associate|auto-51|<tuple|1|39>>
-    <associate|auto-52|<tuple|A|39>>
-    <associate|auto-53|<tuple|B|39>>
-    <associate|auto-54|<tuple|C|40>>
-    <associate|auto-55|<tuple|C|41>>
-    <associate|auto-6|<tuple|2.2|15>>
-    <associate|auto-7|<tuple|2.3|15>>
-    <associate|auto-8|<tuple|3|16>>
-    <associate|auto-9|<tuple|1|16>>
-    <associate|bib-Christoff:2015aa|<tuple|17|42>>
-    <associate|bib-Plaza2007PAL|<tuple|50|44>>
-    <associate|bib-achiam2023gpt|<tuple|1|41>>
-    <associate|bib-aho1972transitive|<tuple|2|41>>
-    <associate|bib-albarghouthi2021introduction|<tuple|3|41>>
-    <associate|bib-baccini2024dynamic|<tuple|4|41>>
-    <associate|bib-bader2005dimensions|<tuple|5|41>>
-    <associate|bib-badreddine2022aa|<tuple|6|41>>
-    <associate|bib-balkenius1991nonmonotonic|<tuple|7|41>>
-    <associate|bib-baltag1998PALC|<tuple|13|41>>
-    <associate|bib-baltag2009iterated|<tuple|14|41>>
-    <associate|bib-baltag2019dynamic|<tuple|9|41>>
-    <associate|bib-baltag2019right|<tuple|11|41>>
-    <associate|bib-baltag2019socialnetworks|<tuple|8|41>>
-    <associate|bib-baltag2019tracking|<tuple|10|41>>
-    <associate|bib-besold2021neural|<tuple|15|42>>
-    <associate|bib-blutner2004nonmonotonic|<tuple|16|42>>
-    <associate|bib-ciravegna2023logic|<tuple|18|42>>
-    <associate|bib-ditmarschDEL|<tuple|64|45>>
-    <associate|bib-dubey2024llama|<tuple|21|42>>
-    <associate|bib-garcez2001symbolic|<tuple|19|42>>
-    <associate|bib-garcez2008neural|<tuple|22|42>>
-    <associate|bib-geiger2024aa|<tuple|23|42>>
-    <associate|bib-giordano2021weighted|<tuple|25|42>>
-    <associate|bib-giordano2022conditional|<tuple|24|42>>
-    <associate|bib-gross2002genealogy|<tuple|26|42>>
-    <associate|bib-harmelen2022preface|<tuple|27|42>>
-    <associate|bib-hebb-organization-of-behavior-1949|<tuple|28|42>>
-    <associate|bib-immerman1998descriptive|<tuple|29|42>>
-    <associate|bib-kisby2022logic|<tuple|30|43>>
-    <associate|bib-kisby2024hebbian|<tuple|31|43>>
-    <associate|bib-kozen1981elementary|<tuple|32|43>>
-    <associate|bib-kraus1990nonmonotonic|<tuple|33|43>>
-    <associate|bib-leitgeb2001nonmonotonic|<tuple|34|43>>
-    <associate|bib-leitgeb2003nonmonotonic|<tuple|35|43>>
-    <associate|bib-leitgeb2018neural|<tuple|36|43>>
-    <associate|bib-libkin2004elements|<tuple|37|43>>
-    <associate|bib-logicsforepistemicactions|<tuple|12|41>>
-    <associate|bib-manhaeve2021neural|<tuple|38|43>>
-    <associate|bib-mcculloch1943logical|<tuple|39|43>>
-    <associate|bib-mcdermott1987critique|<tuple|40|43>>
-    <associate|bib-merrill2019sequential|<tuple|41|43>>
-    <associate|bib-merrill2020formal|<tuple|43|43>>
-    <associate|bib-merrill2023expressive|<tuple|42|43>>
-    <associate|bib-moss2007finite|<tuple|44|43>>
-    <associate|bib-moura2021lean|<tuple|45|43>>
-    <associate|bib-murphy2004big|<tuple|46|43>>
-    <associate|bib-odense2022ASF|<tuple|47|43>>
-    <associate|bib-oja1982simplified|<tuple|48|44>>
-    <associate|bib-pacuit2017neighborhood|<tuple|49|44>>
-    <associate|bib-polya1954mathematics|<tuple|51|44>>
-    <associate|bib-rumelhart1986aa|<tuple|52|44>>
-    <associate|bib-rumelhart1986learning|<tuple|53|44>>
-    <associate|bib-sarker2021neuro|<tuple|54|44>>
-    <associate|bib-sep-computational-complexity|<tuple|20|42>>
-    <associate|bib-sep-frame-problem|<tuple|55|44>>
-    <associate|bib-silver2017mastering|<tuple|56|44>>
-    <associate|bib-srivastava2015highway|<tuple|57|44>>
-    <associate|bib-strobl2024formal|<tuple|58|44>>
-    <associate|bib-tamkin2021understanding|<tuple|59|44>>
-    <associate|bib-van2007beliefrevision|<tuple|60|44>>
-    <associate|bib-van2007prefupgrade|<tuple|62|44>>
-    <associate|bib-van2011logicaldynamics|<tuple|61|44>>
-    <associate|bib-van2015dynamic|<tuple|63|44>>
-    <associate|bib-vaswani2017attention|<tuple|65|45>>
-    <associate|bib-weiss2018practical|<tuple|66|45>>
-    <associate|eqn1|<tuple|1|31>>
-    <associate|eqn2|<tuple|2|31>>
+    <associate|auto-1|<tuple|1|8>>
+    <associate|auto-10|<tuple|5|21>>
+    <associate|auto-11|<tuple|4|24>>
+    <associate|auto-12|<tuple|1|24>>
+    <associate|auto-13|<tuple|2|24>>
+    <associate|auto-14|<tuple|3|27>>
+    <associate|auto-15|<tuple|4|28>>
+    <associate|auto-16|<tuple|5|30>>
+    <associate|auto-17|<tuple|6|30>>
+    <associate|auto-18|<tuple|5|31>>
+    <associate|auto-19|<tuple|1|31>>
+    <associate|auto-2|<tuple|2|14>>
+    <associate|auto-20|<tuple|2|31>>
+    <associate|auto-21|<tuple|3|31>>
+    <associate|auto-22|<tuple|4|31>>
+    <associate|auto-23|<tuple|5|35>>
+    <associate|auto-24|<tuple|6|38>>
+    <associate|auto-25|<tuple|1|38>>
+    <associate|auto-26|<tuple|2|38>>
+    <associate|auto-27|<tuple|3|41>>
+    <associate|auto-28|<tuple|4|42>>
+    <associate|auto-29|<tuple|5|43>>
+    <associate|auto-3|<tuple|1|14>>
+    <associate|auto-30|<tuple|6|44>>
+    <associate|auto-31|<tuple|7|45>>
+    <associate|auto-32|<tuple|7|48>>
+    <associate|auto-33|<tuple|7|48>>
+    <associate|auto-34|<tuple|1|48>>
+    <associate|auto-35|<tuple|A|48>>
+    <associate|auto-36|<tuple|B|48>>
+    <associate|auto-37|<tuple|C|49>>
+    <associate|auto-38|<tuple|C|50>>
+    <associate|auto-4|<tuple|2|14>>
+    <associate|auto-5|<tuple|3|15>>
+    <associate|auto-6|<tuple|1|15>>
+    <associate|auto-7|<tuple|2|15>>
+    <associate|auto-8|<tuple|3|18>>
+    <associate|auto-9|<tuple|4|20>>
+    <associate|bib-Christoff:2015aa|<tuple|17|51>>
+    <associate|bib-Plaza2007PAL|<tuple|50|53>>
+    <associate|bib-achiam2023gpt|<tuple|1|50>>
+    <associate|bib-aho1972transitive|<tuple|2|50>>
+    <associate|bib-albarghouthi2021introduction|<tuple|3|50>>
+    <associate|bib-baccini2024dynamic|<tuple|4|50>>
+    <associate|bib-bader2005dimensions|<tuple|5|50>>
+    <associate|bib-badreddine2022aa|<tuple|6|50>>
+    <associate|bib-balkenius1991nonmonotonic|<tuple|7|50>>
+    <associate|bib-baltag1998PALC|<tuple|13|50>>
+    <associate|bib-baltag2009iterated|<tuple|14|50>>
+    <associate|bib-baltag2019dynamic|<tuple|9|50>>
+    <associate|bib-baltag2019right|<tuple|11|50>>
+    <associate|bib-baltag2019socialnetworks|<tuple|8|50>>
+    <associate|bib-baltag2019tracking|<tuple|10|50>>
+    <associate|bib-besold2021neural|<tuple|15|51>>
+    <associate|bib-blutner2004nonmonotonic|<tuple|16|51>>
+    <associate|bib-ciravegna2023logic|<tuple|18|51>>
+    <associate|bib-ditmarschDEL|<tuple|64|54>>
+    <associate|bib-dubey2024llama|<tuple|21|51>>
+    <associate|bib-garcez2001symbolic|<tuple|19|51>>
+    <associate|bib-garcez2008neural|<tuple|22|51>>
+    <associate|bib-geiger2024aa|<tuple|23|51>>
+    <associate|bib-giordano2021weighted|<tuple|25|51>>
+    <associate|bib-giordano2022conditional|<tuple|24|51>>
+    <associate|bib-gross2002genealogy|<tuple|26|51>>
+    <associate|bib-harmelen2022preface|<tuple|27|51>>
+    <associate|bib-hebb-organization-of-behavior-1949|<tuple|28|51>>
+    <associate|bib-immerman1998descriptive|<tuple|29|51>>
+    <associate|bib-kisby2022logic|<tuple|30|52>>
+    <associate|bib-kisby2024hebbian|<tuple|31|52>>
+    <associate|bib-kozen1981elementary|<tuple|32|52>>
+    <associate|bib-kraus1990nonmonotonic|<tuple|33|52>>
+    <associate|bib-leitgeb2001nonmonotonic|<tuple|34|52>>
+    <associate|bib-leitgeb2003nonmonotonic|<tuple|35|52>>
+    <associate|bib-leitgeb2018neural|<tuple|36|52>>
+    <associate|bib-libkin2004elements|<tuple|37|52>>
+    <associate|bib-logicsforepistemicactions|<tuple|12|50>>
+    <associate|bib-manhaeve2021neural|<tuple|38|52>>
+    <associate|bib-mcculloch1943logical|<tuple|39|52>>
+    <associate|bib-mcdermott1987critique|<tuple|40|52>>
+    <associate|bib-merrill2019sequential|<tuple|41|52>>
+    <associate|bib-merrill2020formal|<tuple|43|52>>
+    <associate|bib-merrill2023expressive|<tuple|42|52>>
+    <associate|bib-moss2007finite|<tuple|44|52>>
+    <associate|bib-moura2021lean|<tuple|45|52>>
+    <associate|bib-murphy2004big|<tuple|46|52>>
+    <associate|bib-odense2022ASF|<tuple|47|52>>
+    <associate|bib-oja1982simplified|<tuple|48|53>>
+    <associate|bib-pacuit2017neighborhood|<tuple|49|53>>
+    <associate|bib-polya1954mathematics|<tuple|51|53>>
+    <associate|bib-rumelhart1986aa|<tuple|52|53>>
+    <associate|bib-rumelhart1986learning|<tuple|53|53>>
+    <associate|bib-sarker2021neuro|<tuple|54|53>>
+    <associate|bib-sep-computational-complexity|<tuple|20|51>>
+    <associate|bib-sep-frame-problem|<tuple|55|53>>
+    <associate|bib-silver2017mastering|<tuple|56|53>>
+    <associate|bib-srivastava2015highway|<tuple|57|53>>
+    <associate|bib-strobl2024formal|<tuple|58|53>>
+    <associate|bib-tamkin2021understanding|<tuple|59|53>>
+    <associate|bib-van2007beliefrevision|<tuple|60|53>>
+    <associate|bib-van2007prefupgrade|<tuple|62|53>>
+    <associate|bib-van2011logicaldynamics|<tuple|61|53>>
+    <associate|bib-van2015dynamic|<tuple|63|53>>
+    <associate|bib-vaswani2017attention|<tuple|65|54>>
+    <associate|bib-weiss2018practical|<tuple|66|54>>
+    <associate|eqn1|<tuple|1|34>>
+    <associate|eqn2|<tuple|2|34>>
   </collection>
 </references>
 
@@ -2821,17 +3585,49 @@
 
       kisby2024hebbian
 
-      kisby2024hebbian
+      leitgeb2001nonmonotonic
 
       leitgeb2001nonmonotonic
 
+      leitgeb2003nonmonotonic
+
       kraus1990nonmonotonic
+
+      leitgeb2001nonmonotonic
+
+      leitgeb2003nonmonotonic
+
+      leitgeb2001nonmonotonic
+
+      kisby2024hebbian
 
       logicsforepistemicactions
 
       leitgeb2001nonmonotonic
 
       leitgeb2001nonmonotonic
+
+      leitgeb2001nonmonotonic
+
+      kraus1990nonmonotonic
+
+      kraus1990nonmonotonic
+
+      baccini2024dynamic
+
+      baltag2019socialnetworks
+
+      Christoff:2015aa
+
+      baccini2024dynamic
+
+      baccini2024dynamic
+
+      immerman1998descriptive
+
+      libkin2004elements
+
+      sep-computational-complexity
 
       baltag2019socialnetworks
     </associate>
@@ -2851,213 +3647,146 @@
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-4>
 
-      <with|par-left|<quote|1tab>|2.1<space|0.5fn>Conditional Logic
-      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-5>>
-
-      <with|par-left|<quote|1tab>|2.2<space|0.5fn>Modal Logic
-      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-6>>
-
-      <with|par-left|<quote|1tab>|2.3<space|0.5fn>Dynamic Epistemic Logic and
-      Belief Revision <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-7>>
-
       <vspace*|1fn><\with|font-series|<quote|bold>|math-font-series|<quote|bold>>
         Neural Network Semantics
       </with> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-8><vspace|0.5fn>
+      <no-break><pageref|auto-5><vspace|0.5fn>
 
       1<space|0.5fn>Introduction <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-9>
+      <no-break><pageref|auto-6>
 
       2<space|0.5fn>Neural Network Models
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-10>
-
-      <with|par-left|<quote|1tab>|2.1<space|0.5fn>The Forward Propagation
-      Operator <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-11>>
-
-      <with|par-left|<quote|1tab>|2.2<space|0.5fn>The Graph Reachability
-      Operators <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-12>>
+      <no-break><pageref|auto-7>
 
       3<space|0.5fn>Neural Network Semantics
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-13>
-
-      <with|par-left|<quote|1tab>|3.1<space|0.5fn>Using Conditional Logic
-      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-14>>
-
-      <with|par-left|<quote|1tab>|3.2<space|0.5fn>Using Modal Logic
-      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-15>>
+      <no-break><pageref|auto-8>
 
       4<space|0.5fn>Dynamic Update in Neural Network Semantics
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-16>
+      <no-break><pageref|auto-9>
 
       5<space|0.5fn>Hebbian Learning: A Simple Neural Network Update Policy
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-10>
+
+      <vspace*|1fn><\with|font-series|<quote|bold>|math-font-series|<quote|bold>>
+        Soundness: Neural Network Verification
+      </with> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-11><vspace|0.5fn>
+
+      1<space|0.5fn>Introduction <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-12>
+
+      2<space|0.5fn>Properties of <with|mode|<quote|math>|<with|font-family|<quote|ss>|Clos>>,
+      <with|mode|<quote|math>|<with|font-family|<quote|ss>|Reach>>, and
+      <with|mode|<quote|math>|<with|font-family|<quote|ss>|Reach<rsup|\<downarrow\>>>>
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-13>
+
+      3<space|0.5fn>Soundness for the Base Semantics
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-14>
+
+      4<space|0.5fn>Properties of <with|mode|<quote|math>|<with|font-family|<quote|ss>|Hebb>>
+      and <with|mode|<quote|math>|<with|font-family|<quote|ss>|Hebb<rsup|\<star\>>>>
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-15>
+
+      5<space|0.5fn>Soundness for the Logic of Hebbian Learning
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-16>
+
+      6<space|0.5fn>Reflections on Verification and Extraction
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-17>
 
       <vspace*|1fn><\with|font-series|<quote|bold>|math-font-series|<quote|bold>>
-        Soundness: Neural Network Verification
+        Completeness: Neural Network Model Building
       </with> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-18><vspace|0.5fn>
 
       1<space|0.5fn>Introduction <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-19>
 
-      2<space|0.5fn>Properties of <with|mode|<quote|math>|<with|font-family|<quote|ss>|Clos>>,
-      <with|mode|<quote|math>|<with|font-family|<quote|ss>|Reach>>, and
-      <with|mode|<quote|math>|<with|font-family|<quote|ss>|Reach<rsup|\<downarrow\>>>>
+      2<space|0.5fn>Completeness for the Base Semantics
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-20>
 
-      3<space|0.5fn>Soundness for the Base Semantics
+      3<space|0.5fn>Reduction Axioms for Iterated Hebbian Update
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-21>
 
-      <with|par-left|<quote|1tab>|3.1<space|0.5fn>Using Conditional Logic
-      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-22>>
-
-      <with|par-left|<quote|1tab>|3.2<space|0.5fn>Using Modal Logic
-      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-23>>
-
-      <with|par-left|<quote|1tab>|3.3<space|0.5fn>Example: Verifying a Neural
-      Network's Behavior <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-24>>
-
-      4<space|0.5fn>Properties of <with|mode|<quote|math>|<with|font-family|<quote|ss>|Hebb>>
-      and <with|mode|<quote|math>|<with|font-family|<quote|ss>|Hebb<rsup|\<star\>>>>
-      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-25>
-
-      5<space|0.5fn>Soundness for the Logic of Hebbian Learning
-      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-26>
-
-      <with|par-left|<quote|1tab>|5.1<space|0.5fn>Example: Verifying a Neural
-      Networks Behavior After Learning <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-27>>
-
-      6<space|0.5fn>Reflections on Verification and Extraction
-      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-28>
-
-      <vspace*|1fn><\with|font-series|<quote|bold>|math-font-series|<quote|bold>>
-        Completeness: Neural Network Model Building
-      </with> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-29><vspace|0.5fn>
-
-      1<space|0.5fn>Introduction <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-30>
-
-      2<space|0.5fn>Completeness for the Base Semantics
-      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-31>
-
-      <with|par-left|<quote|1tab>|2.1<space|0.5fn>Example: Building a Neural
-      Network <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-32>>
-
-      3<space|0.5fn>Reduction Axioms for Iterated Hebbian Update
-      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-33>
-
       4<space|0.5fn>Completeness for Iterated Hebbian Update
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-34>
-
-      <with|par-left|<quote|1tab>|4.1<space|0.5fn>Example: Building a Neural
-      Network with Learning Constraints <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-35>>
+      <no-break><pageref|auto-22>
 
       5<space|0.5fn>Reflections on Interpretability and Alignment
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-36>
+      <no-break><pageref|auto-23>
 
       <vspace*|1fn><\with|font-series|<quote|bold>|math-font-series|<quote|bold>>
         Expressivity: Measuring the Modeling Power of Neural Networks
       </with> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-37><vspace|0.5fn>
+      <no-break><pageref|auto-24><vspace|0.5fn>
 
       1<space|0.5fn>Introduction <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-38>
+      <no-break><pageref|auto-25>
 
-      2<space|0.5fn>Basic Setup <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-39>
-
-      <with|par-left|<quote|1tab>|2.1<space|0.5fn>Relational Models
+      2<space|0.5fn>A Potpourri of Model Classes
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-40>>
+      <no-break><pageref|auto-26>
 
-      <with|par-left|<quote|1tab>|2.2<space|0.5fn>Plausibility Models
+      3<space|0.5fn>Measuring Expressive Power through Translation
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-41>>
+      <no-break><pageref|auto-27>
 
-      <with|par-left|<quote|1tab>|2.3<space|0.5fn>Social Network Models
+      4<space|0.5fn>Expressive Power of the Base Neural Network Semantics
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-42>>
+      <no-break><pageref|auto-28>
 
-      <with|par-left|<quote|1tab>|2.4<space|0.5fn>Neighborhood Models
+      5<space|0.5fn>Expressive Power of Neural Network Update
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-43>>
+      <no-break><pageref|auto-29>
 
-      <with|par-left|<quote|1tab>|2.5<space|0.5fn>Model Simulations
+      6<space|0.5fn>Neural Networks and Descriptive Complexity
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-44>>
+      <no-break><pageref|auto-30>
 
-      3<space|0.5fn>Modeling Power of the Base Neural Network Semantics
+      7<space|0.5fn>Reflections on the Complexity Hierarchy
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-45>
-
-      4<space|0.5fn>Modeling Power of Neural Network Update
-      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-46>
-
-      5<space|0.5fn>Definability and Expressivity
-      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-47>
-
-      6<space|0.5fn>Reflections on the Complexity Hierarchy
-      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-48>
+      <no-break><pageref|auto-31>
 
       <vspace*|1fn><\with|font-series|<quote|bold>|math-font-series|<quote|bold>>
         Conclusions
       </with> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-49><vspace|0.5fn>
+      <no-break><pageref|auto-32><vspace|0.5fn>
 
       Results \ <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-50>
+      <no-break><pageref|auto-33>
 
       Open Questions <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-51>
+      <no-break><pageref|auto-34>
 
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Appendix
       A<space|0.5fn>Relational (Kripke) Semantics>
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-52><vspace|0.5fn>
+      <no-break><pageref|auto-35><vspace|0.5fn>
 
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Appendix
       B<space|0.5fn>Plausibility Semantics>
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-53><vspace|0.5fn>
+      <no-break><pageref|auto-36><vspace|0.5fn>
 
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Appendix
       C<space|0.5fn>Neighborhood Semantics>
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-54><vspace|0.5fn>
+      <no-break><pageref|auto-37><vspace|0.5fn>
 
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|References>
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-55><vspace|0.5fn>
+      <no-break><pageref|auto-38><vspace|0.5fn>
     </associate>
   </collection>
 </auxiliary>
