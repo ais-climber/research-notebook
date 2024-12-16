@@ -178,10 +178,11 @@
   misconceptions, make silly logical mistakes, and are quite happy to spew
   out disinformation <cite|tamkin2021understanding>. Neural networks also
   lack transparency, which means diagnosing and correcting these errors is
-  not feasible. (Imagine trying to determine which neurons and connections
-  are responsible for believing that a sailfish is a mammal!) In practice, a
-  computational learner is often a \<#2018\>black-box\<#2019\> whose correct
-  inferences, mistakes, and biases lack interpretation and explanation.
+  not feasible. (Try to determine which of the 100 billion neurons in GPT are
+  responsible for associating Muslims with terrorism
+  <cite|abid2021persistent>!) In practice, a computational learner is often a
+  \<#2018\>black-box\<#2019\> whose correct inferences, mistakes, and biases
+  lack interpretation and explanation.
 
   How can we better understand and control this seemingly black-box behavior
   of neural networks? The answer lies in symbolic (logic) systems, which were
@@ -870,69 +871,75 @@
 
   <\bibliography|bib|tm-plain|references.bib>
     <\bib-list|45>
-      <bibitem*|1><label|bib-achiam2023gpt>Josh Achiam, Steven Adler,
+      <bibitem*|1><label|bib-abid2021persistent>Abubakar Abid, Maheen
+      Farooqi<localize|, and >James Zou. <newblock>Persistent anti-muslim
+      bias in Large Language Models. <newblock><localize|In
+      ><with|font-shape|italic|Proceedings of the 2021 AAAI/ACM Conference on
+      AI, Ethics, and Society>, <localize|pages >298\U306. 2021.<newblock>
+
+      <bibitem*|2><label|bib-achiam2023gpt>Josh Achiam, Steven Adler,
       Sandhini Agarwal, Lama Ahmad, Ilge Akkaya, Florencia<nbsp>Leoni Aleman,
       Diogo Almeida, Janko Altenschmidt, Sam Altman, Shyamal Anadkat
       et<nbsp>al. <newblock>GPT-4 technical report.
       <newblock><with|font-shape|italic|ArXiv preprint arXiv:2303.08774>,
       2023.<newblock>
 
-      <bibitem*|2><label|bib-baccini2024dynamic>Edoardo Baccini, Zoé
+      <bibitem*|3><label|bib-baccini2024dynamic>Edoardo Baccini, Zoé
       Christoff<localize|, and >Rineke Verbrugge. <newblock>Dynamic logics of
       diffusion and link changes on social networks.
       <newblock><with|font-shape|italic|Studia Logica>, <localize|pages
       >1\U71, 2024.<newblock>
 
-      <bibitem*|3><label|bib-bader2005dimensions>Sebastian Bader<localize|
+      <bibitem*|4><label|bib-bader2005dimensions>Sebastian Bader<localize|
       and >Pascal Hitzler. <newblock>Dimensions of neural-symbolic
       integration \U A structured survey. <newblock><localize|In
       ><with|font-shape|italic|We Will Show Them! Essays in Honour of Dov
       Gabbay, Volume 1>, <localize|pages >167\U194. College Publications,
       2005.<newblock>
 
-      <bibitem*|4><label|bib-badreddine2022aa>Samy Badreddine,
+      <bibitem*|5><label|bib-badreddine2022aa>Samy Badreddine,
       Artur<nbsp>d'Avila Garcez, Luciano Serafini<localize|, and >Michael
       Spranger. <newblock>Logic Tensor Networks.
       <newblock><with|font-shape|italic|Artificial Intelligence>, 303:103649,
       2022.<newblock>
 
-      <bibitem*|5><label|bib-balkenius1991nonmonotonic>Christian
+      <bibitem*|6><label|bib-balkenius1991nonmonotonic>Christian
       Balkenius<localize| and >Peter Gärdenfors. <newblock>Nonmonotonic
       inferences in neural networks. <newblock><localize|In
       ><with|font-shape|italic|KR>, <localize|pages >32\U39. Morgan Kaufmann,
       1991.<newblock>
 
-      <bibitem*|6><label|bib-baltag2019socialnetworks>Alexandru Baltag, Zoé
+      <bibitem*|7><label|bib-baltag2019socialnetworks>Alexandru Baltag, Zoé
       Christoff, Rasmus<nbsp>K Rendsvig<localize|, and >Sonja Smets.
       <newblock>Dynamic epistemic logics of diffusion and prediction in
       social networks. <newblock><with|font-shape|italic|Studia Logica>,
       107:489\U531, 2019.<newblock>
 
-      <bibitem*|7><label|bib-baltag2019dynamic>Alexandru Baltag, Nina
+      <bibitem*|8><label|bib-baltag2019dynamic>Alexandru Baltag, Nina
       Gierasimczuk, Aybüke Özgün, Ana<nbsp>Lucia<nbsp>Vargas
       Sandoval<localize|, and >Sonja Smets. <newblock>A dynamic logic for
       learning theory. <newblock><with|font-shape|italic|Journal of Logical
       and Algebraic Methods in Programming>, 109:100485, 2019.<newblock>
 
-      <bibitem*|8><label|bib-baltag2019tracking>Alexandru Baltag, Nina
+      <bibitem*|9><label|bib-baltag2019tracking>Alexandru Baltag, Nina
       Gierasimczuk<localize|, and >Sonja Smets. <newblock>Truth-tracking by
       belief revision. <newblock><with|font-shape|italic|Studia Logica>,
       107:917\U947, 2019.<newblock>
 
-      <bibitem*|9><label|bib-baltag2019right>Alexandru Baltag, Dazhu
+      <bibitem*|10><label|bib-baltag2019right>Alexandru Baltag, Dazhu
       Li<localize|, and >Mina<nbsp>Young Pedersen. <newblock>On the right
-      path: a modal logic for supervised learning. <newblock><localize|In
+      path: A modal logic for supervised learning. <newblock><localize|In
       ><with|font-shape|italic|International Workshop on Logic, Rationality
       and Interaction>, <localize|pages >1\U14. Springer, 2019.<newblock>
 
-      <bibitem*|10><label|bib-baltag2009iterated>Alexandru Baltag<localize|
+      <bibitem*|11><label|bib-baltag2009iterated>Alexandru Baltag<localize|
       and >Sonja Smets. <newblock>Group belief dynamics under iterated
       revision: Fixed points and cycles of joint upgrades.
       <newblock><localize|In ><with|font-shape|italic|Proceedings of the 12th
       Conference on Theoretical Aspects of Rationality and Knowledge>,
       <localize|pages >41\U50. 2009.<newblock>
 
-      <bibitem*|11><label|bib-besold2021neural>Tarek<nbsp>R Besold, Artur
+      <bibitem*|12><label|bib-besold2021neural>Tarek<nbsp>R Besold, Artur
       d'Avila<nbsp>Garcez, Sebastian Bader, Howard Bowman, Pedro Domingos,
       Pascal Hitzler, Kai-Uwe Kühnberger, Luis<nbsp>C Lamb,
       Priscila<nbsp>Machado<nbsp>Vieira Lima, Leo de<nbsp>Penning et<nbsp>al.
@@ -941,47 +948,47 @@
       ><with|font-shape|italic|Neuro-Symbolic Artificial Intelligence: The
       State of the Art>, <localize|pages >1\U51. IOS press, 2021.<newblock>
 
-      <bibitem*|12><label|bib-blutner2004nonmonotonic>Reinhard Blutner.
+      <bibitem*|13><label|bib-blutner2004nonmonotonic>Reinhard Blutner.
       <newblock>Nonmonotonic inferences and neural networks.
       <newblock><with|font-shape|italic|Synthese>, 142:143\U174,
       2004.<newblock>
 
-      <bibitem*|13><label|bib-Christoff:2015aa>Zoé Christoff<localize| and
+      <bibitem*|14><label|bib-Christoff:2015aa>Zoé Christoff<localize| and
       >Jens<nbsp>Ulrik Hansen. <newblock>A logic for diffusion in social
       networks. <newblock><with|font-shape|italic|Journal of Applied Logic>,
       13(1):48\U77, 2015.<newblock>
 
-      <bibitem*|14><label|bib-ciravegna2023logic>Gabriele Ciravegna, Pietro
+      <bibitem*|15><label|bib-ciravegna2023logic>Gabriele Ciravegna, Pietro
       Barbiero, Francesco Giannini, Marco Gori, Pietro Lió, Marco
       Maggini<localize|, and >Stefano Melacci. <newblock>Logic Explained
       Networks. <newblock><with|font-shape|italic|Artificial Intelligence>,
       314:103822, 2023.<newblock>
 
-      <bibitem*|15><label|bib-dubey2024llama>Abhimanyu Dubey, Abhinav Jauhri,
+      <bibitem*|16><label|bib-dubey2024llama>Abhimanyu Dubey, Abhinav Jauhri,
       Abhinav Pandey, Abhishek Kadian, Ahmad Al-Dahle, Aiesha Letman, Akhil
       Mathur, Alan Schelten, Amy Yang, Angela Fan et<nbsp>al. <newblock>The
       Llama 3 herd of models. <newblock><with|font-shape|italic|ArXiv
       preprint arXiv:2407.21783>, 2024.<newblock>
 
-      <bibitem*|16><label|bib-garcez2008neural>Artur<nbsp>SD'Avila Garcez,
+      <bibitem*|17><label|bib-garcez2008neural>Artur<nbsp>SD'Avila Garcez,
       Luis<nbsp>C Lamb<localize|, and >Dov<nbsp>M Gabbay.
       <newblock><with|font-shape|italic|Neural-Symbolic Cognitive Reasoning>.
       <newblock>Springer Science & Business Media, 2008.<newblock>
 
-      <bibitem*|17><label|bib-geiger2024aa>Atticus Geiger, Zhengxuan Wu,
+      <bibitem*|18><label|bib-geiger2024aa>Atticus Geiger, Zhengxuan Wu,
       Christopher Potts, Thomas Icard<localize|, and >Noah Goodman.
       <newblock>Finding alignments between interpretable causal variables and
       distributed neural representations. <newblock><localize|In
       ><with|font-shape|italic|Causal Learning and Reasoning>,
       <localize|pages >160\U187. PMLR, 2024.<newblock>
 
-      <bibitem*|18><label|bib-giordano2022conditional>Laura Giordano,
+      <bibitem*|19><label|bib-giordano2022conditional>Laura Giordano,
       Valentina Gliozzi<localize|, and >Daniele Theseider Dupré. <newblock>A
       conditional, a fuzzy and a probabilistic interpretation of
       self-organizing maps. <newblock><with|font-shape|italic|Journal of
       Logic and Computation>, 32(2):178\U205, 2022.<newblock>
 
-      <bibitem*|19><label|bib-giordano2021weighted>Laura Giordano<localize|
+      <bibitem*|20><label|bib-giordano2021weighted>Laura Giordano<localize|
       and >Daniele Theseider Dupré. <newblock>Weighted defeasible knowledge
       bases and a multipreference semantics for a deep neural network model.
       <newblock><localize|In ><with|font-shape|italic|Logics in Artificial
@@ -989,22 +996,22 @@
       17\U20, 2021, Proceedings 17>, <localize|pages >225\U242. Springer,
       2021.<newblock>
 
-      <bibitem*|20><label|bib-gross2002genealogy>Charles<nbsp>G Gross.
+      <bibitem*|21><label|bib-gross2002genealogy>Charles<nbsp>G Gross.
       <newblock>Genealogy of the \Pgrandmother cell\Q.
       <newblock><with|font-shape|italic|The Neuroscientist>, 8(5):512\U518,
       2002.<newblock>
 
-      <bibitem*|21><label|bib-hebb-organization-of-behavior-1949>Donald Hebb.
+      <bibitem*|22><label|bib-hebb-organization-of-behavior-1949>Donald Hebb.
       <newblock><with|font-shape|italic|The Organization of Behavior>.
       <newblock>Psychology Press, apr 1949.<newblock>
 
-      <bibitem*|22><label|bib-kisby2022logic>Caleb Kisby, Saúl
+      <bibitem*|23><label|bib-kisby2022logic>Caleb Kisby, Saúl
       Blanco<localize|, and >Lawrence Moss. <newblock>The logic of Hebbian
       learning. <newblock><localize|In ><with|font-shape|italic|The
       International FLAIRS Conference Proceedings>,
       <localize|volume><nbsp>35. 2022.<newblock>
 
-      <bibitem*|23><label|bib-kisby2024hebbian>Caleb<nbsp>Schultz Kisby,
+      <bibitem*|24><label|bib-kisby2024hebbian>Caleb<nbsp>Schultz Kisby,
       Saúl<nbsp>A Blanco<localize|, and >Lawrence<nbsp>S Moss. <newblock>What
       do Hebbian learners learn? Reduction axioms for iterated Hebbian
       learning. <newblock><localize|In ><with|font-shape|italic|Proceedings
@@ -1012,53 +1019,48 @@
       <localize|volume><nbsp>38, <localize|pages >14894\U14901.
       2024.<newblock>
 
-      <bibitem*|24><label|bib-leitgeb2001nonmonotonic>Hannes Leitgeb.
+      <bibitem*|25><label|bib-leitgeb2001nonmonotonic>Hannes Leitgeb.
       <newblock>Nonmonotonic reasoning by inhibition nets.
       <newblock><with|font-shape|italic|Artificial Intelligence>,
       128(1-2):161\U201, 2001.<newblock>
 
-      <bibitem*|25><label|bib-leitgeb2003nonmonotonic>Hannes Leitgeb.
+      <bibitem*|26><label|bib-leitgeb2003nonmonotonic>Hannes Leitgeb.
       <newblock>Nonmonotonic reasoning by inhibition nets II.
       <newblock><with|font-shape|italic|International Journal of Uncertainty,
       Fuzziness and Knowledge-Based Systems>, 11(supp02):105\U135,
       2003.<newblock>
 
-      <bibitem*|26><label|bib-leitgeb2018neural>Hannes Leitgeb.
+      <bibitem*|27><label|bib-leitgeb2018neural>Hannes Leitgeb.
       <newblock>Neural network models of conditionals. <newblock><localize|In
       ><with|font-shape|italic|Introduction to Formal Philosophy>,
       <localize|pages >147\U176. Springer, 2018.<newblock>
 
-      <bibitem*|27><label|bib-manhaeve2021neural>Robin Manhaeve, Sebastijan
+      <bibitem*|28><label|bib-manhaeve2021neural>Robin Manhaeve, Sebastijan
       Duman£i¢, Angelika Kimmig, Thomas Demeester<localize|, and >Luc De
       Raedt. <newblock>Neural probabilistic logic programming in DeepProbLog.
       <newblock><with|font-shape|italic|Artificial Intelligence>, 298:103504,
       2021.<newblock>
 
-      <bibitem*|28><label|bib-mcculloch1943logical>Warren<nbsp>S.<nbsp>McCulloch<localize|
+      <bibitem*|29><label|bib-mcculloch1943logical>Warren<nbsp>S.<nbsp>McCulloch<localize|
       and >Walter Pitts. <newblock>A logical calculus of the ideas immanent
       in nervous activity. <newblock><with|font-shape|italic|The Bulletin of
       Mathematical Biophysics>, 5(4):115\U133, dec 1943.<newblock>
 
-      <bibitem*|29><label|bib-mcdermott1987critique>Drew McDermott.
+      <bibitem*|30><label|bib-mcdermott1987critique>Drew McDermott.
       <newblock>A critique of pure reason.
       <newblock><with|font-shape|italic|Computational intelligence>,
       3(3):151\U160, 1987.<newblock>
 
-      <bibitem*|30><label|bib-merrill2019sequential>William Merrill.
+      <bibitem*|31><label|bib-merrill2019sequential>William Merrill.
       <newblock>Sequential neural networks as automata.
       <newblock><with|font-shape|italic|ArXiv preprint arXiv:1906.01615>,
       2019.<newblock>
 
-      <bibitem*|31><label|bib-merrill2020formal>William Merrill, Gail Weiss,
+      <bibitem*|32><label|bib-merrill2020formal>William Merrill, Gail Weiss,
       Yoav Goldberg, Roy Schwartz, Noah<nbsp>A Smith<localize|, and >Eran
       Yahav. <newblock>A formal hierarchy of RNN architectures.
       <newblock><with|font-shape|italic|ArXiv preprint arXiv:2004.08500>,
       2020.<newblock>
-
-      <bibitem*|32><label|bib-odense2022ASF>Simon Odense<localize| and
-      >Artur<nbsp>S.<nbsp>d'Avila<nbsp>Garcez. <newblock>A semantic framework
-      for neural-symbolic computing. <newblock><with|font-shape|italic|ArXiv>,
-      abs/2212.12050, 2022.<newblock>
 
       <bibitem*|33><label|bib-oja1982simplified>Erkki Oja.
       <newblock>Simplified neuron model as a principal component analyzer.
@@ -1099,7 +1101,7 @@
       <bibitem*|39><label|bib-tamkin2021understanding>Alex Tamkin, Miles
       Brundage, Jack Clark<localize|, and >Deep Ganguli.
       <newblock>Understanding the capabilities, limitations, and societal
-      impact of large language models. <newblock><with|font-shape|italic|ArXiv
+      impact of Large Language Models. <newblock><with|font-shape|italic|ArXiv
       preprint arXiv:2102.02503>, 2021.<newblock>
 
       <bibitem*|40><label|bib-van2007beliefrevision>Johan Van Benthem.
@@ -1190,46 +1192,46 @@
     <associate|auto-7|<tuple|2|3>>
     <associate|auto-8|<tuple|3|3>>
     <associate|auto-9|<tuple|3|4>>
-    <associate|bib-Christoff:2015aa|<tuple|13|10>>
-    <associate|bib-achiam2023gpt|<tuple|1|10>>
-    <associate|bib-baccini2024dynamic|<tuple|2|10>>
-    <associate|bib-bader2005dimensions|<tuple|3|10>>
-    <associate|bib-badreddine2022aa|<tuple|4|10>>
-    <associate|bib-balkenius1991nonmonotonic|<tuple|5|10>>
-    <associate|bib-baltag2009iterated|<tuple|10|10>>
-    <associate|bib-baltag2019dynamic|<tuple|7|10>>
-    <associate|bib-baltag2019right|<tuple|9|10>>
-    <associate|bib-baltag2019socialnetworks|<tuple|6|10>>
-    <associate|bib-baltag2019tracking|<tuple|8|10>>
-    <associate|bib-besold2021neural|<tuple|11|10>>
-    <associate|bib-blutner2004nonmonotonic|<tuple|12|10>>
-    <associate|bib-ciravegna2023logic|<tuple|14|10>>
+    <associate|bib-Christoff:2015aa|<tuple|14|11>>
+    <associate|bib-abid2021persistent|<tuple|1|10>>
+    <associate|bib-achiam2023gpt|<tuple|2|10>>
+    <associate|bib-baccini2024dynamic|<tuple|3|10>>
+    <associate|bib-bader2005dimensions|<tuple|4|10>>
+    <associate|bib-badreddine2022aa|<tuple|5|10>>
+    <associate|bib-balkenius1991nonmonotonic|<tuple|6|10>>
+    <associate|bib-baltag2009iterated|<tuple|11|10>>
+    <associate|bib-baltag2019dynamic|<tuple|8|10>>
+    <associate|bib-baltag2019right|<tuple|10|10>>
+    <associate|bib-baltag2019socialnetworks|<tuple|7|10>>
+    <associate|bib-baltag2019tracking|<tuple|9|10>>
+    <associate|bib-besold2021neural|<tuple|12|10>>
+    <associate|bib-blutner2004nonmonotonic|<tuple|13|11>>
+    <associate|bib-ciravegna2023logic|<tuple|15|11>>
     <associate|bib-ditmarschDEL|<tuple|43|12>>
-    <associate|bib-dubey2024llama|<tuple|15|11>>
-    <associate|bib-garcez2008neural|<tuple|16|11>>
-    <associate|bib-geiger2024aa|<tuple|17|11>>
-    <associate|bib-giordano2021weighted|<tuple|19|11>>
-    <associate|bib-giordano2022conditional|<tuple|18|11>>
-    <associate|bib-gross2002genealogy|<tuple|20|11>>
-    <associate|bib-hebb-organization-of-behavior-1949|<tuple|21|11>>
-    <associate|bib-kisby2022logic|<tuple|22|11>>
-    <associate|bib-kisby2024hebbian|<tuple|23|11>>
-    <associate|bib-leitgeb2001nonmonotonic|<tuple|24|11>>
-    <associate|bib-leitgeb2003nonmonotonic|<tuple|25|11>>
-    <associate|bib-leitgeb2018neural|<tuple|26|11>>
-    <associate|bib-manhaeve2021neural|<tuple|27|11>>
-    <associate|bib-mcculloch1943logical|<tuple|28|11>>
-    <associate|bib-mcdermott1987critique|<tuple|29|11>>
-    <associate|bib-merrill2019sequential|<tuple|30|11>>
-    <associate|bib-merrill2020formal|<tuple|31|11>>
-    <associate|bib-odense2022ASF|<tuple|32|11>>
+    <associate|bib-dubey2024llama|<tuple|16|11>>
+    <associate|bib-garcez2008neural|<tuple|17|11>>
+    <associate|bib-geiger2024aa|<tuple|18|11>>
+    <associate|bib-giordano2021weighted|<tuple|20|11>>
+    <associate|bib-giordano2022conditional|<tuple|19|11>>
+    <associate|bib-gross2002genealogy|<tuple|21|11>>
+    <associate|bib-hebb-organization-of-behavior-1949|<tuple|22|11>>
+    <associate|bib-kisby2022logic|<tuple|23|11>>
+    <associate|bib-kisby2024hebbian|<tuple|24|11>>
+    <associate|bib-leitgeb2001nonmonotonic|<tuple|25|11>>
+    <associate|bib-leitgeb2003nonmonotonic|<tuple|26|11>>
+    <associate|bib-leitgeb2018neural|<tuple|27|11>>
+    <associate|bib-manhaeve2021neural|<tuple|28|11>>
+    <associate|bib-mcculloch1943logical|<tuple|29|11>>
+    <associate|bib-mcdermott1987critique|<tuple|30|11>>
+    <associate|bib-merrill2019sequential|<tuple|31|11>>
+    <associate|bib-merrill2020formal|<tuple|32|11>>
     <associate|bib-oja1982simplified|<tuple|33|11>>
     <associate|bib-rumelhart1986aa|<tuple|34|11>>
     <associate|bib-sarker2021neuro|<tuple|35|11>>
     <associate|bib-sep-frame-problem|<tuple|36|11>>
     <associate|bib-silver2017mastering|<tuple|37|11>>
     <associate|bib-strobl2024formal|<tuple|38|11>>
-    <associate|bib-tamkin2021understanding|<tuple|39|11>>
+    <associate|bib-tamkin2021understanding|<tuple|39|12>>
     <associate|bib-van2007beliefrevision|<tuple|40|12>>
     <associate|bib-van2011logicaldynamics|<tuple|41|12>>
     <associate|bib-van2015dynamic|<tuple|42|12>>
@@ -1250,6 +1252,8 @@
       silver2017mastering
 
       tamkin2021understanding
+
+      abid2021persistent
 
       mcdermott1987critique
 
