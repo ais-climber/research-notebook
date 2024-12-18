@@ -78,8 +78,6 @@
 
     <assign|Know|<with|font-series|bold|<text|K>>>
 
-    <assign|Knownby|<with|font-series|bold|<text|K><rsup|\<downarrow\>>>>
-
     <assign|Typ|<with|font-series|bold|<text|T>>>
 
     <assign|diaBelieve|\<langle\><value|Believe>\<rangle\>>
@@ -87,6 +85,8 @@
     <assign|diaKnow|\<langle\><value|Know>\<rangle\>>
 
     <assign|diaTyp|\<langle\><value|Typ>\<rangle\>>
+
+    <assign|Knownby|<with|font-series|bold|<text|K><rsup|\<downarrow\>>>>
 
     <assign|diaKnownby|\<langle\><value|Knownby>\<rangle\>>
 
