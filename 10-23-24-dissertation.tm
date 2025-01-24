@@ -136,6 +136,12 @@
       </theorem-unnumbered>|<arg|body>>
     </macro>>
 
+    <assign|fact|<\macro|body>
+      <render-theorem|<\theorem-unnumbered>
+        Fact
+      </theorem-unnumbered>|<arg|body>>
+    </macro>>
+
     <assign|doc-title|<macro|x|<doc-title-block|<very-large|<doc-title-name|<arg|x>>>>>>
 
     <assign|by-text|<macro|>>
@@ -947,8 +953,12 @@
   is extensive: all nodes in the initial state will stay activated in
   successive states.
 
-  Neural network models have one final constraint, which guarantees that the
-  closure <math|<value|Closure><around*|(|S|)>> exists.
+  My neural network models have one final constraint: This transition
+  function <math|F<rsub|S<rsub|0>>> eventually gives a unique
+  <with|font-shape|italic|fixed point> (or stable state) under the input
+  <math|S<rsub|0>>, i.e. a unique state <math|S> such that
+  <math|F<rsub|S<rsub|0>><around*|(|S|)>=S>. This guarantees that the closure
+  <math|<value|Closure><around*|(|S|)>> exists.
 
   <\postulate>
     I assume that for all states <math|S<rsub|0>>, <math|F> applied
@@ -958,10 +968,11 @@
       S<rsub|0>,F<rsub|S<rsub|0>><around*|(|S<rsub|0>|)>,F<rsub|S<rsub|0>><around*|(|F<rsub|S<rsub|0>><around*|(|S<rsub|0>|)>|)>,\<ldots\>,F<rsub|S<rsub|0>><rsup|k><around*|(|S<rsub|0>|)>,\<ldots\>
     </equation*>
 
-    has a (finite) least fixed point. Let the closure
-    <math|<value|Closure>:<value|State>\<rightarrow\><value|State>> be the
-    function that produces that least fixed point. For concreteness, we can
-    say that there is some <math|k\<in\><with|font|Bbb|N>> for which
+    has a finite fixed point, and moreover that this state is the
+    <with|font-shape|italic|only> fixed point under <math|S<rsub|0>>. Let the
+    closure <math|<value|Closure>:<value|State>\<rightarrow\><value|State>>
+    be the function that produces that least fixed point. For concreteness,
+    we can say that there is some <math|k\<in\><with|font|Bbb|N>> for which
 
     <\equation*>
       <value|Closure><around*|(|S|)>=F<rsup|k><rsub|S><around*|(|S|)>
@@ -1379,8 +1390,7 @@
     I'll prove each in turn:
 
     <\description>
-      <item*|(Inclusion)>Let <math|n\<in\>S>. By definition,
-      <math|<value|Closure><around*|(|S|)>=F<rsup|k><rsub|S><around*|(|S|)>>
+      <item*|(Inclusion)>By definition, <math|<value|Closure><around*|(|S|)>=F<rsup|k><rsub|S><around*|(|S|)>>
       for some <math|k\<in\><with|font|Bbb|N>>, where
       <math|F<rsub|S><rsup|k>> is the transition function from Definition
       <todo|which?>. By induction on this k (the number of iterations needed
@@ -1388,11 +1398,11 @@
 
       <\description>
         <item*|Base Step><math|k=0>, and so
-        <math|<value|Closure><around*|(|S|)>=S>. So
+        <math|<value|Closure><around*|(|S|)>=S>. So if <math|n\<in\>S>, then
         <math|n\<in\><value|Closure><around*|(|S|)>>.
 
-        <item*|Inductive Step>Let <math|k\<geq\>0>. We have
-        <math|<value|Closure><around*|(|S|)>=F<rsup|k><rsub|S><around*|(|S|)>=F<rsub|S><around*|(|F<rsup|k-1><rsub|S><around*|(|S|)>|)>>.
+        <item*|Inductive Step>Let <math|k\<geq\>0>, and suppose
+        <math|n\<in\>S>. We have <math|<value|Closure><around*|(|S|)>=F<rsup|k><rsub|S><around*|(|S|)>=F<rsub|S><around*|(|F<rsup|k-1><rsub|S><around*|(|S|)>|)>>.
         Expanding this term out, we have
 
         <\equation*>
@@ -1430,73 +1440,26 @@
       </description>
 
       <item*|(Cumulative)>Suppose <math|S<rsub|1>\<subseteq\>S<rsub|2>\<subseteq\><value|Closure><around*|(|S<rsub|1>|)>>
-      (see Figure <todo|DIAGRAM>). Here as well I will prove a stronger
-      claim: For all <math|k\<in\><with|font|Bbb|N>>, there exists an
-      <math|l\<in\><with|font|Bbb|N>> such that
+      (see Figure <todo|DIAGRAM>). First, I claim that:
 
-      <\equation*>
-        F<rsup|k><rsub|S<rsub|2>><around*|(|S<rsub|2>|)>=F<rsup|l><rsub|S<rsub|1>><around*|(|S<rsub|1>|)>
-      </equation*>
+      <\fact>
+        <math|F<rsub|S<rsub|2>><around*|(|<value|Closure><around*|(|S<rsub|1>|)>|)>=<value|Closure><around*|(|S<rsub|1>|)>>
+      </fact>
 
-      In other words, no matter how many times <math|k> we apply the
-      transition function <math|F<rsub|S<rsub|2>>> to <math|S<rsub|2>>, we
-      can match the same set by applying the transition function
-      <math|F<rsub|S<rsub|1>>> to <math|S<rsub|1>> some number <math|l>
-      times. Let's proceed by induction on <math|k>.
+      <\proof>
+        For the <math|<around*|(|\<rightarrow\>|)>> direction, suppose
+        <math|n\<in\>F<rsub|S<rsub|2>><around*|(|<value|Closure><around*|(|S<rsub|1>|)>|)>>.
+        By definition of the transition function <math|F>, either
+        <math|n\<in\>S<rsub|2>> or <todo|this is stupid but obviously true,
+        just think about it!>
+      </proof>
 
-      <\description>
-        <item*|Base Step><math|k=0>. Let <math|l> be that number such that
-        <math|<value|Closure><around*|(|S<rsub|2>|)>=F<rsup|l><rsub|S<rsub|2>><around*|(|S<rsub|2>|)>>
-        (guaranteed by the definition of <math|<value|Closure>>).\ 
-
-        <item*|Inductive Step>
-      </description>
-
-      Why does the Cumulative property follow from this? Well, let <math|k>
-      be that number such that <math|<value|Closure><around*|(|S<rsub|1>|)>=F<rsup|k><rsub|S<rsub|1>><around*|(|S<rsub|1>|)>>,
-      and let <math|l> be such that <math|F<rsup|k><rsub|S<rsub|1>><around*|(|S<rsub|1>|)>=F<rsup|l><rsub|S<rsub|2>><around*|(|S<rsub|2>|)>>.
-      To prove the Cumulative property, suppose
-      <math|n\<in\><value|Closure><around*|(|S<rsub|1>|)>>. So
-      <math|n\<in\>F<rsup|k><rsub|S<rsub|1>><around*|(|S<rsub|1>|)>=F<rsup|l><rsub|S<rsub|2>><around*|(|S<rsub|2>|)>\<subseteq\><value|Closure><around*|(|S<rsub|2>|)>>.
-      Now conversely, suppose <math|n\<in\><value|Closure><around*|(|S<rsub|2>|)>=F<rsub|S<rsub|2>><rsup|j><around*|(|F<rsup|l><rsub|S<rsub|2>><around*|(|S<rsub|2>|)>|)>>
-      for some <math|j\<in\><with|font|Bbb|N>>. Well,
-      <math|F<rsub|S<rsub|2>><rsup|j><around*|(|F<rsup|l><rsub|S<rsub|2>><around*|(|S<rsub|2>|)>|)>=F<rsub|S<rsub|2>><rsup|j><around*|(|F<rsup|k><rsub|S<rsub|1>><around*|(|S<rsub|1>|)>|)>=F<rsub|S<rsub|2>><rsup|j><around*|(|<value|Closure><around*|(|S<rsub|1>|)>|)>>.
-      <todo|todo>
-
-      \;
-
-      \;
-
-      The goal here is to show <math|<value|Closure><around*|(|S<rsub|1>|)>=<value|Closure><around*|(|S<rsub|2>|)>>.
-      Again I will prove a stronger claim: For all
-      <math|k\<in\><with|font|Bbb|N>>,
-
-      <\equation*>
-        F<rsup|k><rsub|S<rsub|2>><around*|(|S<rsub|2>|)>=<value|Closure><around*|(|S<rsub|1>|)>
-      </equation*>
-
-      \;
-
-      Suppose <math|S<rsub|1>\<subseteq\>S<rsub|2>\<subseteq\><value|Closure><around*|(|S<rsub|1>|)>>
-      (see Figure <todo|DIAGRAM>). By definition,
-      <math|<value|Closure><around*|(|S<rsub|2>|)>=F<rsup|k><rsub|S<rsub|1>><around*|(|S<rsub|2>|)>>
-      for some <math|k\<in\><with|font|Bbb|N>>. Our goal is to show
-      <math|<value|Closure><around*|(|S<rsub|2>|)>=<value|Closure><around*|(|S<rsub|1>|)>>,
-      i.e.
-
-      <\equation*>
-        F<rsup|k><rsub|S<rsub|2>><around*|(|S<rsub|2>|)>=<value|Closure><around*|(|S<rsub|1>|)>
-      </equation*>
-
-      By induction on <math|k>, the number of iterations needed to construct
-      this outer closure:
-
-      <\description>
-        <item*|Base Step><math|k=0>, and so the goal reduces to
-        <math|S<rsub|2>=<value|Closure><around*|(|S<rsub|1>|)>>.\ 
-
-        <item*|Inductive Step>
-      </description>
+      But <math|<value|Closure><around*|(|S<rsub|2>|)>> is the fixed point
+      under <math|S<rsub|2>>, i.e. <math|F<rsub|S<rsub|2>><around*|(|<value|Closure><around*|(|S<rsub|2>|)>|)>=<value|Closure><around*|(|S<rsub|2>|)>>
+      as well. Since we assumed that there is a
+      <with|font-shape|italic|unique> fixed point under <math|S<rsub|2>>,
+      these two states must be the same. In other words,
+      <math|<value|Closure><around*|(|S<rsub|1>|)>=<value|Closure><around*|(|S<rsub|2>|)>>.
     </description>
 
     \;
@@ -3241,110 +3204,110 @@
   <\collection>
     <associate|auto-1|<tuple|1|8>>
     <associate|auto-10|<tuple|5|21>>
-    <associate|auto-11|<tuple|4|24>>
-    <associate|auto-12|<tuple|1|24>>
-    <associate|auto-13|<tuple|2|24>>
-    <associate|auto-14|<tuple|3|27>>
-    <associate|auto-15|<tuple|4|28>>
-    <associate|auto-16|<tuple|5|30>>
-    <associate|auto-17|<tuple|6|30>>
-    <associate|auto-18|<tuple|5|31>>
-    <associate|auto-19|<tuple|1|31>>
+    <associate|auto-11|<tuple|4|25>>
+    <associate|auto-12|<tuple|1|25>>
+    <associate|auto-13|<tuple|2|25>>
+    <associate|auto-14|<tuple|3|28>>
+    <associate|auto-15|<tuple|4|29>>
+    <associate|auto-16|<tuple|5|31>>
+    <associate|auto-17|<tuple|6|32>>
+    <associate|auto-18|<tuple|5|33>>
+    <associate|auto-19|<tuple|1|33>>
     <associate|auto-2|<tuple|2|14>>
-    <associate|auto-20|<tuple|2|31>>
-    <associate|auto-21|<tuple|3|31>>
-    <associate|auto-22|<tuple|4|31>>
-    <associate|auto-23|<tuple|5|35>>
-    <associate|auto-24|<tuple|6|38>>
-    <associate|auto-25|<tuple|1|38>>
-    <associate|auto-26|<tuple|2|38>>
-    <associate|auto-27|<tuple|3|41>>
-    <associate|auto-28|<tuple|4|42>>
-    <associate|auto-29|<tuple|5|43>>
+    <associate|auto-20|<tuple|2|33>>
+    <associate|auto-21|<tuple|3|33>>
+    <associate|auto-22|<tuple|4|33>>
+    <associate|auto-23|<tuple|5|37>>
+    <associate|auto-24|<tuple|6|40>>
+    <associate|auto-25|<tuple|1|40>>
+    <associate|auto-26|<tuple|2|40>>
+    <associate|auto-27|<tuple|3|43>>
+    <associate|auto-28|<tuple|4|44>>
+    <associate|auto-29|<tuple|5|45>>
     <associate|auto-3|<tuple|1|14>>
-    <associate|auto-30|<tuple|6|44>>
-    <associate|auto-31|<tuple|7|45>>
-    <associate|auto-32|<tuple|7|48>>
-    <associate|auto-33|<tuple|7|48>>
-    <associate|auto-34|<tuple|1|48>>
-    <associate|auto-35|<tuple|A|48>>
-    <associate|auto-36|<tuple|B|48>>
-    <associate|auto-37|<tuple|C|49>>
-    <associate|auto-38|<tuple|C|50>>
+    <associate|auto-30|<tuple|6|46>>
+    <associate|auto-31|<tuple|7|47>>
+    <associate|auto-32|<tuple|7|50>>
+    <associate|auto-33|<tuple|7|50>>
+    <associate|auto-34|<tuple|1|50>>
+    <associate|auto-35|<tuple|A|50>>
+    <associate|auto-36|<tuple|B|50>>
+    <associate|auto-37|<tuple|C|51>>
+    <associate|auto-38|<tuple|C|52>>
     <associate|auto-4|<tuple|2|14>>
     <associate|auto-5|<tuple|3|15>>
     <associate|auto-6|<tuple|1|15>>
     <associate|auto-7|<tuple|2|15>>
     <associate|auto-8|<tuple|3|18>>
     <associate|auto-9|<tuple|4|20>>
-    <associate|bib-Christoff:2015aa|<tuple|17|51>>
-    <associate|bib-Plaza2007PAL|<tuple|50|53>>
-    <associate|bib-achiam2023gpt|<tuple|1|50>>
-    <associate|bib-aho1972transitive|<tuple|2|50>>
-    <associate|bib-albarghouthi2021introduction|<tuple|3|50>>
-    <associate|bib-baccini2024dynamic|<tuple|4|50>>
-    <associate|bib-bader2005dimensions|<tuple|5|50>>
-    <associate|bib-badreddine2022aa|<tuple|6|50>>
-    <associate|bib-balkenius1991nonmonotonic|<tuple|7|50>>
-    <associate|bib-baltag1998PALC|<tuple|13|50>>
-    <associate|bib-baltag2009iterated|<tuple|14|50>>
-    <associate|bib-baltag2019dynamic|<tuple|9|50>>
-    <associate|bib-baltag2019right|<tuple|11|50>>
-    <associate|bib-baltag2019socialnetworks|<tuple|8|50>>
-    <associate|bib-baltag2019tracking|<tuple|10|50>>
-    <associate|bib-besold2021neural|<tuple|15|51>>
-    <associate|bib-blutner2004nonmonotonic|<tuple|16|51>>
-    <associate|bib-ciravegna2023logic|<tuple|18|51>>
-    <associate|bib-ditmarschDEL|<tuple|64|54>>
-    <associate|bib-dubey2024llama|<tuple|21|51>>
-    <associate|bib-garcez2001symbolic|<tuple|19|51>>
-    <associate|bib-garcez2008neural|<tuple|22|51>>
-    <associate|bib-geiger2024aa|<tuple|23|51>>
-    <associate|bib-giordano2021weighted|<tuple|25|51>>
-    <associate|bib-giordano2022conditional|<tuple|24|51>>
-    <associate|bib-gross2002genealogy|<tuple|26|51>>
-    <associate|bib-harmelen2022preface|<tuple|27|51>>
-    <associate|bib-hebb-organization-of-behavior-1949|<tuple|28|51>>
-    <associate|bib-immerman1998descriptive|<tuple|29|51>>
-    <associate|bib-kisby2022logic|<tuple|30|52>>
-    <associate|bib-kisby2024hebbian|<tuple|31|52>>
-    <associate|bib-kozen1981elementary|<tuple|32|52>>
-    <associate|bib-kraus1990nonmonotonic|<tuple|33|52>>
-    <associate|bib-leitgeb2001nonmonotonic|<tuple|34|52>>
-    <associate|bib-leitgeb2003nonmonotonic|<tuple|35|52>>
-    <associate|bib-leitgeb2018neural|<tuple|36|52>>
-    <associate|bib-libkin2004elements|<tuple|37|52>>
-    <associate|bib-logicsforepistemicactions|<tuple|12|50>>
-    <associate|bib-manhaeve2021neural|<tuple|38|52>>
-    <associate|bib-mcculloch1943logical|<tuple|39|52>>
-    <associate|bib-mcdermott1987critique|<tuple|40|52>>
-    <associate|bib-merrill2019sequential|<tuple|41|52>>
-    <associate|bib-merrill2020formal|<tuple|43|52>>
-    <associate|bib-merrill2023expressive|<tuple|42|52>>
-    <associate|bib-moss2007finite|<tuple|44|52>>
-    <associate|bib-moura2021lean|<tuple|45|52>>
-    <associate|bib-murphy2004big|<tuple|46|52>>
-    <associate|bib-odense2022ASF|<tuple|47|52>>
-    <associate|bib-oja1982simplified|<tuple|48|53>>
-    <associate|bib-pacuit2017neighborhood|<tuple|49|53>>
-    <associate|bib-polya1954mathematics|<tuple|51|53>>
-    <associate|bib-rumelhart1986aa|<tuple|52|53>>
-    <associate|bib-rumelhart1986learning|<tuple|53|53>>
-    <associate|bib-sarker2021neuro|<tuple|54|53>>
-    <associate|bib-sep-computational-complexity|<tuple|20|51>>
-    <associate|bib-sep-frame-problem|<tuple|55|53>>
-    <associate|bib-silver2017mastering|<tuple|56|53>>
-    <associate|bib-srivastava2015highway|<tuple|57|53>>
-    <associate|bib-strobl2024formal|<tuple|58|53>>
-    <associate|bib-tamkin2021understanding|<tuple|59|53>>
-    <associate|bib-van2007beliefrevision|<tuple|60|53>>
-    <associate|bib-van2007prefupgrade|<tuple|62|53>>
-    <associate|bib-van2011logicaldynamics|<tuple|61|53>>
-    <associate|bib-van2015dynamic|<tuple|63|53>>
-    <associate|bib-vaswani2017attention|<tuple|65|54>>
-    <associate|bib-weiss2018practical|<tuple|66|54>>
-    <associate|eqn1|<tuple|1|34>>
-    <associate|eqn2|<tuple|2|34>>
+    <associate|bib-Christoff:2015aa|<tuple|17|53>>
+    <associate|bib-Plaza2007PAL|<tuple|50|55>>
+    <associate|bib-achiam2023gpt|<tuple|1|52>>
+    <associate|bib-aho1972transitive|<tuple|2|52>>
+    <associate|bib-albarghouthi2021introduction|<tuple|3|52>>
+    <associate|bib-baccini2024dynamic|<tuple|4|52>>
+    <associate|bib-bader2005dimensions|<tuple|5|52>>
+    <associate|bib-badreddine2022aa|<tuple|6|52>>
+    <associate|bib-balkenius1991nonmonotonic|<tuple|7|52>>
+    <associate|bib-baltag1998PALC|<tuple|13|52>>
+    <associate|bib-baltag2009iterated|<tuple|14|52>>
+    <associate|bib-baltag2019dynamic|<tuple|9|52>>
+    <associate|bib-baltag2019right|<tuple|11|52>>
+    <associate|bib-baltag2019socialnetworks|<tuple|8|52>>
+    <associate|bib-baltag2019tracking|<tuple|10|52>>
+    <associate|bib-besold2021neural|<tuple|15|53>>
+    <associate|bib-blutner2004nonmonotonic|<tuple|16|53>>
+    <associate|bib-ciravegna2023logic|<tuple|18|53>>
+    <associate|bib-ditmarschDEL|<tuple|64|56>>
+    <associate|bib-dubey2024llama|<tuple|21|53>>
+    <associate|bib-garcez2001symbolic|<tuple|19|53>>
+    <associate|bib-garcez2008neural|<tuple|22|53>>
+    <associate|bib-geiger2024aa|<tuple|23|53>>
+    <associate|bib-giordano2021weighted|<tuple|25|53>>
+    <associate|bib-giordano2022conditional|<tuple|24|53>>
+    <associate|bib-gross2002genealogy|<tuple|26|53>>
+    <associate|bib-harmelen2022preface|<tuple|27|53>>
+    <associate|bib-hebb-organization-of-behavior-1949|<tuple|28|53>>
+    <associate|bib-immerman1998descriptive|<tuple|29|53>>
+    <associate|bib-kisby2022logic|<tuple|30|54>>
+    <associate|bib-kisby2024hebbian|<tuple|31|54>>
+    <associate|bib-kozen1981elementary|<tuple|32|54>>
+    <associate|bib-kraus1990nonmonotonic|<tuple|33|54>>
+    <associate|bib-leitgeb2001nonmonotonic|<tuple|34|54>>
+    <associate|bib-leitgeb2003nonmonotonic|<tuple|35|54>>
+    <associate|bib-leitgeb2018neural|<tuple|36|54>>
+    <associate|bib-libkin2004elements|<tuple|37|54>>
+    <associate|bib-logicsforepistemicactions|<tuple|12|52>>
+    <associate|bib-manhaeve2021neural|<tuple|38|54>>
+    <associate|bib-mcculloch1943logical|<tuple|39|54>>
+    <associate|bib-mcdermott1987critique|<tuple|40|54>>
+    <associate|bib-merrill2019sequential|<tuple|41|54>>
+    <associate|bib-merrill2020formal|<tuple|43|54>>
+    <associate|bib-merrill2023expressive|<tuple|42|54>>
+    <associate|bib-moss2007finite|<tuple|44|54>>
+    <associate|bib-moura2021lean|<tuple|45|54>>
+    <associate|bib-murphy2004big|<tuple|46|54>>
+    <associate|bib-odense2022ASF|<tuple|47|54>>
+    <associate|bib-oja1982simplified|<tuple|48|55>>
+    <associate|bib-pacuit2017neighborhood|<tuple|49|55>>
+    <associate|bib-polya1954mathematics|<tuple|51|55>>
+    <associate|bib-rumelhart1986aa|<tuple|52|55>>
+    <associate|bib-rumelhart1986learning|<tuple|53|55>>
+    <associate|bib-sarker2021neuro|<tuple|54|55>>
+    <associate|bib-sep-computational-complexity|<tuple|20|53>>
+    <associate|bib-sep-frame-problem|<tuple|55|55>>
+    <associate|bib-silver2017mastering|<tuple|56|55>>
+    <associate|bib-srivastava2015highway|<tuple|57|55>>
+    <associate|bib-strobl2024formal|<tuple|58|55>>
+    <associate|bib-tamkin2021understanding|<tuple|59|55>>
+    <associate|bib-van2007beliefrevision|<tuple|60|55>>
+    <associate|bib-van2007prefupgrade|<tuple|62|55>>
+    <associate|bib-van2011logicaldynamics|<tuple|61|55>>
+    <associate|bib-van2015dynamic|<tuple|63|55>>
+    <associate|bib-vaswani2017attention|<tuple|65|56>>
+    <associate|bib-weiss2018practical|<tuple|66|56>>
+    <associate|eqn1|<tuple|1|36>>
+    <associate|eqn2|<tuple|2|36>>
   </collection>
 </references>
 
