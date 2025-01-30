@@ -918,8 +918,10 @@
   defined as follows.
 
   <\equation*>
-    <value|State>=<around*|{|S<value|st>S\<subseteq\>N<infix-and><value|bias>\<in\>S|}>
+    <value|State><rsub|<value|Net>>=<around*|{|S<value|st>S\<subseteq\>N<infix-and><value|bias>\<in\>S|}>
   </equation*>
+
+  If <math|<value|Net>> is understood, we just write <math|<value|State>>.
 
   <subsection|The Forward Propagation Operator>
 
@@ -995,7 +997,8 @@
   This is because our net's weights can be negative, and so
   <math|<value|Closure><around*|(|B|)>> can inhibit the activation of new
   neurons that would otherwise be activated by
-  <math|<value|Closure><around*|(|A|)>>.
+  <math|<value|Closure><around*|(|A|)>>. <todo|Give an explicit
+  counterexample! This is important, I shouldn't skip too quickly over this.>
 
   <subsection|The Graph Reachability Operators>
 
@@ -1089,6 +1092,11 @@
   \Paction\Q happens), but not for <math|\<neg\>> and <math|\<wedge\>>. The
   bottom line is this: proving completeness for this logic is not necessarily
   just a matter of importing the proof from <cite|leitgeb2018neural>.
+
+  <todo|talk about <math|<value|Net>\<models\>\<varphi\>>, which in this
+  context means \P<math|\<varphi\>> activates <with|font-shape|italic|all> of
+  the neurons in <math|<value|Net>>\Q, or \P<math|\<varphi\>> holds across
+  the entire net.\Q Also define <math|\<Gamma\>\<models\>\<varphi\>>.>
 
   <subsection|What Makes these Semantics \PNeural\Q>
 
@@ -1225,8 +1233,8 @@
     <\itemize>
       <item><math|W<rsub|<Net>><around|(|m,n|)>\<leq\>W<rsub|<value|Hebb><around*|(|<value|Net>,S|)>><around|(|m,n|)>>
 
-      <item>If either <math|m\<nin\><Prop><around|(|S|)>> or
-      <math|n\<nin\><Prop><around|(|S|)>>, then
+      <item>If either <math|m\<nin\><value|Closure><around|(|S|)>> or
+      <math|n\<nin\><value|Closure><around|(|S|)>>, then
       <math|W<rsub|<value|Hebb><around*|(|<value|Net>,S|)>><around|(|m,n|)>=W<rsub|<Net>><around|(|m,n|)>>.
     </itemize>
   </proposition>
@@ -1348,6 +1356,16 @@
   <\proof>
     <todo|>
   </proof>
+
+  <subsection|Neural Network Semantics for Hebbian Update>
+
+  <todo|TODO> Give official languages for the logics of <math|<value|Hebb>>
+  and <math|<value|Hebbstar>>, i.e. using operators
+  <math|<Hebbop|P>\<varphi\>> and <math|<Hebbstarop|P>\<varphi\>> and their
+  semantics!!! And also just say that the definitions
+  <math|<value|Net>\<models\><rsub|<value|Hebb>>\<varphi\>> (same for
+  <math|<value|Hebbstar>>), <math|\<Gamma\>\<models\><rsub|<value|Hebb>>\<varphi\>>
+  (same for <math|<value|Hebbstar>>) are what you'd expect.
 
   <\chapter>
     Soundness: Neural Network Verification
@@ -3207,107 +3225,108 @@
     <associate|auto-11|<tuple|4|25>>
     <associate|auto-12|<tuple|1|25>>
     <associate|auto-13|<tuple|2|25>>
-    <associate|auto-14|<tuple|3|28>>
-    <associate|auto-15|<tuple|4|29>>
-    <associate|auto-16|<tuple|5|31>>
-    <associate|auto-17|<tuple|6|32>>
-    <associate|auto-18|<tuple|5|33>>
-    <associate|auto-19|<tuple|1|33>>
+    <associate|auto-14|<tuple|3|27>>
+    <associate|auto-15|<tuple|4|28>>
+    <associate|auto-16|<tuple|5|30>>
+    <associate|auto-17|<tuple|6|31>>
+    <associate|auto-18|<tuple|5|32>>
+    <associate|auto-19|<tuple|1|32>>
     <associate|auto-2|<tuple|2|14>>
-    <associate|auto-20|<tuple|2|33>>
-    <associate|auto-21|<tuple|3|33>>
-    <associate|auto-22|<tuple|4|33>>
-    <associate|auto-23|<tuple|5|37>>
-    <associate|auto-24|<tuple|6|40>>
-    <associate|auto-25|<tuple|1|40>>
-    <associate|auto-26|<tuple|2|40>>
-    <associate|auto-27|<tuple|3|43>>
-    <associate|auto-28|<tuple|4|44>>
-    <associate|auto-29|<tuple|5|45>>
+    <associate|auto-20|<tuple|2|32>>
+    <associate|auto-21|<tuple|3|32>>
+    <associate|auto-22|<tuple|4|32>>
+    <associate|auto-23|<tuple|5|36>>
+    <associate|auto-24|<tuple|6|39>>
+    <associate|auto-25|<tuple|1|39>>
+    <associate|auto-26|<tuple|2|39>>
+    <associate|auto-27|<tuple|3|42>>
+    <associate|auto-28|<tuple|4|43>>
+    <associate|auto-29|<tuple|5|44>>
     <associate|auto-3|<tuple|1|14>>
-    <associate|auto-30|<tuple|6|46>>
-    <associate|auto-31|<tuple|7|47>>
-    <associate|auto-32|<tuple|7|50>>
-    <associate|auto-33|<tuple|7|50>>
-    <associate|auto-34|<tuple|1|50>>
-    <associate|auto-35|<tuple|A|50>>
-    <associate|auto-36|<tuple|B|50>>
-    <associate|auto-37|<tuple|C|51>>
-    <associate|auto-38|<tuple|C|52>>
+    <associate|auto-30|<tuple|6|45>>
+    <associate|auto-31|<tuple|7|46>>
+    <associate|auto-32|<tuple|7|49>>
+    <associate|auto-33|<tuple|7|49>>
+    <associate|auto-34|<tuple|1|49>>
+    <associate|auto-35|<tuple|A|49>>
+    <associate|auto-36|<tuple|B|49>>
+    <associate|auto-37|<tuple|C|50>>
+    <associate|auto-38|<tuple|C|51>>
+    <associate|auto-39|<tuple|C|?>>
     <associate|auto-4|<tuple|2|14>>
     <associate|auto-5|<tuple|3|15>>
     <associate|auto-6|<tuple|1|15>>
     <associate|auto-7|<tuple|2|15>>
     <associate|auto-8|<tuple|3|18>>
     <associate|auto-9|<tuple|4|20>>
-    <associate|bib-Christoff:2015aa|<tuple|17|53>>
-    <associate|bib-Plaza2007PAL|<tuple|50|55>>
-    <associate|bib-achiam2023gpt|<tuple|1|52>>
-    <associate|bib-aho1972transitive|<tuple|2|52>>
-    <associate|bib-albarghouthi2021introduction|<tuple|3|52>>
-    <associate|bib-baccini2024dynamic|<tuple|4|52>>
-    <associate|bib-bader2005dimensions|<tuple|5|52>>
-    <associate|bib-badreddine2022aa|<tuple|6|52>>
-    <associate|bib-balkenius1991nonmonotonic|<tuple|7|52>>
-    <associate|bib-baltag1998PALC|<tuple|13|52>>
-    <associate|bib-baltag2009iterated|<tuple|14|52>>
-    <associate|bib-baltag2019dynamic|<tuple|9|52>>
-    <associate|bib-baltag2019right|<tuple|11|52>>
-    <associate|bib-baltag2019socialnetworks|<tuple|8|52>>
-    <associate|bib-baltag2019tracking|<tuple|10|52>>
-    <associate|bib-besold2021neural|<tuple|15|53>>
-    <associate|bib-blutner2004nonmonotonic|<tuple|16|53>>
-    <associate|bib-ciravegna2023logic|<tuple|18|53>>
-    <associate|bib-ditmarschDEL|<tuple|64|56>>
-    <associate|bib-dubey2024llama|<tuple|21|53>>
-    <associate|bib-garcez2001symbolic|<tuple|19|53>>
-    <associate|bib-garcez2008neural|<tuple|22|53>>
-    <associate|bib-geiger2024aa|<tuple|23|53>>
-    <associate|bib-giordano2021weighted|<tuple|25|53>>
-    <associate|bib-giordano2022conditional|<tuple|24|53>>
-    <associate|bib-gross2002genealogy|<tuple|26|53>>
-    <associate|bib-harmelen2022preface|<tuple|27|53>>
-    <associate|bib-hebb-organization-of-behavior-1949|<tuple|28|53>>
-    <associate|bib-immerman1998descriptive|<tuple|29|53>>
-    <associate|bib-kisby2022logic|<tuple|30|54>>
-    <associate|bib-kisby2024hebbian|<tuple|31|54>>
-    <associate|bib-kozen1981elementary|<tuple|32|54>>
-    <associate|bib-kraus1990nonmonotonic|<tuple|33|54>>
-    <associate|bib-leitgeb2001nonmonotonic|<tuple|34|54>>
-    <associate|bib-leitgeb2003nonmonotonic|<tuple|35|54>>
-    <associate|bib-leitgeb2018neural|<tuple|36|54>>
-    <associate|bib-libkin2004elements|<tuple|37|54>>
-    <associate|bib-logicsforepistemicactions|<tuple|12|52>>
-    <associate|bib-manhaeve2021neural|<tuple|38|54>>
-    <associate|bib-mcculloch1943logical|<tuple|39|54>>
-    <associate|bib-mcdermott1987critique|<tuple|40|54>>
-    <associate|bib-merrill2019sequential|<tuple|41|54>>
-    <associate|bib-merrill2020formal|<tuple|43|54>>
-    <associate|bib-merrill2023expressive|<tuple|42|54>>
-    <associate|bib-moss2007finite|<tuple|44|54>>
-    <associate|bib-moura2021lean|<tuple|45|54>>
-    <associate|bib-murphy2004big|<tuple|46|54>>
-    <associate|bib-odense2022ASF|<tuple|47|54>>
-    <associate|bib-oja1982simplified|<tuple|48|55>>
-    <associate|bib-pacuit2017neighborhood|<tuple|49|55>>
-    <associate|bib-polya1954mathematics|<tuple|51|55>>
-    <associate|bib-rumelhart1986aa|<tuple|52|55>>
-    <associate|bib-rumelhart1986learning|<tuple|53|55>>
-    <associate|bib-sarker2021neuro|<tuple|54|55>>
-    <associate|bib-sep-computational-complexity|<tuple|20|53>>
-    <associate|bib-sep-frame-problem|<tuple|55|55>>
-    <associate|bib-silver2017mastering|<tuple|56|55>>
-    <associate|bib-srivastava2015highway|<tuple|57|55>>
-    <associate|bib-strobl2024formal|<tuple|58|55>>
-    <associate|bib-tamkin2021understanding|<tuple|59|55>>
-    <associate|bib-van2007beliefrevision|<tuple|60|55>>
-    <associate|bib-van2007prefupgrade|<tuple|62|55>>
-    <associate|bib-van2011logicaldynamics|<tuple|61|55>>
-    <associate|bib-van2015dynamic|<tuple|63|55>>
-    <associate|bib-vaswani2017attention|<tuple|65|56>>
-    <associate|bib-weiss2018practical|<tuple|66|56>>
-    <associate|eqn1|<tuple|1|36>>
-    <associate|eqn2|<tuple|2|36>>
+    <associate|bib-Christoff:2015aa|<tuple|17|52>>
+    <associate|bib-Plaza2007PAL|<tuple|50|54>>
+    <associate|bib-achiam2023gpt|<tuple|1|51>>
+    <associate|bib-aho1972transitive|<tuple|2|51>>
+    <associate|bib-albarghouthi2021introduction|<tuple|3|51>>
+    <associate|bib-baccini2024dynamic|<tuple|4|51>>
+    <associate|bib-bader2005dimensions|<tuple|5|51>>
+    <associate|bib-badreddine2022aa|<tuple|6|51>>
+    <associate|bib-balkenius1991nonmonotonic|<tuple|7|51>>
+    <associate|bib-baltag1998PALC|<tuple|13|51>>
+    <associate|bib-baltag2009iterated|<tuple|14|51>>
+    <associate|bib-baltag2019dynamic|<tuple|9|51>>
+    <associate|bib-baltag2019right|<tuple|11|51>>
+    <associate|bib-baltag2019socialnetworks|<tuple|8|51>>
+    <associate|bib-baltag2019tracking|<tuple|10|51>>
+    <associate|bib-besold2021neural|<tuple|15|52>>
+    <associate|bib-blutner2004nonmonotonic|<tuple|16|52>>
+    <associate|bib-ciravegna2023logic|<tuple|18|52>>
+    <associate|bib-ditmarschDEL|<tuple|64|55>>
+    <associate|bib-dubey2024llama|<tuple|21|52>>
+    <associate|bib-garcez2001symbolic|<tuple|19|52>>
+    <associate|bib-garcez2008neural|<tuple|22|52>>
+    <associate|bib-geiger2024aa|<tuple|23|52>>
+    <associate|bib-giordano2021weighted|<tuple|25|52>>
+    <associate|bib-giordano2022conditional|<tuple|24|52>>
+    <associate|bib-gross2002genealogy|<tuple|26|52>>
+    <associate|bib-harmelen2022preface|<tuple|27|52>>
+    <associate|bib-hebb-organization-of-behavior-1949|<tuple|28|52>>
+    <associate|bib-immerman1998descriptive|<tuple|29|52>>
+    <associate|bib-kisby2022logic|<tuple|30|53>>
+    <associate|bib-kisby2024hebbian|<tuple|31|53>>
+    <associate|bib-kozen1981elementary|<tuple|32|53>>
+    <associate|bib-kraus1990nonmonotonic|<tuple|33|53>>
+    <associate|bib-leitgeb2001nonmonotonic|<tuple|34|53>>
+    <associate|bib-leitgeb2003nonmonotonic|<tuple|35|53>>
+    <associate|bib-leitgeb2018neural|<tuple|36|53>>
+    <associate|bib-libkin2004elements|<tuple|37|53>>
+    <associate|bib-logicsforepistemicactions|<tuple|12|51>>
+    <associate|bib-manhaeve2021neural|<tuple|38|53>>
+    <associate|bib-mcculloch1943logical|<tuple|39|53>>
+    <associate|bib-mcdermott1987critique|<tuple|40|53>>
+    <associate|bib-merrill2019sequential|<tuple|41|53>>
+    <associate|bib-merrill2020formal|<tuple|43|53>>
+    <associate|bib-merrill2023expressive|<tuple|42|53>>
+    <associate|bib-moss2007finite|<tuple|44|53>>
+    <associate|bib-moura2021lean|<tuple|45|53>>
+    <associate|bib-murphy2004big|<tuple|46|53>>
+    <associate|bib-odense2022ASF|<tuple|47|53>>
+    <associate|bib-oja1982simplified|<tuple|48|54>>
+    <associate|bib-pacuit2017neighborhood|<tuple|49|54>>
+    <associate|bib-polya1954mathematics|<tuple|51|54>>
+    <associate|bib-rumelhart1986aa|<tuple|52|54>>
+    <associate|bib-rumelhart1986learning|<tuple|53|54>>
+    <associate|bib-sarker2021neuro|<tuple|54|54>>
+    <associate|bib-sep-computational-complexity|<tuple|20|52>>
+    <associate|bib-sep-frame-problem|<tuple|55|54>>
+    <associate|bib-silver2017mastering|<tuple|56|54>>
+    <associate|bib-srivastava2015highway|<tuple|57|54>>
+    <associate|bib-strobl2024formal|<tuple|58|54>>
+    <associate|bib-tamkin2021understanding|<tuple|59|54>>
+    <associate|bib-van2007beliefrevision|<tuple|60|54>>
+    <associate|bib-van2007prefupgrade|<tuple|62|54>>
+    <associate|bib-van2011logicaldynamics|<tuple|61|54>>
+    <associate|bib-van2015dynamic|<tuple|63|54>>
+    <associate|bib-vaswani2017attention|<tuple|65|55>>
+    <associate|bib-weiss2018practical|<tuple|66|55>>
+    <associate|eqn1|<tuple|1|35>>
+    <associate|eqn2|<tuple|2|35>>
   </collection>
 </references>
 
