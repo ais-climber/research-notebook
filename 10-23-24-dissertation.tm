@@ -921,7 +921,8 @@
     <value|State><rsub|<value|Net>>=<around*|{|S<value|st>S\<subseteq\>N<infix-and><value|bias>\<in\>S|}>
   </equation*>
 
-  If <math|<value|Net>> is understood, we just write <math|<value|State>>.
+  Usually <math|<value|Net>> is understood from context, and I'll just write
+  <math|<value|State>> without the subscript.
 
   <subsection|The Forward Propagation Operator>
 
@@ -971,10 +972,12 @@
     </equation*>
 
     has a finite fixed point, and moreover that this state is the
-    <with|font-shape|italic|only> fixed point under <math|S<rsub|0>>. Let the
-    closure <math|<value|Closure>:<value|State>\<rightarrow\><value|State>>
-    be the function that produces that least fixed point. For concreteness,
-    we can say that there is some <math|k\<in\><with|font|Bbb|N>> for which
+    <with|font-shape|italic|only> fixed point under <math|S<rsub|0>>\Vthat
+    is, it is the only state <math|S> such that
+    <math|F<rsub|S<rsub|0>><around*|(|S|)>=S>. Let the closure
+    <math|<value|Closure>:<value|State>\<rightarrow\><value|State>> be the
+    function that produces that least fixed point. For concreteness, we can
+    say that there is some <math|k\<in\><with|font|Bbb|N>> for which
 
     <\equation*>
       <value|Closure><around*|(|S|)>=F<rsup|k><rsub|S><around*|(|S|)>
@@ -994,11 +997,12 @@
   An important feature of <math|<value|Closure>> is that it is nonmonotonic:
   it is not the case that for all <math|A,B\<in\><value|State>>, if
   <math|A\<subseteq\>B> then <math|<value|Closure><around*|(|A|)>\<subseteq\><value|Closure><around*|(|B|)>>.
-  This is because our net's weights can be negative, and so
+  Intuitively, this is because our net's weights can be negative, and so
   <math|<value|Closure><around*|(|B|)>> can inhibit the activation of new
   neurons that would otherwise be activated by
-  <math|<value|Closure><around*|(|A|)>>. <todo|Give an explicit
-  counterexample! This is important, I shouldn't skip too quickly over this.>
+  <math|<value|Closure><around*|(|A|)>>. I will come back to this point more
+  formally in Chapter <todo|todo>, when we discuss the basic properties of
+  <math|<value|Closure>>.
 
   <subsection|The Graph Reachability Operators>
 
@@ -1097,6 +1101,15 @@
   context means \P<math|\<varphi\>> activates <with|font-shape|italic|all> of
   the neurons in <math|<value|Net>>\Q, or \P<math|\<varphi\>> holds across
   the entire net.\Q Also define <math|\<Gamma\>\<models\>\<varphi\>>.>
+
+  <subsection|Why Consider this <with|font-shape|italic|Modal> Logic?>
+
+  <todo|The conditional logic came first, and I could have just re-used it in
+  order to save myself a lot of work. But I think it's important to explain
+  my aesthetic choices in moving to the modal logic, rather than just using
+  Hannes' conditional logic. But this is such a technical detail that I
+  should at least advise the reader to skip this section if they're not
+  interested.>
 
   <subsection|What Makes these Semantics \PNeural\Q>
 
@@ -1408,7 +1421,7 @@
     I'll prove each in turn:
 
     <\description>
-      <item*|(Inclusion)>By definition, <math|<value|Closure><around*|(|S|)>=F<rsup|k><rsub|S><around*|(|S|)>>
+      <item*|Inclusion>By definition, <math|<value|Closure><around*|(|S|)>=F<rsup|k><rsub|S><around*|(|S|)>>
       for some <math|k\<in\><with|font|Bbb|N>>, where
       <math|F<rsub|S><rsup|k>> is the transition function from Definition
       <todo|which?>. By induction on this k (the number of iterations needed
@@ -1431,7 +1444,7 @@
         union. And so <math|n\<in\><value|Closure><around*|(|S|)>>.
       </description>
 
-      <item*|(Idempotence)>I will prove a stronger claim: For all
+      <item*|Idempotence>I will prove a stronger claim: For all
       <math|k\<in\><with|font|Bbb|N>>,
 
       <\equation*>
@@ -1442,7 +1455,7 @@
       number of times to <math|<value|Closure><around*|(|S|)>> has no effect.
       Since <math|<value|Closure><around*|(|<value|Closure><around*|(|S|)>|)>=F<rsup|k><rsub|S><around*|(|<value|Closure><around*|(|S|)>|)>>
       for some <math|k\<in\><with|font|Bbb|N>>, the Idempotence property
-      follows. Let's proceed by induction on <math|k>.
+      follows from this. Let's proceed by induction on <math|k>.
 
       <\description>
         <item*|Base Step><math|k=0>, and so the goal simplifies to
@@ -1457,36 +1470,48 @@
         which is what we wanted to show.
       </description>
 
-      <item*|(Cumulative)>Suppose <math|S<rsub|1>\<subseteq\>S<rsub|2>\<subseteq\><value|Closure><around*|(|S<rsub|1>|)>>
-      (see Figure <todo|DIAGRAM>). First, I claim that:
+      <item*|Cumulative>Suppose <math|S<rsub|1>\<subseteq\>S<rsub|2>\<subseteq\><value|Closure><around*|(|S<rsub|1>|)>>
+      (see Figure <todo|DIAGRAM>). First, since
+      <math|<value|Closure><around*|(|S<rsub|2>|)>> is a fixed point under
+      <math|S<rsub|2>>, we have <math|F<rsub|S<rsub|2>><around*|(|<value|Closure><around*|(|S<rsub|2>|)>|)>=<value|Closure><around*|(|S<rsub|2>|)>>.
+      But I will show that <math|<value|Closure><around*|(|S<rsub|1>|)>> is
+      <with|font-shape|italic|also> a fixed point under <math|S<rsub|2>>,
+      i.e. <math|F<rsub|S<rsub|2>><around*|(|<value|Closure><around*|(|S<rsub|1>|)>|)>=<value|Closure><around*|(|S<rsub|1>|)>>
+      (notice the difference in the subscripts). Since we assumed that there
+      is a <with|font-shape|italic|unique> fixed point under
+      <math|S<rsub|2>>, it will follow that these two states must be the
+      same. In other words, <math|<value|Closure><around*|(|S<rsub|1>|)>=<value|Closure><around*|(|S<rsub|2>|)>>.
 
-      <\fact>
-        <math|F<rsub|S<rsub|2>><around*|(|<value|Closure><around*|(|S<rsub|1>|)>|)>=<value|Closure><around*|(|S<rsub|1>|)>>
-      </fact>
+      Let's expand <math|F<rsub|S<rsub|2>><around*|(|<value|Closure><around*|(|S<rsub|1>|)>|)>>.
+      By definition of <math|F>,
 
-      <\proof>
-        For the <math|<around*|(|\<rightarrow\>|)>> direction, suppose
-        <math|n\<in\>F<rsub|S<rsub|2>><around*|(|<value|Closure><around*|(|S<rsub|1>|)>|)>>.
-        By definition of the transition function <math|F>, either
-        <math|n\<in\>S<rsub|2>> or <todo|this is stupid but obviously true,
-        just think about it!>
-      </proof>
+      <\equation*>
+        F<rsub|S<rsub|2>><around*|(|<value|Closure><around*|(|S<rsub|1>|)>|)>=S<rsub|2>\<cup\><around*|{|n<value|st>A<around*|(|<big|sum><rsub|m\<in\><value|preds><around*|(|n|)>>W<around*|(|m,n|)>\<cdot\><value|bigchi><rsub|<value|Closure><around*|(|S<rsub|2>|)>><around*|(|m|)>|)>=1|}>
+      </equation*>
 
-      But <math|<value|Closure><around*|(|S<rsub|2>|)>> is the fixed point
-      under <math|S<rsub|2>>, i.e. <math|F<rsub|S<rsub|2>><around*|(|<value|Closure><around*|(|S<rsub|2>|)>|)>=<value|Closure><around*|(|S<rsub|2>|)>>
-      as well. Since we assumed that there is a
-      <with|font-shape|italic|unique> fixed point under <math|S<rsub|2>>,
-      these two states must be the same. In other words,
-      <math|<value|Closure><around*|(|S<rsub|1>|)>=<value|Closure><around*|(|S<rsub|2>|)>>.
+      Compare this to <math|F<rsub|S<rsub|1>><around*|(|<value|Closure><around*|(|S<rsub|1>|)>|)>>:
+
+      <\equation*>
+        F<rsub|S<rsub|1>><around*|(|<value|Closure><around*|(|S<rsub|1>|)>|)>=S<rsub|1>\<cup\><around*|{|n<value|st>A<around*|(|<big|sum><rsub|m\<in\><value|preds><around*|(|n|)>>W<around*|(|m,n|)>\<cdot\><value|bigchi><rsub|<value|Closure><around*|(|S<rsub|2>|)>><around*|(|m|)>|)>=1|}>
+      </equation*>
+
+      Putting the two together, we can see that
+
+      <\equation*>
+        <tabular|<tformat|<table|<row|<cell|F<rsub|S<rsub|2>><around*|(|<value|Closure><around*|(|S<rsub|1>|)>|)>>|<cell|=>|<cell|<around*|(|F<rsub|S<rsub|1>><around*|(|<value|Closure><around*|(|S<rsub|1>|)>|)>-S<rsub|1>|)>\<cup\>S<rsub|2>>|<cell|>>|<row|<cell|>|<cell|=>|<cell|<around*|(|<value|Closure><around*|(|S<rsub|1>|)>-S<rsub|1>|)>\<cup\>S<rsub|2>>|<cell|<around*|(|<text|since
+        ><value|Closure><around*|(|S<rsub|1>|)><text| is fixed under
+        >S<rsub|1>|)>>>|<row|<cell|>|<cell|=>|<cell|<value|Closure><around*|(|S<rsub|1>|)>>|<cell|<around*|(|<text|since
+        >S<rsub|1>\<subseteq\>S<rsub|2>\<subseteq\><value|Closure><around*|(|S<rsub|1>|)>|)>>>>>>
+      </equation*>
     </description>
-
-    \;
   </proof>
 
   In the terminology of <cite-parenthesized|kraus1990nonmonotonic>,
   <math|<Prop>> is a <em|cumulative> closure operator (it satisfies the
-  cumulative property). <math|<value|Closure>> is <em|not> a fully monotonic
-  closure operator, however, primarily due to negative weights in the net.
+  cumulative property). I mentioned briefly in the previous chapter that
+  <math|<value|Closure>> is <em|not> a fully monotonic closure operator\VI'll
+  now give the proof. The idea is that negative weights in the net can be
+  used to inhibit incoming signals from a state.
 
   <\proposition>
     <dueto|Leitgeb, <cite|leitgeb2001nonmonotonic|leitgeb2003nonmonotonic>>It
@@ -1524,10 +1549,60 @@
   </proposition>
 
   <\proof>
-    <todo|>
+    I'll prove each in turn:
+
+    <\description>
+      <item*|Inclusion>Suppose <math|n\<in\>S>. We have the trivial path from
+      <math|n\<in\>S> to itself.
+
+      <item*|Idempotent>The <math|<around*|(|\<leftarrow\>|)>> direction
+      follows from inclusion. As for <math|<around*|(|\<rightarrow\>|)>>,
+      suppose <math|n\<in\><value|Reach><around*|(|<value|Reach><around*|(|S|)>|)>>,
+      i.e. there is a path from some <math|m\<in\><value|Reach><around*|(|S|)>>
+      to <math|n>. By definition of <math|<value|Reach>> again, there is a
+      path from some <math|x\<in\>S> to <math|m>. But we can put these
+      together to obtain a path from <math|x\<in\>S> to <math|n>.
+
+      <item*|Monotonic>Suppose <math|A\<subseteq\>B>, and let
+      <math|n\<in\><value|Reach><around*|(|A|)>>. By definition of
+      <math|<value|Reach>>, we have a path from some <math|m\<in\>A> to
+      <math|n>. But since <math|A\<subseteq\>B>, <math|m\<in\>B>. So we have
+      a path from <math|m\<in\>B> to <math|n>, i.e.
+      <math|n\<in\><value|Reach><around*|(|B|)>>.
+
+      <item*|Closed under <math|\<cup\>>>For the
+      <math|<around*|(|\<rightarrow\>|)>> direction, suppose
+      <math|n\<in\><value|Reach><around*|(|A\<cup\>B|)>>. So there is a path
+      from some <math|m\<in\>A\<cup\>B> to <math|n>. We have two cases:
+      <math|m\<in\>A>, in which case we have a path from <math|m\<in\>A> to
+      <math|n>; or <math|m\<in\>B>, in which case we have a path from
+      <math|m\<in\>B> to <math|n>.
+
+      As for the <math|<around*|(|\<leftarrow\>|)>> direction, suppose
+      <math|n\<in\><value|Reach><around*|(|A|)>\<cup\><value|Reach><around*|(|B|)>>.
+      Similarly, we have two cases, and in either case we have a path from
+      <math|n\<in\>A\<cup\>B>. So <math|n\<in\><value|Reach><around*|(|A\<cup\>B|)>>.
+    </description>
   </proof>
 
-  <math|<value|Reaches>> is as well, and the proof for this is similar.
+  <math|<value|Reaches>> is as well, and the proof for this is the same,
+  mutatis mutandis the direction of the path.
+
+  <\proposition>
+    For all <math|S,A,B\<in\><value|State>>,
+
+    <\description>
+      <item*|Inclusion><math|S\<subseteq\><value|Reaches><around*|(|S|)>>
+
+      <item*|Idempotent><math|<value|Reaches><around*|(|<value|Reaches><around*|(|S|)>|)>=<value|Reaches><around*|(|S|)>>
+
+      <item*|Monotonic>If <math|A\<subseteq\>B> then
+      <math|<value|Reaches><around*|(|A|)>\<subseteq\><value|Reaches><around*|(|B|)>>
+
+      <item*|Closed under <math|\<cup\>>><math|<value|Reaches><around*|(|A\<cup\>B|)>=<value|Reaches><around*|(|A|)>\<cup\><value|Reaches><around*|(|B|)>>
+    </description>
+  </proposition>
+
   <todo|What interaction property do <math|<value|Reach>> and
   <math|<value|Reaches>> share?>
 
@@ -3252,7 +3327,6 @@
     <associate|auto-36|<tuple|B|49>>
     <associate|auto-37|<tuple|C|50>>
     <associate|auto-38|<tuple|C|51>>
-    <associate|auto-39|<tuple|C|?>>
     <associate|auto-4|<tuple|2|14>>
     <associate|auto-5|<tuple|3|15>>
     <associate|auto-6|<tuple|1|15>>
