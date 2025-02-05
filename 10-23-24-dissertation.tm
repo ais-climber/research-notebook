@@ -38,7 +38,7 @@
 
     <assign|Reaches|<with|font-family|ss|Reach<rsup|\<downarrow\>>>>
 
-    <assign|Hebbstar|<with|font-family|ss|Hebb<rsup|\<star\>>>>
+    <assign|Hebbstar|<with|font-family|ss|Hebb<rsup|\<ast\>>>>
 
     <assign|iter|<with|font-family|ss|iter>>
 
@@ -887,10 +887,14 @@
   binary set of neurons\Veither a neuron is active (1) or it is not (0). To
   do this, I assume that the activation function <math|A> is a (nonzero)
   binary step function (<math|A:<with|font|Bbb|Q>\<rightarrow\><around*|{|0,1|}>>).
-  It turns out this binary constraint is also a common theoretical assumption
-  in work that analyzes neural networks as automata
-  <cite|merrill2020formal|weiss2018practical|merrill2019sequential>. In their
-  terminology, we say our nets are <with|font-shape|italic|saturated>.
+  <todo|Definition: <math|<value|Net>> has a threshold,
+  <math|\<exists\>t\<in\><with|font|Bbb|Q>> with <math|A<around*|(|t|)>=1>;
+  <math|<value|Net>> is nondecreasing. These things amount to <math|A> being
+  a binary step function.> It turns out this binary constraint is also a
+  common theoretical assumption in work that analyzes neural networks as
+  automata <cite|merrill2020formal|weiss2018practical|merrill2019sequential>.
+  In their terminology, we say our nets are
+  <with|font-shape|italic|saturated>.
 
   <\itemize>
     <item><todo|Todo, put somewhere in this section, optional property>\ 
@@ -1234,8 +1238,18 @@
   </proposition>
 
   <\proof>
-    <todo|>
+    A single step of Hebbian update <math|<value|Hebb><around*|(|<value|Net>,A|)>>
+    doesn't change the edge relation <math|E> of the graph. So if
+    <math|n\<in\>N>, any path from <math|m\<in\>B> to <math|n> in
+    <math|<value|Hebb><around*|(|<value|Net>,A|)>> is the same path in
+    <math|<value|Net>>.
   </proof>
+
+  And similarly:
+
+  <\proposition>
+    <math|<value|Reaches><rsub|<value|Hebb><around*|(|<value|Net>,A|)>><around*|(|B|)>=<value|Reaches><rsub|<value|Net>><around*|(|B|)>>
+  </proposition>
 
   The following is easy to see <todo|I now have space to explain> (since
   <math|\<eta\>\<geq\>0>).
@@ -1253,7 +1267,23 @@
   </proposition>
 
   <\proof>
-    <todo|>
+    For the first part, observe:
+
+    <\equation*>
+      <tabular|<tformat|<table|<row|<cell|W<rsub|<value|Net>><around*|(|m,n|)>>|<cell|\<leq\>>|<cell|W<rsub|<value|Net>><around*|(|m,n|)>+\<eta\>>|<cell|<around*|(|<text|since
+      >\<eta\>\<geq\>0|)>>>|<row|<cell|>|<cell|\<leq\>>|<cell|W<rsub|<value|Net>><around*|(|m,n|)>+\<eta\>\<cdot\><value|bigchi><rsub|<value|Closure><around*|(|S|)>><around*|(|m|)>\<cdot\><value|bigchi><rsub|<value|Closure><around*|(|S|)>><around*|(|n|)>>|<cell|<around*|(|<text|since
+      for all >S,n,<value|bigchi><rsub|S><around*|(|n|)>\<geq\>0|)>>>|<row|<cell|>|<cell|=>|<cell|W<rsub|<value|Hebb><around*|(|<value|Net>,S|)>><around*|(|m,n|)>>|<cell|>>>>>
+    </equation*>
+
+    As for the second part, if either <math|m<neg|\<in\>><value|Closure><around*|(|S|)>>
+    or <math|n<neg|\<in\>><value|Closure><around*|(|S|)>>, then by definition
+    of <math|<value|Hebb>>,
+
+    <\equation*>
+      <tabular|<tformat|<table|<row|<cell|W<rsub|<value|Hebb><around*|(|<value|Net>,S|)>><around*|(|m,n|)>>>|<row|<cell|<space|2em>=W<rsub|<value|Net>><around*|(|m,n|)>+\<eta\>\<cdot\><value|bigchi><rsub|<value|Closure><around*|(|S|)>><around*|(|m|)>\<cdot\><value|bigchi><rsub|<value|Closure><around*|(|S|)>><around*|(|n|)>>>|<row|<cell|<space|2em>=W<rsub|<value|Net>><around*|(|m,n|)>+\<eta\>\<cdot\>0>>|<row|<cell|<space|2em>=W<rsub|<value|Net>><around*|(|m,n|)>+\<eta\>>>|<row|<cell|<space|2em>=W<rsub|<value|Net>><around*|(|m,n|)>>>>>>
+    </equation*>
+
+    \;
   </proof>
 
   <paragraph|Iterated Hebbian Update.>In addition to the single-step
@@ -1288,8 +1318,8 @@
     the negative weights of <math|n>'s predecessors, i.e.,
 
     <\equation*>
-      <with|font-family|ss|nws><around*|(|n|)>=<big|sum><rsub|i=1><rsup|deg<around*|(|n|)>><choice|<tformat|<table|<row|<cell|W<around*|(|m<rsub|i>,n|)>>|<cell|<text|if
-      >W<around*|(|m<rsub|i>,n|)>\<less\>0>>|<row|<cell|0>|<cell|<text|otherwise>>>>>>
+      <with|font-family|ss|nws><around*|(|n|)>=<big|sum><rsub|m\<in\><value|preds><around*|(|n|)>><choice|<tformat|<table|<row|<cell|W<around*|(|m,n|)>>|<cell|<text|if
+      >W<around*|(|m,n|)>\<less\>0>>|<row|<cell|0>|<cell|<text|otherwise>>>>>>
     </equation*>
   </definition>
 
@@ -1301,6 +1331,32 @@
       <with|font-family|ss|nws<around*|(|n|)>>
     </equation*>
   </definition>
+
+  <\proposition>
+    For all <math|S\<in\><value|State>>, <math|m,n\<in\>N>, we have
+    <math|<with|font-family|ss|mnws>\<leq\>W<around*|(|m,n|)>\<cdot\><value|bigchi><rsub|S><around*|(|m|)>>.
+  </proposition>
+
+  <\proof>
+    Let <math|m,n> be any nodes in <math|N>. We have:
+
+    <\equation*>
+      <tabular|<tformat|<cwith|3|3|4|4|cell-hyphen|t>|<cwith|4|4|4|4|cell-hyphen|t>|<table|<row|<cell|<with|font-family|ss|mnws>>|<cell|\<leq\>>|<cell|nws<around*|(|n|)>>|<cell|>>|<row|<cell|>|<cell|=>|<cell|<big|sum><rsub|m\<in\><value|preds><around*|(|n|)>><choice|<tformat|<table|<row|<cell|W<around*|(|m,n|)>>|<cell|<text|if
+      >W<around*|(|m,n|)>\<less\>0>>|<row|<cell|0>|<cell|<text|otherwise>>>>>>>|<cell|<text|(by
+      definition)>>>|<row|<cell|>|<cell|=>|<cell|<big|sum><rsub|m\<in\><value|preds><around*|(|n|)>><choice|<tformat|<table|<row|<cell|W<around*|(|m,n|)>\<cdot\><value|bigchi><rsub|S><around*|(|m|)>>|<cell|<text|if
+      >W<around*|(|m,n|)>\<less\>0>>|<row|<cell|0>|<cell|<text|otherwise>>>>>>>|<\cell>
+        <text|(since each >W<around*|(|m,n|)>\<less\>0
+
+        <text|and ><value|bigchi><rsub|S><around*|(|m|)>\<in\><around*|{|0,1|}><text|)>
+      </cell>>|<row|<cell|>|<cell|\<leq\>>|<cell|W<around*|(|m,n|)>\<cdot\><value|bigchi><rsub|S><around*|(|m|)>>|<\cell>
+        <text|(the sum of negative terms is >\<leq\>
+
+        <text|any particular term)>
+      </cell>>>>>
+    </equation*>
+
+    \;
+  </proof>
 
   <\definition>
     Recall that the activation function <math|A> is nonzero, i.e. there is
@@ -1362,12 +1418,31 @@
     then
 
     <\equation*>
-      A<around|(|<big|sum><rsub|i=1><rsup|deg<around*|(|n|)>>W<rsub|<Hebbstar|<Net>|A>><around|(|m<rsub|i>,n|)>\<cdot\><bigchi><rsub|<value|Closure><rsub|<value|Hebbstar><around*|(|<value|Net>,A|)>><around|(|B|)>><around|(|m<rsub|i>|)>|)>=1
+      A<around|(|<big|sum><rsub|m\<in\><value|preds><around*|(|n|)>>W<rsub|<Hebbstar|<Net>|A>><around|(|m<rsub|i>,n|)>\<cdot\><bigchi><rsub|<value|Closure><rsub|<value|Hebbstar><around*|(|<value|Net>,A|)>><around|(|B|)>><around|(|m|)>|)>=1
     </equation*>
   </lemma>
 
   <\proof>
-    <todo|>
+    <math|A> is a binary step function, which in particular means it is
+    binary, has a threshold, some <math|t\<in\><with|font|Bbb|Q>> with
+    <math|A<around*|(|t|)>=1>, and is nondecreasing. Since <math|A> is
+    nondecreasing, it's enough for us to show
+
+    <\equation*>
+      t\<leq\><big|sum><rsub|m\<in\><value|preds><around*|(|n|)>>W<rsub|<Hebbstar|<Net>|A>><around|(|m<rsub|i>,n|)>\<cdot\><bigchi><rsub|<value|Closure><rsub|<value|Hebbstar><around*|(|<value|Net>,A|)>><around|(|B|)>><around|(|m|)>
+    </equation*>
+
+    Well, we have
+
+    <\equation*>
+      <tabular|<tformat|<table|<row|<cell|<big|sum><rsub|m<rsub|i>\<in\><value|preds><around*|(|n|)>>W<rsub|<Hebbstar|<Net>|A>><around|(|m<rsub|i>,n|)>\<cdot\><bigchi><rsub|<value|Closure><rsub|<value|Hebbstar><around*|(|<value|Net>,A|)>><around|(|B|)>><around|(|m<rsub|i>|)>>>|<row|<cell|<space|3em>=<big|sum><rsub|m<rsub|i>\<in\><value|preds><around*|(|n|)>,<text|
+      and >m<rsub|i><neg|=>m>W<rsub|<Hebbstar|<Net>|A>><around|(|m<rsub|i>,n|)>\<cdot\><bigchi><rsub|<value|Closure><rsub|<value|Hebbstar><around*|(|<value|Net>,A|)>><around|(|B|)>><around|(|m<rsub|i>|)>>>|<row|<cell|<space|6em>+W<rsub|<Hebbstar|<Net>|A>><around|(|m,n|)>\<cdot\><bigchi><rsub|<value|Closure><rsub|<value|Hebbstar><around*|(|<value|Net>,A|)>><around|(|B|)>><around|(|m|)>>>|<row|<cell|>>|<row|<cell|<space|3em>\<geq\><around*|(|<around*|\||N|\|>-1|)>\<cdot\><with|font-family|ss|mnws>+W<rsub|<Hebbstar|<Net>|A>><around|(|m,n|)>\<cdot\><bigchi><rsub|<value|Closure><rsub|<value|Hebbstar><around*|(|<value|Net>,A|)>><around|(|B|)>><around|(|m|)>>>|<row|<cell|<space|3em><around*|(|<text|by
+      Proposition <todo|>, since we are adding ><around*|\||N|\|>-1<text|
+      terms>|)>>>|<row|<cell|>>|<row|<cell|<space|3em>\<geq\><around*|(|<around*|\||N|\|>-1|)>\<cdot\><with|font-family|ss|mnws>+W<rsub|<Hebbstar|<Net>|A>><around|(|m,n|)>\<cdot\>1>>|<row|<cell|<space|3em><around*|(|<text|since
+      >m\<in\><value|Closure><rsub|<value|Hebbstar><around*|(|<value|Net>,A|)>><around|(|B|)>|)>>>|<row|<cell|>>|<row|<cell|>>|<row|<cell|>>>>>
+    </equation*>
+
+    \;
   </proof>
 
   <subsection|Neural Network Semantics for Hebbian Update>
@@ -1684,96 +1759,69 @@
   </proposition>
 
   <\proof>
-    Recall that <math|F:<value|State>\<rightarrow\><value|State>> is the
-    transition function for <math|<value|Net>>, and
-    <math|F<rsup|\<star\>>:<value|State>\<rightarrow\><value|State>> is the
-    transition function for <math|<value|Hebb><around*|(|<value|Net>,S|)>>. I
-    will prove a slightly stronger claim: For all
-    <math|k\<in\><with|font|Bbb|N>>,
+    Let <math|F<rsub|S>> be the state transition function for
+    <math|<value|Net>> under <math|S>, and <math|F<rprime|'><rsub|S>> be the
+    state transition function for <math|<value|Hebb><around*|(|<value|Net>,S|)>>
+    under <math|S>. First, since <value|Closure><rsub|<value|Hebb><around*|(|<value|Net>,S|)>><around*|(|S|)>
+    is a fixed point under <math|S> in <math|<value|Hebb><around*|(|<value|Net>,S|)>>,
+    we have <math|F<rprime|'><rsub|S><around*|(|<value|Closure><rsub|<value|Hebb><around*|(|<value|Net>,S|)>><around*|(|S|)>|)>=<value|Closure><rsub|<value|Hebb><around*|(|<value|Net>,S|)>><around*|(|S|)>>.
+    But I will show that <math|<value|Closure><rsub|<value|Net>><around*|(|S|)>>
+    is <with|font-shape|italic|also> a fixed point under <math|S> in
+    <math|<value|Hebb><around*|(|<value|Net>,S|)>>, i.e.
+    <math|F<rsub|S><rprime|'><around*|(|<value|Closure><rsub|<value|Net>><around*|(|S|)>|)>=<value|Closure><rsub|<value|Net>><around*|(|S|)>>.
+    Since we assumed there is a <with|font-shape|italic|unique> fixed point
+    under <math|S> in <math|<value|Hebb><around*|(|<value|Net>,S|)>>, it will
+    follow that these two states must be the same. In other words,
+    <math|<value|Closure><rsub|<value|Hebb><around*|(|<value|Net>,S|)>><around*|(|S|)>=<value|Closure><rsub|<value|Net>><around*|(|S|)>>.
+
+    For the <math|<around*|(|\<leftarrow\>|)>> direction, suppose
+    <math|n\<in\><value|Closure><rsub|<value|Net>><around*|(|S|)>>. Since
+    <math|<value|Closure><rsub|<value|Net>><around*|(|S|)>> is a fixed point
+    under <math|S> in <math|<value|Net>>,
+    <math|<value|Closure><rsub|<value|Net>><around*|(|S|)>=F<rsub|S><around*|(|<value|Closure><rsub|<value|Net>><around*|(|S|)>|)>>.
+    By definition of <math|F>, either <math|n\<in\>S> (in which case we are
+    done), or <math|n> is activated by its predecessors <math|m> in
+    <math|<value|Closure><rsub|<value|Net>><around*|(|S|)>> over
+    <math|<value|Net>>, i.e.
 
     <\equation*>
-      <around*|(|F<rsup|\<star\>><rsub|S>|)><rsup|k><around*|(|S|)>=F<rsup|k><rsub|S><around*|(|S|)>
+      A<around*|(|<big|sum><rsub|m\<in\><value|preds><around*|(|n|)>>W<rsub|<value|Net>><around*|(|m,n|)>\<cdot\><value|bigchi><rsub|<value|Closure><rsub|<value|Net>><around*|(|S|)>><around*|(|m|)>|)>=1
     </equation*>
 
-    In other words, the original transition function <math|F<rsub|S>> and the
-    updated transition function <math|F<rsup|\<star\>><rsub|S>> have the same
-    effect on <math|S> no matter how many times they are applied. It follows
-    that <math|<value|Closure><rsub|<value|Hebb><around*|(|<value|Net>,S|)>><around|(|S|)>=<value|Closure><rsub|<Net>><around|(|S|)>>
-    <todo|should I say more about why?> Let's proceed by induction on
-    <math|k>.
+    By the first part of Proposition <todo|todo>, each
+    <math|W<rsub|<value|Net>><around*|(|m,n|)>\<leq\>W<rsub|<value|Hebb><around*|(|<value|Net>,S|)>><around*|(|m,n|)>>.
+    So the inner sum using the former is <math|\<leq\>> the inner sum using
+    the latter. Since <math|A> is nondecreasing, we have
 
-    <\description>
-      <item*|Base Step><math|k=0>, and so the goal simplifies to <math|S=S>,
-      which is true.
+    <\equation*>
+      A<around*|(|<big|sum><rsub|m\<in\><value|preds><around*|(|n|)>>W<rsub|<value|Hebb><around*|(|<value|Net>,S|)>><around*|(|m,n|)>\<cdot\><value|bigchi><rsub|<value|Closure><rsub|<value|Net>><around*|(|S|)>><around*|(|m|)>|)>=1
+    </equation*>
 
-      <item*|Inductive Step>Let <math|k\<geq\>0>. Well, by our inductive
-      hypothesis, <math|<around*|(|F<rsup|\<star\>><rsub|S>|)><rsup|k><around*|(|S|)>=<around*|(|F<rsup|\<star\>><rsub|S>|)><around*|(|<around*|(|F<rsup|\<star\>><rsub|S>|)><rsup|k-1><around*|(|S|)>|)>=<around*|(|F<rsup|\<star\>><rsub|S>|)><around*|(|F<rsup|k-1><rsub|S><around*|(|S|)>|)>>.
-      We want to show now that
+    But this implies that <math|n\<in\>F<rsub|S><rprime|'><around*|(|<value|Closure><rsub|<value|Net>><around*|(|S|)>|)>>.
 
-      <\equation*>
-        <around*|(|F<rsup|\<star\>><rsub|S>|)><around*|(|F<rsup|k-1><rsub|S><around*|(|S|)>|)>=F<rsup|k><rsub|S><around*|(|S|)>
-      </equation*>
+    As for the <math|<around*|(|\<rightarrow\>|)>> direction, suppose
+    <math|n\<in\>F<rsub|S><rprime|'><around*|(|<value|Closure><rsub|<value|Net>><around*|(|S|)>|)>>.
+    By definition of <math|F<rprime|'>>, either <math|n\<in\>S> (in which
+    case we are done), or <math|n> is activated by its predecessors <math|m>
+    in <math|<value|Closure><rsub|<value|Net>><around*|(|S|)>> over
+    <math|<value|Hebb><around*|(|<value|Net>,S|)>>, i.e.
 
-      <math|<around*|(|\<rightarrow\>|)>> Suppose
-      <math|n\<in\>><math|<around*|(|F<rsup|\<star\>><rsub|S>|)><around*|(|F<rsup|k-1><rsub|S><around*|(|S|)>|)>>.
-      So either <math|n\<in\>S>, in which case
-      <math|n\<in\>F<rsub|S><around*|(|F<rsup|k-1><rsub|S><around*|(|S|)>|)>>,
-      or <math|n> is activated by its predecessors in
-      <math|<value|Hebb><around*|(|<value|Net>,S|)>>, i.e.
+    <\equation*>
+      A<around*|(|<big|sum><rsub|m\<in\><value|preds><around*|(|n|)>>W<rsub|<value|Hebb><around*|(|<value|Net>,S|)>><around*|(|m,n|)>\<cdot\><value|bigchi><rsub|<value|Closure><rsub|<value|Net>><around*|(|S|)>><around*|(|m|)>|)>=1
+    </equation*>
 
-      <\equation*>
-        A<around*|(|<big|sum><rsub|m\<in\><value|preds><around*|(|n|)>>W<rsub|<value|Hebb><around*|(|<value|Net>,S|)>><around*|(|m,n|)>\<cdot\><value|bigchi><rsub|F<rsup|k-1><rsub|S><around*|(|S|)>><around*|(|m|)>|)>=1
-      </equation*>
+    Suppose for contradiction that <math|n<neg|\<in\>><value|Closure><rsub|<value|Net>><around*|(|S|)>>.
+    By the second part of Proposition <todo|todo>, each
+    <math|W<rsub|<value|Hebb><around*|(|<value|Net>,S|)>><around*|(|m,n|)>=W<rsub|<value|Net>><around*|(|m,n|)>>,
+    and so we have
 
-      Now suppose for contradiction that <math|n<neg|\<in\>>F<rsup|k><rsub|S><around*|(|S|)>>.
-      <todo|and then what???>
+    <\equation*>
+      A<around*|(|<big|sum><rsub|m\<in\><value|preds><around*|(|n|)>>W<rsub|<value|Net>><around*|(|m,n|)>\<cdot\><value|bigchi><rsub|<value|Closure><rsub|<value|Net>><around*|(|S|)>><around*|(|m|)>|)>=1
+    </equation*>
 
-      <math|<around*|(|\<leftarrow\>|)>>
-    </description>
-
-    \;
+    but this implies that <math|n\<in\>F<rsub|S><around*|(|<value|Closure><rsub|<value|Net>><around*|(|S|)>|)>=<value|Closure><rsub|<value|Net>><around*|(|S|)>>,
+    which contradicts <math|n<neg|\<in\>><value|Closure><rsub|<value|Net>><around*|(|S|)>>.
   </proof>
-
-  \;
-
-  <with|font-series|bold|IDEMPOTENCE PROOF FROM ABOVE:>
-
-  I will prove a stronger claim: For all <math|k\<in\><with|font|Bbb|N>>,
-
-  <\equation*>
-    F<rsup|k><rsub|S><around*|(|<value|Closure><around*|(|S|)>|)>=<value|Closure><around*|(|S|)>
-  </equation*>
-
-  In other words, applying the transition function <math|F<rsub|S>> any
-  number of times to <math|<value|Closure><around*|(|S|)>> has no effect.
-  Since <math|<value|Closure><around*|(|<value|Closure><around*|(|S|)>|)>=F<rsup|k><rsub|S><around*|(|<value|Closure><around*|(|S|)>|)>>
-  for some <math|k\<in\><with|font|Bbb|N>>, the Idempotence property follows.
-  Let's proceed by induction on <math|k>.
-
-  <\description>
-    <item*|Base Step><math|k=0>, and so the goal simplifies to
-    <math|<value|Closure><around*|(|S|)>=<value|Closure><around*|(|S|)>>,
-    which is true.
-
-    <item*|Inductive Step>Let <math|k\<geq\>0>. We have
-    <math|F<rsup|k><rsub|S><around*|(|<value|Closure><around*|(|S|)>|)>=F<rsub|S><around*|(|F<rsup|k-1><rsub|S><around*|(|<value|Closure><around*|(|S|)>|)>|)>>.
-    Our inductive hypothesis here is that, for <math|k-1>,
-    <math|F<rsup|k-1><rsub|S><rsup|><around*|(|<value|Closure><around*|(|S|)>|)>=<value|Closure><around*|(|S|)>>.
-    So we can subsitute that to get <math|F<rsup|k><rsub|S><around*|(|<value|Closure><around*|(|S|)>|)>=F<rsub|S><around*|(|<value|Closure><around*|(|S|)>|)>=<value|Closure><around*|(|S|)>>,
-    which is what we wanted to show.
-  </description>
-
-  \;
-
-  \;
-
-  \;
-
-  \;
-
-  \;
-
-  \;
 
   \ <no-indent>and so <math|<value|Hebbstar>> is equivalent to repeatedly
   applying <math|<value|Hebb>> until we reach a fixed point
@@ -1795,7 +1843,10 @@
   </proposition>
 
   <\proof>
-    <todo|>
+    The proof is the same as the proof for <math|<value|Hebb>> (see
+    Proposition <todo|todo>). In place of Propositions <todo|todo> and
+    <todo|todo>, we instead apply Propositions <todo|todo> and <todo|todo>,
+    respectively.
   </proof>
 
   <\proposition>
@@ -1812,12 +1863,41 @@
   </proposition>
 
   <\proof>
-    <todo|>
+    I will prove each in turn:
+
+    <\enumerate>
+      <item>Let <math|F<rsub|B>> be the transition function for
+      <math|<value|Net>> under <math|B>, and <math|F<rsup|\<ast\>><rsub|B>>
+      be the transition function for <math|<value|Net>> under <math|B>. I
+      will prove something a bit stronger than the original claim: For all
+      <math|k\<in\><with|font|Bbb|N>>,
+
+      <\equation*>
+        <value|Closure><around|(|A|)>\<cap\>F<rsup|k><rsub|B><around*|(|B|)>\<subseteq\><around*|(|F<rprime|'><rsub|B>|)><rsup|k><around*|(|B|)>
+      </equation*>
+
+      Let's proceed by induction on <math|k>.
+
+      <\description>
+        <item*|Base Step><math|k=0>. In this case, the goal becomes
+        <math|<value|Closure><around*|(|A|)>\<cap\>B\<subseteq\>B>, which is
+        true.
+
+        <item*|Inductive Step>Let <math|k\<geq\>0>, and suppose
+        <math|n\<in\><value|Closure><around|(|A|)>\<cap\>F<rsup|k><rsub|B><around*|(|B|)>>.
+        <todo|Todo>
+      </description>
+
+      <item><todo|Todo>
+
+      <item><todo|Todo>
+    </enumerate>
   </proof>
 
   <\theorem>
-    <dueto|<aw|hand-point-right|1fn>>Let <math|<value|Net>\<in\><value|NetModel>>.
-    For all <math|A,B\<in\><value|State>>,
+    <dueto|<aw|hand-point-right|1fn>>Let <math|<value|Net>\<in\><value|NetModel>>,
+    and suppose <math|<value|Net>> is fully connected. For all
+    <math|A,B\<in\><value|State>>,
 
     <\equation*>
       <value|Closure><rsub|<value|Hebbstar><around*|(|<value|Net>,A|)>><around|(|B|)>=<value|Closure><around*|(|B\<cup\><around*|(|<value|Closure><around*|(|A|)>\<cap\><value|Reach><around*|(|<value|Closure><around*|(|A|)>\<cap\><value|Closure><around*|(|B|)>|)>|)>|)>
@@ -1825,7 +1905,115 @@
   </theorem>
 
   <\proof>
-    <todo|>
+    Let <math|F<rsub|B>> be the state transition function for
+    <math|<value|Net>> under <math|B>, and <math|F<rsup|\<ast\>><rsub|B>> be
+    the state transition function for <math|<value|Hebbstar><around*|(|<value|Net>,A|)>>
+    under <math|B>. For notational convenience, let <math|T> be the set
+    inside <math|<value|Closure>> on the right-hand side, i.e.
+
+    <\equation*>
+      T=B\<cup\><around*|(|<value|Closure><around*|(|A|)>\<cap\><value|Reach><around*|(|<value|Closure><around*|(|A|)>\<cap\><value|Closure><around*|(|B|)>|)>|)>
+    </equation*>
+
+    This proof follows the major plot beats of the proof for Theorem
+    <todo|TODO>. First, since <math|<value|Closure><rsub|<value|Hebbstar><around*|(|<value|Net>,A|)>><around|(|B|)>>
+    is a fixed point under <math|B> in <math|<value|Hebbstar><around*|(|<value|Net>,A|)>>,
+    we have <math|F<rsup|\<ast\>><rsub|B><around*|(|<value|Closure><rsub|<value|Hebbstar><around*|(|<value|Net>,A|)>><around|(|B|)>|)>=<value|Closure><rsub|<value|Hebbstar><around*|(|<value|Net>,A|)>><around|(|B|)>>.
+    But I will show that <math|<value|Closure><around*|(|T|)>> is
+    <with|font-shape|italic|also> a fixed point under <math|B> in
+    <math|<value|Hebb><around*|(|<value|Net>,A|)>>, i.e.
+    <math|F<rsup|\<ast\>><rsub|B><around*|(|<value|Closure><around*|(|T|)>|)>=<value|Closure><around*|(|T|)>>.
+    Since we postulated that there is a <with|font-shape|italic|unique> fixed
+    point under <math|B> in <math|<value|Hebbstar><around*|(|<value|Net>,A|)>>,
+    it will follow that these two states must be the same:
+    <math|<value|Closure><rsub|<value|Hebbstar><around*|(|<value|Net>,A|)>><around|(|B|)>=<value|Closure><around*|(|T|)>>.
+
+    Let's show that <math|F<rsup|\<ast\>><rsub|B><around*|(|<value|Closure><around*|(|T|)>|)>=<value|Closure><around*|(|T|)>>.
+    For the <math|<around*|(|\<leftarrow\>|)>> direction, suppose
+    <math|n\<in\><value|Closure><around*|(|T|)>>. Since
+    <math|<value|Closure><around*|(|T|)>> is a fixed point under <math|T> in
+    <math|<value|Net>>, <math|<value|Closure><around*|(|T|)>=F<rsub|T><around*|(|<value|Closure><around*|(|T|)>|)>>.
+    By definition of <math|F>, we have two cases:
+
+    <\description>
+      <item*|Case 1><math|n\<in\>T>, i.e.
+      <math|n\<in\>B\<cup\><around*|(|<value|Closure><around*|(|A|)>\<cap\><value|Reach><around*|(|<value|Closure><around*|(|A|)>\<cap\><value|Closure><around*|(|B|)>|)>|)>>.
+      If <math|n\<in\>B>, then we're done by the definition of
+      <math|F<rsup|\<ast\>><rsub|B>> (the next state includes all nodes in
+      <math|B>). Otherwise, we have <math|n\<in\><value|Closure><around*|(|A|)>>
+      and a path from some <math|m\<in\><value|Closure><around*|(|A|)>\<cap\><value|Closure><around*|(|B|)>>
+      to <math|n> in <math|<value|Net>>. Since <math|<value|Net>> is fully
+      connected, <math|m> is in fact a predecessor of <math|n>. So we have
+      <math|m\<in\><value|preds><around*|(|n|)>>,
+      <math|m,n\<in\><value|Closure><around*|(|A|)>>, and
+      <math|m\<in\><value|Closure><around*|(|B|)>>. But these are exactly the
+      conditions of Lemma <todo|todo>! This means we have
+
+      <\equation*>
+        A<around*|(|<big|sum><rsub|m\<in\><value|preds><around*|(|n|)>>W<rsub|<value|Hebbstar><around*|(|<value|Net>,A|)>><around*|(|m,n|)>\<cdot\><value|bigchi><rsub|<value|Closure><around*|(|B|)>><around*|(|m|)>|)>=1
+      </equation*>
+
+      which implies that <math|n\<in\>F<rsup|\<ast\>><rsub|B><around*|(|<value|Closure><around*|(|B|)>|)>>.
+      <todo|OOPS, <math|B> instead of <math|T>>
+
+      <item*|Case 2><math|n> is activated by its predecessors <math|m> in
+      <math|<value|Closure><around*|(|T|)>> over <math|<value|Net>>, i.e.
+
+      <\equation*>
+        A<around*|(|<big|sum><rsub|m\<in\><value|preds><around*|(|n|)>>W<rsub|<value|Net>><around*|(|m,n|)>\<cdot\><value|bigchi><rsub|<value|Closure><around*|(|T|)>><around*|(|m|)>|)>=1
+      </equation*>
+
+      By the first part of Proposition <todo|todo>, each
+      <math|W<rsub|<value|Net>><around*|(|m,n|)>\<leq\>W<rsub|<value|Hebbstar><around*|(|<value|Net>,S|)>><around*|(|m,n|)>>.
+      So the inner sum using the former is <math|\<leq\>> the inner sum using
+      the latter. Since <math|A> is nondecreasing, we have
+
+      <\equation*>
+        A<around*|(|<big|sum><rsub|m\<in\><value|preds><around*|(|n|)>>W<rsub|<value|Hebbstar><around*|(|<value|Net>,A|)>><around*|(|m,n|)>\<cdot\><value|bigchi><rsub|<value|Closure><around*|(|T|)>><around*|(|m|)>|)>=1
+      </equation*>
+
+      But this immediately implies that <math|n\<in\>F<rsub|B><rsup|\<ast\>><around*|(|<value|Closure><around*|(|T|)>|)>>.
+    </description>
+
+    As for the <math|<around*|(|\<rightarrow\>|)>> direction, suppose
+    <math|n\<in\>F<rsup|\<ast\>><rsub|B><around*|(|<value|Closure><around*|(|T|)>|)>>.
+    By definition of <math|F<rsup|\<ast\>>>, we have two cases:
+
+    <\description>
+      <item*|Case 1><math|n\<in\>B>. So <math|n\<in\>B\<cup\><around*|(|<value|Closure><around*|(|A|)>\<cap\><value|Reach><around*|(|<value|Closure><around*|(|A|)>\<cap\><value|Closure><around*|(|B|)>|)>|)>=T>.
+      By inclusion of <math|<value|Closure>>, we have
+      <math|n\<in\><value|Closure><around*|(|T|)>>.
+
+      <item*|Case 2><math|n> is activated by its predecessors <math|m> in
+      <math|<value|Closure><around*|(|T|)>> over
+      <math|<value|Hebbstar><around*|(|<value|Net>,A|)>>, i.e.
+
+      <\equation*>
+        A<around*|(|<big|sum><rsub|m\<in\><value|preds><around*|(|n|)>>W<rsub|<value|Hebbstar><around*|(|<value|Net>,A|)>><around*|(|m,n|)>\<cdot\><value|bigchi><rsub|<value|Closure><around*|(|T|)>><around*|(|m|)>|)>=1
+      </equation*>
+
+      Suppose for contradiction that <math|n<neg|\<in\>><value|Closure><around*|(|T|)>>.
+      By the second part of Proposition <todo|todo>, each
+      <math|W<rsub|<value|Hebbstar><around*|(|<value|Net>,A|)>><around*|(|m,n|)>=W<rsub|<value|Net>><around*|(|m,n|)>>,
+      and so we have
+
+      <\equation*>
+        A<around*|(|<big|sum><rsub|m\<in\><value|preds><around*|(|n|)>>W<rsub|<value|Net>><around*|(|m,n|)>\<cdot\><value|bigchi><rsub|<value|Closure><around*|(|T|)>><around*|(|m|)>|)>=1
+      </equation*>
+
+      but this implies that <math|n\<in\>F<rsub|T><around*|(|<value|Closure><around*|(|T|)>|)>=<value|Closure><around*|(|T|)>>,
+      which contradicts <math|n<neg|\<in\>><value|Closure><around*|(|T|)>>.
+      So we must have <math|n\<in\><value|Closure><around*|(|T|)>>.
+    </description>
+  </proof>
+
+  <\corollary>
+    If <math|<value|Closure><around*|(|A|)>\<cap\><value|Closure><around*|(|B|)>=\<emptyset\>>,
+    then <math|<value|Closure><rsub|<value|Hebbstar><around*|(|<value|Net>,A|)>><around*|(|B|)>=<value|Closure><around*|(|B|)>>.
+  </corollary>
+
+  <\proof>
+    <todo|TODO>
   </proof>
 
   <section|Soundness for the Logic of Hebbian Learning>
@@ -3297,110 +3485,110 @@
   <\collection>
     <associate|auto-1|<tuple|1|8>>
     <associate|auto-10|<tuple|5|21>>
-    <associate|auto-11|<tuple|4|25>>
-    <associate|auto-12|<tuple|1|25>>
-    <associate|auto-13|<tuple|2|25>>
-    <associate|auto-14|<tuple|3|27>>
-    <associate|auto-15|<tuple|4|28>>
-    <associate|auto-16|<tuple|5|30>>
-    <associate|auto-17|<tuple|6|31>>
-    <associate|auto-18|<tuple|5|32>>
-    <associate|auto-19|<tuple|1|32>>
+    <associate|auto-11|<tuple|4|27>>
+    <associate|auto-12|<tuple|1|27>>
+    <associate|auto-13|<tuple|2|27>>
+    <associate|auto-14|<tuple|3|30>>
+    <associate|auto-15|<tuple|4|31>>
+    <associate|auto-16|<tuple|5|34>>
+    <associate|auto-17|<tuple|6|34>>
+    <associate|auto-18|<tuple|5|35>>
+    <associate|auto-19|<tuple|1|35>>
     <associate|auto-2|<tuple|2|14>>
-    <associate|auto-20|<tuple|2|32>>
-    <associate|auto-21|<tuple|3|32>>
-    <associate|auto-22|<tuple|4|32>>
-    <associate|auto-23|<tuple|5|36>>
-    <associate|auto-24|<tuple|6|39>>
-    <associate|auto-25|<tuple|1|39>>
-    <associate|auto-26|<tuple|2|39>>
-    <associate|auto-27|<tuple|3|42>>
-    <associate|auto-28|<tuple|4|43>>
-    <associate|auto-29|<tuple|5|44>>
+    <associate|auto-20|<tuple|2|35>>
+    <associate|auto-21|<tuple|3|35>>
+    <associate|auto-22|<tuple|4|35>>
+    <associate|auto-23|<tuple|5|39>>
+    <associate|auto-24|<tuple|6|42>>
+    <associate|auto-25|<tuple|1|42>>
+    <associate|auto-26|<tuple|2|42>>
+    <associate|auto-27|<tuple|3|45>>
+    <associate|auto-28|<tuple|4|46>>
+    <associate|auto-29|<tuple|5|47>>
     <associate|auto-3|<tuple|1|14>>
-    <associate|auto-30|<tuple|6|45>>
-    <associate|auto-31|<tuple|7|46>>
-    <associate|auto-32|<tuple|7|49>>
-    <associate|auto-33|<tuple|7|49>>
-    <associate|auto-34|<tuple|1|49>>
-    <associate|auto-35|<tuple|A|49>>
-    <associate|auto-36|<tuple|B|49>>
-    <associate|auto-37|<tuple|C|50>>
-    <associate|auto-38|<tuple|C|51>>
+    <associate|auto-30|<tuple|6|48>>
+    <associate|auto-31|<tuple|7|49>>
+    <associate|auto-32|<tuple|7|52>>
+    <associate|auto-33|<tuple|7|52>>
+    <associate|auto-34|<tuple|1|52>>
+    <associate|auto-35|<tuple|A|52>>
+    <associate|auto-36|<tuple|B|52>>
+    <associate|auto-37|<tuple|C|53>>
+    <associate|auto-38|<tuple|C|54>>
     <associate|auto-4|<tuple|2|14>>
     <associate|auto-5|<tuple|3|15>>
     <associate|auto-6|<tuple|1|15>>
     <associate|auto-7|<tuple|2|15>>
     <associate|auto-8|<tuple|3|18>>
     <associate|auto-9|<tuple|4|20>>
-    <associate|bib-Christoff:2015aa|<tuple|17|52>>
-    <associate|bib-Plaza2007PAL|<tuple|50|54>>
-    <associate|bib-achiam2023gpt|<tuple|1|51>>
-    <associate|bib-aho1972transitive|<tuple|2|51>>
-    <associate|bib-albarghouthi2021introduction|<tuple|3|51>>
-    <associate|bib-baccini2024dynamic|<tuple|4|51>>
-    <associate|bib-bader2005dimensions|<tuple|5|51>>
-    <associate|bib-badreddine2022aa|<tuple|6|51>>
-    <associate|bib-balkenius1991nonmonotonic|<tuple|7|51>>
-    <associate|bib-baltag1998PALC|<tuple|13|51>>
-    <associate|bib-baltag2009iterated|<tuple|14|51>>
-    <associate|bib-baltag2019dynamic|<tuple|9|51>>
-    <associate|bib-baltag2019right|<tuple|11|51>>
-    <associate|bib-baltag2019socialnetworks|<tuple|8|51>>
-    <associate|bib-baltag2019tracking|<tuple|10|51>>
-    <associate|bib-besold2021neural|<tuple|15|52>>
-    <associate|bib-blutner2004nonmonotonic|<tuple|16|52>>
-    <associate|bib-ciravegna2023logic|<tuple|18|52>>
-    <associate|bib-ditmarschDEL|<tuple|64|55>>
-    <associate|bib-dubey2024llama|<tuple|21|52>>
-    <associate|bib-garcez2001symbolic|<tuple|19|52>>
-    <associate|bib-garcez2008neural|<tuple|22|52>>
-    <associate|bib-geiger2024aa|<tuple|23|52>>
-    <associate|bib-giordano2021weighted|<tuple|25|52>>
-    <associate|bib-giordano2022conditional|<tuple|24|52>>
-    <associate|bib-gross2002genealogy|<tuple|26|52>>
-    <associate|bib-harmelen2022preface|<tuple|27|52>>
-    <associate|bib-hebb-organization-of-behavior-1949|<tuple|28|52>>
-    <associate|bib-immerman1998descriptive|<tuple|29|52>>
-    <associate|bib-kisby2022logic|<tuple|30|53>>
-    <associate|bib-kisby2024hebbian|<tuple|31|53>>
-    <associate|bib-kozen1981elementary|<tuple|32|53>>
-    <associate|bib-kraus1990nonmonotonic|<tuple|33|53>>
-    <associate|bib-leitgeb2001nonmonotonic|<tuple|34|53>>
-    <associate|bib-leitgeb2003nonmonotonic|<tuple|35|53>>
-    <associate|bib-leitgeb2018neural|<tuple|36|53>>
-    <associate|bib-libkin2004elements|<tuple|37|53>>
-    <associate|bib-logicsforepistemicactions|<tuple|12|51>>
-    <associate|bib-manhaeve2021neural|<tuple|38|53>>
-    <associate|bib-mcculloch1943logical|<tuple|39|53>>
-    <associate|bib-mcdermott1987critique|<tuple|40|53>>
-    <associate|bib-merrill2019sequential|<tuple|41|53>>
-    <associate|bib-merrill2020formal|<tuple|43|53>>
-    <associate|bib-merrill2023expressive|<tuple|42|53>>
-    <associate|bib-moss2007finite|<tuple|44|53>>
-    <associate|bib-moura2021lean|<tuple|45|53>>
-    <associate|bib-murphy2004big|<tuple|46|53>>
-    <associate|bib-odense2022ASF|<tuple|47|53>>
-    <associate|bib-oja1982simplified|<tuple|48|54>>
-    <associate|bib-pacuit2017neighborhood|<tuple|49|54>>
-    <associate|bib-polya1954mathematics|<tuple|51|54>>
-    <associate|bib-rumelhart1986aa|<tuple|52|54>>
-    <associate|bib-rumelhart1986learning|<tuple|53|54>>
-    <associate|bib-sarker2021neuro|<tuple|54|54>>
-    <associate|bib-sep-computational-complexity|<tuple|20|52>>
-    <associate|bib-sep-frame-problem|<tuple|55|54>>
-    <associate|bib-silver2017mastering|<tuple|56|54>>
-    <associate|bib-srivastava2015highway|<tuple|57|54>>
-    <associate|bib-strobl2024formal|<tuple|58|54>>
-    <associate|bib-tamkin2021understanding|<tuple|59|54>>
-    <associate|bib-van2007beliefrevision|<tuple|60|54>>
-    <associate|bib-van2007prefupgrade|<tuple|62|54>>
-    <associate|bib-van2011logicaldynamics|<tuple|61|54>>
-    <associate|bib-van2015dynamic|<tuple|63|54>>
-    <associate|bib-vaswani2017attention|<tuple|65|55>>
-    <associate|bib-weiss2018practical|<tuple|66|55>>
-    <associate|eqn1|<tuple|1|35>>
-    <associate|eqn2|<tuple|2|35>>
+    <associate|bib-Christoff:2015aa|<tuple|17|55>>
+    <associate|bib-Plaza2007PAL|<tuple|50|57>>
+    <associate|bib-achiam2023gpt|<tuple|1|54>>
+    <associate|bib-aho1972transitive|<tuple|2|54>>
+    <associate|bib-albarghouthi2021introduction|<tuple|3|54>>
+    <associate|bib-baccini2024dynamic|<tuple|4|54>>
+    <associate|bib-bader2005dimensions|<tuple|5|54>>
+    <associate|bib-badreddine2022aa|<tuple|6|54>>
+    <associate|bib-balkenius1991nonmonotonic|<tuple|7|54>>
+    <associate|bib-baltag1998PALC|<tuple|13|54>>
+    <associate|bib-baltag2009iterated|<tuple|14|54>>
+    <associate|bib-baltag2019dynamic|<tuple|9|54>>
+    <associate|bib-baltag2019right|<tuple|11|54>>
+    <associate|bib-baltag2019socialnetworks|<tuple|8|54>>
+    <associate|bib-baltag2019tracking|<tuple|10|54>>
+    <associate|bib-besold2021neural|<tuple|15|55>>
+    <associate|bib-blutner2004nonmonotonic|<tuple|16|55>>
+    <associate|bib-ciravegna2023logic|<tuple|18|55>>
+    <associate|bib-ditmarschDEL|<tuple|64|58>>
+    <associate|bib-dubey2024llama|<tuple|21|55>>
+    <associate|bib-garcez2001symbolic|<tuple|19|55>>
+    <associate|bib-garcez2008neural|<tuple|22|55>>
+    <associate|bib-geiger2024aa|<tuple|23|55>>
+    <associate|bib-giordano2021weighted|<tuple|25|55>>
+    <associate|bib-giordano2022conditional|<tuple|24|55>>
+    <associate|bib-gross2002genealogy|<tuple|26|55>>
+    <associate|bib-harmelen2022preface|<tuple|27|55>>
+    <associate|bib-hebb-organization-of-behavior-1949|<tuple|28|55>>
+    <associate|bib-immerman1998descriptive|<tuple|29|55>>
+    <associate|bib-kisby2022logic|<tuple|30|56>>
+    <associate|bib-kisby2024hebbian|<tuple|31|56>>
+    <associate|bib-kozen1981elementary|<tuple|32|56>>
+    <associate|bib-kraus1990nonmonotonic|<tuple|33|56>>
+    <associate|bib-leitgeb2001nonmonotonic|<tuple|34|56>>
+    <associate|bib-leitgeb2003nonmonotonic|<tuple|35|56>>
+    <associate|bib-leitgeb2018neural|<tuple|36|56>>
+    <associate|bib-libkin2004elements|<tuple|37|56>>
+    <associate|bib-logicsforepistemicactions|<tuple|12|54>>
+    <associate|bib-manhaeve2021neural|<tuple|38|56>>
+    <associate|bib-mcculloch1943logical|<tuple|39|56>>
+    <associate|bib-mcdermott1987critique|<tuple|40|56>>
+    <associate|bib-merrill2019sequential|<tuple|41|56>>
+    <associate|bib-merrill2020formal|<tuple|43|56>>
+    <associate|bib-merrill2023expressive|<tuple|42|56>>
+    <associate|bib-moss2007finite|<tuple|44|56>>
+    <associate|bib-moura2021lean|<tuple|45|56>>
+    <associate|bib-murphy2004big|<tuple|46|56>>
+    <associate|bib-odense2022ASF|<tuple|47|56>>
+    <associate|bib-oja1982simplified|<tuple|48|57>>
+    <associate|bib-pacuit2017neighborhood|<tuple|49|57>>
+    <associate|bib-polya1954mathematics|<tuple|51|57>>
+    <associate|bib-rumelhart1986aa|<tuple|52|57>>
+    <associate|bib-rumelhart1986learning|<tuple|53|57>>
+    <associate|bib-sarker2021neuro|<tuple|54|57>>
+    <associate|bib-sep-computational-complexity|<tuple|20|55>>
+    <associate|bib-sep-frame-problem|<tuple|55|57>>
+    <associate|bib-silver2017mastering|<tuple|56|57>>
+    <associate|bib-srivastava2015highway|<tuple|57|57>>
+    <associate|bib-strobl2024formal|<tuple|58|57>>
+    <associate|bib-tamkin2021understanding|<tuple|59|57>>
+    <associate|bib-van2007beliefrevision|<tuple|60|57>>
+    <associate|bib-van2007prefupgrade|<tuple|62|57>>
+    <associate|bib-van2011logicaldynamics|<tuple|61|57>>
+    <associate|bib-van2015dynamic|<tuple|63|57>>
+    <associate|bib-vaswani2017attention|<tuple|65|58>>
+    <associate|bib-weiss2018practical|<tuple|66|58>>
+    <associate|eqn1|<tuple|1|38>>
+    <associate|eqn2|<tuple|2|38>>
   </collection>
 </references>
 
@@ -3746,7 +3934,7 @@
       <no-break><pageref|auto-14>
 
       4<space|0.5fn>Properties of <with|mode|<quote|math>|<with|font-family|<quote|ss>|Hebb>>
-      and <with|mode|<quote|math>|<with|font-family|<quote|ss>|Hebb<rsup|\<star\>>>>
+      and <with|mode|<quote|math>|<with|font-family|<quote|ss>|Hebb<rsup|\<ast\>>>>
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-15>
 
