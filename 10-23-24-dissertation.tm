@@ -30,6 +30,8 @@
 
     <assign|precrefl|\<prec\><rsub|<text|refl>>>
 
+    <assign|Deltabest|\<Delta\><rsup|\<bigstar\>>>
+
     \;
 
     <assign|Closure|<with|font-family|ss|Clos>>
@@ -939,12 +941,12 @@
   </definition>
 
   The plausibility order <math|\<prec\>> is required to be a strict order
-  relation (irreflexive, transitive, and antisymmetric).
-  <math|S<rsub|1>\<prec\>S<rsub|2>> intuitively means that the agent
-  considers the state <math|S<rsub|1>\<in\><with|font|cal|S>> to be more
-  plausible, or more normal, than <math|S<rsub|2>\<in\><with|font|cal|S>>. In
-  order to reason about the most plausible (normal) states, we can look at
-  the <math|\<prec\>>-minimal states. Formally, each cumulative-ordered model
+  relation (irreflexive and transitive). <math|S<rsub|1>\<prec\>S<rsub|2>>
+  intuitively means that the agent considers the state
+  <math|S<rsub|1>\<in\><with|font|cal|S>> to be more plausible, or more
+  normal, than <math|S<rsub|2>\<in\><with|font|cal|S>>. In order to reason
+  about the most plausible (normal) states, we can look at the
+  <math|\<prec\>>-minimal states. Formally, each cumulative-ordered model
   determines a function <math|<value|best><rsub|\<prec\>>:<with|font|cal|S>\<rightarrow\><with|font|cal|S>>
 
   <\equation*>
@@ -4036,11 +4038,11 @@
 
   <\definition>
     <\float|float|thb>
-      <big-figure|<tabular|<tformat|<twith|table-width|1par>|<twith|table-hmode|exact>|<twith|table-lborder|0.1em>|<twith|table-rborder|0.1em>|<twith|table-bborder|0.1em>|<twith|table-tborder|0.1em>|<cwith|4|4|2|2|cell-valign|t>|<cwith|4|4|1|1|cell-valign|t>|<cwith|2|2|1|1|cell-valign|t>|<cwith|2|2|2|2|cell-valign|t>|<cwith|1|-1|1|-1|cell-bsep|0.2fn>|<cwith|1|-1|1|-1|cell-tsep|0.2fn>|<cwith|1|1|1|-1|cell-tsep|0.5fn>|<cwith|4|4|1|-1|cell-bsep|0.5fn>|<cwith|1|-1|1|1|cell-lsep|0.5fn>|<cwith|1|-1|2|2|cell-rsep|0.5fn>|<cwith|3|3|1|-1|cell-tsep|0.75fn>|<table|<row|<cell|<with|font-series|bold|Axioms
+      <big-figure|<tabular|<tformat|<twith|table-width|1par>|<twith|table-hmode|exact>|<twith|table-lborder|0.1em>|<twith|table-rborder|0.1em>|<twith|table-bborder|0.1em>|<twith|table-tborder|0.1em>|<cwith|4|4|2|2|cell-valign|t>|<cwith|4|4|1|1|cell-valign|t>|<cwith|2|2|1|1|cell-valign|t>|<cwith|2|2|2|2|cell-valign|t>|<cwith|1|-1|1|-1|cell-bsep|0.2fn>|<cwith|1|-1|1|-1|cell-tsep|0.2fn>|<cwith|1|1|1|-1|cell-tsep|0.5fn>|<cwith|4|4|1|-1|cell-bsep|0.5fn>|<cwith|1|-1|1|1|cell-lsep|0.5fn>|<cwith|1|-1|2|2|cell-rsep|0.5fn>|<cwith|3|3|1|-1|cell-tsep|0.75fn>|<cwith|1|-1|1|1|cell-rsep|0fn>|<cwith|1|-1|2|2|cell-lsep|0fn>|<table|<row|<cell|<with|font-series|bold|Axioms
       for <math|<value|Know>>:>>|<cell|<with|font-series|bold|Axioms for
       <math|<value|All>>:>>>|<row|<cell|<tabular|<tformat|<cwith|1|-1|1|-1|cell-lsep|0.25fn>|<cwith|1|-1|1|-1|cell-rsep|0.25fn>|<cwith|1|-1|1|-1|cell-bsep|0.25fn>|<cwith|1|-1|1|-1|cell-tsep|0.25fn>|<table|<row|<cell|<with|font-series|bold|(Dual)>>|<cell|<math|<value|diaKnow>\<varphi\>\<leftrightarrow\>\<neg\><value|Know>\<neg\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Distr)>>|<cell|<math|<value|Know><around*|(|\<varphi\>\<rightarrow\>\<psi\>|)>\<rightarrow\><around*|(|<value|Know>\<varphi\>\<rightarrow\><value|Know>\<psi\>|)>>>>|<row|<cell|<with|font-series|bold|(Refl)>>|<cell|<math|<value|Know>\<varphi\>\<rightarrow\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Trans)>>|<cell|<math|<value|Know>\<varphi\>\<rightarrow\><value|Know><value|Know>\<varphi\>>>>>>>>|<cell|<tabular|<tformat|<cwith|1|-1|1|-1|cell-lsep|0.25fn>|<cwith|1|-1|1|-1|cell-rsep|0.25fn>|<cwith|1|-1|1|-1|cell-bsep|0.25fn>|<cwith|1|-1|1|-1|cell-tsep|0.25fn>|<table|<row|<cell|<with|font-series|bold|(Dual)>>|<cell|<math|<value|Exists>\<varphi\>\<leftrightarrow\>\<neg\><value|All>\<neg\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Distr)>>|<cell|<math|<value|All><around*|(|\<varphi\>\<rightarrow\>\<psi\>|)>\<rightarrow\><around*|(|<value|All>\<varphi\>\<rightarrow\><value|All>\<psi\>|)>>>>|<row|<cell|<with|font-series|bold|(Refl)>>|<cell|<math|<value|All>\<varphi\>\<rightarrow\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(5)>>|<cell|<math|<value|Exists>\<varphi\>\<rightarrow\><value|All><around*|(|<value|Exists>\<varphi\>|)>>>>|<row|<cell|<with|font-series|bold|(Interact)>>|<cell|<math|<value|All>\<varphi\>\<rightarrow\><value|Know>\<varphi\>>>>>>>>>|<row|<cell|<with|font-series|bold|Axioms
       for <math|<value|bestop>>:>>|<cell|<with|font-series|bold|Rules of
-      Inference:>>>|<row|<cell|<tabular|<tformat|<cwith|1|-1|1|-1|cell-lsep|0.25fn>|<cwith|1|-1|1|-1|cell-rsep|0.25fn>|<cwith|1|-1|1|-1|cell-bsep|0.25fn>|<cwith|1|-1|1|-1|cell-tsep|0.25fn>|<table|<row|<cell|<with|font-series|bold|(Dual)>>|<cell|<math|<value|diabestop>\<varphi\>\<leftrightarrow\>\<neg\><value|bestop>\<neg\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Smooth)>>|<cell|<math|<around*|(|\<varphi\>\<wedge\>\<neg\><value|bestop>\<varphi\>|)>\<rightarrow\><value|Exists><value|bestop>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Refl)>>|<cell|<math|<value|bestop>\<varphi\>\<rightarrow\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Trans)>>|<cell|<math|<value|bestop>\<varphi\>\<rightarrow\><value|bestop><value|bestop>\<varphi\>>>>>>>>|<cell|<tabular|<tformat|<cwith|1|-1|1|-1|cell-lsep|0.25fn>|<cwith|1|-1|1|-1|cell-rsep|0.25fn>|<cwith|1|-1|1|-1|cell-bsep|0.25fn>|<cwith|1|-1|1|-1|cell-tsep|0.25fn>|<cwith|2|2|2|2|cell-hyphen|t>|<table|<row|<cell|<with|font-series|bold|(MP)>>|<cell|From
+      Inference:>>>|<row|<cell|<tabular|<tformat|<cwith|1|-1|1|-1|cell-lsep|0.25fn>|<cwith|1|-1|1|-1|cell-rsep|0.25fn>|<cwith|1|-1|1|-1|cell-bsep|0.25fn>|<cwith|1|-1|1|-1|cell-tsep|0.25fn>|<table|<row|<cell|<with|font-series|bold|(Dual)>>|<cell|<math|<value|diabestop>\<varphi\>\<leftrightarrow\>\<neg\><value|bestop>\<neg\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Refl)>>|<cell|<math|<value|bestop>\<varphi\>\<rightarrow\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Trans)>>|<cell|<math|<value|bestop>\<varphi\>\<rightarrow\><value|bestop><value|bestop>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Smooth)>>|<cell|<math|<around*|(|\<varphi\>\<wedge\>\<neg\><value|bestop>\<varphi\>|)>\<rightarrow\><value|Exists><value|bestop>\<varphi\>>>>>>>>|<cell|<tabular|<tformat|<cwith|1|-1|1|-1|cell-lsep|0.25fn>|<cwith|1|-1|1|-1|cell-rsep|0.25fn>|<cwith|1|-1|1|-1|cell-bsep|0.25fn>|<cwith|1|-1|1|-1|cell-tsep|0.25fn>|<cwith|2|2|2|2|cell-hyphen|t>|<table|<row|<cell|<with|font-series|bold|(MP)>>|<cell|From
       <math|<proves>\<varphi\>\<rightarrow\>\<psi\>> and
       <math|<value|proves>\<varphi\>> we can infer
       <math|<value|proves>\<psi\>>>>|<row|<cell|<with|font-series|bold|(Nec)>>|<\cell>
@@ -4125,21 +4127,6 @@
       <item*|<with|font-series|bold|(Dual)> for <math|<value|bestop>>>This
       holds by definition of <math|<value|diabestop>\<varphi\>>.
 
-      <item*|<with|font-series|bold|(Smooth)> for <math|<value|bestop>>>This
-      is the only new axiom in the list, and perhaps the most important one
-      characterizing <math|<value|bestop>>. Suppose
-      <math|<value|Model>,w\<Vdash\>\<varphi\>> and
-      <math|<value|Model>,w\<Vdash\>\<neg\><value|bestop>\<varphi\>>. By the
-      semantics, this means <math|w\<in\><semantics|\<varphi\>><rsub|<value|Model>>>,
-      but <math|w<neg|\<in\>><value|best><rsub|\<prec\>><around*|(|<semantics|\<varphi\>><rsub|<value|Model>>|)>>.
-      But then the Smoothness Condition says there must be some
-      <math|v<op|\<prec\>>w> better than <math|w> that
-      <with|font-shape|italic|is> the best, i.e.,
-      <math|v\<in\><value|best><rsub|\<prec\>><around*|(|<semantics|\<varphi\>><rsub|<value|Model>>|)>>.
-      By the semantics for <math|<value|bestop>>,
-      <math|<value|Model>,v\<Vdash\><value|bestop>\<varphi\>>. But then this
-      implies that <math|<value|Model>,w\<Vdash\><value|Exists><value|bestop>\<varphi\>>.
-
       <item*|<with|font-series|bold|(Refl)> for <math|<value|bestop>>>Suppose
       <math|<value|Model>,w\<Vdash\><value|bestop>\<varphi\>>. So
       <math|w\<in\><value|best><rsub|\<prec\>><around*|(|<semantics|\<varphi\>><rsub|<value|Model>>|)>>.
@@ -4153,6 +4140,21 @@
       By Idempotence of <math|<value|best><rsub|\<prec\>>>,
       <math|w\<in\><value|best><rsub|\<prec\>><around*|(|<value|best><rsub|\<prec\>><around*|(|<semantics|\<varphi\>><rsub|<value|Model>>|)>|)>>.
       And so <math|<value|Model>,w\<Vdash\><value|bestop><value|bestop>\<varphi\>>.
+
+      <item*|<with|font-series|bold|(Smooth)> for <math|<value|bestop>>>The
+      <with|font-series|bold|(Smooth)> axiom is the only new one in the list,
+      and perhaps the most important one characterizing
+      <math|<value|bestop>>. Suppose <math|<value|Model>,w\<Vdash\>\<varphi\>>
+      and <math|<value|Model>,w\<Vdash\>\<neg\><value|bestop>\<varphi\>>. By
+      the semantics, this means <math|w\<in\><semantics|\<varphi\>><rsub|<value|Model>>>,
+      but <math|w<neg|\<in\>><value|best><rsub|\<prec\>><around*|(|<semantics|\<varphi\>><rsub|<value|Model>>|)>>.
+      But then the Smoothness Condition says there must be some
+      <math|v<op|\<prec\>>w> better than <math|w> that
+      <with|font-shape|italic|is> the best, i.e.,
+      <math|v\<in\><value|best><rsub|\<prec\>><around*|(|<semantics|\<varphi\>><rsub|<value|Model>>|)>>.
+      By the semantics for <math|<value|bestop>>,
+      <math|<value|Model>,v\<Vdash\><value|bestop>\<varphi\>>. But then this
+      implies that <math|<value|Model>,w\<Vdash\><value|Exists><value|bestop>\<varphi\>>.
     </description>
   </proof>
 
@@ -4163,10 +4165,6 @@
     <math|\<Gamma\>> to a maximally consistent set
     <math|\<Delta\>\<supseteq\>\<Gamma\>>.
   </lemma>
-
-  <\proposition>
-    If <math|\<Delta\>> is maximally consistent, then so is <todo|todo>
-  </proposition>
 
   <\definition>
     The <with|font-shape|italic|canonical model> for this logic <todo|which?>
@@ -4184,8 +4182,9 @@
 
       <item><math|\<Delta\><rsub|1><op|\<prec\><rsup|c>>\<Delta\><rsub|2>>
       iff for all <math|\<varphi\>\<in\><value|langSimplified>>, if
-      <math|\<varphi\>\<in\>\<Delta\><rsub|2>> then
-      <math|<value|bestop>\<varphi\>\<in\>\<Delta\><rsub|1>> and
+      <math|\<varphi\>\<in\>\<Delta\><rsub|1>> and
+      <math|\<varphi\>\<in\>\<Delta\><rsub|2>>, then
+      <math|<value|bestop>\<varphi\>\<in\>\<Delta\><rsub|1>> but
       <math|<value|bestop>\<varphi\><neg|\<in\>>\<Delta\><rsub|2>>.
 
       <item><math|\<Delta\>\<in\>V<rsup|c><around*|(|p|)>> iff
@@ -4202,17 +4201,77 @@
   <math|\<Delta\><rsub|2>> (necessarily) is <with|font-shape|italic|not>.
 
   <\proposition>
-    <dueto|<aw|hand-point-right|1fn>>The canonical model
-    <math|<value|Model><rsup|c>> is well-defined.
+    The canonical model <math|<value|Model><rsup|c>> is in fact a
+    plausibility model.
   </proposition>
 
   <\proof>
-    <todo|Todo\Vthis is where necessitation comes into play!>
+    What's left to show is that <math|R<rsup|c>> is reflexive and transitive,
+    and also that <math|\<prec\><rsup|c>> is irreflexive and transitive ()
+
+    <todo|This is where we check that <math|R<rsup|c>> is reflexive,
+    transitive, and also that <math|\<prec\><rsup|c>> is irreflexive,
+    transitive, and smooth.>
+  </proof>
+
+  \;
+
+  Before I prove the Truth Lemma, I will first need to talk about this
+  special set <math|<value|Deltabest>>. The purpose of
+  <math|<value|Deltabest>> is this: If, at <math|\<Delta\>>, we know there
+  <with|font-shape|italic|is> a best-<math|\<varphi\>> world, then
+  <math|<value|Deltabest>> is a witness to that fact; with the help of
+  <with|font-series|bold|(Smooth)> the set <math|<value|Deltabest>> says
+  \PI'm one of them!\Q
+
+  <\definition>
+    For all <math|\<Delta\>>, I define <math|\<Delta\><rsup|\<bigstar\>>=<around*|{|\<varphi\><value|st><value|Exists>\<varphi\>\<in\>\<Delta\>|}>>
+  </definition>
+
+  <\proposition>
+    If <math|\<Delta\>> is maximally consistent, then so is
+    <math|<value|Deltabest>>.
+  </proposition>
+
+  <\proof>
+    <todo|>
+  </proof>
+
+  <\proposition>
+    In the canonical model <math|<value|Model><rsup|c>>,
+    <math|<value|Deltabest>\<prec\><rsup|c>\<Delta\>>.
+  </proposition>
+
+  <\proof>
+    In order to show <math|<value|Deltabest>\<prec\><rsup|c>\<Delta\>>, let
+    <math|\<varphi\>\<in\><value|langSimplified>> be any formula, and suppose
+    <math|\<varphi\>\<in\>\<Delta\>,<value|Deltabest>>. I now need to show
+    <with|font-shape|italic|both> (1) <math|<value|bestop>\<varphi\>\<in\><value|Deltabest>>
+    and (2) <math|<value|bestop>\<varphi\><neg|\<in\>>\<Delta\>>.
+
+    <\enumerate>
+      <item>Suppose for contradiction that
+      <math|<value|bestop>\<varphi\><neg|\<in\>><value|Deltabest>>. Since
+      <math|<value|Deltabest>> is maximal,
+      <math|\<neg\><value|bestop>\<varphi\>\<in\><value|Deltabest>>. Since
+      <math|\<varphi\>\<in\><value|Deltabest>>, the
+      <with|font-series|bold|(Smooth)> axiom gives us
+      <math|<value|Exists><value|bestop>\<varphi\>\<in\><value|Deltabest>>.
+      By definition of the set <math|<value|Deltabest>>, we have
+      <math|<value|Exists><value|Exists><value|bestop>\<varphi\>\<in\>\<Delta\>>.
+      But by the dual of the <with|font-series|bold|(Trans)> axiom for
+      <math|<value|All>>, we have <math|<value|Exists><value|bestop>\<varphi\>\<in\>\<Delta\>>.
+      Applying the definition of <math|<value|Deltabest>> again gives us
+      <math|<value|bestop>\<varphi\>\<in\><value|Deltabest>>, which
+      contradicts our initial assumption.
+
+      <item><todo|TODO\Vis this even true?>
+    </enumerate>
   </proof>
 
   <\lemma>
-    <dueto|<aw|hand-point-right|1fn> Truth Lemma>We have, for canonical model
-    <math|<value|Model><rsup|c>>,
+    <dueto|<aw|hand-point-right|1fn> Truth Lemma>We have, for all
+    <math|\<Delta\>\<in\>W<rsup|c>>, <math|\<varphi\>\<in\><value|langSimplified>>,
 
     <\equation*>
       <value|Model>,\<Delta\>\<Vdash\>\<varphi\><infix-iff>\<varphi\>\<in\>\<Delta\>
@@ -4221,28 +4280,78 @@
 
   <\proof>
     By induction on <math|\<varphi\>>. The propositional and boolean cases
-    are straightforward.
+    are straightforward. The <math|<value|Know>\<varphi\>> case is the
+    standard one from modal logic, and follows from the usual lemmas about
+    maximally consistent sets (using the <with|font-series|bold|(Dual)> rule
+    and <with|font-series|bold|(Distr)> axiom for <math|<value|Know>>)
+    <todo|cite>. Similarly, the <math|<value|All>\<varphi\>> case is already
+    known, and the introduction of <math|<value|bestop>\<varphi\>> does not
+    affect it. I skip to the most relevant case:
 
     <\description>
-      <item*|<math|<value|Know>> Case>
+      <item*|<math|<value|bestop>> Case>For the
+      <math|<around*|(|\<rightarrow\>|)>> direction, first observe:
 
-      <item*|<math|<value|All>> Case><todo|todo>
+      <\equation*>
+        <tabular|<tformat|<table|<row|<cell|<value|Model><rsup|c>,\<Delta\>\<Vdash\><value|bestop>\<varphi\>>|<cell|<space|0.5em>\<longrightarrow\><space|0.5em>>|<cell|\<Delta\>\<in\><value|best><rsub|\<prec\><rsup|c>><around*|(|<semantics|\<varphi\>><rsub|<value|Model><rsup|c>>|)>>|<cell|<text|(by
+        the semantics)>>>|<row|<cell|>|<cell|<space|0.5em>\<longrightarrow\><space|0.5em>>|<cell|\<Delta\>\<in\><semantics|\<varphi\>><rsub|<value|Model><rsup|c>><text|
+        and for all >\<Delta\><rprime|'>,>|<cell|<text|(by definition of
+        <math|<value|best><rsub|\<prec\><rsup|c>>>)>>>|<row|<cell|>|<cell|>|<cell|<space|1em><text|
+        if >\<Delta\><rprime|'>\<in\><semantics|\<varphi\>><rsub|<value|Model><rsup|c>><text|
+        then >\<neg\>\<Delta\><rprime|'>\<prec\><rsup|c>\<Delta\>>|<cell|>>|<row|<cell|>|<cell|<space|0.5em>\<longrightarrow\><space|0.5em>>|<cell|\<varphi\>\<in\>\<Delta\><text|
+        and for all >\<Delta\><rprime|'>,>|<cell|<text|(by inductive
+        hypothesis)>>>|<row|<cell|>|<cell|>|<cell|<space|1em><text| if
+        >\<varphi\>\<in\>\<Delta\><rprime|'><text| then
+        >\<neg\>\<Delta\><rprime|'>\<prec\><rsup|c>\<Delta\>>|<cell|>>>>>
+      </equation*>
 
-      <item*|<value|bestop> Case><todo|todo>
+      Now consider <math|<value|Deltabest>=<around*|{|\<psi\><value|st><value|Exists>\<psi\>\<in\>\<Delta\>|}>>.
+      By Proposition <todo|ref above>, <math|<value|Deltabest>> is maximally
+      consistent, and so <math|<value|Deltabest>\<in\>W<rsup|c>>. Suppose for
+      contradiction that <math|<value|bestop>\<varphi\><neg|\<in\>>\<Delta\>>.
+      Since <math|\<Delta\>> is maximal, <math|\<neg\><value|bestop>\<varphi\>\<in\>\<Delta\>>.
+      Since since <math|\<varphi\>\<in\>\<Delta\>> and
+      <math|\<neg\><value|bestop>\<varphi\>\<in\>\<Delta\>>, by
+      <with|font-series|bold|(Smooth)> we have
+      <math|<value|Exists><value|bestop>\<varphi\>\<in\>\<Delta\>>. But then
+      <math|<value|bestop>\<varphi\>\<in\><value|Deltabest>> by definition of
+      <math|<value|Deltabest>>. Applying <with|font-series|bold|(Refl)> for
+      <math|<value|bestop>> gives us <math|\<varphi\>\<in\><value|Deltabest>>.
+      By the last line of implications above, we must have
+      <math|\<neg\><value|Deltabest>\<prec\><rsup|c>\<Delta\>>. But this
+      contradicts Proposition <todo|ref above>, which says
+      <math|<value|Deltabest>\<prec\><rsup|c>\<Delta\>>. And so we must have
+      <math|<value|bestop>\<varphi\><neg|\<in\>>\<Delta\>>.
+
+      As for the <math|<around*|(|\<leftarrow\>|)>> direction, suppose
+      <math|<value|bestop>\<varphi\>\<in\>\<Delta\>>. Applying
+      <with|font-series|bold|(Refl)> gives us
+      <math|\<varphi\>\<in\>\<Delta\>>, which by our inductive hypothesis
+      means <math|\<Delta\>\<in\><semantics|\<varphi\>><rsub|<value|Model><rsup|c
+      >>>. I will now show that <math|\<Delta\>> is a
+      <with|font-shape|italic|best> such point in
+      <math|<semantics|\<varphi\>><rsub|<value|Model>>>. Suppose not, say
+      there is some <math|\<Delta\><rprime|'>\<in\><semantics|\<varphi\>><rsub|<value|Model><rsup|c>>>
+      with <math|\<Delta\><rprime|'>\<prec\><rsup|c>\<Delta\>>. By definition
+      of <math|\<prec\><rsup|c>> we have (flipping <math|\<Delta\>> and
+      <math|\<Delta\><rprime|'>> from before):
+
+      <\equation*>
+        <text|for all >\<varphi\>,<text| if
+        >\<varphi\>\<in\>\<Delta\><rprime|'><text| and
+        >\<varphi\>\<in\>\<Delta\>,<text| then
+        ><value|bestop>\<varphi\>\<in\>\<Delta\><rprime|'><text| but
+        ><value|bestop>\<varphi\><neg|\<in\>>\<Delta\>
+      </equation*>
+
+      Well, since <math|\<Delta\><rprime|'>\<in\><semantics|\<varphi\>><rsub|<value|Model><rsup|c>>>
+      our inductive hypothesis give us <math|\<varphi\>\<in\>\<Delta\><rprime|'>>.
+      And we had <math|\<varphi\>\<in\>\<Delta\>> from before. So in
+      particular, <math|<value|bestop>\<varphi\><neg|\<in\>>\<Delta\>>, which
+      contradicts our hypothesis! So <math|\<Delta\>> is a best
+      <math|\<varphi\>> state, i.e., <math|\<Delta\>\<in\><value|best><rsub|\<prec\><rsup|c>><around*|(|<semantics|\<varphi\>><rsub|<value|Model><rsup|c>>|)>>,
+      and so we conclude <math|<value|Model><rsup|c>,\<Delta\>\<Vdash\><value|bestop>\<varphi\>>.
     </description>
-  </proof>
-
-  \;
-
-  <\proposition>
-    The canonical model <math|<value|Model><rsup|c>> is in fact a
-    plausibility model.
-  </proposition>
-
-  <\proof>
-    <todo|This is where we check that <math|R<rsup|c>> is reflexive,
-    transitive, and also that <math|\<prec\><rsup|c>> is irreflexive,
-    transitive, antisymmetric, and smooth.>
   </proof>
 
   <\theorem>
@@ -4869,85 +4978,85 @@
     <associate|auto-40|<tuple|A.2|64>>
     <associate|auto-41|<tuple|A.2.1|64>>
     <associate|auto-42|<tuple|A.3|65>>
-    <associate|auto-43|<tuple|A.4|66>>
-    <associate|auto-44|<tuple|A.4.1|67>>
-    <associate|auto-45|<tuple|A.5|69>>
-    <associate|auto-46|<tuple|A.6|69>>
-    <associate|auto-47|<tuple|A.6|70>>
+    <associate|auto-43|<tuple|A.4|68>>
+    <associate|auto-44|<tuple|A.4.1|68>>
+    <associate|auto-45|<tuple|A.5|70>>
+    <associate|auto-46|<tuple|A.6|70>>
+    <associate|auto-47|<tuple|A.6|71>>
     <associate|auto-5|<tuple|2.1|20>>
     <associate|auto-6|<tuple|3|20>>
     <associate|auto-7|<tuple|4|20>>
     <associate|auto-8|<tuple|3|22>>
     <associate|auto-9|<tuple|1|22>>
-    <associate|bib-Christoff:2015aa|<tuple|17|71>>
-    <associate|bib-Plaza2007PAL|<tuple|49|72>>
-    <associate|bib-achiam2023gpt|<tuple|1|70>>
-    <associate|bib-aho1972transitive|<tuple|2|70>>
-    <associate|bib-albarghouthi2021introduction|<tuple|3|70>>
-    <associate|bib-baccini2024dynamic|<tuple|4|70>>
-    <associate|bib-bader2005dimensions|<tuple|5|70>>
-    <associate|bib-badreddine2022aa|<tuple|6|70>>
-    <associate|bib-balkenius1991nonmonotonic|<tuple|7|70>>
-    <associate|bib-baltag1998PALC|<tuple|13|70>>
-    <associate|bib-baltag2009iterated|<tuple|14|70>>
-    <associate|bib-baltag2019dynamic|<tuple|9|70>>
-    <associate|bib-baltag2019right|<tuple|11|70>>
-    <associate|bib-baltag2019socialnetworks|<tuple|8|70>>
-    <associate|bib-baltag2019tracking|<tuple|10|70>>
-    <associate|bib-besold2021neural|<tuple|15|71>>
-    <associate|bib-blutner2004nonmonotonic|<tuple|16|71>>
-    <associate|bib-ciravegna2023logic|<tuple|18|71>>
-    <associate|bib-ditmarschDEL|<tuple|63|73>>
-    <associate|bib-dubey2024llama|<tuple|21|71>>
-    <associate|bib-garcez2001symbolic|<tuple|19|71>>
-    <associate|bib-garcez2008neural|<tuple|22|71>>
-    <associate|bib-geiger2024aa|<tuple|23|71>>
-    <associate|bib-giordano2021weighted|<tuple|25|71>>
-    <associate|bib-giordano2022conditional|<tuple|24|71>>
-    <associate|bib-gross2002genealogy|<tuple|26|71>>
-    <associate|bib-harmelen2022preface|<tuple|27|71>>
-    <associate|bib-hebb-organization-of-behavior-1949|<tuple|28|71>>
-    <associate|bib-immerman1998descriptive|<tuple|29|71>>
-    <associate|bib-kisby2022logic|<tuple|30|71>>
-    <associate|bib-kisby2024hebbian|<tuple|31|71>>
-    <associate|bib-kozen1981elementary|<tuple|32|72>>
-    <associate|bib-kraus1990nonmonotonic|<tuple|33|72>>
-    <associate|bib-leitgeb2001nonmonotonic|<tuple|34|72>>
-    <associate|bib-leitgeb2003nonmonotonic|<tuple|35|72>>
-    <associate|bib-leitgeb2018neural|<tuple|36|72>>
-    <associate|bib-libkin2004elements|<tuple|37|72>>
-    <associate|bib-logicsforepistemicactions|<tuple|12|70>>
-    <associate|bib-manhaeve2021neural|<tuple|38|72>>
-    <associate|bib-mcculloch1943logical|<tuple|39|72>>
-    <associate|bib-mcdermott1987critique|<tuple|40|72>>
-    <associate|bib-merrill2019sequential|<tuple|41|72>>
-    <associate|bib-merrill2020formal|<tuple|43|72>>
-    <associate|bib-merrill2023expressive|<tuple|42|72>>
-    <associate|bib-moss2007finite|<tuple|44|72>>
-    <associate|bib-moura2021lean|<tuple|45|72>>
-    <associate|bib-murphy2004big|<tuple|46|72>>
-    <associate|bib-oja1982simplified|<tuple|47|72>>
-    <associate|bib-pacuit2017neighborhood|<tuple|48|72>>
-    <associate|bib-polya1954mathematics|<tuple|50|72>>
-    <associate|bib-rumelhart1986aa|<tuple|51|72>>
-    <associate|bib-rumelhart1986learning|<tuple|52|73>>
-    <associate|bib-sarker2021neuro|<tuple|53|73>>
-    <associate|bib-sep-computational-complexity|<tuple|20|71>>
-    <associate|bib-sep-frame-problem|<tuple|54|73>>
-    <associate|bib-silver2017mastering|<tuple|55|73>>
-    <associate|bib-srivastava2015highway|<tuple|56|73>>
-    <associate|bib-strobl2024formal|<tuple|57|73>>
-    <associate|bib-tamkin2021understanding|<tuple|58|73>>
-    <associate|bib-van2007beliefrevision|<tuple|59|73>>
-    <associate|bib-van2007prefupgrade|<tuple|61|73>>
-    <associate|bib-van2011logicaldynamics|<tuple|60|73>>
-    <associate|bib-van2015dynamic|<tuple|62|73>>
-    <associate|bib-vaswani2017attention|<tuple|64|73>>
-    <associate|bib-weiss2018practical|<tuple|65|73>>
+    <associate|bib-Christoff:2015aa|<tuple|17|72>>
+    <associate|bib-Plaza2007PAL|<tuple|49|73>>
+    <associate|bib-achiam2023gpt|<tuple|1|71>>
+    <associate|bib-aho1972transitive|<tuple|2|71>>
+    <associate|bib-albarghouthi2021introduction|<tuple|3|71>>
+    <associate|bib-baccini2024dynamic|<tuple|4|71>>
+    <associate|bib-bader2005dimensions|<tuple|5|71>>
+    <associate|bib-badreddine2022aa|<tuple|6|71>>
+    <associate|bib-balkenius1991nonmonotonic|<tuple|7|71>>
+    <associate|bib-baltag1998PALC|<tuple|13|71>>
+    <associate|bib-baltag2009iterated|<tuple|14|71>>
+    <associate|bib-baltag2019dynamic|<tuple|9|71>>
+    <associate|bib-baltag2019right|<tuple|11|71>>
+    <associate|bib-baltag2019socialnetworks|<tuple|8|71>>
+    <associate|bib-baltag2019tracking|<tuple|10|71>>
+    <associate|bib-besold2021neural|<tuple|15|72>>
+    <associate|bib-blutner2004nonmonotonic|<tuple|16|72>>
+    <associate|bib-ciravegna2023logic|<tuple|18|72>>
+    <associate|bib-ditmarschDEL|<tuple|63|74>>
+    <associate|bib-dubey2024llama|<tuple|21|72>>
+    <associate|bib-garcez2001symbolic|<tuple|19|72>>
+    <associate|bib-garcez2008neural|<tuple|22|72>>
+    <associate|bib-geiger2024aa|<tuple|23|72>>
+    <associate|bib-giordano2021weighted|<tuple|25|72>>
+    <associate|bib-giordano2022conditional|<tuple|24|72>>
+    <associate|bib-gross2002genealogy|<tuple|26|72>>
+    <associate|bib-harmelen2022preface|<tuple|27|72>>
+    <associate|bib-hebb-organization-of-behavior-1949|<tuple|28|72>>
+    <associate|bib-immerman1998descriptive|<tuple|29|72>>
+    <associate|bib-kisby2022logic|<tuple|30|72>>
+    <associate|bib-kisby2024hebbian|<tuple|31|72>>
+    <associate|bib-kozen1981elementary|<tuple|32|73>>
+    <associate|bib-kraus1990nonmonotonic|<tuple|33|73>>
+    <associate|bib-leitgeb2001nonmonotonic|<tuple|34|73>>
+    <associate|bib-leitgeb2003nonmonotonic|<tuple|35|73>>
+    <associate|bib-leitgeb2018neural|<tuple|36|73>>
+    <associate|bib-libkin2004elements|<tuple|37|73>>
+    <associate|bib-logicsforepistemicactions|<tuple|12|71>>
+    <associate|bib-manhaeve2021neural|<tuple|38|73>>
+    <associate|bib-mcculloch1943logical|<tuple|39|73>>
+    <associate|bib-mcdermott1987critique|<tuple|40|73>>
+    <associate|bib-merrill2019sequential|<tuple|41|73>>
+    <associate|bib-merrill2020formal|<tuple|43|73>>
+    <associate|bib-merrill2023expressive|<tuple|42|73>>
+    <associate|bib-moss2007finite|<tuple|44|73>>
+    <associate|bib-moura2021lean|<tuple|45|73>>
+    <associate|bib-murphy2004big|<tuple|46|73>>
+    <associate|bib-oja1982simplified|<tuple|47|73>>
+    <associate|bib-pacuit2017neighborhood|<tuple|48|73>>
+    <associate|bib-polya1954mathematics|<tuple|50|73>>
+    <associate|bib-rumelhart1986aa|<tuple|51|73>>
+    <associate|bib-rumelhart1986learning|<tuple|52|74>>
+    <associate|bib-sarker2021neuro|<tuple|53|74>>
+    <associate|bib-sep-computational-complexity|<tuple|20|72>>
+    <associate|bib-sep-frame-problem|<tuple|54|74>>
+    <associate|bib-silver2017mastering|<tuple|55|74>>
+    <associate|bib-srivastava2015highway|<tuple|56|74>>
+    <associate|bib-strobl2024formal|<tuple|57|74>>
+    <associate|bib-tamkin2021understanding|<tuple|58|74>>
+    <associate|bib-van2007beliefrevision|<tuple|59|74>>
+    <associate|bib-van2007prefupgrade|<tuple|61|74>>
+    <associate|bib-van2011logicaldynamics|<tuple|60|74>>
+    <associate|bib-van2015dynamic|<tuple|62|74>>
+    <associate|bib-vaswani2017attention|<tuple|64|74>>
+    <associate|bib-weiss2018practical|<tuple|65|74>>
     <associate|eqn1|<tuple|4.1|50>>
     <associate|eqn2|<tuple|4.2|50>>
     <associate|figure-axioms-best|<tuple|A.2.1|64>>
-    <associate|figure-axioms-best-knownby|<tuple|A.4.1|67>>
+    <associate|figure-axioms-best-knownby|<tuple|A.4.1|68>>
   </collection>
 </references>
 
