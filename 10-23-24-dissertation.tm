@@ -1,9 +1,25 @@
-<TeXmacs|2.1.1>
+<TeXmacs|2.1.4>
 
-<style|<tuple|book|indent-paragraphs|python|cite-author-year|cite-sort|termes-font|fontawesome|preview-ref|smart-ref|number-long-article>>
+<style|<tuple|book|indent-paragraphs|python|cite-author-year|cite-sort|fontawesome|preview-ref|smart-ref|number-long-article|termes-font>>
 
 <\body>
   <\hide-preamble>
+    <assign|todo-bg-color|#e0dfba>
+
+    <assign|todo-color|#4c4b0d>
+
+    <assign|cursor-color|#8f3f71>
+
+    <assign|math-cursor-color|#076678>
+
+    <assign|selection-color|#4c4b0d>
+
+    <assign|match-color|#4c4b0d>
+
+    \;
+
+    <assign|Diamond|<space|0.3em><shift|<math|<small|<rotate|45|\<box\>>>>||-0.1em>>
+
     <assign|Model|<with|font|cal|M>>
 
     <assign|Class|<with|font|cal*|C>>
@@ -83,6 +99,10 @@
     <assign|diaKnow|\<langle\><value|Know>\<rangle\>>
 
     <assign|diaKnownby|\<langle\><value|Knownby>\<rangle\>>
+
+    <assign|boxback|\<box\><rsup|<with|font-series|bold|\<downarrow\>>>>
+
+    <assign|Diamondback|<value|Diamond><rsup|<with|font-series|bold|\<downarrow\>>>>
 
     <assign|Hebbop|<macro|formula|[<arg|formula>]<rsub|<value|Hebb>>>>
 
@@ -554,22 +574,18 @@
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-42>
 
-    A.4<space|0.5fn>Models with a Single Plausibility-Accessibility Relation
+    A.4<space|0.5fn>Building a Finite Model
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-43>
 
-    A.5<space|0.5fn>Building a Finite Model
-    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-45>
-
-    A.6<space|0.5fn>Dynamic Updates on the Logic of
+    A.5<space|0.5fn>Dynamic Updates on the Logic of
     <with|mode|math|[<with|mode|text|best>]>
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-46>
+    <no-break><pageref|auto-44>
 
     <vspace*|1fn><with|font-series|bold|math-font-series|bold|References>
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-47><vspace|0.5fn>
+    <no-break><pageref|auto-45><vspace|0.5fn>
   </table-of-contents>
 
   <chapter|Introduction>
@@ -1066,7 +1082,7 @@
   <math|R> indicates which states are <with|font-shape|italic|possibly known>
   (i.e., <with|font-shape|italic|epistemically accessible>), then
   <math|\<box\>\<varphi\>> takes on the reading \P<math|\<varphi\>> is known
-  (by some agent),\Q written <math|<value|Know>\<varphi\>>. Similarly,
+  (by some agent),\Q written <math|<value|box>\<varphi\>>. Similarly,
   <math|\<box\>> can be cast as belief <with|font-series|bold|B>, obligation
   <with|font-series|bold|O>, provability <with|font-series|bold|P>, etc.
   There may be one, or many, modal operators in a modal logic. We may also
@@ -1099,20 +1115,19 @@
   to give you a sense of what can be done. Certain approaches use the
   cumulative-ordered models defined for conditional logic above; others use
   relational models, but interpret the relation <math|R> to be a plausibility
-  ordering; others still use both. To keep this discussion as general as
-  possible, I will define plausibility models <todo|cite plausibility models,
-  the word is used by Baltag & Smets>, which have both.
+  ordering; others still use both. For my purposes, I will define
+  plausibility models as Krikpe models, but with an irreflexive plausibility
+  relation <math|\<prec\>> (there is no distinction between epistemic
+  accessibility and plausibility). <todo|cite plausibility models, the word
+  is used by Baltag & Smets>
 
   <\definition>
-    A plausibility model is <math|<value|Model>=\<langle\>W,R,\<prec\>,V\<rangle\>>,
+    A plausibility model is <math|<value|Model>=\<langle\>W,\<prec\>,V\<rangle\>>,
     where
 
     <\itemize>
       <item><math|W> is a set of <with|font-shape|italic|worlds> or
       <with|font-shape|italic|states>
-
-      <item><math|R:W\<rightarrow\>W> (the
-      <with|font-shape|italic|accessibility relation>)
 
       <item><math|\<prec\>:W\<rightarrow\>W> (the
       <with|font-shape|italic|plausibility order>)
@@ -1122,18 +1137,12 @@
     </itemize>
   </definition>
 
-  From here on forward, I will think of <math|R> as
-  <with|font-shape|italic|epistemic accessibility> (and I will use the
-  knowledge modality <math|<value|Know>\<varphi\>>). Plausibility
-  <math|\<prec\>> is not necessarily determined by what is epistemically
-  accessible, and so I keep it seperate. I require <math|R> to be reflexive
-  and transitive (without <math|\<prec\>>, we would just have
-  <math|<value|Relrefl>>). As with cumulative-ordered models, I require
-  <math|\<prec\>> to be irreflexive, transitive, antisymmetric.
-
-  As before, each plausibility model determines a
-  <math|<value|best><rsub|\<prec\>>> function, whose definition now
-  simplifies to
+  As with cumulative-ordered models, I require <math|\<prec\>> to be
+  irreflexive, transitive, antisymmetric. In cases where we want to refer to
+  the reflexive extension of <math|\<prec\>>, I write <math|u\<preceq\>v> to
+  mean <math|u\<prec\>v> or <math|u=v>. As before, each plausibility model
+  determines a <math|<value|best><rsub|\<prec\>>> function, whose definition
+  now simplifies to
 
   <\equation*>
     <value|best><rsub|\<prec\>><around*|(|S|)>=<around*|{|w\<in\>S<value|st><text|For
@@ -1196,11 +1205,11 @@
     Let <math|<value|langBest>> be the language whose formulas are given by
 
     <\equation*>
-      \<varphi\>,\<psi\>\<assign\>p<value|st>\<neg\>\<varphi\><value|st>\<varphi\>\<wedge\>\<psi\><value|st><value|All>\<varphi\><value|st><value|Know>\<varphi\><value|st><value|Knownby>\<varphi\><value|st><value|bestop>\<varphi\>
+      \<varphi\>,\<psi\>\<assign\>p<value|st>\<neg\>\<varphi\><value|st>\<varphi\>\<wedge\>\<psi\><value|st><value|All>\<varphi\><value|st>\<box\>\<varphi\><value|st><value|boxback>\<varphi\><value|st><value|bestop>\<varphi\>
     </equation*>
 
     <math|\<top\>,\<bot\>,\<vee\>,\<rightarrow\>,\<leftrightarrow\>> and the
-    dual modal operators <math|<value|Exists>,<value|diaKnow>,<value|diaKnownby>,<value|diabestop>>
+    dual modal operators <math|<value|Exists>,<value|Diamond>,<value|Diamondback>,<value|diabestop>>
     are defined in the usual way. <todo|I haven't really said what \Pthe
     usual way\Q is yet<text-dots>>
   </definition>
@@ -1208,7 +1217,8 @@
   <\example>
     <todo|A nice example, after giving intended readings of each of these,
     would be to translate the sentences given at the beginning of this
-    section!>
+    section! Be careful, <math|\<box\>> doesn't necessarily have an epistemic
+    reading!>
 
     <\itemize>
       <item><math|<value|All><around*|(|<value|bestop><text|bird>\<rightarrow\><text|flies>|)>\<rightarrow\><around*|(|<text|Tweety>\<rightarrow\><text|flies>|)>>:
@@ -1219,7 +1229,7 @@
 
       <item>: This wasn't done by your typical criminal.
 
-      <item><math|\<neg\><value|bestop>\<top\>\<rightarrow\>\<neg\><value|Know><around*|(|<value|Exists><value|bestop>\<top\>|)>>:
+      <item><math|\<neg\><value|bestop>\<top\>\<rightarrow\>\<neg\><value|box><around*|(|<value|Exists><value|bestop>\<top\>|)>>:
       If this isn't normal, I don't know what is.
     </itemize>
   </example>
@@ -1230,41 +1240,39 @@
 
     <\equation*>
       <tabular|<tformat|<table|<row|<cell|<value|Model>,w\<Vdash\>p>|<cell|<space|1em>iff<space|1em>>|<cell|w\<in\>V<around*|(|p|)>>>|<row|<cell|<value|Model>,w\<Vdash\>\<neg\>\<varphi\>>|<cell|<space|1em>iff<space|1em>>|<cell|<value|Model>,w<neg|\<Vdash\>>\<varphi\>>>|<row|<cell|<value|Model>,w\<Vdash\>\<varphi\>\<wedge\>\<psi\>>|<cell|<space|1em>iff<space|1em>>|<cell|<value|Model>,w\<Vdash\>\<varphi\><infix-and><value|Model>,w\<Vdash\>\<psi\>>>|<row|<cell|<value|Model>,w\<Vdash\><value|All>\<varphi\>>|<cell|<space|1em>iff<space|1em>>|<cell|<text|For
-      all >u\<in\>W<text| whatsoever>,<value|Model>,u\<Vdash\>\<varphi\>>>|<row|<cell|<value|Model>,w\<Vdash\><value|Know>\<varphi\>>|<cell|<space|1em>iff<space|1em>>|<cell|<text|For
-      all >u<text| such that >w<op|R>u<text| (<math|R>-above
-      <math|w>)>,<value|Model>,u\<Vdash\>\<varphi\>>>|<row|<cell|<value|Model>,w\<Vdash\><value|Knownby>\<varphi\>>|<cell|<space|1em>iff<space|1em>>|<cell|<text|For
-      all >u<text| such that >u<op|R>w<text| (<math|R>-below
-      <math|w>)>,<value|Model>,u\<Vdash\>\<varphi\>>>|<row|<cell|<value|Model>,w\<Vdash\><value|bestop>\<varphi\>>|<cell|<space|1em>iff<space|1em>>|<cell|w\<in\><value|best><rsub|R><around*|(|<semantics|\<varphi\>><rsub|<value|Model>>|)>>>>>>
+      all >u\<in\>W<text| whatsoever>,<value|Model>,u\<Vdash\>\<varphi\>>>|<row|<cell|<value|Model>,w\<Vdash\>\<box\>\<varphi\>>|<cell|<space|1em>iff<space|1em>>|<cell|<text|For
+      all >u<text| such that >w<op|<op|\<preceq\>>>u,<value|Model>,u\<Vdash\>\<varphi\>>>|<row|<cell|<value|Model>,w\<Vdash\><value|boxback>\<varphi\>>|<cell|<space|1em>iff<space|1em>>|<cell|<text|For
+      all >u<text| such that >u<op|<op|\<preceq\>>>w,<value|Model>,u\<Vdash\>\<varphi\>>>|<row|<cell|<value|Model>,w\<Vdash\><value|bestop>\<varphi\>>|<cell|<space|1em>iff<space|1em>>|<cell|w\<in\><value|best><rsub|R><around*|(|<semantics|\<varphi\>><rsub|<value|Model>>|)>>>>>>
     </equation*>
 
     where <math|<semantics|\<varphi\>><rsub|<value|Model>>=<around*|{|u<value|st><value|Model>,u\<Vdash\>\<varphi\>|}>>.
   </definition>
 
-  The semantics for <math|<value|Know>> is the totally standard relational
-  one. The semantics for <math|<value|Knownby>> comes from temporal
-  logic\V<math|<value|Knownby>> looks in the \Ppast\Q, whereas
-  <math|<value|Know>> looks in the \Pfuture.\Q The semantics for
-  <math|<value|bestop>> is just the modal version of our semantics for
-  conditionals <math|\<alpha\>\<Rightarrow\>\<beta\>>. <todo|Define
-  <math|\<models\><rsub|<value|Plaus>>>!!!>
+  The semantics for <math|\<box\>> is the totally standard relational one,
+  but using the reflexive extension of the plausibility order
+  <math|\<preceq\>> as an accessibility relation. <todo|What does this mean
+  for the interpretation of <math|\<box\>>??> The semantics for
+  <math|<value|boxback>> comes from temporal logic\V<math|<value|boxback>>
+  looks in the \Ppast\Q, whereas <math|\<box\>> looks in the \Pfuture.\Q The
+  semantics for <math|<value|bestop>> is just the modal version of our
+  semantics for conditionals <math|\<alpha\>\<Rightarrow\>\<beta\>>.
+  <todo|Define <math|\<models\><rsub|<value|Plaus>>>!!!>
 
   <\definition>
     <\float|float|thb>
-      <big-figure|<tabular|<tformat|<twith|table-width|1par>|<twith|table-hmode|exact>|<twith|table-lborder|0.1em>|<twith|table-rborder|0.1em>|<twith|table-bborder|0.1em>|<twith|table-tborder|0.1em>|<cwith|4|4|2|2|cell-valign|t>|<cwith|4|4|1|1|cell-valign|t>|<cwith|2|2|1|1|cell-valign|t>|<cwith|2|2|2|2|cell-valign|t>|<cwith|1|-1|1|-1|cell-bsep|0.2fn>|<cwith|1|-1|1|-1|cell-tsep|0.2fn>|<cwith|1|1|1|-1|cell-tsep|0.5fn>|<cwith|4|4|1|-1|cell-bsep|0.5fn>|<cwith|1|-1|1|1|cell-lsep|0.5fn>|<cwith|1|-1|2|2|cell-rsep|0.5fn>|<cwith|3|3|1|-1|cell-tsep|0.75fn>|<table|<row|<cell|<with|font-series|bold|Axioms
-      for <math|<value|All>>:>>|<cell|<with|font-series|bold|Axioms for
-      <math|<value|Know>>:>>>|<row|<cell|<tabular|<tformat|<cwith|1|-1|1|-1|cell-lsep|0.25fn>|<cwith|1|-1|1|-1|cell-rsep|0.25fn>|<cwith|1|-1|1|-1|cell-bsep|0.25fn>|<cwith|1|-1|1|-1|cell-tsep|0.25fn>|<table|<row|<cell|<with|font-series|bold|(Dual)>>|<cell|<math|<value|Exists>\<varphi\>\<leftrightarrow\>\<neg\><value|All>\<neg\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Distr)>>|<cell|<math|<value|All><around*|(|\<varphi\>\<rightarrow\>\<psi\>|)>\<rightarrow\><around*|(|<value|All>\<varphi\>\<rightarrow\><value|All>\<psi\>|)>>>>|<row|<cell|<with|font-series|bold|(Refl)>>|<cell|<math|<value|All>\<varphi\>\<rightarrow\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(5)>>|<cell|<math|<value|Exists>\<varphi\>\<rightarrow\><value|All><around*|(|<value|Exists>\<varphi\>|)>>>>|<row|<cell|<with|font-series|bold|(Interact)>>|<cell|<math|<value|All>\<varphi\>\<rightarrow\><value|Know>\<varphi\>>>>>>>>|<cell|<tabular|<tformat|<cwith|1|-1|1|-1|cell-lsep|0.25fn>|<cwith|1|-1|1|-1|cell-rsep|0.25fn>|<cwith|1|-1|1|-1|cell-bsep|0.25fn>|<cwith|1|-1|1|-1|cell-tsep|0.25fn>|<table|<row|<cell|<with|font-series|bold|(Dual)>>|<cell|<math|<value|diaKnow>\<varphi\>\<leftrightarrow\>\<neg\><value|Know>\<neg\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Distr)>>|<cell|<math|<value|Know><around*|(|\<varphi\>\<rightarrow\>\<psi\>|)>\<rightarrow\><around*|(|<value|Know>\<varphi\>\<rightarrow\><value|Know>\<psi\>|)>>>>|<row|<cell|<with|font-series|bold|(Refl)>>|<cell|<math|<value|Know>\<varphi\>\<rightarrow\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Trans)>>|<cell|<math|<value|Know>\<varphi\>\<rightarrow\><value|Know><value|Know>\<varphi\>>>>>>>>>|<row|<cell|<with|font-series|bold|Axioms
-      for <math|<value|bestop>>:>>|<cell|<with|font-series|bold|Rules of
-      Inference:>>>|<row|<cell|<tabular|<tformat|<cwith|1|-1|1|-1|cell-lsep|0.25fn>|<cwith|1|-1|1|-1|cell-rsep|0.25fn>|<cwith|1|-1|1|-1|cell-bsep|0.25fn>|<cwith|1|-1|1|-1|cell-tsep|0.25fn>|<table|<row|<cell|<with|font-series|bold|(Dual)>>|<cell|<math|<value|diabestop>\<varphi\>\<leftrightarrow\>\<neg\><value|bestop>\<neg\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Smooth)>>|<cell|<math|<around*|(|\<varphi\>\<wedge\>\<neg\><value|bestop>\<varphi\>|)>\<rightarrow\><value|Exists><value|bestop>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Refl)>>|<cell|<math|<value|bestop>\<varphi\>\<rightarrow\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Trans)>>|<cell|<math|<value|bestop>\<varphi\>\<rightarrow\><value|bestop><value|bestop>\<varphi\>>>>>>>>|<cell|<tabular|<tformat|<cwith|1|-1|1|-1|cell-lsep|0.25fn>|<cwith|1|-1|1|-1|cell-rsep|0.25fn>|<cwith|1|-1|1|-1|cell-bsep|0.25fn>|<cwith|1|-1|1|-1|cell-tsep|0.25fn>|<cwith|2|2|2|2|cell-hyphen|t>|<table|<row|<cell|<with|font-series|bold|(MP)>>|<cell|From
+      <big-figure|<tabular|<tformat|<twith|table-width|1par>|<twith|table-hmode|exact>|<twith|table-lborder|0.1em>|<twith|table-rborder|0.1em>|<twith|table-bborder|0.1em>|<twith|table-tborder|0.1em>|<cwith|4|4|2|2|cell-valign|t>|<cwith|4|4|1|1|cell-valign|t>|<cwith|2|2|1|1|cell-valign|t>|<cwith|2|2|2|2|cell-valign|t>|<cwith|1|-1|1|-1|cell-bsep|0.2fn>|<cwith|1|-1|1|-1|cell-tsep|0.2fn>|<cwith|1|1|1|-1|cell-tsep|0.5fn>|<cwith|4|4|1|-1|cell-bsep|0.5fn>|<cwith|1|-1|1|1|cell-lsep|0.5fn>|<cwith|1|-1|2|2|cell-rsep|0.5fn>|<cwith|3|3|1|-1|cell-tsep|0.75fn>|<cwith|5|5|1|-1|cell-tsep|0.75fn>|<table|<row|<cell|<with|font-series|bold|Axioms
+      for <math|\<box\>>:>>|<cell|<with|font-series|bold|Axioms for
+      <math|<value|boxback>>:>>>|<row|<cell|<tabular|<tformat|<cwith|1|-1|1|-1|cell-lsep|0.25fn>|<cwith|1|-1|1|-1|cell-rsep|0.25fn>|<cwith|1|-1|1|-1|cell-bsep|0.25fn>|<cwith|1|-1|1|-1|cell-tsep|0.25fn>|<table|<row|<cell|<with|font-series|bold|(Dual)>>|<cell|<math|<value|Diamond>\<varphi\>\<leftrightarrow\>\<neg\>\<box\>\<neg\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Distr)>>|<cell|<math|\<box\><around*|(|\<varphi\>\<rightarrow\>\<psi\>|)>\<rightarrow\><around*|(|\<box\>\<varphi\>\<rightarrow\>\<box\>\<psi\>|)>>>>|<row|<cell|<with|font-series|bold|(Refl)>>|<cell|<math|\<box\>\<varphi\>\<rightarrow\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Trans)>>|<cell|<math|\<box\>\<varphi\>\<rightarrow\>\<box\>\<box\>\<varphi\>>>>>>>>|<cell|<tabular|<tformat|<cwith|1|-1|1|-1|cell-lsep|0.25fn>|<cwith|1|-1|1|-1|cell-rsep|0.25fn>|<cwith|1|-1|1|-1|cell-bsep|0.25fn>|<cwith|1|-1|1|-1|cell-tsep|0.25fn>|<table|<row|<cell|<with|font-series|bold|(Dual)>>|<cell|<math|<value|Diamondback>\<varphi\>\<leftrightarrow\>\<neg\><value|boxback>\<neg\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Distr)>>|<cell|<math|<value|boxback><around*|(|\<varphi\>\<rightarrow\>\<psi\>|)>\<rightarrow\><around*|(|<value|boxback>\<varphi\>\<rightarrow\><value|boxback>\<psi\>|)>>>>|<row|<cell|<with|font-series|bold|(Back)>>|<cell|<math|\<varphi\>\<rightarrow\>\<box\><value|Diamondback>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Forth)>>|<cell|<math|\<varphi\>\<rightarrow\><value|boxback><value|Diamond>\<varphi\>>>>>>>>>|<row|<cell|<with|font-series|bold|Axioms
+      for <value|bestop>:>>|<cell|<with|font-series|bold|Axioms for
+      <value|All>:>>>|<row|<cell|<tabular|<tformat|<cwith|1|-1|1|-1|cell-lsep|0.25fn>|<cwith|1|-1|1|-1|cell-rsep|0.25fn>|<cwith|1|-1|1|-1|cell-bsep|0.25fn>|<cwith|1|-1|1|-1|cell-tsep|0.25fn>|<table|<row|<cell|<with|font-series|bold|(Dual)>>|<cell|<math|<value|diabestop>\<varphi\>\<leftrightarrow\>\<neg\><value|bestop>\<neg\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Refl)>>|<cell|<math|<value|bestop>\<varphi\>\<rightarrow\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Trans)>>|<cell|<math|<value|bestop>\<varphi\>\<rightarrow\><value|bestop><value|bestop>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Up)>>|<cell|<math|<value|bestop>\<varphi\>\<wedge\>\<psi\>\<rightarrow\>\<box\><around*|(|<value|bestop>\<varphi\>\<rightarrow\>\<psi\>|)>>>>|<row|<cell|<with|font-series|bold|(Down)>>|<cell|<math|<value|bestop>\<varphi\>\<wedge\>\<psi\>\<rightarrow\><value|boxback><around*|(|\<varphi\>\<rightarrow\>\<psi\>|)>>>>>>>>|<cell|<tabular|<tformat|<cwith|1|-1|1|-1|cell-lsep|0.25fn>|<cwith|1|-1|1|-1|cell-rsep|0.25fn>|<cwith|1|-1|1|-1|cell-bsep|0.25fn>|<cwith|1|-1|1|-1|cell-tsep|0.25fn>|<table|<row|<cell|<with|font-series|bold|(Dual)>>|<cell|<math|<value|Exists>\<varphi\>\<leftrightarrow\>\<neg\><value|All>\<neg\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Distr)>>|<cell|<math|<value|All><around*|(|\<varphi\>\<rightarrow\>\<psi\>|)>\<rightarrow\><around*|(|<value|All>\<varphi\>\<rightarrow\><value|All>\<psi\>|)>>>>|<row|<cell|<with|font-series|bold|(Refl)>>|<cell|<math|<value|All>\<varphi\>\<rightarrow\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(5)>>|<cell|<math|<value|Exists>\<varphi\>\<rightarrow\><value|All><around*|(|<value|Exists>\<varphi\>|)>>>>|<row|<cell|<with|font-series|bold|(Interact)>>|<cell|<math|<value|All>\<varphi\>\<rightarrow\>\<box\>\<varphi\>>>>>>>>>|<row|<cell|>|<cell|<with|font-series|bold|Rules
+      of Inference:>>>|<row|<cell|>|<cell|<tabular|<tformat|<cwith|1|-1|1|-1|cell-lsep|0.25fn>|<cwith|1|-1|1|-1|cell-rsep|0.25fn>|<cwith|1|-1|1|-1|cell-bsep|0.25fn>|<cwith|1|-1|1|-1|cell-tsep|0.25fn>|<cwith|2|2|2|2|cell-hyphen|t>|<table|<row|<cell|<with|font-series|bold|(MP)>>|<cell|From
       <math|<proves>\<varphi\>\<rightarrow\>\<psi\>> and
       <math|<value|proves>\<varphi\>> we can infer
       <math|<value|proves>\<psi\>>>>|<row|<cell|<with|font-series|bold|(Nec)>>|<\cell>
         From <math|<proves>\<varphi\>> we can infer
         <math|<value|proves>\<box\>\<varphi\>>
       </cell>>|<row|<cell|>|<cell|<space|2em>for each
-      <math|\<box\>\<in\><around*|{|<value|All>,<value|Know>|}>>>>>>>>>|<row|<cell|<todo|TODO\Vadd
-      the rest for <math|<value|Knownby>>! Should
-      I>>|<cell|>>|<row|<cell|<todo|remove the axioms for
-      <math|<value|All>>???>>|<cell|>>>>>|<label|figure-axioms-best>Axioms
+      <math|\<box\>\<in\><around*|{|<value|All>,\<box\>,<value|boxback>|}>>>>>>>>>>>>|<label|figure-axioms-best>Axioms
       and rules of inference for <todo|todo>>
     </float>The proof system for the base modal logic over
     <math|<value|langClosure>> is given as follows:
@@ -1570,29 +1578,29 @@
     by
 
     <\equation*>
-      \<varphi\>,\<psi\>\<assign\>p<space|0.25em>\<mid\><space|0.25em>\<neg\>\<varphi\><space|0.25em>\<mid\><space|0.25em>\<varphi\>\<wedge\>\<psi\><space|0.25em>\<mid\><space|0.25em><value|diaKnow>\<varphi\><space|0.25em>\<mid\><space|0.25em><value|diaKnownby>\<varphi\><space|0.25em>\<mid\><space|0.25em><value|diabestop>\<varphi\>
+      \<varphi\>,\<psi\>\<assign\>p<space|0.25em>\<mid\><space|0.25em>\<neg\>\<varphi\><space|0.25em>\<mid\><space|0.25em>\<varphi\>\<wedge\>\<psi\><space|0.25em>\<mid\><space|0.25em><value|Diamond>\<varphi\><space|0.25em>\<mid\><space|0.25em><value|Diamondback>\<varphi\><space|0.25em>\<mid\><space|0.25em><value|diabestop>\<varphi\>
     </equation*>
 
     <math|\<top\>,\<bot\>,\<vee\>,\<rightarrow\>,\<leftrightarrow\>> and the
-    dual modal operators <math|<value|Know>,<value|Knownby>,<value|bestop>>
+    dual modal operators <math|<value|box>,<value|boxback>,<value|bestop>>
     are defined in the usual way.
   </definition>
 
   The intended readings for these operators are as follows
-  (<math|<value|Knownby>> is conceptually tricky, I will leave it out of this
-  discussion for now). <math|<value|Know>\<varphi\>> reads \Pthe agent knows
+  (<math|<value|boxback>> is conceptually tricky, I will leave it out of this
+  discussion for now). <math|<value|box>\<varphi\>> reads \Pthe agent knows
   <math|\<varphi\>>\Q, and <math|<value|bestop>\<varphi\>> reads
   \Pbestopically <math|\<varphi\>>\Q. It is not immediately clear how these
   readings are justified; in my dissertation, I will justify these readings
   by connecting the neural network semantics I give here to more traditional
-  semantics for <math|<value|Know>,<value|Knownby>>, and
+  semantics for <math|<value|box>,<value|boxback>>, and
   <math|<value|bestop>>.
 
   At last, here are the semantics for <math|<value|langClosure>>. For all
   <math|<value|Net>\<in\><value|NetModel>>, <math|n\<in\>N>:
 
   <\equation*>
-    <tabular|<tformat|<table|<row|<cell|<value|Net>,n\<Vdash\>p>|<cell|<space|1em>iff<space|1em>>|<cell|n\<in\>V<around*|(|p|)>>>|<row|<cell|<value|Net>,n\<Vdash\>\<neg\>\<varphi\>>|<cell|<space|1em>iff<space|1em>>|<cell|<value|Net>,n<neg|\<Vdash\>>\<varphi\>>>|<row|<cell|<value|Net>,n\<Vdash\>\<varphi\>\<wedge\>\<psi\>>|<cell|<space|1em>iff<space|1em>>|<cell|<value|Net>,n\<Vdash\>\<varphi\><infix-and><value|Net>,n\<Vdash\>\<psi\>>>|<row|<cell|<value|Net>,n\<Vdash\><value|diaKnow>\<varphi\>>|<cell|<space|1em>iff<space|1em>>|<cell|n\<in\><value|Reaches><around*|(|<semantics|\<varphi\>>|)>>>|<row|<cell|<value|Net>,n\<Vdash\><value|diaKnownby>\<varphi\>>|<cell|<space|1em>iff<space|1em>>|<cell|n\<in\><value|Reach><around*|(|<semantics|\<varphi\>>|)>>>|<row|<cell|<value|Net>,n\<Vdash\><value|diabestop>\<varphi\>>|<cell|<space|1em>iff<space|1em>>|<cell|n\<in\><value|Closure><around*|(|<semantics|\<varphi\>>|)>>>>>>
+    <tabular|<tformat|<table|<row|<cell|<value|Net>,n\<Vdash\>p>|<cell|<space|1em>iff<space|1em>>|<cell|n\<in\>V<around*|(|p|)>>>|<row|<cell|<value|Net>,n\<Vdash\>\<neg\>\<varphi\>>|<cell|<space|1em>iff<space|1em>>|<cell|<value|Net>,n<neg|\<Vdash\>>\<varphi\>>>|<row|<cell|<value|Net>,n\<Vdash\>\<varphi\>\<wedge\>\<psi\>>|<cell|<space|1em>iff<space|1em>>|<cell|<value|Net>,n\<Vdash\>\<varphi\><infix-and><value|Net>,n\<Vdash\>\<psi\>>>|<row|<cell|<value|Net>,n\<Vdash\><value|Diamond>\<varphi\>>|<cell|<space|1em>iff<space|1em>>|<cell|n\<in\><value|Reaches><around*|(|<semantics|\<varphi\>>|)>>>|<row|<cell|<value|Net>,n\<Vdash\><value|Diamondback>\<varphi\>>|<cell|<space|1em>iff<space|1em>>|<cell|n\<in\><value|Reach><around*|(|<semantics|\<varphi\>>|)>>>|<row|<cell|<value|Net>,n\<Vdash\><value|diabestop>\<varphi\>>|<cell|<space|1em>iff<space|1em>>|<cell|n\<in\><value|Closure><around*|(|<semantics|\<varphi\>>|)>>>>>>
   </equation*>
 
   where <math|<semantics|\<varphi\>>=<around*|{|n\<mid\><value|Net>,n\<Vdash\>\<varphi\>|}>>.
@@ -1620,7 +1628,7 @@
   the entire net.\Q Also define <math|\<Gamma\>\<models\>\<varphi\>>.>
 
   \ <todo|A reader might be confused about the \Pswaps\Q from
-  <math|<value|Reaches>> to <math|<value|diaKnow>>, as well as the choice to
+  <math|<value|Reaches>> to <math|<value|Diamond>>, as well as the choice to
   use diamond operators instead of the normal box ones.> <todo|How can we
   justify the readings we had above? (at least intuitively)>
 
@@ -1630,7 +1638,7 @@
   semantics uses conditionals <math|\<varphi\>\<Rightarrow\>\<psi\>> to
   capture neural network inference, whereas mine instead centers on the modal
   operator <math|<value|diabestop>>. Second, I include these additional
-  operators <math|<value|Know>> and <math|<value|Knownby>> that are not
+  operators <math|<value|box>> and <math|<value|boxback>> that are not
   mentioned in his work. Finally, Leitgeb battles with the issue of how to
   correctly interpret negation; I sidestep this issue by using neural
   networks for interpreting <math|<value|diabestop>\<varphi\>> (where the
@@ -1674,7 +1682,7 @@
 
   As previously mentioned, I formalize neural network update using the
   methodology of Dynamic Epistemic Logic. Our static operators
-  <math|<value|diaKnow>>, <math|<value|diaKnownby>>, and
+  <math|<value|Diamond>>, <math|<value|Diamondback>>, and
   <math|<value|diabestop>> are interpreted by examining the state of the
   neural net. The DEL trick is to introduce a new \Pdynamic\Q operator
   <math|<around*|[|P|]>> which <with|font-shape|italic|changes> the net in
@@ -1683,7 +1691,7 @@
   operators:
 
   <\equation*>
-    \<varphi\>,\<psi\>\<assign\>p<space|0.25em>\<mid\><space|0.25em>\<neg\>\<varphi\><space|0.25em>\<mid\><space|0.25em>\<varphi\>\<wedge\>\<psi\><space|0.25em>\<mid\><space|0.25em><value|diaKnow>\<varphi\><space|0.25em>\<mid\><space|0.25em><value|diaKnownby>\<varphi\><space|0.25em>\<mid\><space|0.25em><value|diabestop>\<varphi\><space|0.25em>\<mid\><space|0.25em><around*|[|P|]>\<varphi\>
+    \<varphi\>,\<psi\>\<assign\>p<space|0.25em>\<mid\><space|0.25em>\<neg\>\<varphi\><space|0.25em>\<mid\><space|0.25em>\<varphi\>\<wedge\>\<psi\><space|0.25em>\<mid\><space|0.25em><value|Diamond>\<varphi\><space|0.25em>\<mid\><space|0.25em><value|Diamondback>\<varphi\><space|0.25em>\<mid\><space|0.25em><value|diabestop>\<varphi\><space|0.25em>\<mid\><space|0.25em><around*|[|P|]>\<varphi\>
   </equation*>
 
   Here, <math|<around*|[|P|]>\<varphi\>> reads \Pafter the agent observes
@@ -2300,27 +2308,27 @@
         <item*|Trans><math|<value|bestop>\<varphi\>\<rightarrow\><value|bestop><value|bestop>\<varphi\>>
       </description>
 
-      <item*|Axioms for <math|<value|Know>>>
+      <item*|Axioms for <math|<value|box>>>
 
       <\description>
-        <item*|Dual><math|<value|diaKnow>\<varphi\>\<leftrightarrow\>\<neg\><value|Know>\<neg\>\<varphi\>>
+        <item*|Dual><math|<value|Diamond>\<varphi\>\<leftrightarrow\>\<neg\><value|box>\<neg\>\<varphi\>>
 
-        <item*|Distr><math|<value|Know><around*|(|\<varphi\>\<rightarrow\>\<psi\>|)>\<rightarrow\><around*|(|<value|Know>\<varphi\>\<rightarrow\><value|Know>\<psi\>|)>>
+        <item*|Distr><math|<value|box><around*|(|\<varphi\>\<rightarrow\>\<psi\>|)>\<rightarrow\><around*|(|<value|box>\<varphi\>\<rightarrow\><value|box>\<psi\>|)>>
 
-        <item*|Refl><math|<value|Know>\<varphi\>\<rightarrow\>\<varphi\>>
+        <item*|Refl><math|<value|box>\<varphi\>\<rightarrow\>\<varphi\>>
 
-        <item*|Trans><math|<value|Know>\<varphi\>\<rightarrow\><value|Know><value|Know>\<varphi\>>
+        <item*|Trans><math|<value|box>\<varphi\>\<rightarrow\><value|box><value|box>\<varphi\>>
       </description>
 
-      <item*|Interaction axioms for <math|<value|Know>> and
-      <math|<value|Knownby>>>
+      <item*|Interaction axioms for <math|<value|box>> and
+      <math|<value|boxback>>>
 
       <\description>
-        <item*|Distr><math|<value|Knownby><around*|(|\<varphi\>\<rightarrow\>\<psi\>|)>\<rightarrow\><around*|(|<value|Knownby>\<varphi\>\<rightarrow\><value|Knownby>\<psi\>|)>>
+        <item*|Distr><math|<value|boxback><around*|(|\<varphi\>\<rightarrow\>\<psi\>|)>\<rightarrow\><around*|(|<value|boxback>\<varphi\>\<rightarrow\><value|boxback>\<psi\>|)>>
 
-        <item*|Back><math|\<varphi\>\<rightarrow\><value|Know><value|diaKnownby>\<varphi\>>
+        <item*|Back><math|\<varphi\>\<rightarrow\><value|box><value|Diamondback>\<varphi\>>
 
-        <item*|Forth><math|\<varphi\>\<rightarrow\><value|Knownby><value|diaKnow>\<varphi\>>
+        <item*|Forth><math|\<varphi\>\<rightarrow\><value|boxback><value|Diamond>\<varphi\>>
       </description>
     </description>
 
@@ -2334,7 +2342,7 @@
 
       <item*|Nec>From <math|<proves>\<varphi\>> we can infer
       <math|<value|proves>\<box\>\<varphi\>> for
-      <math|\<box\>\<in\><around*|{|<value|Know>,<value|Knownby>,<value|bestop>|}>>
+      <math|\<box\>\<in\><around*|{|<value|box>,<value|boxback>,<value|bestop>|}>>
     </description>
   </definition>
 
@@ -3011,7 +3019,7 @@
     given the formula
 
     <\equation*>
-      <diaHebbop|p><around|(|<diaHebbop|p><diaBelieve|q>\<wedge\><diaKnow|p|q>|)>\<in\>\<Gamma\><rsup|\<ast\>>
+      <diaHebbop|p><around|(|<diaHebbop|p><diaBelieve|q>\<wedge\><Diamond|p|q>|)>\<in\>\<Gamma\><rsup|\<ast\>>
     </equation*>
 
     we would recursively apply our reduction axioms, pushing
@@ -3029,7 +3037,7 @@
 
       <item><math|<value|transl><around|(|\<varphi\>\<wedge\>\<psi\>|)>=<value|transl><around|(|\<varphi\>|)>\<wedge\><value|transl><around|(|\<psi\>|)>>
 
-      <item><math|<value|transl><around|(|<Know|\<varphi\>|\<psi\>>\<varphi\>|)>=<value|Know><around*|(|<value|transl><around*|(|\<varphi\>|)>|)>>
+      <item><math|<value|transl><around|(|<Know|\<varphi\>|\<psi\>>\<varphi\>|)>=<value|box><around*|(|<value|transl><around*|(|\<varphi\>|)>|)>>
 
       <item><math|t*r<around|(|<diaHebbop|\<varphi\>>p|)>=t*r<around|(|p|)>>
 
@@ -3037,9 +3045,9 @@
 
       <item><math|t*r<around|(|<diaHebbop|\<varphi\>><around|(|\<psi\>\<wedge\>\<rho\>|)>|)>=t*r*<around|(|<diaHebbop|\<varphi\>>\<psi\>\<wedge\><diaHebbop|\<varphi\>>\<rho\>|)>>
 
-      <item><math|t*r<around|(|<diaHebbop|\<varphi\>><diaKnow|\<psi\>|\<rho\>>|)>=t*r<around|(|<diaKnow|<diaHebbop|\<varphi\>>\<psi\>|<diaHebbop|\<varphi\>>\<rho\>>|)>>
+      <item><math|t*r<around|(|<diaHebbop|\<varphi\>><Diamond|\<psi\>|\<rho\>>|)>=t*r<around|(|<Diamond|<diaHebbop|\<varphi\>>\<psi\>|<diaHebbop|\<varphi\>>\<rho\>>|)>>
 
-      <item><math|t*r<around|(|<diaHebbop|\<varphi\>><diaBelieve|\<psi\>>|)>=t*r<around|(|<diaBelieve|(<diaHebbop|\<varphi\>>\<psi\>\<vee\><diaKnow|<diaBelieve|\<varphi\>>|<diaBelieve|<diaHebbop|\<varphi\>>\<psi\>>)>>|)>>
+      <item><math|t*r<around|(|<diaHebbop|\<varphi\>><diaBelieve|\<psi\>>|)>=t*r<around|(|<diaBelieve|(<diaHebbop|\<varphi\>>\<psi\>\<vee\><Diamond|<diaBelieve|\<varphi\>>|<diaBelieve|<diaHebbop|\<varphi\>>\<psi\>>)>>|)>>
 
       <item><math|t*r<around|(|<diaHebbop|\<varphi\>><diaHebbop|\<psi\>>\<rho\>|)>=t*r<around|(|<diaHebbop|\<varphi\>><around|(|t*r<around|(|<diaHebbop|\<psi\>>\<rho\>|)>|)>|)>>
     </itemize>
@@ -3071,9 +3079,9 @@
 
       <item><math|c<around|(|<diaHebbop|\<varphi\>><around|(|\<psi\>\<wedge\>\<rho\>|)>|)>\<gtr\>c*<around|(|<diaHebbop|\<varphi\>>\<psi\>\<wedge\><diaHebbop|\<varphi\>>\<rho\>|)>>
 
-      <item><math|c<around|(|<diaHebbop|\<varphi\>><diaKnow|\<psi\>|\<rho\>>|)>\<gtr\>c<around|(|<diaKnow|<diaHebbop|\<varphi\>>\<psi\>|<diaHebbop|\<varphi\>>\<rho\>>|)>>
+      <item><math|c<around|(|<diaHebbop|\<varphi\>><Diamond|\<psi\>|\<rho\>>|)>\<gtr\>c<around|(|<Diamond|<diaHebbop|\<varphi\>>\<psi\>|<diaHebbop|\<varphi\>>\<rho\>>|)>>
 
-      <item><math|c<around|(|<diaHebbop|\<varphi\>><diaBelieve|\<psi\>>|)>\<gtr\>c<around|(|<diaBelieve|(<diaHebbop|\<varphi\>>\<psi\>\<vee\><diaKnow|<diaBelieve|\<varphi\>>|<diaBelieve|<diaHebbop|\<varphi\>>\<psi\>>)>>|)>>
+      <item><math|c<around|(|<diaHebbop|\<varphi\>><diaBelieve|\<psi\>>|)>\<gtr\>c<around|(|<diaBelieve|(<diaHebbop|\<varphi\>>\<psi\>\<vee\><Diamond|<diaBelieve|\<varphi\>>|<diaBelieve|<diaHebbop|\<varphi\>>\<psi\>>)>>|)>>
 
       <item><math|c<around|(|<diaHebbop|\<varphi\>><diaHebbop|\<psi\>>\<rho\>|)>\<gtr\>c<around|(|<diaHebbop|\<varphi\>><around|(|t*r<around|(|<diaHebbop|\<psi\>>\<rho\>|)>|)>|)>>
     </itemize>
@@ -3159,8 +3167,8 @@
           have:
 
           <\equation*>
-            <tabular*|<tformat|<cwith|1|-1|1|1|cell-halign|l>|<cwith|1|-1|1|1|cell-lborder|0ln>|<cwith|1|-1|1|1|cell-rborder|0ln>|<table|<row|<cell|<proves><diaHebbop|\<varphi\>><Believe|\<psi\>>>>|<row|<cell|<space|1em><space|1em>\<leftrightarrow\><diaBelieve|<diaHebbop|\<varphi\>>\<psi\>\<vee\><diaKnow|<diaBelieve|\<varphi\>>|<diaBelieve|<diaHebbop|\<varphi\>>\<psi\>>>>>>|<row|<cell|<space|1em><space|1em><space|1em><space|1em><around|(|<text|by
-            the reduction axiom>|)>>>|<row|<cell|<space|1em><space|1em>\<leftrightarrow\>t*r<around|(|<diaBelieve|<diaHebbop|\<varphi\>>\<psi\>\<vee\><diaKnow|<diaBelieve|\<varphi\>>|<diaBelieve|<diaHebbop|\<varphi\>>\<psi\>>>>|)>>>|<row|<cell|<space|1em><space|1em><space|1em><space|1em><around|(|<text|inductive
+            <tabular*|<tformat|<cwith|1|-1|1|1|cell-halign|l>|<cwith|1|-1|1|1|cell-lborder|0ln>|<cwith|1|-1|1|1|cell-rborder|0ln>|<table|<row|<cell|<proves><diaHebbop|\<varphi\>><Believe|\<psi\>>>>|<row|<cell|<space|1em><space|1em>\<leftrightarrow\><diaBelieve|<diaHebbop|\<varphi\>>\<psi\>\<vee\><Diamond|<diaBelieve|\<varphi\>>|<diaBelieve|<diaHebbop|\<varphi\>>\<psi\>>>>>>|<row|<cell|<space|1em><space|1em><space|1em><space|1em><around|(|<text|by
+            the reduction axiom>|)>>>|<row|<cell|<space|1em><space|1em>\<leftrightarrow\>t*r<around|(|<diaBelieve|<diaHebbop|\<varphi\>>\<psi\>\<vee\><Diamond|<diaBelieve|\<varphi\>>|<diaBelieve|<diaHebbop|\<varphi\>>\<psi\>>>>|)>>>|<row|<cell|<space|1em><space|1em><space|1em><space|1em><around|(|<text|inductive
             hypothesis>|)>>>|<row|<cell|<space|1em><space|1em>=t*r<around|(|<diaHebbop|\<varphi\>><Believe|\<psi\>>|)>>>|<row|<cell|<space|1em><space|1em><space|1em><space|1em><around|(|<text|by
             our translation>|)>>>>>>
           </equation*>
@@ -3259,9 +3267,9 @@
     setting.
 
     <item>Give this language. As an example, mention that our language above
-    of <math|<value|Know>>,<math|<value|Knownby>> and <math|<value|bestop>>
-    is an instance of this language, where the operators
-    <math|<value|Know>>,<math|<value|Knownby>> and <math|<value|bestop>> have
+    of <math|<value|box>>,<math|<value|boxback>> and <math|<value|bestop>> is
+    an instance of this language, where the operators
+    <math|<value|box>>,<math|<value|boxback>> and <math|<value|bestop>> have
     additional interaction axioms.
 
     <item><math|<value|indices>> is some fixed set of indices.
@@ -3668,11 +3676,11 @@
 
     Let's proceed by induction on <math|\<varphi\>\<in\><value|langUpdate>>.
     The propositional and boolean cases are easy. The
-    <math|<value|All>,<value|Know>,<value|Knownby>>, and
-    <math|<value|bestop>> cases are all similar: None of these cases depend
-    on the choice of update, so we just apply our inductive hypothesis along
-    with the fact that <math|<around*|(|<value|transl>,f|)>> is a translation
-    from <math|<around*|(|<value|langClosure>,<value|Plaus>|)>> into
+    <math|<value|All>,<value|box>,<value|boxback>>, and <math|<value|bestop>>
+    cases are all similar: None of these cases depend on the choice of
+    update, so we just apply our inductive hypothesis along with the fact
+    that <math|<around*|(|<value|transl>,f|)>> is a translation from
+    <math|<around*|(|<value|langClosure>,<value|Plaus>|)>> into
     <math|<around*|(|<value|langClosure>,<value|NetModel>|)>>. Finally,
     consider the update case:
 
@@ -4003,29 +4011,25 @@
   annoying technical detail, but it deserves to be written up as a paper in
   its own right.>
 
-  First, I will focus on the simpler language <math|<value|langSimplified>>
-  (without <math|<value|Knownby>>)
+  I will prove soundness and completeness for the language
+  <math|<value|langBest>>:
 
   <\equation*>
-    \<varphi\>,\<psi\>\<assign\>p<value|st>\<neg\>\<varphi\><value|st>\<varphi\>\<wedge\>\<psi\><value|st><value|Know>\<varphi\><value|st><value|All>\<varphi\><value|st><value|bestop>\<varphi\>
+    \<varphi\>,\<psi\>\<assign\>p<value|st>\<neg\>\<varphi\><value|st>\<varphi\>\<wedge\>\<psi\><value|st><value|All>\<varphi\><value|st>\<box\>\<varphi\><value|st><value|boxback>\<varphi\><value|st><value|bestop>\<varphi\>
   </equation*>
 
-  Then I will extend the proofs of soundness/completeness for the language
-  <math|<value|langBest>> which effectively replaces the <math|<value|All>>
-  modality with the more informative temporal operator
-  <math|<value|Knownby>>:
-
-  <\equation*>
-    \<varphi\>,\<psi\>\<assign\>p<value|st>\<neg\>\<varphi\><value|st>\<varphi\>\<wedge\>\<psi\><value|st><value|Know>\<varphi\><value|st><value|Knownby>\<varphi\><value|st><value|bestop>\<varphi\>
-  </equation*>
+  Actually, the model construction I give works for the language without
+  <math|<value|All>>; adding <math|<value|All>\<varphi\>> to the logic of
+  <math|\<box\>> alone is a known result in modal logic. <todo|Cite this! Who
+  proved this first?>
 
   <todo|I think it's okay to repeat syntax + semantics here, since otherwise
   the reader would have to flip to the beginning<text-dots>>
 
   <todo|Talk about the expressive power of this language: show how this logic
-  of <math|<value|All>,<value|Know>,<value|Knownby>,<value|bestop>> can
-  express many of the other ways of expressing defeasible reasoning\Vand
-  mention which ones it cannot express.>
+  of <math|<value|All>,\<box\>,<value|boxback>,<value|bestop>> can express
+  many of the other ways of expressing defeasible reasoning\Vand mention
+  which ones it cannot express.>
 
   <section|Proof of Soundness>
 
@@ -4038,65 +4042,87 @@
 
   <\definition>
     <\float|float|thb>
-      <big-figure|<tabular|<tformat|<twith|table-width|1par>|<twith|table-hmode|exact>|<twith|table-lborder|0.1em>|<twith|table-rborder|0.1em>|<twith|table-bborder|0.1em>|<twith|table-tborder|0.1em>|<cwith|4|4|2|2|cell-valign|t>|<cwith|4|4|1|1|cell-valign|t>|<cwith|2|2|1|1|cell-valign|t>|<cwith|2|2|2|2|cell-valign|t>|<cwith|1|-1|1|-1|cell-bsep|0.2fn>|<cwith|1|-1|1|-1|cell-tsep|0.2fn>|<cwith|1|1|1|-1|cell-tsep|0.5fn>|<cwith|4|4|1|-1|cell-bsep|0.5fn>|<cwith|1|-1|1|1|cell-lsep|0.5fn>|<cwith|1|-1|2|2|cell-rsep|0.5fn>|<cwith|3|3|1|-1|cell-tsep|0.75fn>|<cwith|1|-1|1|1|cell-rsep|0fn>|<cwith|1|-1|2|2|cell-lsep|0fn>|<table|<row|<cell|<with|font-series|bold|Axioms
-      for <math|<value|Know>>:>>|<cell|<with|font-series|bold|Axioms for
-      <math|<value|All>>:>>>|<row|<cell|<tabular|<tformat|<cwith|1|-1|1|-1|cell-lsep|0.25fn>|<cwith|1|-1|1|-1|cell-rsep|0.25fn>|<cwith|1|-1|1|-1|cell-bsep|0.25fn>|<cwith|1|-1|1|-1|cell-tsep|0.25fn>|<table|<row|<cell|<with|font-series|bold|(Dual)>>|<cell|<math|<value|diaKnow>\<varphi\>\<leftrightarrow\>\<neg\><value|Know>\<neg\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Distr)>>|<cell|<math|<value|Know><around*|(|\<varphi\>\<rightarrow\>\<psi\>|)>\<rightarrow\><around*|(|<value|Know>\<varphi\>\<rightarrow\><value|Know>\<psi\>|)>>>>|<row|<cell|<with|font-series|bold|(Refl)>>|<cell|<math|<value|Know>\<varphi\>\<rightarrow\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Trans)>>|<cell|<math|<value|Know>\<varphi\>\<rightarrow\><value|Know><value|Know>\<varphi\>>>>>>>>|<cell|<tabular|<tformat|<cwith|1|-1|1|-1|cell-lsep|0.25fn>|<cwith|1|-1|1|-1|cell-rsep|0.25fn>|<cwith|1|-1|1|-1|cell-bsep|0.25fn>|<cwith|1|-1|1|-1|cell-tsep|0.25fn>|<table|<row|<cell|<with|font-series|bold|(Dual)>>|<cell|<math|<value|Exists>\<varphi\>\<leftrightarrow\>\<neg\><value|All>\<neg\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Distr)>>|<cell|<math|<value|All><around*|(|\<varphi\>\<rightarrow\>\<psi\>|)>\<rightarrow\><around*|(|<value|All>\<varphi\>\<rightarrow\><value|All>\<psi\>|)>>>>|<row|<cell|<with|font-series|bold|(Refl)>>|<cell|<math|<value|All>\<varphi\>\<rightarrow\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(5)>>|<cell|<math|<value|Exists>\<varphi\>\<rightarrow\><value|All><around*|(|<value|Exists>\<varphi\>|)>>>>|<row|<cell|<with|font-series|bold|(Interact)>>|<cell|<math|<value|All>\<varphi\>\<rightarrow\><value|Know>\<varphi\>>>>>>>>>|<row|<cell|<with|font-series|bold|Axioms
-      for <math|<value|bestop>>:>>|<cell|<with|font-series|bold|Rules of
-      Inference:>>>|<row|<cell|<tabular|<tformat|<cwith|1|-1|1|-1|cell-lsep|0.25fn>|<cwith|1|-1|1|-1|cell-rsep|0.25fn>|<cwith|1|-1|1|-1|cell-bsep|0.25fn>|<cwith|1|-1|1|-1|cell-tsep|0.25fn>|<table|<row|<cell|<with|font-series|bold|(Dual)>>|<cell|<math|<value|diabestop>\<varphi\>\<leftrightarrow\>\<neg\><value|bestop>\<neg\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Refl)>>|<cell|<math|<value|bestop>\<varphi\>\<rightarrow\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Trans)>>|<cell|<math|<value|bestop>\<varphi\>\<rightarrow\><value|bestop><value|bestop>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Smooth)>>|<cell|<math|<around*|(|\<varphi\>\<wedge\>\<neg\><value|bestop>\<varphi\>|)>\<rightarrow\><value|Exists><value|bestop>\<varphi\>>>>>>>>|<cell|<tabular|<tformat|<cwith|1|-1|1|-1|cell-lsep|0.25fn>|<cwith|1|-1|1|-1|cell-rsep|0.25fn>|<cwith|1|-1|1|-1|cell-bsep|0.25fn>|<cwith|1|-1|1|-1|cell-tsep|0.25fn>|<cwith|2|2|2|2|cell-hyphen|t>|<table|<row|<cell|<with|font-series|bold|(MP)>>|<cell|From
+      <big-figure|<tabular|<tformat|<twith|table-width|1par>|<twith|table-hmode|exact>|<twith|table-lborder|0.1em>|<twith|table-rborder|0.1em>|<twith|table-bborder|0.1em>|<twith|table-tborder|0.1em>|<cwith|4|4|2|2|cell-valign|t>|<cwith|4|4|1|1|cell-valign|t>|<cwith|2|2|1|1|cell-valign|t>|<cwith|2|2|2|2|cell-valign|t>|<cwith|1|-1|1|-1|cell-bsep|0.2fn>|<cwith|1|-1|1|-1|cell-tsep|0.2fn>|<cwith|1|1|1|-1|cell-tsep|0.5fn>|<cwith|4|4|1|-1|cell-bsep|0.5fn>|<cwith|1|-1|1|1|cell-lsep|0.5fn>|<cwith|1|-1|2|2|cell-rsep|0.5fn>|<cwith|3|3|1|-1|cell-tsep|0.75fn>|<cwith|5|5|1|-1|cell-tsep|0.75fn>|<table|<row|<cell|<with|font-series|bold|Axioms
+      for <math|\<box\>>:>>|<cell|<with|font-series|bold|Axioms for
+      <math|<value|boxback>>:>>>|<row|<cell|<tabular|<tformat|<cwith|1|-1|1|-1|cell-lsep|0.25fn>|<cwith|1|-1|1|-1|cell-rsep|0.25fn>|<cwith|1|-1|1|-1|cell-bsep|0.25fn>|<cwith|1|-1|1|-1|cell-tsep|0.25fn>|<table|<row|<cell|<with|font-series|bold|(Dual)>>|<cell|<math|<value|Diamond>\<varphi\>\<leftrightarrow\>\<neg\>\<box\>\<neg\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Distr)>>|<cell|<math|\<box\><around*|(|\<varphi\>\<rightarrow\>\<psi\>|)>\<rightarrow\><around*|(|\<box\>\<varphi\>\<rightarrow\>\<box\>\<psi\>|)>>>>|<row|<cell|<with|font-series|bold|(Refl)>>|<cell|<math|\<box\>\<varphi\>\<rightarrow\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Trans)>>|<cell|<math|\<box\>\<varphi\>\<rightarrow\>\<box\>\<box\>\<varphi\>>>>>>>>|<cell|<tabular|<tformat|<cwith|1|-1|1|-1|cell-lsep|0.25fn>|<cwith|1|-1|1|-1|cell-rsep|0.25fn>|<cwith|1|-1|1|-1|cell-bsep|0.25fn>|<cwith|1|-1|1|-1|cell-tsep|0.25fn>|<table|<row|<cell|<with|font-series|bold|(Dual)>>|<cell|<math|<value|Diamondback>\<varphi\>\<leftrightarrow\>\<neg\><value|boxback>\<neg\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Distr)>>|<cell|<math|<value|boxback><around*|(|\<varphi\>\<rightarrow\>\<psi\>|)>\<rightarrow\><around*|(|<value|boxback>\<varphi\>\<rightarrow\><value|boxback>\<psi\>|)>>>>|<row|<cell|<with|font-series|bold|(Back)>>|<cell|<math|\<varphi\>\<rightarrow\>\<box\><value|Diamondback>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Forth)>>|<cell|<math|\<varphi\>\<rightarrow\><value|boxback><value|Diamond>\<varphi\>>>>>>>>>|<row|<cell|<with|font-series|bold|Axioms
+      for <value|bestop>:>>|<cell|<with|font-series|bold|Axioms for
+      <value|All>:>>>|<row|<cell|<tabular|<tformat|<cwith|1|-1|1|-1|cell-lsep|0.25fn>|<cwith|1|-1|1|-1|cell-rsep|0.25fn>|<cwith|1|-1|1|-1|cell-bsep|0.25fn>|<cwith|1|-1|1|-1|cell-tsep|0.25fn>|<table|<row|<cell|<with|font-series|bold|(Dual)>>|<cell|<math|<value|diabestop>\<varphi\>\<leftrightarrow\>\<neg\><value|bestop>\<neg\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Refl)>>|<cell|<math|<value|bestop>\<varphi\>\<rightarrow\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Trans)>>|<cell|<math|<value|bestop>\<varphi\>\<rightarrow\><value|bestop><value|bestop>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Smooth)>>|<cell|<math|\<varphi\>\<wedge\>\<neg\><value|bestop>\<varphi\>\<rightarrow\><value|Diamondback><value|bestop>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Up)>>|<cell|<math|<value|bestop>\<varphi\>\<wedge\>\<psi\>\<rightarrow\>\<box\><around*|(|<value|bestop>\<varphi\>\<rightarrow\>\<psi\>|)>>>>|<row|<cell|<with|font-series|bold|(Down)>>|<cell|<math|<value|bestop>\<varphi\>\<wedge\>\<psi\>\<rightarrow\><value|boxback><around*|(|\<varphi\>\<rightarrow\>\<psi\>|)>>>>>>>>|<cell|<tabular|<tformat|<cwith|1|-1|1|-1|cell-lsep|0.25fn>|<cwith|1|-1|1|-1|cell-rsep|0.25fn>|<cwith|1|-1|1|-1|cell-bsep|0.25fn>|<cwith|1|-1|1|-1|cell-tsep|0.25fn>|<table|<row|<cell|<with|font-series|bold|(Dual)>>|<cell|<math|<value|Exists>\<varphi\>\<leftrightarrow\>\<neg\><value|All>\<neg\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Distr)>>|<cell|<math|<value|All><around*|(|\<varphi\>\<rightarrow\>\<psi\>|)>\<rightarrow\><around*|(|<value|All>\<varphi\>\<rightarrow\><value|All>\<psi\>|)>>>>|<row|<cell|<with|font-series|bold|(Refl)>>|<cell|<math|<value|All>\<varphi\>\<rightarrow\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(5)>>|<cell|<math|<value|Exists>\<varphi\>\<rightarrow\><value|All><around*|(|<value|Exists>\<varphi\>|)>>>>|<row|<cell|<with|font-series|bold|(Interact)>>|<cell|<math|<value|All>\<varphi\>\<rightarrow\>\<box\>\<varphi\>>>>>>>>>|<row|<cell|>|<cell|<with|font-series|bold|Rules
+      of Inference:>>>|<row|<cell|>|<cell|<tabular|<tformat|<cwith|1|-1|1|-1|cell-lsep|0.25fn>|<cwith|1|-1|1|-1|cell-rsep|0.25fn>|<cwith|1|-1|1|-1|cell-bsep|0.25fn>|<cwith|1|-1|1|-1|cell-tsep|0.25fn>|<cwith|2|2|2|2|cell-hyphen|t>|<table|<row|<cell|<with|font-series|bold|(MP)>>|<cell|From
       <math|<proves>\<varphi\>\<rightarrow\>\<psi\>> and
       <math|<value|proves>\<varphi\>> we can infer
       <math|<value|proves>\<psi\>>>>|<row|<cell|<with|font-series|bold|(Nec)>>|<\cell>
         From <math|<proves>\<varphi\>> we can infer
         <math|<value|proves>\<box\>\<varphi\>>
       </cell>>|<row|<cell|>|<cell|<space|2em>for each
-      <math|\<box\>\<in\><around*|{|<value|All>,<value|Know>|}>>>>|<row|<cell|>|<cell|<todo|todo\Vmissing
-      a rule for <math|<value|bestop>>>>>>>>>>>>>|<label|figure-axioms-best>Axioms
+      <math|\<box\>\<in\><around*|{|<value|All>,\<box\>,<value|boxback>|}>>>>>>>>>>>>|<label|figure-axioms-best>Axioms
       and rules of inference for <todo|todo>>
     </float>The proof system for the base modal logic over
-    <math|<value|langSimplified>> is given as follows:
+    <math|<value|langBest>> is given as follows:
     <math|<value|proves>\<varphi\>> iff either <math|\<varphi\>> is valid in
     propositional logic, or <math|\<varphi\>> is one of the axioms listed in
     Figure <reference|figure-axioms-best>, or <math|\<varphi\>> follows from
     some previously obtained formulas by one of the inference rules.
   </definition>
 
-  The axioms for <math|<value|Know>> and <math|<value|All>> form
+  The axioms for <math|\<box\>> and <math|<value|All>> form
   \P<with|font-shape|italic|MLU>\Q (modal logic with the universal
   quantifier), and this is the standard complete axiomatization of this logic
   <todo|Cite! Johan van Benthem mentions it in Modal Logic for Open Minds>.
-  The logic of <math|<value|Know>> is just <with|font-shape|italic|S4>, and
+  The logic of <math|\<box\>> is just <with|font-shape|italic|S4>, and
   <math|<value|All>> is just <with|font-shape|italic|S5> with an additional
-  interaction axiom <math|<value|All>\<varphi\>\<rightarrow\><value|Know>\<varphi\>>
+  interaction axiom <math|<value|All>\<varphi\>\<rightarrow\>\<box\>\<varphi\>>
   stating that if <math|\<varphi\>> holds everywhere, then it holds
   everywhere above the current world.
 
-  The Smooth axiom is actually totally new\Vand the fact that we can express
-  Smoothness as a formula is a very nice feature of this logic!
+  The axioms for <math|<value|boxback>> come from temporal logic\V<todo|talk
+  about Future and Past modalities, our <with|font-series|bold|(Back)> and
+  <with|font-series|bold|(Forth)> axioms are exactly the ones needed.> In
+  fact, the proof of completeness for <math|<value|boxback>> will require
+  some tricks from this temporal logic. <todo|cite the book on modal temporal
+  logic<text-dots> it's been a while since I've read it>.
+
+  The axioms for <math|<value|bestop>> are, to my knowledge, totally new!
+  <math|<value|bestop>> is a non-normal modal operator, in the sense that it
+  doesn't satisfy a <with|font-series|bold|(Distr)> axiom or have a valid
+  <with|font-series|bold|(Nec)> rule. Instead, <math|<value|bestop>>
+  satisfies the axioms <with|font-series|bold|(Smooth)>,
+  <with|font-series|bold|(Up)>, and <with|font-series|bold|(Down)>.
+  <with|font-series|bold|(Smooth)> is an explicit statement of the Smoothness
+  Condition\Vthe fact that we can express it in our logic is an interesting
+  feature of this defeasible logic (I will discuss this more later).
+  <with|font-series|bold|(Up)> says that if the current state <math|w> is a
+  best-<math|\<varphi\>> state, then every state above <math|w> that is a
+  best-<math|\<varphi\>> state must in fact be <math|w> (so any
+  <math|\<psi\>> that holds at <math|w> must hold at this new state as well).
+  <with|font-series|bold|(Down)> says that if the current state <math|w> is a
+  best-<math|\<varphi\>> state, then every state
+  <with|font-shape|italic|below> <math|w> where <math|\<varphi\>> holds at
+  all must in fact be <math|w> (so any <math|\<psi\>> that holds at <math|w>
+  must hold at this new state as well).
 
   <\definition>
-    If <math|\<Gamma\>\<subseteq\><value|langSimplified>> is a set of
-    formulas and <math|\<varphi\>\<in\><value|langSimplified>> a formula,
-    then <math|\<Gamma\><value|proves>\<varphi\>> whenever there are finitely
-    many <math|\<psi\><rsub|1>,\<ldots\>,\<psi\><rsub|k>\<in\>\<Gamma\>> such
-    that <math|<value|proves>\<psi\><rsub|1>\<wedge\>\<ldots\>\<wedge\>\<psi\><rsub|k>\<rightarrow\>\<varphi\>>.
+    If <math|\<Gamma\>\<subseteq\><value|langBest>> is a set of formulas and
+    <math|\<varphi\>\<in\><value|langBest>> a formula, then
+    <math|\<Gamma\><value|proves>\<varphi\>> whenever there are finitely many
+    <math|\<psi\><rsub|1>,\<ldots\>,\<psi\><rsub|k>\<in\>\<Gamma\>> such that
+    <math|<value|proves>\<psi\><rsub|1>\<wedge\>\<ldots\>\<wedge\>\<psi\><rsub|k>\<rightarrow\>\<varphi\>>.
   </definition>
 
   <\definition>
-    A set <math|\<Gamma\>\<subseteq\><value|langSimplified>> is
+    A set <math|\<Gamma\>\<subseteq\><value|langBest>> is
     <with|font-shape|italic|consistent> iff
     <math|\<Gamma\><neg|<value|proves>>\<bot\>>. <math|\<Gamma\>> is
     <with|font-shape|italic|maximally consistent> if <math|\<Gamma\>> is
-    consistent and for all <math|\<varphi\>\<in\><value|langSimplified>>
-    either <math|\<varphi\>\<in\>\<Gamma\>> or
-    <math|\<varphi\><neg|\<in\>>\<Gamma\>>.
+    consistent and for all <math|\<varphi\>\<in\><value|langBest>> either
+    <math|\<varphi\>\<in\>\<Gamma\>> or <math|\<varphi\><neg|\<in\>>\<Gamma\>>.
   </definition>
 
   <\theorem>
-    <dueto|<aw|hand-point-right|1fn> Soundness for <value|langSimplified>
+    <dueto|<aw|hand-point-right|1fn> Soundness for <math|<value|langBest>>
     over <math|\<models\><rsub|<value|Plaus>>>>These rules and axioms are
     sound for plausibility models; for all consistent
-    <math|\<Gamma\>\<subseteq\><value|langSimplified>> and
-    <math|\<varphi\>\<in\><value|langSimplified>>, if
+    <math|\<Gamma\>\<subseteq\><value|langBest>> and
+    <math|\<varphi\>\<in\><value|langBest>>, if
     <math|\<Gamma\><value|proves>\<varphi\>> then
     <math|\<Gamma\>\<models\><rsub|<value|Plaus>>\<varphi\>>.
   </theorem>
@@ -4116,12 +4142,13 @@
     order to prove <math|<value|Model>\<models\>\<varphi\>>, it's enough to
     show that the axioms and rules of inference are valid (hold for all
     <math|<value|Model>\<in\><value|Plaus>> at all states <math|w\<in\>W>
-    whatsoever). The propositional axioms, <math|<value|Know>> axioms,
-    <math|<value|All>> axioms, <with|font-series|bold|(MP)> and
-    <with|font-series|bold|(Nec)> are known to be sound <todo|cite>, and our
-    plausibility models don't change the semantics of
-    <math|<value|Know>,<value|All>>, so I can safely skip these. As for the
-    rest, let Let <math|<value|Model>\<in\><value|Plaus>,w\<in\>W>.
+    whatsoever). The propositional axioms, <math|\<box\>> axioms,
+    <math|<value|boxback>> axioms, <math|<value|All>> axioms,
+    <with|font-series|bold|(MP)> and <with|font-series|bold|(Nec)> are known
+    to be sound <todo|cite multiple for each>, and our plausibility models
+    don't change the semantics of <math|\<box\>,<value|boxback>,<value|All>>,
+    so I can safely skip these. As for the <math|<value|bestop>> axioms, let
+    Let <math|<value|Model>\<in\><value|Plaus>,w\<in\>W>.
 
     <\description>
       <item*|<with|font-series|bold|(Dual)> for <math|<value|bestop>>>This
@@ -4141,10 +4168,8 @@
       <math|w\<in\><value|best><rsub|\<prec\>><around*|(|<value|best><rsub|\<prec\>><around*|(|<semantics|\<varphi\>><rsub|<value|Model>>|)>|)>>.
       And so <math|<value|Model>,w\<Vdash\><value|bestop><value|bestop>\<varphi\>>.
 
-      <item*|<with|font-series|bold|(Smooth)> for <math|<value|bestop>>>The
-      <with|font-series|bold|(Smooth)> axiom is the only new one in the list,
-      and perhaps the most important one characterizing
-      <math|<value|bestop>>. Suppose <math|<value|Model>,w\<Vdash\>\<varphi\>>
+      <item*|<with|font-series|bold|(Smooth)> for
+      <math|<value|bestop>>>Suppose <math|<value|Model>,w\<Vdash\>\<varphi\>>
       and <math|<value|Model>,w\<Vdash\>\<neg\><value|bestop>\<varphi\>>. By
       the semantics, this means <math|w\<in\><semantics|\<varphi\>><rsub|<value|Model>>>,
       but <math|w<neg|\<in\>><value|best><rsub|\<prec\>><around*|(|<semantics|\<varphi\>><rsub|<value|Model>>|)>>.
@@ -4153,8 +4178,40 @@
       <with|font-shape|italic|is> the best, i.e.,
       <math|v\<in\><value|best><rsub|\<prec\>><around*|(|<semantics|\<varphi\>><rsub|<value|Model>>|)>>.
       By the semantics for <math|<value|bestop>>,
-      <math|<value|Model>,v\<Vdash\><value|bestop>\<varphi\>>. But then this
-      implies that <math|<value|Model>,w\<Vdash\><value|Exists><value|bestop>\<varphi\>>.
+      <math|<value|Model>,v\<Vdash\><value|bestop>\<varphi\>>. But since
+      <math|v> was picked arbitrarily, and <math|v\<preceq\>w>, we have
+      <math|<value|Model>,w\<Vdash\><value|Diamondback><value|bestop>\<varphi\>>.
+
+      <item*|<with|font-series|bold|(Up)> for <math|<value|bestop>>>Suppose
+      <math|<value|Model>,w\<Vdash\><value|bestop>\<varphi\>> and
+      <math|<value|Model>,w\<Vdash\>\<psi\>>. By the semantics,
+      <math|w\<in\><value|best><rsub|\<prec\>><around*|(|<semantics|\<varphi\>>|)>>
+      (which also means <math|w\<in\><semantics|\<varphi\>>>). Now let
+      <math|u\<in\>W> with <math|w\<preceq\>u>, and suppose
+      <math|<value|Model>,u\<Vdash\><value|bestop>\<varphi\>>, i.e.,
+      <math|u\<in\><value|best><rsub|\<prec\>><around*|(|<semantics|\<varphi\>>|)>>.
+      Since <math|u\<in\><value|best><rsub|\<prec\>><around*|(|<semantics|\<varphi\>>|)>>
+      and <math|w\<in\><semantics|\<varphi\>>>, definition of
+      <math|<value|best><rsub|\<prec\>>> we have <math|\<neg\>w\<prec\>u>.
+      Putting <math|w\<preceq\>u> and <math|\<neg\>w\<prec\>u> together gives
+      us <math|w=u>, which implies <math|<value|Model>,u\<Vdash\>\<psi\>>.
+      Since <math|u> was picked arbitrarily,
+      <math|<value|Model>,w\<Vdash\>\<box\><around*|(|<value|bestop>\<varphi\>\<rightarrow\>\<psi\>|)>>.
+
+      <item*|<with|font-series|bold|(Down)> for <math|<value|bestop>>>Suppose
+      <math|<value|Model>,w\<Vdash\><value|bestop>\<varphi\>> and
+      <math|<value|Model>,w\<Vdash\>\<psi\>>. By the semantics,
+      <math|w\<in\><value|best><rsub|\<prec\>><around*|(|<semantics|\<varphi\>>|)>>
+      (which also means <math|w\<in\><semantics|\<varphi\>>>). Now let
+      <math|u\<in\>W> with <math|u\<preceq\>w>, and suppose
+      <math|<value|Model>,u\<Vdash\>\<varphi\>>. Since
+      <math|w\<in\><value|best><rsub|\<prec\>><around*|(|<semantics|\<varphi\>>|)>>
+      and <math|u\<in\><semantics|\<varphi\>>>, by definition of
+      <math|<value|best><rsub|\<prec\>>> we have <math|\<neg\>u\<prec\>w>.
+      Putting <math|u\<preceq\>w> and <math|\<neg\>u\<prec\>w> together gives
+      us <math|u=w>, which implies <math|<value|Model>,u\<Vdash\>\<psi\>>.
+      Since <math|u> was picked arbitrarily,
+      <math|<value|Model>,w\<Vdash\><value|boxback><around*|(|\<varphi\>\<rightarrow\>\<psi\>|)>>.
     </description>
   </proof>
 
@@ -4166,112 +4223,162 @@
     <math|\<Delta\>\<supseteq\>\<Gamma\>>.
   </lemma>
 
+  <\proposition>
+    <label|proposition-box-boxback>Let <math|\<Sigma\>,\<Delta\>> be
+    maximally consistent. The following are equivalent:
+
+    <\enumerate>
+      <item><math|\<box\>\<varphi\>\<in\>\<Sigma\>> implies
+      <math|\<varphi\>\<in\>\<Delta\>>
+
+      <item><math|<value|boxback>\<varphi\>\<in\>\<Delta\>> implies
+      <math|\<varphi\>\<in\>\<Sigma\>>
+    </enumerate>
+  </proposition>
+
+  <\proof>
+    Suppose (1) holds, and let <math|<value|boxback>\<varphi\>\<in\>\<Delta\>>.
+    For contradiction, suppose <math|\<varphi\><neg|\<in\>>\<Sigma\>>. Since
+    <math|\<Sigma\>> is maximally consistent,
+    <math|\<neg\>\<varphi\>\<in\>\<Sigma\>>. Applying the
+    <with|font-series|bold|(Back)> axiom, we get
+    <math|\<box\><value|Diamondback>\<neg\>\<varphi\>\<in\>\<Sigma\>>, i.e.
+    <math|\<box\>\<neg\><value|boxback>\<varphi\>\<in\>\<Sigma\>>. By (1),
+    <math|\<neg\><value|boxback>\<varphi\>\<in\>\<Delta\>>, i.e.
+    <math|<value|boxback>\<varphi\><neg|\<in\>>\<Delta\>>. But this
+    contradicts <math|<value|boxback>\<varphi\>\<in\>\<Delta\>>!
+
+    Now suppose (2) holds, and suppose <math|\<box\>\<varphi\>\<in\>\<Sigma\>>.
+    For contradiction, suppose <math|\<varphi\><neg|\<in\>>\<Delta\>>. Since
+    <math|\<Delta\>> is maximally consistent,
+    <math|\<neg\>\<varphi\>\<in\>\<Delta\>>. Applying the
+    <with|font-series|bold|(Forth)> axiom, we get
+    <math|<value|boxback><value|Diamond>\<neg\>\<varphi\>\<in\>\<Delta\>>,
+    i.e. <math|<value|boxback>\<neg\>\<box\>\<varphi\>\<in\>\<Delta\>>. By
+    (2), <math|\<neg\>\<box\>\<varphi\>\<in\>\<Sigma\>>, i.e.
+    <math|\<box\>\<varphi\><neg|\<in\>>\<Sigma\>>. But this contradicts
+    <math|\<box\>\<varphi\>\<in\>\<Sigma\>>!
+  </proof>
+
+  <\proposition>
+    <label|proposition-build-mcs>Let <math|\<Delta\>> be consistent, and
+    suppose <math|<value|Diamondback><value|bestop>\<varphi\>\<in\>\<Delta\>>.
+    Then the set
+
+    <\equation*>
+      \<Delta\><rprime|'>=<around*|{|\<psi\><value|st><value|boxback>\<psi\>\<in\>\<Delta\>|}>\<cup\><around*|{|<value|bestop>\<varphi\>|}>
+    </equation*>
+
+    is consistent.
+  </proposition>
+
+  <\proof>
+    Suppose for contradiction that <math|\<Delta\><rprime|'>> is
+    inconsistent. Then <math|\<Delta\><rprime|'><value|proves>\<neg\><value|bestop>\<varphi\>>.
+    By definition of <math|<value|proves>>, there must be finitely many
+    <math|\<psi\><rsub|1>,\<ldots\>,\<psi\><rsub|n>\<in\>\<Delta\><rprime|'>>
+    such that <math|<value|proves><around*|(|\<psi\><rsub|1>\<wedge\>\<ldots\>\<wedge\>\<psi\><rsub|n>|)>\<rightarrow\>\<neg\><value|bestop>\<varphi\>>.
+    By the <with|font-series|bold|(Nec)> rule for <math|<value|boxback>>,
+    <math|<value|proves><value|boxback><around*|(|<around*|(|\<psi\><rsub|1>\<wedge\>\<ldots\>\<wedge\>\<psi\><rsub|n>|)>\<rightarrow\>\<neg\><value|bestop>\<varphi\>|)>>.
+    Then by <with|font-series|bold|(Distr)> for <math|<value|boxback>>,
+    <math|<value|proves><value|boxback><around*|(|\<psi\><rsub|1>\<wedge\>\<ldots\>\<wedge\>\<psi\><rsub|n>|)>\<rightarrow\><value|boxback>\<neg\><value|bestop>\<varphi\>>.
+    Now, by construction of <math|\<Delta\><rprime|'>>,
+    <math|<value|boxback>\<psi\><rsub|1>,\<ldots\>,<value|boxback>\<psi\><rsub|n>\<in\>\<Delta\>>.
+    So <math|<value|boxback>\<psi\><rsub|1>\<wedge\>\<ldots\>\<wedge\><value|boxback>\<psi\><rsub|n>\<in\>\<Delta\>>.
+    Now, with a bit of work with the <with|font-series|bold|(Distr)> axiom
+    (see <todo|cite modal logic book or notes>), we have
+
+    <\equation*>
+      <value|proves><around*|(|\<psi\><rsub|1>\<wedge\>\<ldots\>\<wedge\>\<psi\><rsub|n>|)>\<rightarrow\>\<neg\><value|bestop>\<varphi\><text|
+      implies ><value|proves><value|boxback>\<psi\><rsub|1>\<wedge\>\<ldots\>\<wedge\><value|boxback>\<psi\><rsub|n>\<rightarrow\><value|boxback>\<neg\><value|bestop>\<varphi\>
+    </equation*>
+
+    which gives us <math|<value|boxback>\<neg\><value|bestop>\<varphi\>\<in\>\<Delta\>>.
+    By <with|font-series|bold|(Dual)>, we have
+    <math|\<neg\><value|Diamondback><value|bestop>\<varphi\>\<in\>\<Delta\>>,
+    which contradicts our hypothesis <math|<value|Diamondback><value|bestop>\<varphi\>\<in\>\<Delta\>>
+    and the fact that <math|\<Delta\>> is consistent.
+  </proof>
+
+  The canonical model for this logic is almost entirely standard\Vwe define
+  <math|\<prec\><rsup|c>> in the usual way for an accessibility relation,
+  except we make it irreflexive.
+
   <\definition>
-    The <with|font-shape|italic|canonical model> for this logic <todo|which?>
-    is a plausibility model <math|<value|Model><rsup|c>=\<langle\>W<rsup|c>,R<rsup|c>,\<prec\><rsup|c>,V<rsup|c>\<rangle\>>,
+    The <with|font-shape|italic|canonical model> for this logic over
+    <math|<value|langBest>> is a plausibility model
+    <math|<value|Model><rsup|c>=\<langle\>W<rsup|c>,R<rsup|c>,\<prec\><rsup|c>,V<rsup|c>\<rangle\>>,
     where
 
     <\itemize>
       <item><math|W<rsup|c>=<around*|{|\<Delta\><value|st>\<Delta\><text| is
       maximally consistent over <math|<value|langSimplified>>>|}>>
 
-      <item><math|\<Delta\><rsub|1><op|R<rsup|c>>\<Delta\><rsub|2>> iff for
-      all <math|\<varphi\>\<in\><value|langSimplified>>, if
-      <math|<value|Know>\<varphi\>\<in\>\<Delta\><rsub|1>> then
-      <math|\<varphi\>\<in\>\<Delta\><rsub|2>>
-
       <item><math|\<Delta\><rsub|1><op|\<prec\><rsup|c>>\<Delta\><rsub|2>>
-      iff for all <math|\<varphi\>\<in\><value|langSimplified>>, if
-      <math|\<varphi\>\<in\>\<Delta\><rsub|1>> and
-      <math|\<varphi\>\<in\>\<Delta\><rsub|2>>, then
-      <math|<value|bestop>\<varphi\>\<in\>\<Delta\><rsub|1>> but
-      <math|<value|bestop>\<varphi\><neg|\<in\>>\<Delta\><rsub|2>>.
+      iff <math|\<Delta\><rsub|1>\<neq\>\<Delta\><rsub|2>> and for all
+      <math|\<varphi\>\<in\><value|langBest>>, if
+      <math|\<box\>\<varphi\>\<in\>\<Delta\><rsub|1>> then
+      <math|\<varphi\>\<in\>\<Delta\><rsub|2>>.
 
       <item><math|\<Delta\>\<in\>V<rsup|c><around*|(|p|)>> iff
       <math|p\<in\>\<Delta\>>
     </itemize>
   </definition>
 
-  Note that the <math|W<rsup|c>,R<rsup|c>,V<rsup|c>> lines are all part of
-  the standard canonical model construction for modal logic. The choice for
-  <math|\<prec\><rsup|c>> is new: it says that <math|\<Delta\><rsub|1>> is
-  more plausible than <math|\<Delta\><rsub|2>> if whenever a formula
-  <math|\<varphi\>> is true at <math|\<Delta\><rsub|2>>, we require that
-  <math|\<Delta\><rsub|1>> the best <math|\<varphi\>>-world and
-  <math|\<Delta\><rsub|2>> (necessarily) is <with|font-shape|italic|not>.
+  Note that the <math|W<rsup|c>,\<prec\><rsup|c>,V<rsup|c>> lines are all
+  part of the standard canonical model construction for modal logic\Vthe only
+  new change is that we ensure the accessibility relation
+  <math|\<prec\><rsup|c>> is irreflexive.
 
   <\proposition>
     The canonical model <math|<value|Model><rsup|c>> is in fact a
-    plausibility model.
+    plausibility model, i.e. <math|<value|Model><rsup|c>\<in\><value|Plaus>>.
   </proposition>
 
   <\proof>
-    What's left to show is that <math|R<rsup|c>> is reflexive and transitive,
-    and also that <math|\<prec\><rsup|c>> is irreflexive and transitive ()
+    I need to show is that <math|\<prec\><rsup|c>> is irreflexive,
+    transitive, and smooth:
 
-    <todo|This is where we check that <math|R<rsup|c>> is reflexive,
-    transitive, and also that <math|\<prec\><rsup|c>> is irreflexive,
-    transitive, and smooth.>
-  </proof>
+    <\description>
+      <item*|<math|\<prec\><rsup|c>> is irreflexive>This is almost by
+      definition; let <math|\<Delta\>\<in\>W<rsup|c>>, and suppose for
+      contradiction that <math|\<Delta\>\<prec\><rsup|c>\<Delta\>>. So
+      <math|\<Delta\>\<neq\>\<Delta\>>, which is a contradiction.
 
-  \;
+      <item*|<math|\<prec\><rsup|c>> is transitive>Suppose
+      <math|\<Delta\><rsub|1>\<prec\><rsup|c>\<Delta\><rsub|2>> and
+      <math|\<Delta\><rsub|2>\<prec\><rsup|c>\<Delta\><rsub|3>>. By
+      definition, for all <math|\<varphi\>>,
+      <math|\<box\>\<varphi\>\<in\>\<Delta\><rsub|1>> implies
+      <math|\<varphi\>\<in\>\<Delta\><rsub|2>> and for all <math|\<varphi\>>,
+      <math|\<box\>\<varphi\>\<in\>\<Delta\><rsub|2>> implies
+      <math|\<varphi\>\<in\>\<Delta\><rsub|3>>. To show
+      <math|\<Delta\><rsub|1>\<prec\><rsup|c>\<Delta\><rsub|3>>, let
+      <math|\<varphi\>\<in\><value|langBest>> and suppose
+      <math|\<box\>\<varphi\>\<in\>\<Delta\><rsub|1>>. By
+      <with|font-series|bold|(Trans)> for <math|\<box\>>,
+      <math|\<box\>\<box\>\<varphi\>\<in\>\<Delta\><rsub|1>>. By hypothesis,
+      this means <math|\<box\>\<varphi\>\<in\>\<Delta\><rsub|2>>, and so
+      <math|\<varphi\>\<in\>\<Delta\><rsub|3>> (and we are done).
 
-  Before I prove the Truth Lemma, I will first need to talk about this
-  special set <math|<value|Deltabest>>. The purpose of
-  <math|<value|Deltabest>> is this: If, at <math|\<Delta\>>, we know there
-  <with|font-shape|italic|is> a best-<math|\<varphi\>> world, then
-  <math|<value|Deltabest>> is a witness to that fact; with the help of
-  <with|font-series|bold|(Smooth)> the set <math|<value|Deltabest>> says
-  \PI'm one of them!\Q
+      <item*|<math|\<prec\><rsup|c>> is smooth>Let
+      <math|S\<subseteq\>W<rsup|c>> be any set, and suppose
+      <math|\<Delta\>\<in\>S> but <math|\<Delta\><neg|\<in\>><value|best><rsub|\<prec\><rsup|c>><around*|(|S|)>>.
+      I would like to show that there is some
+      <math|\<Delta\><rprime|'>\<in\>W<rsup|c>> better than <math|\<Delta\>>
+      <around*|(|<math|\<Delta\><rprime|'>\<prec\><rsup|c>\<Delta\>>|)>, that
+      <with|font-shape|italic|is> the best,
+      <around*|(|<math|\<Delta\><rprime|'>\<in\><value|best><rsub|\<prec\><rsup|c>><around*|(|S|)>>|)>.
+      Consider <math|\<Delta\><rprime|'>=<around*|{|\<box\>\<varphi\><value|st>\<varphi\>\<in\>|}>>
 
-  <\definition>
-    For all <math|\<Delta\>>, I define <math|\<Delta\><rsup|\<bigstar\>>=<around*|{|\<varphi\><value|st><value|Exists>\<varphi\>\<in\>\<Delta\>|}>>
-  </definition>
-
-  <\proposition>
-    If <math|\<Delta\>> is maximally consistent, then so is
-    <math|<value|Deltabest>>.
-  </proposition>
-
-  <\proof>
-    <todo|>
-  </proof>
-
-  <\proposition>
-    In the canonical model <math|<value|Model><rsup|c>>,
-    <math|<value|Deltabest>\<prec\><rsup|c>\<Delta\>>.
-  </proposition>
-
-  <\proof>
-    In order to show <math|<value|Deltabest>\<prec\><rsup|c>\<Delta\>>, let
-    <math|\<varphi\>\<in\><value|langSimplified>> be any formula, and suppose
-    <math|\<varphi\>\<in\>\<Delta\>,<value|Deltabest>>. I now need to show
-    <with|font-shape|italic|both> (1) <math|<value|bestop>\<varphi\>\<in\><value|Deltabest>>
-    and (2) <math|<value|bestop>\<varphi\><neg|\<in\>>\<Delta\>>.
-
-    <\enumerate>
-      <item>Suppose for contradiction that
-      <math|<value|bestop>\<varphi\><neg|\<in\>><value|Deltabest>>. Since
-      <math|<value|Deltabest>> is maximal,
-      <math|\<neg\><value|bestop>\<varphi\>\<in\><value|Deltabest>>. Since
-      <math|\<varphi\>\<in\><value|Deltabest>>, the
-      <with|font-series|bold|(Smooth)> axiom gives us
-      <math|<value|Exists><value|bestop>\<varphi\>\<in\><value|Deltabest>>.
-      By definition of the set <math|<value|Deltabest>>, we have
-      <math|<value|Exists><value|Exists><value|bestop>\<varphi\>\<in\>\<Delta\>>.
-      But by the dual of the <with|font-series|bold|(Trans)> axiom for
-      <math|<value|All>>, we have <math|<value|Exists><value|bestop>\<varphi\>\<in\>\<Delta\>>.
-      Applying the definition of <math|<value|Deltabest>> again gives us
-      <math|<value|bestop>\<varphi\>\<in\><value|Deltabest>>, which
-      contradicts our initial assumption.
-
-      <item><todo|TODO\Vis this even true?>
-    </enumerate>
+      <todo|How does this follow from <with|font-series|bold|(Up)> and
+      <with|font-series|bold|(Down)>??>
+    </description>
   </proof>
 
   <\lemma>
     <dueto|<aw|hand-point-right|1fn> Truth Lemma>We have, for all
-    <math|\<Delta\>\<in\>W<rsup|c>>, <math|\<varphi\>\<in\><value|langSimplified>>,
+    <math|\<Delta\>\<in\>W<rsup|c>>, <math|\<varphi\>\<in\><value|langBest>>,
 
     <\equation*>
       <value|Model>,\<Delta\>\<Vdash\>\<varphi\><infix-iff>\<varphi\>\<in\>\<Delta\>
@@ -4280,17 +4387,21 @@
 
   <\proof>
     By induction on <math|\<varphi\>>. The propositional and boolean cases
-    are straightforward. The <math|<value|Know>\<varphi\>> case is the
-    standard one from modal logic, and follows from the usual lemmas about
-    maximally consistent sets (using the <with|font-series|bold|(Dual)> rule
-    and <with|font-series|bold|(Distr)> axiom for <math|<value|Know>>)
-    <todo|cite>. Similarly, the <math|<value|All>\<varphi\>> case is already
-    known, and the introduction of <math|<value|bestop>\<varphi\>> does not
-    affect it. I skip to the most relevant case:
+    are straightforward. The <math|\<box\>\<varphi\>> case is the standard
+    one from modal logic, and follows from the usual lemmas about maximally
+    consistent sets (using the <with|font-series|bold|(Dual)> rule and
+    <with|font-series|bold|(Distr)> axiom for <math|\<box\>>) <todo|cite>.
+    Similarly, the <math|<value|All>\<varphi\>> and <math|<value|boxback>>
+    cases are already known, and the introduction of
+    <math|<value|bestop>\<varphi\>> do not affect them. I'll skip to the most
+    relevant case:
 
     <\description>
       <item*|<math|<value|bestop>> Case>For the
-      <math|<around*|(|\<rightarrow\>|)>> direction, first observe:
+      <math|<around*|(|\<rightarrow\>|)>> direction, suppose
+      <math|<value|Model><rsup|c>,\<Delta\>\<Vdash\><value|bestop>\<varphi\>>
+      but for contradiction <math|<value|bestop>\<varphi\><neg|\<in\>>\<Delta\>>.
+      Observe:
 
       <\equation*>
         <tabular|<tformat|<table|<row|<cell|<value|Model><rsup|c>,\<Delta\>\<Vdash\><value|bestop>\<varphi\>>|<cell|<space|0.5em>\<longrightarrow\><space|0.5em>>|<cell|\<Delta\>\<in\><value|best><rsub|\<prec\><rsup|c>><around*|(|<semantics|\<varphi\>><rsub|<value|Model><rsup|c>>|)>>|<cell|<text|(by
@@ -4305,64 +4416,131 @@
         >\<neg\>\<Delta\><rprime|'>\<prec\><rsup|c>\<Delta\>>|<cell|>>>>>
       </equation*>
 
-      Now consider <math|<value|Deltabest>=<around*|{|\<psi\><value|st><value|Exists>\<psi\>\<in\>\<Delta\>|}>>.
-      By Proposition <todo|ref above>, <math|<value|Deltabest>> is maximally
-      consistent, and so <math|<value|Deltabest>\<in\>W<rsup|c>>. Suppose for
-      contradiction that <math|<value|bestop>\<varphi\><neg|\<in\>>\<Delta\>>.
+      Now consider <math|\<Delta\><rprime|'>=<around*|{|\<psi\><value|st><value|boxback>\<psi\>\<in\>\<Delta\>|}>\<cup\><around*|{|<value|bestop>\<varphi\>|}>>.
       Since <math|\<Delta\>> is maximal, <math|\<neg\><value|bestop>\<varphi\>\<in\>\<Delta\>>.
-      Since since <math|\<varphi\>\<in\>\<Delta\>> and
-      <math|\<neg\><value|bestop>\<varphi\>\<in\>\<Delta\>>, by
-      <with|font-series|bold|(Smooth)> we have
-      <math|<value|Exists><value|bestop>\<varphi\>\<in\>\<Delta\>>. But then
-      <math|<value|bestop>\<varphi\>\<in\><value|Deltabest>> by definition of
-      <math|<value|Deltabest>>. Applying <with|font-series|bold|(Refl)> for
-      <math|<value|bestop>> gives us <math|\<varphi\>\<in\><value|Deltabest>>.
-      By the last line of implications above, we must have
-      <math|\<neg\><value|Deltabest>\<prec\><rsup|c>\<Delta\>>. But this
-      contradicts Proposition <todo|ref above>, which says
-      <math|<value|Deltabest>\<prec\><rsup|c>\<Delta\>>. And so we must have
-      <math|<value|bestop>\<varphi\><neg|\<in\>>\<Delta\>>.
+      So we have <math|\<varphi\>\<wedge\>\<neg\><value|bestop>\<varphi\>\<in\>\<Delta\>>,
+      and by <with|font-series|bold|(Smooth)>,
+      <math|<value|Diamondback><value|bestop>\<varphi\>\<in\>\<Delta\>>. This
+      fact allows us to apply Proposition <reference|proposition-build-mcs>,
+      which says <math|\<Delta\><rprime|'>> is consistent.
+
+      So we can extend <math|\<Delta\><rprime|'>> to a maximally consistent
+      set <math|\<Delta\><rsup|<text|max>>\<supseteq\>\<Delta\><rprime|'>>.
+      Since <math|<value|bestop>\<varphi\>\<in\>\<Delta\><rsup|<text|max>>>,
+      by <with|font-series|bold|(Refl)> for <math|<value|bestop>>,
+      <math|\<varphi\>\<in\>\<Delta\><rsup|<text|max>>>. So by the last line
+      of implications above, <math|\<neg\>\<Delta\><rsup|<text|max>>\<prec\><rsup|c>\<Delta\>>.
+      Now observe that by construction, for all formulas <math|\<psi\>>,
+      <math|<value|boxback>\<psi\>\<in\>\<Delta\>> implies
+      <math|\<psi\>\<in\>\<Delta\><rsup|<text|max>>>. By Proposition
+      <reference|proposition-box-boxback>, this means for all <math|\<psi\>>,
+      <math|\<box\>\<psi\>\<in\>\<Delta\><rsup|<text|max>>> implies
+      <math|\<psi\>\<in\>\<Delta\>>. But this is precisely the definition of
+      <math|\<Delta\><rsup|<text|max>>\<preceq\><rsup|c>\<Delta\>>! Putting
+      <math|\<neg\>\<Delta\><rsup|<text|max>>\<prec\><rsup|c>\<Delta\>> and
+      <math|\<Delta\><rsup|<text|max>>\<preceq\><rsup|c>\<Delta\>> together,
+      we must have <math|\<Delta\><rsup|<text|max>>=\<Delta\>>. But this
+      gives us <math|<value|bestop>\<varphi\>\<in\>\<Delta\>>, which
+      contradicts our hypothesis <math|<value|bestop>\<varphi\><neg|\<in\>>\<Delta\>>
+      (so <math|<value|bestop>\<varphi\>\<in\>\<Delta\>> must be true).
 
       As for the <math|<around*|(|\<leftarrow\>|)>> direction, suppose
       <math|<value|bestop>\<varphi\>\<in\>\<Delta\>>. Applying
       <with|font-series|bold|(Refl)> gives us
       <math|\<varphi\>\<in\>\<Delta\>>, which by our inductive hypothesis
-      means <math|\<Delta\>\<in\><semantics|\<varphi\>><rsub|<value|Model><rsup|c
-      >>>. I will now show that <math|\<Delta\>> is a
-      <with|font-shape|italic|best> such point in
-      <math|<semantics|\<varphi\>><rsub|<value|Model>>>. Suppose not, say
-      there is some <math|\<Delta\><rprime|'>\<in\><semantics|\<varphi\>><rsub|<value|Model><rsup|c>>>
-      with <math|\<Delta\><rprime|'>\<prec\><rsup|c>\<Delta\>>. By definition
-      of <math|\<prec\><rsup|c>> we have (flipping <math|\<Delta\>> and
-      <math|\<Delta\><rprime|'>> from before):
+      means <math|\<Delta\>\<in\><semantics|\<varphi\>><rsub|<rsup| >>>. I
+      will now show that <math|\<Delta\>> is a <with|font-shape|italic|best>
+      such point in <math|<semantics|\<varphi\>>>. Suppose not, say there is
+      some <math|\<Delta\><rprime|'>\<in\><semantics|\<varphi\>>> with
+      <math|\<Delta\><rprime|'>\<prec\><rsup|c>\<Delta\>>. (Note by inductive
+      hypothesis, <math|\<varphi\>\<in\>\<Delta\><rprime|'>>) By definition
+      of <math|\<prec\><rsup|c>> we have:
 
       <\equation*>
-        <text|for all >\<varphi\>,<text| if
-        >\<varphi\>\<in\>\<Delta\><rprime|'><text| and
-        >\<varphi\>\<in\>\<Delta\>,<text| then
-        ><value|bestop>\<varphi\>\<in\>\<Delta\><rprime|'><text| but
-        ><value|bestop>\<varphi\><neg|\<in\>>\<Delta\>
+        \<Delta\><rprime|'>\<neq\>\<Delta\><text| and for all
+        >\<psi\>\<in\><value|langBest>,<text| if
+        >\<box\>\<psi\>\<in\>\<Delta\><rprime|'><text| then
+        >\<psi\>\<in\>\<Delta\>
       </equation*>
 
-      Well, since <math|\<Delta\><rprime|'>\<in\><semantics|\<varphi\>><rsub|<value|Model><rsup|c>>>
-      our inductive hypothesis give us <math|\<varphi\>\<in\>\<Delta\><rprime|'>>.
-      And we had <math|\<varphi\>\<in\>\<Delta\>> from before. So in
-      particular, <math|<value|bestop>\<varphi\><neg|\<in\>>\<Delta\>>, which
-      contradicts our hypothesis! So <math|\<Delta\>> is a best
-      <math|\<varphi\>> state, i.e., <math|\<Delta\>\<in\><value|best><rsub|\<prec\><rsup|c>><around*|(|<semantics|\<varphi\>><rsub|<value|Model><rsup|c>>|)>>,
-      and so we conclude <math|<value|Model><rsup|c>,\<Delta\>\<Vdash\><value|bestop>\<varphi\>>.
+      Note that by Proposition <reference|proposition-box-boxback>, this also
+      means that
+
+      <\equation*>
+        <around*|(|\<ast\>|)><space|1em><text|For all
+        >\<psi\>\<in\><value|langBest>,<text| if
+        ><value|boxback>\<psi\>\<in\>\<Delta\><text| then
+        >\<psi\>\<in\>\<Delta\><rprime|'>
+      </equation*>
+
+      I will now show that <math|\<Delta\>=\<Delta\><rprime|'>>, which
+      contradicts <math|\<Delta\><rprime|'>\<prec\><rsup|c>\<Delta\>>. For
+      <math|<around*|(|\<subseteq\>|)>> let <math|\<psi\>\<in\>\<Delta\>>. We
+      have
+
+      <\equation*>
+        <tabular|<tformat|<table|<row|<cell|\<psi\>\<in\>\<Delta\>>|<cell|<text|
+        implies >>|<cell|<value|bestop>\<varphi\>\<wedge\>\<psi\>\<in\>\<Delta\>>|<cell|<text|(since
+        <math|<value|bestop>\<varphi\>\<in\>\<Delta\><rprime|'>>)>>>|<row|<cell|>|<cell|<text|
+        implies >>|<cell|<value|boxback><around*|(|\<varphi\>\<rightarrow\>\<psi\>|)>\<in\>\<Delta\>>|<cell|<text|(by
+        <with|font-series|bold|(Down)>)>>>|<row|<cell|>|<cell|<text| implies
+        >>|<cell|\<varphi\>\<rightarrow\>\<psi\>\<in\>\<Delta\><rprime|'>>|<cell|<text|(by
+        (\<ast\>) above)>>>|<row|<cell|>|<cell|<text| implies
+        >>|<cell|\<psi\>\<in\>\<Delta\><rprime|'>>|<cell|<text|(since
+        <math|\<varphi\>\<in\>\<Delta\><rprime|'>>)>>>>>>
+      </equation*>
+
+      As for <math|<around*|(|\<supseteq\>|)>>, let
+      <math|\<psi\>\<in\>\<Delta\><rprime|'>>. Observe that
+      <math|<value|bestop>\<varphi\>\<rightarrow\><value|bestop>\<varphi\>\<wedge\><value|bestop>\<varphi\>\<rightarrow\><value|boxback><around*|(|\<varphi\>\<rightarrow\><value|bestop>\<varphi\>|)>>
+      (this is just <with|font-series|bold|(Down)>, but substituting
+      <math|\<psi\>\<assign\><value|bestop>\<varphi\>>). Since
+      <math|<value|bestop>\<varphi\>\<in\>\<Delta\>>,
+      <math|<value|boxback><around*|(|\<varphi\>\<rightarrow\><value|bestop>\<varphi\>|)>\<in\>\<Delta\>>,
+      and then by <math|<around*|(|\<ast\>|)>>
+      <math|\<varphi\>\<rightarrow\><value|bestop>\<varphi\>\<in\>\<Delta\><rprime|'>>.
+      From all this we get <math|<value|bestop>\<varphi\>\<in\>\<Delta\><rprime|'>>.
+      From here we have:
+
+      <\equation*>
+        <tabular|<tformat|<table|<row|<cell|\<psi\>\<in\>\<Delta\><rprime|'>>|<cell|<text|
+        implies >>|<cell|<value|bestop>\<varphi\>\<wedge\>\<psi\>\<in\>\<Delta\><rprime|'>>|<cell|<text|(since
+        <math|<value|bestop>\<varphi\>\<in\>\<Delta\><rprime|'>>)>>>|<row|<cell|>|<cell|<text|
+        implies >>|<cell|\<box\><around*|(|<value|bestop>\<varphi\>\<rightarrow\>\<psi\>|)>\<in\>\<Delta\><rprime|'>>|<cell|<text|(by
+        <with|font-series|bold|(Up)>)>>>|<row|<cell|>|<cell|<text| implies
+        >>|<cell|<value|bestop>\<varphi\>\<rightarrow\>\<psi\>\<in\>\<Delta\>>|<cell|<text|(by
+        definition of <math|\<prec\><rsup|c>>)>>>|<row|<cell|>|<cell|<text|
+        implies >>|<cell|\<psi\>\<in\>\<Delta\>>|<cell|<text|(since
+        <math|<value|bestop>\<varphi\>\<in\>\<Delta\>>)>>>>>>
+      </equation*>
+
+      From this contradiction, we conclude that <math|\<Delta\>>
+      <with|font-shape|italic|is> a best <math|\<varphi\>>-world, and so by
+      the semantics we have <math|<value|Model><rsup|c>,\<Delta\>\<Vdash\><value|bestop>\<varphi\>>.
     </description>
   </proof>
 
   <\theorem>
-    <dueto|<aw|hand-point-right|1fn> Model Building for
-    <math|<value|langClosure>> over <math|\<models\><rsub|<value|Plaus>>>>For
-    all consistent <math|\<Gamma\>\<subseteq\><value|langClosure>>, there is
-    finite <math|<Net>> such that <math|<Net>\<models\>\<Gamma\>>.
+    <label|theorem-model-building-classical><dueto|<aw|hand-point-right|1fn>
+    Model Building for <math|<value|langClosure>> over
+    <math|\<models\><rsub|<value|Plaus>>>>For all consistent
+    <math|\<Gamma\>\<subseteq\><value|langClosure>>, there is some
+    <math|<value|Model>\<in\><value|Plaus>> and state <math|w\<in\>W> such
+    that <math|<value|Model>,w\<models\>\<Gamma\>>.
   </theorem>
 
   <\proof>
-    <todo|>
+    This proof is standard for modal logics. Let <math|\<Gamma\>> be
+    consistent. Take the model to be the canonical model
+    <math|<value|Model><rsup|c>>, and extend <math|\<Gamma\>> to maximally
+    consistent set <math|\<Delta\>\<supseteq\>\<Gamma\>>. Since
+    <math|\<Delta\>> is maximally consistent,
+    <math|\<Delta\>\<in\>W<rsup|c>>. Since every
+    <math|\<varphi\>\<in\>\<Gamma\>> is in <math|\<Delta\>>, by our truth
+    lemma for all <math|\<varphi\>\<in\>\<Gamma\>>,
+    <math|<value|Model><rsup|c>,\<Delta\>\<Vdash\>\<varphi\>>. So
+    <math|<value|Model><rsup|c>,\<Delta\>\<Vdash\>\<Gamma\>>, and we are
+    done.
   </proof>
 
   <\corollary>
@@ -4378,146 +4556,19 @@
   </corollary>
 
   <\proof>
-    <todo|>
+    Since the language <math|<value|langBest>> has negation, completeness
+    follows from model building in the usual way; this proof is entirely
+    standard. Suppose contrapositively that
+    <math|\<Gamma\><neg|<value|proves>>\<varphi\>>. It follows that
+    <math|\<Gamma\><value|proves>\<neg\>\<varphi\>>. So
+    <math|\<Gamma\>\<cup\><around*|{|\<neg\>\<varphi\>|}>> is consistent, and
+    by Theorem <reference|theorem-model-building-classical> we have
+    <math|<value|Model>\<in\><value|Plaus>> and <math|w\<in\>W> such that
+    <math|<value|Model>,w\<models\>\<Gamma\>\<cup\><around*|{|\<neg\>\<varphi\>|}>>.
+    But then <math|<value|Model>,w\<models\>\<Gamma\>> yet
+    <math|<value|Model>,w<neg|\<models\>>\<varphi\>>, which is what we wanted
+    to show.
   </proof>
-
-  <section|Models with a Single Plausibility-Accessibility Relation>
-
-  <todo|Mention in this section: We will now drop the <math|<value|All>>
-  modality and effectively replace the occurence of <math|<value|Exists>> in
-  <with|font-series|bold|(Smooth)> with <math|<value|diaKnownby>>.>
-
-  <\definition>
-    <\float|float|thb>
-      <\big-figure|<tabular|<tformat|<twith|table-width|1par>|<twith|table-hmode|exact>|<twith|table-lborder|0.1em>|<twith|table-rborder|0.1em>|<twith|table-bborder|0.1em>|<twith|table-tborder|0.1em>|<cwith|2|2|1|1|cell-valign|t>|<cwith|2|2|2|2|cell-valign|t>|<cwith|1|-1|1|-1|cell-bsep|0.2fn>|<cwith|1|-1|1|-1|cell-tsep|0.2fn>|<cwith|1|1|1|-1|cell-tsep|0.5fn>|<cwith|4|4|1|-1|cell-bsep|0.5fn>|<cwith|1|-1|1|1|cell-lsep|0.5fn>|<cwith|1|-1|2|2|cell-rsep|0.5fn>|<cwith|3|3|1|-1|cell-tsep|0.75fn>|<cwith|5|5|1|-1|cell-tsep|0.75fn>|<cwith|6|6|2|2|cell-valign|t>|<cwith|6|6|1|-1|cell-bsep|0.2fn>|<cwith|6|6|1|1|cell-bsep|0.25fn>|<cwith|4|4|2|2|cell-valign|t>|<cwith|4|4|1|1|cell-valign|t>|<cwith|6|6|1|1|cell-valign|t>|<table|<row|<cell|<with|font-series|bold|Axioms
-      for <math|<value|Know>>:>>|<cell|<with|font-series|bold|Axioms for
-      <math|<value|Knownby>>:>>>|<row|<cell|<tabular|<tformat|<cwith|1|-1|1|-1|cell-lsep|0.25fn>|<cwith|1|-1|1|-1|cell-rsep|0.25fn>|<cwith|1|-1|1|-1|cell-bsep|0.25fn>|<cwith|1|-1|1|-1|cell-tsep|0.25fn>|<table|<row|<cell|<with|font-series|bold|(Dual)>>|<cell|<math|<value|diaKnow>\<varphi\>\<leftrightarrow\>\<neg\><value|Know>\<neg\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Distr)>>|<cell|<math|<value|Know><around*|(|\<varphi\>\<rightarrow\>\<psi\>|)>\<rightarrow\><around*|(|<value|Know>\<varphi\>\<rightarrow\><value|Know>\<psi\>|)>>>>|<row|<cell|<with|font-series|bold|(Refl)>>|<cell|<math|<value|Know>\<varphi\>\<rightarrow\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Trans)>>|<cell|<math|<value|Know>\<varphi\>\<rightarrow\><value|Know><value|Know>\<varphi\>>>>>>>>|<cell|<tabular|<tformat|<cwith|1|-1|1|-1|cell-lsep|0.25fn>|<cwith|1|-1|1|-1|cell-rsep|0.25fn>|<cwith|1|-1|1|-1|cell-bsep|0.25fn>|<cwith|1|-1|1|-1|cell-tsep|0.25fn>|<table|<row|<cell|<with|font-series|bold|(Dual)>>|<cell|<math|<value|diaKnownby>\<varphi\>\<leftrightarrow\>\<neg\><value|Knownby>\<neg\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Distr)>>|<cell|<math|<value|Knownby><around*|(|\<varphi\>\<rightarrow\>\<psi\>|)>\<rightarrow\><around*|(|<value|Knownby>\<varphi\>\<rightarrow\><value|Knownby>\<psi\>|)>>>>|<row|<cell|<with|font-series|bold|(Back)>>|<cell|<math|\<varphi\>\<rightarrow\><value|Know><value|diaKnownby>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Forth)>>|<cell|<math|\<varphi\>\<rightarrow\><value|Knownby><value|diaKnow>\<varphi\>>>>>>>>>|<row|<cell|<with|font-series|bold|Axioms
-      for <math|<value|bestop>>:>>|<cell|<with|font-series|bold|Frame Axioms
-      for <math|<value|precrefl>=R>:>>>|<row|<cell|<tabular|<tformat|<cwith|1|-1|1|-1|cell-lsep|0.25fn>|<cwith|1|-1|1|-1|cell-rsep|0.25fn>|<cwith|1|-1|1|-1|cell-bsep|0.25fn>|<cwith|1|-1|1|-1|cell-tsep|0.25fn>|<table|<row|<cell|<with|font-series|bold|(Dual)>>|<cell|<math|<value|diabestop>\<varphi\>\<leftrightarrow\>\<neg\><value|bestop>\<neg\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Smooth<math|<rprime|'>>)>>|<cell|<math|<around*|(|\<varphi\>\<wedge\>\<neg\><value|bestop>\<varphi\>|)>\<rightarrow\><value|diaKnownby><value|bestop>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Refl)>>|<cell|<math|<value|bestop>\<varphi\>\<rightarrow\>\<varphi\>>>>|<row|<cell|<with|font-series|bold|(Trans)>>|<cell|<math|<value|bestop>\<varphi\>\<rightarrow\><value|bestop><value|bestop>\<varphi\>>>>>>>>|<cell|<tabular|<tformat|<cwith|1|-1|1|-1|cell-lsep|0.25fn>|<cwith|1|-1|1|-1|cell-rsep|0.25fn>|<cwith|1|-1|1|-1|cell-bsep|0.25fn>|<cwith|1|-1|1|-1|cell-tsep|0.25fn>|<table|<row|<cell|<with|font-series|bold|(???)>>|<cell|<math|<around*|(|<value|bestop>\<varphi\>\<wedge\>\<psi\>|)>\<rightarrow\><value|Knownby><around*|(|\<varphi\>\<rightarrow\>\<psi\>|)>>>>|<row|<cell|<with|font-series|bold|(???)>>|<cell|<math|<around*|(|<value|bestop>\<varphi\>\<wedge\>\<psi\>|)>\<rightarrow\><value|Know><around*|(|<value|bestop>\<varphi\>\<rightarrow\>\<psi\>|)>>>>>>>>>|<row|<cell|<with|font-series|bold|Rules
-      of Inference:>>|<cell|>>|<row|<cell|<tabular|<tformat|<cwith|1|-1|1|-1|cell-lsep|0.25fn>|<cwith|1|-1|1|-1|cell-rsep|0.25fn>|<cwith|1|-1|1|-1|cell-bsep|0.25fn>|<cwith|1|-1|1|-1|cell-tsep|0.25fn>|<cwith|2|2|2|2|cell-hyphen|t>|<table|<row|<cell|<with|font-series|bold|(MP)>>|<cell|From
-      <math|<proves>\<varphi\>\<rightarrow\>\<psi\>> and
-      <math|<value|proves>\<varphi\>> we can infer
-      <math|<value|proves>\<psi\>>>>|<row|<cell|<with|font-series|bold|(Nec)>>|<\cell>
-        From <math|<proves>\<varphi\>> we can infer
-        <math|<value|proves>\<box\>\<varphi\>>
-      </cell>>|<row|<cell|>|<cell|<space|2em>for each
-      <math|\<box\>\<in\><around*|{|<value|Know>,<value|Knownby>|}>>>>>>>>|<cell|>>>>>>
-        <label|figure-axioms-best-knownby>Axioms and rules of inference for
-        the logic with <math|<value|Knownby>>. Note that the axioms for
-        <math|<value|All>> have been dropped, and
-        <with|font-series|bold|(Smooth)> has been strengthened to
-        <with|font-series|bold|(Smooth<math|<rprime|'>>)>. <todo|todo>
-        <todo|say which ones only hold if <math|<value|precrefl>=R> in the
-        model.>
-      </big-figure>
-    </float>The proof system for the base modal logic over <todo|simplified
-    language> is given as follows: <math|<value|proves>\<varphi\>> iff either
-    <math|\<varphi\>> is valid in propositional logic, <math|\<varphi\>> is
-    one of the axioms from before, <math|\<varphi\>> is one of the axioms in
-    Figure <reference|figure-axioms-best-knownby>, or <math|\<varphi\>>
-    follows from some previously obtained formula by one of the inference
-    rules.
-  </definition>
-
-  The axioms for <math|<value|Knownby>> come from temporal logic\V<todo|talk
-  about Future and Past modalities, our <with|font-series|bold|(Back)> and
-  <with|font-series|bold|(Forth)> axioms are exactly the ones needed.> In
-  fact, the proof of completeness for <math|<value|Knownby>> will require
-  some tricks from this temporal logic. <todo|cite the book on modal temporal
-  logic<text-dots> it's been a while since I've read it>.
-
-  The frame axioms for <math|<value|precrefl>=R> are totally new! <todo|talk
-  about what they mean, why they're needed, etc.>
-
-  <\lemma>
-    Let <math|\<Sigma\>,\<Delta\>> be maximally consistent. The following are
-    equivalent:
-
-    <\enumerate>
-      <item><math|<value|Know>\<varphi\>\<in\>\<Sigma\>> implies
-      <math|\<varphi\>\<in\>\<Delta\>>
-
-      <item><math|<value|Knownby>\<varphi\>\<in\>\<Delta\>> implies
-      <math|\<varphi\>\<in\>\<Sigma\>>
-    </enumerate>
-  </lemma>
-
-  <\proof>
-    Suppose (1) holds, and let <math|<value|Knownby>\<varphi\>\<in\>\<Delta\>>.
-    For contradiction, suppose <math|\<varphi\><neg|\<in\>>\<Sigma\>>. Since
-    <math|\<Sigma\>> is maximally consistent,
-    <math|\<neg\>\<varphi\>\<in\>\<Sigma\>>. Applying the
-    <with|font-series|bold|(Back)> axiom, we get
-    <math|<value|Know><value|diaKnownby>\<neg\>\<varphi\>\<in\>\<Sigma\>>,
-    i.e. <math|<value|Know>\<neg\><value|Knownby>\<varphi\>\<in\>\<Sigma\>>.
-    By (1), <math|\<neg\><value|Knownby>\<varphi\>\<in\>\<Delta\>>, i.e.
-    <math|<value|Knownby>\<varphi\><neg|\<in\>>\<Delta\>>. But this
-    contradicts <math|<value|Knownby>\<varphi\>\<in\>\<Delta\>>!
-
-    Now suppose (2) holds, and suppose <math|<value|Know>\<varphi\>\<in\>\<Sigma\>>.
-    For contradiction, suppose <math|\<varphi\><neg|\<in\>>\<Delta\>>. Since
-    <math|\<Delta\>> is maximally consistent,
-    <math|\<neg\>\<varphi\>\<in\>\<Delta\>>. Applying the
-    <with|font-series|bold|(Forth)> axiom, we get
-    <math|<value|Knownby><value|diaKnow>\<neg\>\<varphi\>\<in\>\<Delta\>>,
-    i.e. <math|<value|Knownby>\<neg\><value|Know>\<varphi\>\<in\>\<Delta\>>.
-    By (2), <math|\<neg\><value|Know>\<varphi\>\<in\>\<Sigma\>>, i.e.
-    <math|<value|Know>\<varphi\><neg|\<in\>>\<Sigma\>>. But this contradicts
-    <math|<value|Know>\<varphi\>\<in\>\<Sigma\>>!
-  </proof>
-
-  \;
-
-  <todo|START OF SECTION: I will actually want a plausibility model where
-  <math|\<prec\>> is the only relation (both the epistemic accessibility
-  relation <with|font-shape|italic|and> the preference relation\Vwhat does
-  this intuitively mean/model?). I will develop this version of the logic of
-  \Pbest\Q, and make sure we can still do the canonical model construction,
-  it preserves all the right properties, and we can still construct it to be
-  finite. This will force me to find the relationship between
-  <math|<value|bestop>\<varphi\>> and <math|<value|Know>\<varphi\>>.>
-
-  Here's a first observation: If the accessibility relation
-  <math|R=<value|precrefl>>, then the axiom corresponding to Smoothness
-
-  <\equation*>
-    <text|<with|font-series|bold|(Smooth)>><space|1em><around*|(|\<varphi\>\<wedge\>\<neg\><value|bestop>\<varphi\>|)>\<rightarrow\><value|Exists><value|bestop>\<varphi\>
-  </equation*>
-
-  can be strengthened to
-
-  <\equation*>
-    <text|<with|font-series|bold|(Smooth-<value|Knownby>)>><space|1em><around*|(|\<varphi\>\<wedge\>\<neg\><value|bestop>\<varphi\>|)>\<rightarrow\><value|Knownby><value|bestop>\<varphi\>
-  </equation*>
-
-  <\proposition>
-    Let <math|<value|Model>\<in\><value|Plaus>> be a plausibility model with
-    <math|R=<value|precrefl>>. Then <with|font-series|bold|(Smooth-<value|Knownby>)>
-    is sound.
-  </proposition>
-
-  <\proof>
-    Let <math|w\<in\>W>, and suppose <math|<value|Model>,w\<Vdash\>\<varphi\>>
-    and <math|<value|Model>,w\<Vdash\>\<neg\><value|bestop>\<varphi\>>. By
-    our semantics, <math|w\<in\><semantics|\<varphi\>>> but
-    <math|w<neg|\<in\>><value|best><rsub|\<prec\>><around*|(|<semantics|\<varphi\>>|)>>.
-    By Smoothness, there is some <math|v\<prec\>w> better than <math|w> that
-    is the best, i.e. <math|v\<in\><value|best><rsub|\<prec\>><around*|(|<semantics|\<varphi\>>|)>>.
-    But <math|v\<prec\>w> implies that <math|v<op|R>w>, since
-    <math|<around*|(|\<prec\>|)>\<subseteq\><around*|(|<value|precrefl>|)>\<subseteq\><around*|(|R|)>>.
-    But this means there is some <math|v<op|R>w> (<math|v> is <math|R>-below
-    <math|w>) such that <math|<value|Model>,v\<Vdash\><value|bestop>\<varphi\>>,
-    which by our semantics gives us <math|<value|Model>,w\<Vdash\><value|Knownby><value|bestop>\<varphi\>>.
-  </proof>
-
-  Here's a second observation: We don't actually need <math|<value|Knownby>>
-  in our language <with|font-shape|italic|except> to express axioms about
-  <math|R=<value|precrefl>>. So I should merge this section with the previous
-  one, and talk about both at once. (The <math|R=<value|precrefl>> condition
-  means that when we look <math|R>-below, we are in fact looking at better
-  worlds, which allows us to talk more expressively about the
-  <with|font-shape|italic|best> worlds. This gives us motivation for
-  introducing <math|<value|Knownby>> in our language.)
 
   <section|Building a Finite Model>
 
@@ -4918,6 +4969,7 @@
     <associate|bg-color|#f9f5d7>
     <associate|color|#000000>
     <associate|font-base-size|12>
+    <associate|font-shape|condensed>
     <associate|info-flag|minimal>
     <associate|item-vsep|<macro|0fn>>
     <associate|math-font|math-termes>
@@ -4977,12 +5029,10 @@
     <associate|auto-4|<tuple|2|16>>
     <associate|auto-40|<tuple|A.2|64>>
     <associate|auto-41|<tuple|A.2.1|64>>
-    <associate|auto-42|<tuple|A.3|65>>
-    <associate|auto-43|<tuple|A.4|68>>
-    <associate|auto-44|<tuple|A.4.1|68>>
-    <associate|auto-45|<tuple|A.5|70>>
-    <associate|auto-46|<tuple|A.6|70>>
-    <associate|auto-47|<tuple|A.6|71>>
+    <associate|auto-42|<tuple|A.3|66>>
+    <associate|auto-43|<tuple|A.4|70>>
+    <associate|auto-44|<tuple|A.5|70>>
+    <associate|auto-45|<tuple|A.5|71>>
     <associate|auto-5|<tuple|2.1|20>>
     <associate|auto-6|<tuple|3|20>>
     <associate|auto-7|<tuple|4|20>>
@@ -5056,7 +5106,9 @@
     <associate|eqn1|<tuple|4.1|50>>
     <associate|eqn2|<tuple|4.2|50>>
     <associate|figure-axioms-best|<tuple|A.2.1|64>>
-    <associate|figure-axioms-best-knownby|<tuple|A.4.1|68>>
+    <associate|proposition-box-boxback|<tuple|A.3.2|66>>
+    <associate|proposition-build-mcs|<tuple|A.3.3|66>>
+    <associate|theorem-model-building-classical|<tuple|A.3.7|?>>
   </collection>
 </references>
 
@@ -5361,28 +5413,10 @@
     </associate>
     <\associate|figure>
       <tuple|normal|<surround|<hidden-binding|<tuple>|2.1>||Axioms and rules
-      of inference for <with|color|<quote|dark
-      red>|<datoms|<macro|x|<resize|<tabular|<tformat|<cwith|1|1|1|1|cell-background|pastel
-      red>|<cwith|1|1|1|1|cell-lsep|0fn>|<cwith|1|1|1|1|cell-rsep|0fn>|<cwith|1|1|1|1|cell-bsep|0.2fn>|<cwith|1|1|1|1|cell-tsep|0.2fn>|<cwith|1|-1|1|-1|cell-lborder|0ln>|<cwith|1|-1|1|-1|cell-rborder|0ln>|<cwith|1|-1|1|-1|cell-bborder|0ln>|<cwith|1|-1|1|-1|cell-tborder|0ln>|<twith|table-width|>|<twith|table-hmode|auto>|<twith|table-block|no>|<table|<row|<cell|<arg|x>>>>>>|<plus|1l|0fn>|<plus|1b|0.2fn>|<minus|1r|0fn>|<minus|1t|0.2fn>>>|[todo]>>>|<pageref|auto-5>>
+      of inference for <with|color|<quote|#4c4b0d>|<datoms|<macro|x|<resize|<tabular|<tformat|<cwith|1|1|1|1|cell-background|#e0dfba>|<cwith|1|1|1|1|cell-lsep|0fn>|<cwith|1|1|1|1|cell-rsep|0fn>|<cwith|1|1|1|1|cell-bsep|0.2fn>|<cwith|1|1|1|1|cell-tsep|0.2fn>|<cwith|1|-1|1|-1|cell-lborder|0ln>|<cwith|1|-1|1|-1|cell-rborder|0ln>|<cwith|1|-1|1|-1|cell-bborder|0ln>|<cwith|1|-1|1|-1|cell-tborder|0ln>|<twith|table-width|>|<twith|table-hmode|auto>|<twith|table-block|no>|<table|<row|<cell|<arg|x>>>>>>|<plus|1l|0fn>|<plus|1b|0.2fn>|<minus|1r|0fn>|<minus|1t|0.2fn>>>|[todo]>>>|<pageref|auto-5>>
 
       <tuple|normal|<surround|<hidden-binding|<tuple>|A.2.1>||Axioms and
-      rules of inference for <with|color|<quote|dark
-      red>|<datoms|<macro|x|<resize|<tabular|<tformat|<cwith|1|1|1|1|cell-background|pastel
-      red>|<cwith|1|1|1|1|cell-lsep|0fn>|<cwith|1|1|1|1|cell-rsep|0fn>|<cwith|1|1|1|1|cell-bsep|0.2fn>|<cwith|1|1|1|1|cell-tsep|0.2fn>|<cwith|1|-1|1|-1|cell-lborder|0ln>|<cwith|1|-1|1|-1|cell-rborder|0ln>|<cwith|1|-1|1|-1|cell-bborder|0ln>|<cwith|1|-1|1|-1|cell-tborder|0ln>|<twith|table-width|>|<twith|table-hmode|auto>|<twith|table-block|no>|<table|<row|<cell|<arg|x>>>>>>|<plus|1l|0fn>|<plus|1b|0.2fn>|<minus|1r|0fn>|<minus|1t|0.2fn>>>|[todo]>>>|<pageref|auto-41>>
-
-      <tuple|normal|<\surround|<hidden-binding|<tuple>|A.4.1>|>
-        Axioms and rules of inference for the logic with
-        <with|mode|<quote|math>|<with|font-series|<quote|bold>|<with|mode|<quote|text>|K><rsup|\<downarrow\>>>>.
-        Note that the axioms for <with|mode|<quote|math>|<with|font-series|<quote|bold>|<with|mode|<quote|text>|A>>>
-        have been dropped, and <with|font-series|<quote|bold>|(Smooth)> has
-        been strengthened to <with|font-series|<quote|bold>|(Smooth<with|mode|<quote|math>|<rprime|'>>)>.
-        <with|color|<quote|dark red>|<datoms|<macro|x|<resize|<tabular|<tformat|<cwith|1|1|1|1|cell-background|pastel
-        red>|<cwith|1|1|1|1|cell-lsep|0fn>|<cwith|1|1|1|1|cell-rsep|0fn>|<cwith|1|1|1|1|cell-bsep|0.2fn>|<cwith|1|1|1|1|cell-tsep|0.2fn>|<cwith|1|-1|1|-1|cell-lborder|0ln>|<cwith|1|-1|1|-1|cell-rborder|0ln>|<cwith|1|-1|1|-1|cell-bborder|0ln>|<cwith|1|-1|1|-1|cell-tborder|0ln>|<twith|table-width|>|<twith|table-hmode|auto>|<twith|table-block|no>|<table|<row|<cell|<arg|x>>>>>>|<plus|1l|0fn>|<plus|1b|0.2fn>|<minus|1r|0fn>|<minus|1t|0.2fn>>>|[todo]>>
-        <with|color|<quote|dark red>|<datoms|<macro|x|<resize|<tabular|<tformat|<cwith|1|1|1|1|cell-background|pastel
-        red>|<cwith|1|1|1|1|cell-lsep|0fn>|<cwith|1|1|1|1|cell-rsep|0fn>|<cwith|1|1|1|1|cell-bsep|0.2fn>|<cwith|1|1|1|1|cell-tsep|0.2fn>|<cwith|1|-1|1|-1|cell-lborder|0ln>|<cwith|1|-1|1|-1|cell-rborder|0ln>|<cwith|1|-1|1|-1|cell-bborder|0ln>|<cwith|1|-1|1|-1|cell-tborder|0ln>|<twith|table-width|>|<twith|table-hmode|auto>|<twith|table-block|no>|<table|<row|<cell|<arg|x>>>>>>|<plus|1l|0fn>|<plus|1b|0.2fn>|<minus|1r|0fn>|<minus|1t|0.2fn>>>|[say
-        which ones only hold if <with|mode|<quote|math>|\<prec\><rsub|<with|mode|<quote|text>|refl>>=R>
-        in the model.]>>
-      </surround>|<pageref|auto-44>>
+      rules of inference for <with|color|<quote|#4c4b0d>|<datoms|<macro|x|<resize|<tabular|<tformat|<cwith|1|1|1|1|cell-background|#e0dfba>|<cwith|1|1|1|1|cell-lsep|0fn>|<cwith|1|1|1|1|cell-rsep|0fn>|<cwith|1|1|1|1|cell-bsep|0.2fn>|<cwith|1|1|1|1|cell-tsep|0.2fn>|<cwith|1|-1|1|-1|cell-lborder|0ln>|<cwith|1|-1|1|-1|cell-rborder|0ln>|<cwith|1|-1|1|-1|cell-bborder|0ln>|<cwith|1|-1|1|-1|cell-tborder|0ln>|<twith|table-width|>|<twith|table-hmode|auto>|<twith|table-block|no>|<table|<row|<cell|<arg|x>>>>>>|<plus|1l|0fn>|<plus|1b|0.2fn>|<minus|1r|0fn>|<minus|1t|0.2fn>>>|[todo]>>>|<pageref|auto-41>>
     </associate>
     <\associate|toc>
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Introduction>
@@ -5549,22 +5583,18 @@
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-42>
 
-      A.4<space|0.5fn>Models with a Single Plausibility-Accessibility
-      Relation <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      A.4<space|0.5fn>Building a Finite Model
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-43>
 
-      A.5<space|0.5fn>Building a Finite Model
-      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-45>
-
-      A.6<space|0.5fn>Dynamic Updates on the Logic of
+      A.5<space|0.5fn>Dynamic Updates on the Logic of
       <with|mode|<quote|math>|[<with|mode|<quote|text>|best>]>
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-46>
+      <no-break><pageref|auto-44>
 
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|References>
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-47><vspace|0.5fn>
+      <no-break><pageref|auto-45><vspace|0.5fn>
     </associate>
   </collection>
 </auxiliary>
