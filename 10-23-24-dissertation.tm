@@ -957,8 +957,9 @@
   </definition>
 
   The plausibility order <math|\<prec\>> is required to be a strict order
-  relation (irreflexive and transitive). <math|S<rsub|1>\<prec\>S<rsub|2>>
-  intuitively means that the agent considers the state
+  relation (irreflexive and transitive) satisfying the Smoothness Condition
+  (which I will state shortly). <math|S<rsub|1>\<prec\>S<rsub|2>> intuitively
+  means that the agent considers the state
   <math|S<rsub|1>\<in\><with|font|cal|S>> to be more plausible, or more
   normal, than <math|S<rsub|2>\<in\><with|font|cal|S>>. In order to reason
   about the most plausible (normal) states, we can look at the
@@ -970,27 +971,28 @@
     all >u\<in\>l<around*|(|S|)>,\<neg\>u<op|\<prec\>>w|}>
   </equation*>
 
-  We additionally impose the \PSmoothness Condition\Q
-  <cite|kraus1990nonmonotonic> on <math|<value|best><rsub|\<prec\>>>. This
-  condition says that there are no infinitely descending
-  <math|\<prec\>>-chains, i.e., every nonempty state <math|S> has at least
-  one minimal element.
+  For propositional formulas <math|\<varphi\>\<in\><value|langProp>>,
+  <math|<semantics|\<varphi\>>=<around*|{|S\<in\><with|font|cal|S><value|st>w\<models\>\<varphi\><text|
+  for all >w\<in\>l<around*|(|S|)>|}>>, i.e., the set of states where
+  <math|\<varphi\>> is true everywhere. I said before that <math|\<prec\>>
+  must satisfy the Smoothness Condition <cite|kraus1990nonmonotonic>\Vthis
+  condition says that for any propositional formula
+  <math|\<varphi\>\<in\><value|langProp>>, <math|<semantics|\<varphi\>>> has
+  no infinitely descending <math|\<prec\>>-chains, i.e., every non-empty
+  <math|<semantics|\<varphi\>>> has at least one minimal element.
 
   <\postulate>
     For all cumulative-ordered models <math|<value|Model>>, states
-    <math|S\<in\><with|font|cal|S>>, and all <math|w\<in\>W>, if
-    <math|w\<in\>l<around*|(|S|)>> then either
-    <math|w\<in\><value|best><rsub|\<prec\>><around*|(|S|)>>, or there is
-    some <math|v<op|\<prec\>>w> better than <math|w> that
-    <with|font-shape|italic|is> the best, i.e.
-    <math|v\<in\><value|best><rsub|\<prec\>><around*|(|S|)>>.
+    <math|S\<in\><with|font|cal|S>>, and all
+    <math|\<varphi\>\<in\><value|langProp>>, if
+    <math|S\<in\><semantics|\<varphi\>>> then either
+    <math|S\<in\><value|best><rsub|\<prec\>><around*|(|<semantics|\<varphi\>>|)>>,
+    or there is some <math|S<rprime|'><op|\<prec\>>S> better than <math|S>
+    that <with|font-shape|italic|is> the best, i.e.
+    <math|S<rprime|'>\<in\><value|best><rsub|\<prec\>><around*|(|<semantics|\<varphi\>>|)>>.
   </postulate>
 
-  Now I can give the KLM intepretation of conditional sentences. For
-  propositional formulas <math|\<varphi\>\<in\><value|langProp>>,
-  <math|<semantics|\<varphi\>>=<around*|{|S\<in\><with|font|cal|S><value|st>w\<models\>\<varphi\><text|
-  for all >w\<in\>l<around*|(|S|)>|}>>, i.e., the set of states where
-  <math|\<varphi\>> is true everywhere. As for conditionals,
+  I can now give the KLM intepretation of conditional sentences:
 
   <\equation*>
     <value|Model>\<models\>\<varphi\>\<Rightarrow\>\<psi\><infix-iff><value|best><rsub|\<prec\>><around*|(|<semantics|\<varphi\>>|)>\<subseteq\><semantics|\<psi\>>
@@ -1150,16 +1152,24 @@
   </equation*>
 
   Similarly, we require the <math|<value|best><rsub|\<prec\>>> operator to
-  satisfy a similar Smoothness condition:
+  satisfy a similar Smoothness condition. For <with|font-shape|italic|any>
+  formula <math|\<varphi\>> (not just propositional formulas), say we have
+  defined some semantics <math|\<Vdash\>>, and let
+  <math|<semantics|\<varphi\>>=<around*|{|w\<in\>W<value|st><value|Model>,w\<Vdash\>\<varphi\>|}>>.
+  Smoothness says:\ 
 
   <\postulate>
-    For all plausibility models <math|<value|Model>>, sets <math|S>, and all
-    <math|w\<in\>W>, if <math|w\<in\>S> then either
-    <math|w\<in\><value|best><rsub|\<prec\>><around*|(|S|)>>, or there is
-    some <math|v<op|\<prec\>>w> better than <math|w> that
+    For all plausibility models <math|<value|Model>>, <math|w\<in\>W>, and
+    formulas <math|\<varphi\>>, if <math|w\<in\><semantics|\<varphi\>>> then
+    either <math|w\<in\><value|best><rsub|\<prec\>><around*|(|<semantics|\<varphi\>>|)>>,
+    or there is some <math|v<op|\<prec\>>w> better than <math|w> that
     <with|font-shape|italic|is> the best, i.e.
-    <math|v\<in\><value|best><rsub|\<prec\>><around*|(|S|)>>.
+    <math|v\<in\><value|best><rsub|\<prec\>><around*|(|<semantics|\<varphi\>>|)>>.
   </postulate>
+
+  <todo|Should I move this postulate down past the semantics? It would be
+  nice if I defined the language first, so I could say
+  <math|\<varphi\>\<in\><value|langBest>>.>
 
   <\definition>
     Let <math|<value|Plaus>> be the class of all such plausibility models.
@@ -1229,7 +1239,7 @@
 
       <item>: This wasn't done by your typical criminal.
 
-      <item><math|\<neg\><value|bestop>\<top\>\<rightarrow\>\<neg\><value|box><around*|(|<value|Exists><value|bestop>\<top\>|)>>:
+      <item><math|\<neg\><value|bestop>\<top\>\<rightarrow\>\<neg\>\<box\><around*|(|<value|Exists><value|bestop>\<top\>|)>>:
       If this isn't normal, I don't know what is.
     </itemize>
   </example>
@@ -4260,46 +4270,6 @@
     <math|\<box\>\<varphi\>\<in\>\<Sigma\>>!
   </proof>
 
-  <\proposition>
-    <label|proposition-build-mcs>Let <math|\<Delta\>> be consistent, and
-    suppose <math|<value|Diamondback><value|bestop>\<varphi\>\<in\>\<Delta\>>.
-    Then the set
-
-    <\equation*>
-      \<Delta\><rprime|'>=<around*|{|\<psi\><value|st><value|boxback>\<psi\>\<in\>\<Delta\>|}>\<cup\><around*|{|<value|bestop>\<varphi\>|}>
-    </equation*>
-
-    is consistent.
-  </proposition>
-
-  <\proof>
-    Suppose for contradiction that <math|\<Delta\><rprime|'>> is
-    inconsistent. Then <math|\<Delta\><rprime|'><value|proves>\<neg\><value|bestop>\<varphi\>>.
-    By definition of <math|<value|proves>>, there must be finitely many
-    <math|\<psi\><rsub|1>,\<ldots\>,\<psi\><rsub|n>\<in\>\<Delta\><rprime|'>>
-    such that <math|<value|proves><around*|(|\<psi\><rsub|1>\<wedge\>\<ldots\>\<wedge\>\<psi\><rsub|n>|)>\<rightarrow\>\<neg\><value|bestop>\<varphi\>>.
-    By the <with|font-series|bold|(Nec)> rule for <math|<value|boxback>>,
-    <math|<value|proves><value|boxback><around*|(|<around*|(|\<psi\><rsub|1>\<wedge\>\<ldots\>\<wedge\>\<psi\><rsub|n>|)>\<rightarrow\>\<neg\><value|bestop>\<varphi\>|)>>.
-    Then by <with|font-series|bold|(Distr)> for <math|<value|boxback>>,
-    <math|<value|proves><value|boxback><around*|(|\<psi\><rsub|1>\<wedge\>\<ldots\>\<wedge\>\<psi\><rsub|n>|)>\<rightarrow\><value|boxback>\<neg\><value|bestop>\<varphi\>>.
-    Now, by construction of <math|\<Delta\><rprime|'>>,
-    <math|<value|boxback>\<psi\><rsub|1>,\<ldots\>,<value|boxback>\<psi\><rsub|n>\<in\>\<Delta\>>.
-    So <math|<value|boxback>\<psi\><rsub|1>\<wedge\>\<ldots\>\<wedge\><value|boxback>\<psi\><rsub|n>\<in\>\<Delta\>>.
-    Now, with a bit of work with the <with|font-series|bold|(Distr)> axiom
-    (see <todo|cite modal logic book or notes>), we have
-
-    <\equation*>
-      <value|proves><around*|(|\<psi\><rsub|1>\<wedge\>\<ldots\>\<wedge\>\<psi\><rsub|n>|)>\<rightarrow\>\<neg\><value|bestop>\<varphi\><text|
-      implies ><value|proves><value|boxback>\<psi\><rsub|1>\<wedge\>\<ldots\>\<wedge\><value|boxback>\<psi\><rsub|n>\<rightarrow\><value|boxback>\<neg\><value|bestop>\<varphi\>
-    </equation*>
-
-    which gives us <math|<value|boxback>\<neg\><value|bestop>\<varphi\>\<in\>\<Delta\>>.
-    By <with|font-series|bold|(Dual)>, we have
-    <math|\<neg\><value|Diamondback><value|bestop>\<varphi\>\<in\>\<Delta\>>,
-    which contradicts our hypothesis <math|<value|Diamondback><value|bestop>\<varphi\>\<in\>\<Delta\>>
-    and the fact that <math|\<Delta\>> is consistent.
-  </proof>
-
   The canonical model for this logic is almost entirely standard\Vwe define
   <math|\<prec\><rsup|c>> in the usual way for an accessibility relation,
   except we make it irreflexive.
@@ -4331,49 +4301,54 @@
   <math|\<prec\><rsup|c>> is irreflexive.
 
   <\proposition>
-    The canonical model <math|<value|Model><rsup|c>> is in fact a
-    plausibility model, i.e. <math|<value|Model><rsup|c>\<in\><value|Plaus>>.
+    <label|proposition-build-mcs>Let <math|\<Delta\>> be consistent, and
+    suppose <math|<value|Diamondback><value|bestop>\<varphi\>\<in\>\<Delta\>>.
+    Then we can extend <math|\<Delta\>> to a maximally consistent set
+    <math|\<Delta\><rsup|<text|max>>\<in\>W<rsup|c>> such that
+    <math|<value|bestop>\<varphi\>\<in\>\<Delta\><rsup|<text|max>>> and
+    <math|\<Delta\><rsup|<text|max>>\<prec\><rsup|c>\<Delta\>>.
   </proposition>
 
   <\proof>
-    I need to show is that <math|\<prec\><rsup|c>> is irreflexive,
-    transitive, and smooth:
+    Consider the set <math|\<Delta\><rprime|'>=<around*|{|\<psi\><value|st><value|boxback>\<psi\>\<in\>\<Delta\>|}>\<cup\><around*|{|<value|bestop>\<varphi\>|}>>.
+    I first claim that <math|\<Delta\><rprime|'>> is consistent; suppose not.
+    Then <math|\<Delta\><rprime|'><value|proves>\<neg\><value|bestop>\<varphi\>>.
+    By definition of <math|<value|proves>>, there must be finitely many
+    <math|\<psi\><rsub|1>,\<ldots\>,\<psi\><rsub|n>\<in\>\<Delta\><rprime|'>>
+    such that <math|<value|proves><around*|(|\<psi\><rsub|1>\<wedge\>\<ldots\>\<wedge\>\<psi\><rsub|n>|)>\<rightarrow\>\<neg\><value|bestop>\<varphi\>>.
+    By the <with|font-series|bold|(Nec)> rule for <math|<value|boxback>>,
+    <math|<value|proves><value|boxback><around*|(|<around*|(|\<psi\><rsub|1>\<wedge\>\<ldots\>\<wedge\>\<psi\><rsub|n>|)>\<rightarrow\>\<neg\><value|bestop>\<varphi\>|)>>.
+    Then by <with|font-series|bold|(Distr)> for <math|<value|boxback>>,
+    <math|<value|proves><value|boxback><around*|(|\<psi\><rsub|1>\<wedge\>\<ldots\>\<wedge\>\<psi\><rsub|n>|)>\<rightarrow\><value|boxback>\<neg\><value|bestop>\<varphi\>>.
+    Now, by construction of <math|\<Delta\><rprime|'>>,
+    <math|<value|boxback>\<psi\><rsub|1>,\<ldots\>,<value|boxback>\<psi\><rsub|n>\<in\>\<Delta\>>.
+    So <math|<value|boxback>\<psi\><rsub|1>\<wedge\>\<ldots\>\<wedge\><value|boxback>\<psi\><rsub|n>\<in\>\<Delta\>>.
+    Now, with a bit of work with the <with|font-series|bold|(Distr)> axiom
+    (see <todo|cite modal logic book or notes>), we have
 
-    <\description>
-      <item*|<math|\<prec\><rsup|c>> is irreflexive>This is almost by
-      definition; let <math|\<Delta\>\<in\>W<rsup|c>>, and suppose for
-      contradiction that <math|\<Delta\>\<prec\><rsup|c>\<Delta\>>. So
-      <math|\<Delta\>\<neq\>\<Delta\>>, which is a contradiction.
+    <\equation*>
+      <value|proves><around*|(|\<psi\><rsub|1>\<wedge\>\<ldots\>\<wedge\>\<psi\><rsub|n>|)>\<rightarrow\>\<neg\><value|bestop>\<varphi\><text|
+      implies ><value|proves><value|boxback>\<psi\><rsub|1>\<wedge\>\<ldots\>\<wedge\><value|boxback>\<psi\><rsub|n>\<rightarrow\><value|boxback>\<neg\><value|bestop>\<varphi\>
+    </equation*>
 
-      <item*|<math|\<prec\><rsup|c>> is transitive>Suppose
-      <math|\<Delta\><rsub|1>\<prec\><rsup|c>\<Delta\><rsub|2>> and
-      <math|\<Delta\><rsub|2>\<prec\><rsup|c>\<Delta\><rsub|3>>. By
-      definition, for all <math|\<varphi\>>,
-      <math|\<box\>\<varphi\>\<in\>\<Delta\><rsub|1>> implies
-      <math|\<varphi\>\<in\>\<Delta\><rsub|2>> and for all <math|\<varphi\>>,
-      <math|\<box\>\<varphi\>\<in\>\<Delta\><rsub|2>> implies
-      <math|\<varphi\>\<in\>\<Delta\><rsub|3>>. To show
-      <math|\<Delta\><rsub|1>\<prec\><rsup|c>\<Delta\><rsub|3>>, let
-      <math|\<varphi\>\<in\><value|langBest>> and suppose
-      <math|\<box\>\<varphi\>\<in\>\<Delta\><rsub|1>>. By
-      <with|font-series|bold|(Trans)> for <math|\<box\>>,
-      <math|\<box\>\<box\>\<varphi\>\<in\>\<Delta\><rsub|1>>. By hypothesis,
-      this means <math|\<box\>\<varphi\>\<in\>\<Delta\><rsub|2>>, and so
-      <math|\<varphi\>\<in\>\<Delta\><rsub|3>> (and we are done).
+    which gives us <math|<value|boxback>\<neg\><value|bestop>\<varphi\>\<in\>\<Delta\>>.
+    By <with|font-series|bold|(Dual)>, we have
+    <math|\<neg\><value|Diamondback><value|bestop>\<varphi\>\<in\>\<Delta\>>,
+    which contradicts our hypothesis <math|<value|Diamondback><value|bestop>\<varphi\>\<in\>\<Delta\>>
+    and the fact that <math|\<Delta\>> is consistent.
 
-      <item*|<math|\<prec\><rsup|c>> is smooth>Let
-      <math|S\<subseteq\>W<rsup|c>> be any set, and suppose
-      <math|\<Delta\>\<in\>S> but <math|\<Delta\><neg|\<in\>><value|best><rsub|\<prec\><rsup|c>><around*|(|S|)>>.
-      I would like to show that there is some
-      <math|\<Delta\><rprime|'>\<in\>W<rsup|c>> better than <math|\<Delta\>>
-      <around*|(|<math|\<Delta\><rprime|'>\<prec\><rsup|c>\<Delta\>>|)>, that
-      <with|font-shape|italic|is> the best,
-      <around*|(|<math|\<Delta\><rprime|'>\<in\><value|best><rsub|\<prec\><rsup|c>><around*|(|S|)>>|)>.
-      Consider <math|\<Delta\><rprime|'>=<around*|{|\<box\>\<varphi\><value|st>\<varphi\>\<in\>|}>>
-
-      <todo|How does this follow from <with|font-series|bold|(Up)> and
-      <with|font-series|bold|(Down)>??>
-    </description>
+    So we can extend <math|\<Delta\><rprime|'>> to a maximally consistent set
+    <math|\<Delta\><rsup|<text|max>>\<supseteq\>\<Delta\><rprime|'>>. Since
+    <math|<value|bestop>\<in\>\<Delta\><rprime|'>>,
+    <math|<value|bestop>\<in\>\<Delta\><rsup|<text|max>>>. Now observe that
+    by construction, for all formulas <math|\<psi\>>,
+    <math|<value|boxback>\<psi\>\<in\>\<Delta\>> implies
+    <math|\<psi\>\<in\>\<Delta\><rsup|<text|max>>>. By Proposition
+    <reference|proposition-box-boxback>, this means for all <math|\<psi\>>,
+    <math|\<box\>\<psi\>\<in\>\<Delta\><rsup|<text|max>>> implies
+    <math|\<psi\>\<in\>\<Delta\>>. But this is precisely the definition of
+    <math|\<Delta\><rsup|<text|max>>\<preceq\><rsup|c>\<Delta\>> (and we are
+    done).
   </proof>
 
   <\lemma>
@@ -4422,25 +4397,19 @@
       and by <with|font-series|bold|(Smooth)>,
       <math|<value|Diamondback><value|bestop>\<varphi\>\<in\>\<Delta\>>. This
       fact allows us to apply Proposition <reference|proposition-build-mcs>,
-      which says <math|\<Delta\><rprime|'>> is consistent.
+      which gives us a maximally consistent
+      <math|\<Delta\><rsup|<text|max>>\<in\>W<rsup|c>> with
+      <math|\<Delta\><rsup|<text|max>>\<preceq\><rsup|c>\<Delta\>> and
+      <math|<value|bestop>\<varphi\>\<in\>\<Delta\><rsup|<text|max>>>.
 
-      So we can extend <math|\<Delta\><rprime|'>> to a maximally consistent
-      set <math|\<Delta\><rsup|<text|max>>\<supseteq\>\<Delta\><rprime|'>>.
       Since <math|<value|bestop>\<varphi\>\<in\>\<Delta\><rsup|<text|max>>>,
       by <with|font-series|bold|(Refl)> for <math|<value|bestop>>,
       <math|\<varphi\>\<in\>\<Delta\><rsup|<text|max>>>. So by the last line
       of implications above, <math|\<neg\>\<Delta\><rsup|<text|max>>\<prec\><rsup|c>\<Delta\>>.
-      Now observe that by construction, for all formulas <math|\<psi\>>,
-      <math|<value|boxback>\<psi\>\<in\>\<Delta\>> implies
-      <math|\<psi\>\<in\>\<Delta\><rsup|<text|max>>>. By Proposition
-      <reference|proposition-box-boxback>, this means for all <math|\<psi\>>,
-      <math|\<box\>\<psi\>\<in\>\<Delta\><rsup|<text|max>>> implies
-      <math|\<psi\>\<in\>\<Delta\>>. But this is precisely the definition of
-      <math|\<Delta\><rsup|<text|max>>\<preceq\><rsup|c>\<Delta\>>! Putting
-      <math|\<neg\>\<Delta\><rsup|<text|max>>\<prec\><rsup|c>\<Delta\>> and
-      <math|\<Delta\><rsup|<text|max>>\<preceq\><rsup|c>\<Delta\>> together,
-      we must have <math|\<Delta\><rsup|<text|max>>=\<Delta\>>. But this
-      gives us <math|<value|bestop>\<varphi\>\<in\>\<Delta\>>, which
+      Putting <math|\<neg\>\<Delta\><rsup|<text|max>>\<prec\><rsup|c>\<Delta\>>
+      and <math|\<Delta\><rsup|<text|max>>\<preceq\><rsup|c>\<Delta\>>
+      together, we must have <math|\<Delta\><rsup|<text|max>>=\<Delta\>>. But
+      this gives us <math|<value|bestop>\<varphi\>\<in\>\<Delta\>>, which
       contradicts our hypothesis <math|<value|bestop>\<varphi\><neg|\<in\>>\<Delta\>>
       (so <math|<value|bestop>\<varphi\>\<in\>\<Delta\>> must be true).
 
@@ -4520,6 +4489,60 @@
     </description>
   </proof>
 
+  <\proposition>
+    The canonical model <math|<value|Model><rsup|c>> is in fact a
+    plausibility model, i.e. <math|<value|Model><rsup|c>\<in\><value|Plaus>>.
+  </proposition>
+
+  <\proof>
+    I need to show is that <math|\<prec\><rsup|c>> is irreflexive,
+    transitive, and smooth:
+
+    <\description>
+      <item*|<math|\<prec\><rsup|c>> is irreflexive>This is almost by
+      definition; let <math|\<Delta\>\<in\>W<rsup|c>>, and suppose for
+      contradiction that <math|\<Delta\>\<prec\><rsup|c>\<Delta\>>. So
+      <math|\<Delta\>\<neq\>\<Delta\>>, which is a contradiction.
+
+      <item*|<math|\<prec\><rsup|c>> is transitive>Suppose
+      <math|\<Delta\><rsub|1>\<prec\><rsup|c>\<Delta\><rsub|2>> and
+      <math|\<Delta\><rsub|2>\<prec\><rsup|c>\<Delta\><rsub|3>>. By
+      definition, for all <math|\<varphi\>>,
+      <math|\<box\>\<varphi\>\<in\>\<Delta\><rsub|1>> implies
+      <math|\<varphi\>\<in\>\<Delta\><rsub|2>> and for all <math|\<varphi\>>,
+      <math|\<box\>\<varphi\>\<in\>\<Delta\><rsub|2>> implies
+      <math|\<varphi\>\<in\>\<Delta\><rsub|3>>. To show
+      <math|\<Delta\><rsub|1>\<prec\><rsup|c>\<Delta\><rsub|3>>, let
+      <math|\<varphi\>\<in\><value|langBest>> and suppose
+      <math|\<box\>\<varphi\>\<in\>\<Delta\><rsub|1>>. By
+      <with|font-series|bold|(Trans)> for <math|\<box\>>,
+      <math|\<box\>\<box\>\<varphi\>\<in\>\<Delta\><rsub|1>>. By hypothesis,
+      this means <math|\<box\>\<varphi\>\<in\>\<Delta\><rsub|2>>, and so
+      <math|\<varphi\>\<in\>\<Delta\><rsub|3>> (and we are done).
+
+      <item*|<math|\<prec\><rsup|c>> is smooth>Let
+      <math|\<varphi\>\<in\><value|langBest>> be any formula,
+      <math|\<Delta\>\<in\>W<rsup|c>>, and suppose
+      <math|\<Delta\>\<in\><semantics|\<varphi\>>> but
+      <math|\<Delta\><neg|\<in\>><value|best><rsub|\<prec\><rsup|c>><around*|(|<semantics|\<varphi\>>|)>>.
+      I would like to show that there is some
+      <math|\<Delta\><rprime|'>\<in\>W<rsup|c>> better than <math|\<Delta\>>
+      that <with|font-shape|italic|is> a best <math|\<varphi\>>-state. Well,
+      by the Truth Lemma, <math|\<varphi\>\<in\>\<Delta\>> and
+      <math|<value|bestop>\<varphi\><neg|\<in\>>\<Delta\>>. So
+      <math|\<varphi\>\<wedge\>\<neg\><value|bestop>\<varphi\>\<in\>\<Delta\>>.
+      By <with|font-series|bold|(Smooth)>,
+      <math|<value|Diamondback><value|bestop>\<varphi\>\<in\>\<Delta\>>. This
+      means we can apply Proposition <reference|proposition-build-mcs>, which
+      gives us a maximally consistent <math|\<Delta\><rsup|<text|max>>\<in\>W<rsup|c>>
+      with <math|\<Delta\><rsup|<text|max>>\<in\>W<rsup|c>>,
+      <math|\<Delta\><rsup|<text|max>>\<prec\><rsup|c>\<Delta\>>, and
+      <math|<value|bestop>\<varphi\>\<in\>\<Delta\><rsup|<text|max>>>. By the
+      Truth Lemma, <math|\<Delta\><rsup|<text|max>>\<in\><value|best><rsub|\<prec\><rsup|c>><around*|(|<semantics|\<varphi\>>|)>>
+      (and we are done).
+    </description>
+  </proof>
+
   <\theorem>
     <label|theorem-model-building-classical><dueto|<aw|hand-point-right|1fn>
     Model Building for <math|<value|langClosure>> over
@@ -4572,7 +4595,72 @@
 
   <section|Building a Finite Model>
 
-  <todo|Do the filtration construction here!!!>
+  The fact that we can build a model is not enough. The canonical model
+  <math|<value|Model><rsup|c>> is huge\Vit has infinitely many elements, each
+  of which are infinite sets of formulas! To turn this model into a neural
+  network (which is the central point of my dissertation), I need to first
+  make this model <with|font-shape|italic|finite>. <todo|Relate this to the
+  finite model property: every formula <math|\<varphi\>> that has a model has
+  a finite countermodel.> (Polynomial size would be nice, but I will leave
+  this to future work. We probably won't be so lucky.)
+
+  The logic of <math|<value|bestop>> and our canonical model construction are
+  not strange or bizarre from a modal logic standpoint, so we can apply the
+  standard technique of <with|font-shape|italic|filtration> to construct the
+  finite model.
+
+  <\definition>
+    <todo|Define filtration!>
+  </definition>
+
+  <todo|For computer science reader: this is similar to the Myhill-Nerode
+  theorem about finding a minimal DFA equivalent to a given DFA,>
+
+  <\theorem>
+    <todo|A filtration of <math|<value|Model>> preserves the formulas true in
+    <math|<value|Model>>, at every world.>
+  </theorem>
+
+  <\proposition>
+    <todo|A filtration of <math|<value|Model>\<in\><value|Plaus>> is still a
+    plausibility model, i.e. <math|\<prec\>> is irreflexive, transitive, and
+    smooth>
+  </proposition>
+
+  <\theorem>
+    <todo|If <math|\<Gamma\>> is finite, then any filtration of a
+    <math|<value|Model>\<in\><value|Plaus>> through <math|\<Gamma\>> is also
+    finite.>
+  </theorem>
+
+  <\definition>
+    <todo|Define the fine filtration (I need to pick a specific filtration to
+    see that one exists. In order to pick one that may prove to be more
+    useful as a neural network, I pick the fine filtration (the most densely
+    connected filtration) over the coarse filtration (the least densely
+    connected filtration))>
+  </definition>
+
+  <\proposition>
+    <todo|The fine filtration is in fact a filtration>
+  </proposition>
+
+  <\corollary>
+    <dueto|Finite Model Property><todo|State the finite model property,
+    putting it all together. We can build a finite >
+  </corollary>
+
+  <\corollary>
+    <dueto|Finite Model Building><todo|For any finite set of constraints
+    <math|\<Gamma\>>, we can construct a finite
+    <math|<value|Model>\<in\><value|Plaus>> satisfying <math|\<Gamma\>>>
+  </corollary>
+
+  <todo|Note that this doesn't actually give us a constructive
+  <with|font-shape|italic|algorithm> for building the finite model, since we
+  have to build the infinite canonical model <with|font-shape|italic|first>.
+  Is there a known result in modal logic that gives us an algorithm? If so, I
+  should include this in a separate Appendix section and point to it here.>
 
   <section|Dynamic Updates on the Logic of <math|<value|bestop>>>
 
@@ -4581,382 +4669,410 @@
 
   \;
 
-  <\bibliography|bib|tm-plain|references.bib>
+  \;
+
+  \;
+
+  \;
+
+  \;
+
+  \;
+
+  \;
+
+  \;
+
+  <with|font-series|bold|CITATION:> <cite|aho1972transitive>
+
+  <with|font-series|bold|MULTIAUTHOR:> <cite|leitgeb2003nonmonotonic|aho1972transitive>
+
+  <with|font-series|bold|SHORTCITE:>\ 
+
+  <\bibliography|bib|tm-abstract|references.bib>
     <\bib-list|65>
-      <bibitem*|1><label|bib-achiam2023gpt>Josh Achiam, Steven Adler,
-      Sandhini Agarwal, Lama Ahmad, Ilge Akkaya, Florencia<nbsp>Leoni Aleman,
-      Diogo Almeida, Janko Altenschmidt, Sam Altman, Shyamal Anadkat
+      <bibitem*|achiam2023gpt><label|bib-achiam2023gpt>Josh Achiam, Steven
+      Adler, Sandhini Agarwal, Lama Ahmad, Ilge Akkaya, Florencia<nbsp>Leoni
+      Aleman, Diogo Almeida, Janko Altenschmidt, Sam Altman, Shyamal Anadkat
       et<nbsp>al. <newblock>GPT-4 technical report.
       <newblock><with|font-shape|italic|ArXiv preprint arXiv:2303.08774>,
       2023.<newblock>
 
-      <bibitem*|2><label|bib-aho1972transitive>Alfred<nbsp>V.<nbsp>Aho,
+      <bibitem*|aho1972transitive><label|bib-aho1972transitive>Alfred<nbsp>V.<nbsp>Aho,
       Michael<nbsp>R Garey<localize|, and >Jeffrey<nbsp>D.<nbsp>Ullman.
       <newblock>The transitive reduction of a directed graph.
       <newblock><with|font-shape|italic|SIAM Journal on Computing>,
       1(2):131\U137, 1972.<newblock>
 
-      <bibitem*|3><label|bib-albarghouthi2021introduction>Aws Albarghouthi
-      et<nbsp>al. <newblock>Introduction to neural network verification.
-      <newblock><with|font-shape|italic|Foundations and Trends\<circledR\> in
-      Programming Languages>, 7(1\U2):1\U157, 2021.<newblock>
+      <bibitem*|albarghouthi2021introduction><label|bib-albarghouthi2021introduction>Aws
+      Albarghouthi et<nbsp>al. <newblock>Introduction to neural network
+      verification. <newblock><with|font-shape|italic|Foundations and
+      Trends\<circledR\> in Programming Languages>, 7(1\U2):1\U157,
+      2021.<newblock>
 
-      <bibitem*|4><label|bib-baccini2024dynamic>Edoardo Baccini, Zoé
-      Christoff<localize|, and >Rineke Verbrugge. <newblock>Dynamic logics of
-      diffusion and link changes on social networks.
-      <newblock><with|font-shape|italic|Studia Logica>, <localize|pages
-      >1\U71, 2024.<newblock>
+      <bibitem*|baccini2024dynamic><label|bib-baccini2024dynamic>Edoardo
+      Baccini, Zoé Christoff<localize|, and >Rineke Verbrugge.
+      <newblock>Dynamic logics of diffusion and link changes on social
+      networks. <newblock><with|font-shape|italic|Studia Logica>,
+      <localize|pages >1\U71, 2024.<newblock>
 
-      <bibitem*|5><label|bib-bader2005dimensions>Sebastian Bader<localize|
-      and >Pascal Hitzler. <newblock>Dimensions of neural-symbolic
-      integration \U A structured survey. <newblock><localize|In
-      ><with|font-shape|italic|We Will Show Them! Essays in Honour of Dov
-      Gabbay, Volume 1>, <localize|pages >167\U194. College Publications,
-      2005.<newblock>
+      <bibitem*|bader2005dimensions><label|bib-bader2005dimensions>Sebastian
+      Bader<localize| and >Pascal Hitzler. <newblock>Dimensions of
+      neural-symbolic integration \U A structured survey.
+      <newblock><localize|In ><with|font-shape|italic|We Will Show Them!
+      Essays in Honour of Dov Gabbay, Volume 1>, <localize|pages >167\U194.
+      College Publications, 2005.<newblock>
 
-      <bibitem*|6><label|bib-badreddine2022aa>Samy Badreddine,
+      <bibitem*|badreddine2022aa><label|bib-badreddine2022aa>Samy Badreddine,
       Artur<nbsp>d'Avila Garcez, Luciano Serafini<localize|, and >Michael
       Spranger. <newblock>Logic Tensor Networks.
       <newblock><with|font-shape|italic|Artificial Intelligence>, 303:103649,
       2022.<newblock>
 
-      <bibitem*|7><label|bib-balkenius1991nonmonotonic>Christian
+      <bibitem*|balkenius1991nonmonotonic><label|bib-balkenius1991nonmonotonic>Christian
       Balkenius<localize| and >Peter Gärdenfors. <newblock>Nonmonotonic
       inferences in neural networks. <newblock><localize|In
       ><with|font-shape|italic|KR>, <localize|pages >32\U39. Morgan Kaufmann,
       1991.<newblock>
 
-      <bibitem*|8><label|bib-baltag2019socialnetworks>Alexandru Baltag, Zoé
-      Christoff, Rasmus<nbsp>K Rendsvig<localize|, and >Sonja Smets.
-      <newblock>Dynamic epistemic logics of diffusion and prediction in
-      social networks. <newblock><with|font-shape|italic|Studia Logica>,
+      <bibitem*|baltag2019socialnetworks><label|bib-baltag2019socialnetworks>Alexandru
+      Baltag, Zoé Christoff, Rasmus<nbsp>K Rendsvig<localize|, and >Sonja
+      Smets. <newblock>Dynamic epistemic logics of diffusion and prediction
+      in social networks. <newblock><with|font-shape|italic|Studia Logica>,
       107:489\U531, 2019.<newblock>
 
-      <bibitem*|9><label|bib-baltag2019dynamic>Alexandru Baltag, Nina
-      Gierasimczuk, Aybüke Özgün, Ana<nbsp>Lucia<nbsp>Vargas
+      <bibitem*|baltag2019dynamic><label|bib-baltag2019dynamic>Alexandru
+      Baltag, Nina Gierasimczuk, Aybüke Özgün, Ana<nbsp>Lucia<nbsp>Vargas
       Sandoval<localize|, and >Sonja Smets. <newblock>A dynamic logic for
       learning theory. <newblock><with|font-shape|italic|Journal of Logical
       and Algebraic Methods in Programming>, 109:100485, 2019.<newblock>
 
-      <bibitem*|10><label|bib-baltag2019tracking>Alexandru Baltag, Nina
-      Gierasimczuk<localize|, and >Sonja Smets. <newblock>Truth-tracking by
-      belief revision. <newblock><with|font-shape|italic|Studia Logica>,
-      107:917\U947, 2019.<newblock>
+      <bibitem*|baltag2019tracking><label|bib-baltag2019tracking>Alexandru
+      Baltag, Nina Gierasimczuk<localize|, and >Sonja Smets.
+      <newblock>Truth-tracking by belief revision.
+      <newblock><with|font-shape|italic|Studia Logica>, 107:917\U947,
+      2019.<newblock>
 
-      <bibitem*|11><label|bib-baltag2019right>Alexandru Baltag, Dazhu
-      Li<localize|, and >Mina<nbsp>Young Pedersen. <newblock>On the right
-      path: A modal logic for supervised learning. <newblock><localize|In
-      ><with|font-shape|italic|International Workshop on Logic, Rationality
-      and Interaction>, <localize|pages >1\U14. Springer, 2019.<newblock>
+      <bibitem*|baltag2019right><label|bib-baltag2019right>Alexandru Baltag,
+      Dazhu Li<localize|, and >Mina<nbsp>Young Pedersen. <newblock>On the
+      right path: A modal logic for supervised learning.
+      <newblock><localize|In ><with|font-shape|italic|International Workshop
+      on Logic, Rationality and Interaction>, <localize|pages >1\U14.
+      Springer, 2019.<newblock>
 
-      <bibitem*|12><label|bib-logicsforepistemicactions>Alexandru Baltag,
-      Lawrence<nbsp>S Moss<localize|, and >Sªawomir Solecki. <newblock>Logics
-      for epistemic actions: completeness, decidability, expressivity.
-      <newblock><with|font-shape|italic|Logics>, 1(2):97\U147,
+      <bibitem*|logicsforepistemicactions><label|bib-logicsforepistemicactions>Alexandru
+      Baltag, Lawrence<nbsp>S Moss<localize|, and >Sªawomir Solecki.
+      <newblock>Logics for epistemic actions: completeness, decidability,
+      expressivity. <newblock><with|font-shape|italic|Logics>, 1(2):97\U147,
       2023.<newblock>
 
-      <bibitem*|13><label|bib-baltag1998PALC>Alexandru Baltag,
+      <bibitem*|baltag1998PALC><label|bib-baltag1998PALC>Alexandru Baltag,
       Lawrence<nbsp>S Moss<localize|, and >Slawomir Solecki. <newblock>The
       logic of public announcements, common knowledge, and private
       suspicions. <newblock><localize|In ><with|font-shape|italic|Proceedings
       of the 7th conference on Theoretical aspects of rationality and
       knowledge>, <localize|pages >43\U56. 1998.<newblock>
 
-      <bibitem*|14><label|bib-baltag2009iterated>Alexandru Baltag<localize|
-      and >Sonja Smets. <newblock>Group belief dynamics under iterated
-      revision: Fixed points and cycles of joint upgrades.
+      <bibitem*|baltag2009iterated><label|bib-baltag2009iterated>Alexandru
+      Baltag<localize| and >Sonja Smets. <newblock>Group belief dynamics
+      under iterated revision: Fixed points and cycles of joint upgrades.
       <newblock><localize|In ><with|font-shape|italic|Proceedings of the 12th
       Conference on Theoretical Aspects of Rationality and Knowledge>,
       <localize|pages >41\U50. 2009.<newblock>
 
-      <bibitem*|15><label|bib-besold2021neural>Tarek<nbsp>R Besold, Artur
-      d'Avila<nbsp>Garcez, Sebastian Bader, Howard Bowman, Pedro Domingos,
-      Pascal Hitzler, Kai-Uwe Kühnberger, Luis<nbsp>C Lamb,
+      <bibitem*|besold2021neural><label|bib-besold2021neural>Tarek<nbsp>R
+      Besold, Artur d'Avila<nbsp>Garcez, Sebastian Bader, Howard Bowman,
+      Pedro Domingos, Pascal Hitzler, Kai-Uwe Kühnberger, Luis<nbsp>C Lamb,
       Priscila<nbsp>Machado<nbsp>Vieira Lima, Leo de<nbsp>Penning et<nbsp>al.
       <newblock>Neural-symbolic learning and reasoning: A survey and
       interpretation. <newblock><localize|In
       ><with|font-shape|italic|Neuro-Symbolic Artificial Intelligence: The
       State of the Art>, <localize|pages >1\U51. IOS press, 2021.<newblock>
 
-      <bibitem*|16><label|bib-blutner2004nonmonotonic>Reinhard Blutner.
-      <newblock>Nonmonotonic inferences and neural networks.
+      <bibitem*|blutner2004nonmonotonic><label|bib-blutner2004nonmonotonic>Reinhard
+      Blutner. <newblock>Nonmonotonic inferences and neural networks.
       <newblock><with|font-shape|italic|Synthese>, 142:143\U174,
       2004.<newblock>
 
-      <bibitem*|17><label|bib-Christoff:2015aa>Zoé Christoff<localize| and
-      >Jens<nbsp>Ulrik Hansen. <newblock>A logic for diffusion in social
-      networks. <newblock><with|font-shape|italic|Journal of Applied Logic>,
-      13(1):48\U77, 2015.<newblock>
+      <bibitem*|Christoff:2015aa><label|bib-Christoff:2015aa>Zoé
+      Christoff<localize| and >Jens<nbsp>Ulrik Hansen. <newblock>A logic for
+      diffusion in social networks. <newblock><with|font-shape|italic|Journal
+      of Applied Logic>, 13(1):48\U77, 2015.<newblock>
 
-      <bibitem*|18><label|bib-ciravegna2023logic>Gabriele Ciravegna, Pietro
-      Barbiero, Francesco Giannini, Marco Gori, Pietro Lió, Marco
-      Maggini<localize|, and >Stefano Melacci. <newblock>Logic Explained
-      Networks. <newblock><with|font-shape|italic|Artificial Intelligence>,
-      314:103822, 2023.<newblock>
+      <bibitem*|ciravegna2023logic><label|bib-ciravegna2023logic>Gabriele
+      Ciravegna, Pietro Barbiero, Francesco Giannini, Marco Gori, Pietro Lió,
+      Marco Maggini<localize|, and >Stefano Melacci. <newblock>Logic
+      Explained Networks. <newblock><with|font-shape|italic|Artificial
+      Intelligence>, 314:103822, 2023.<newblock>
 
-      <bibitem*|19><label|bib-garcez2001symbolic>Artur d'Avila<nbsp>Garcez,
-      Krysia Broda<localize|, and >Dov<nbsp>M Gabbay. <newblock>Symbolic
-      knowledge extraction from trained neural networks: A sound approach.
-      <newblock><with|font-shape|italic|Artificial Intelligence>,
-      125(1-2):155\U207, 2001.<newblock>
+      <bibitem*|garcez2001symbolic><label|bib-garcez2001symbolic>Artur
+      d'Avila<nbsp>Garcez, Krysia Broda<localize|, and >Dov<nbsp>M Gabbay.
+      <newblock>Symbolic knowledge extraction from trained neural networks: A
+      sound approach. <newblock><with|font-shape|italic|Artificial
+      Intelligence>, 125(1-2):155\U207, 2001.<newblock>
 
-      <bibitem*|20><label|bib-sep-computational-complexity>Walter Dean.
-      <newblock>Computational complexity theory. <newblock><localize|In
+      <bibitem*|sep-computational-complexity><label|bib-sep-computational-complexity>Walter
+      Dean. <newblock>Computational complexity theory. <newblock><localize|In
       >Edward<nbsp>N.<nbsp>Zalta<localize|, editor>,
       <with|font-shape|italic|The Stanford Encyclopedia of Philosophy>.
       Metaphysics Research Lab, Stanford University, 2021.<newblock>
 
-      <bibitem*|21><label|bib-dubey2024llama>Abhimanyu Dubey, Abhinav Jauhri,
-      Abhinav Pandey, Abhishek Kadian, Ahmad Al-Dahle, Aiesha Letman, Akhil
-      Mathur, Alan Schelten, Amy Yang, Angela Fan et<nbsp>al. <newblock>The
-      Llama 3 herd of models. <newblock><with|font-shape|italic|ArXiv
-      preprint arXiv:2407.21783>, 2024.<newblock>
+      <bibitem*|dubey2024llama><label|bib-dubey2024llama>Abhimanyu Dubey,
+      Abhinav Jauhri, Abhinav Pandey, Abhishek Kadian, Ahmad Al-Dahle, Aiesha
+      Letman, Akhil Mathur, Alan Schelten, Amy Yang, Angela Fan et<nbsp>al.
+      <newblock>The Llama 3 herd of models.
+      <newblock><with|font-shape|italic|ArXiv preprint arXiv:2407.21783>,
+      2024.<newblock>
 
-      <bibitem*|22><label|bib-garcez2008neural>Artur<nbsp>SD'Avila Garcez,
-      Luis<nbsp>C Lamb<localize|, and >Dov<nbsp>M Gabbay.
+      <bibitem*|garcez2008neural><label|bib-garcez2008neural>Artur<nbsp>SD'Avila
+      Garcez, Luis<nbsp>C Lamb<localize|, and >Dov<nbsp>M Gabbay.
       <newblock><with|font-shape|italic|Neural-Symbolic Cognitive Reasoning>.
       <newblock>Springer Science & Business Media, 2008.<newblock>
 
-      <bibitem*|23><label|bib-geiger2024aa>Atticus Geiger, Zhengxuan Wu,
-      Christopher Potts, Thomas Icard<localize|, and >Noah Goodman.
-      <newblock>Finding alignments between interpretable causal variables and
-      distributed neural representations. <newblock><localize|In
-      ><with|font-shape|italic|Causal Learning and Reasoning>,
-      <localize|pages >160\U187. PMLR, 2024.<newblock>
+      <bibitem*|geiger2024aa><label|bib-geiger2024aa>Atticus Geiger,
+      Zhengxuan Wu, Christopher Potts, Thomas Icard<localize|, and >Noah
+      Goodman. <newblock>Finding alignments between interpretable causal
+      variables and distributed neural representations.
+      <newblock><localize|In ><with|font-shape|italic|Causal Learning and
+      Reasoning>, <localize|pages >160\U187. PMLR, 2024.<newblock>
 
-      <bibitem*|24><label|bib-giordano2022conditional>Laura Giordano,
-      Valentina Gliozzi<localize|, and >Daniele Theseider Dupré. <newblock>A
-      conditional, a fuzzy and a probabilistic interpretation of
+      <bibitem*|giordano2022conditional><label|bib-giordano2022conditional>Laura
+      Giordano, Valentina Gliozzi<localize|, and >Daniele Theseider Dupré.
+      <newblock>A conditional, a fuzzy and a probabilistic interpretation of
       self-organizing maps. <newblock><with|font-shape|italic|Journal of
       Logic and Computation>, 32(2):178\U205, 2022.<newblock>
 
-      <bibitem*|25><label|bib-giordano2021weighted>Laura Giordano<localize|
-      and >Daniele Theseider Dupré. <newblock>Weighted defeasible knowledge
-      bases and a multipreference semantics for a deep neural network model.
-      <newblock><localize|In ><with|font-shape|italic|Logics in Artificial
-      Intelligence: 17th European Conference, JELIA 2021, Virtual Event, May
-      17\U20, 2021, Proceedings 17>, <localize|pages >225\U242. Springer,
-      2021.<newblock>
+      <bibitem*|giordano2021weighted><label|bib-giordano2021weighted>Laura
+      Giordano<localize| and >Daniele Theseider Dupré. <newblock>Weighted
+      defeasible knowledge bases and a multipreference semantics for a deep
+      neural network model. <newblock><localize|In
+      ><with|font-shape|italic|Logics in Artificial Intelligence: 17th
+      European Conference, JELIA 2021, Virtual Event, May 17\U20, 2021,
+      Proceedings 17>, <localize|pages >225\U242. Springer, 2021.<newblock>
 
-      <bibitem*|26><label|bib-gross2002genealogy>Charles<nbsp>G Gross.
-      <newblock>Genealogy of the \Pgrandmother cell\Q.
+      <bibitem*|gross2002genealogy><label|bib-gross2002genealogy>Charles<nbsp>G
+      Gross. <newblock>Genealogy of the \Pgrandmother cell\Q.
       <newblock><with|font-shape|italic|The Neuroscientist>, 8(5):512\U518,
       2002.<newblock>
 
-      <bibitem*|27><label|bib-harmelen2022preface>Frankvan Harmelen.
-      <newblock>Preface: The 3rd AI wave is coming, and it needs a theory.
-      <newblock><localize|In ><with|font-shape|italic|Neuro-Symbolic
+      <bibitem*|harmelen2022preface><label|bib-harmelen2022preface>Frankvan
+      Harmelen. <newblock>Preface: The 3rd AI wave is coming, and it needs a
+      theory. <newblock><localize|In ><with|font-shape|italic|Neuro-Symbolic
       Artificial Intelligence: The State of the Art>, <localize|page >0. IOS
       Press BV, 2022.<newblock>
 
-      <bibitem*|28><label|bib-hebb-organization-of-behavior-1949>Donald Hebb.
-      <newblock><with|font-shape|italic|The Organization of Behavior>.
+      <bibitem*|hebb-organization-of-behavior-1949><label|bib-hebb-organization-of-behavior-1949>Donald
+      Hebb. <newblock><with|font-shape|italic|The Organization of Behavior>.
       <newblock>Psychology Press, apr 1949.<newblock>
 
-      <bibitem*|29><label|bib-immerman1998descriptive>Neil Immerman.
-      <newblock><with|font-shape|italic|Descriptive Complexity>.
+      <bibitem*|immerman1998descriptive><label|bib-immerman1998descriptive>Neil
+      Immerman. <newblock><with|font-shape|italic|Descriptive Complexity>.
       <newblock>Springer Science & Business Media, 1998.<newblock>
 
-      <bibitem*|30><label|bib-kisby2022logic>Caleb Kisby, Saúl
+      <bibitem*|kisby2022logic><label|bib-kisby2022logic>Caleb Kisby, Saúl
       Blanco<localize|, and >Lawrence Moss. <newblock>The logic of Hebbian
       learning. <newblock><localize|In ><with|font-shape|italic|The
       International FLAIRS Conference Proceedings>,
       <localize|volume><nbsp>35. 2022.<newblock>
 
-      <bibitem*|31><label|bib-kisby2024hebbian>Caleb<nbsp>Schultz Kisby,
-      Saúl<nbsp>A Blanco<localize|, and >Lawrence<nbsp>S Moss. <newblock>What
-      do Hebbian learners learn? Reduction axioms for iterated Hebbian
-      learning. <newblock><localize|In ><with|font-shape|italic|Proceedings
-      of the AAAI Conference on Artificial Intelligence>,
-      <localize|volume><nbsp>38, <localize|pages >14894\U14901.
-      2024.<newblock>
+      <bibitem*|kisby2024hebbian><label|bib-kisby2024hebbian>Caleb<nbsp>Schultz
+      Kisby, Saúl<nbsp>A Blanco<localize|, and >Lawrence<nbsp>S Moss.
+      <newblock>What do Hebbian learners learn? Reduction axioms for iterated
+      Hebbian learning. <newblock><localize|In
+      ><with|font-shape|italic|Proceedings of the AAAI Conference on
+      Artificial Intelligence>, <localize|volume><nbsp>38, <localize|pages
+      >14894\U14901. 2024.<newblock>
 
-      <bibitem*|32><label|bib-kozen1981elementary>Dexter Kozen<localize| and
-      >Rohit Parikh. <newblock>An elementary proof of the completeness of
-      PDL. <newblock><with|font-shape|italic|Theoretical Computer Science>,
-      14(1):113\U118, 1981.<newblock>
+      <bibitem*|kozen1981elementary><label|bib-kozen1981elementary>Dexter
+      Kozen<localize| and >Rohit Parikh. <newblock>An elementary proof of the
+      completeness of PDL. <newblock><with|font-shape|italic|Theoretical
+      Computer Science>, 14(1):113\U118, 1981.<newblock>
 
-      <bibitem*|33><label|bib-kraus1990nonmonotonic>Sarit Kraus, Daniel
-      Lehmann<localize|, and >Menachem Magidor. <newblock>Nonmonotonic
-      reasoning, preferential models and cumulative logics.
-      <newblock><with|font-shape|italic|Artificial intelligence>,
+      <bibitem*|kraus1990nonmonotonic><label|bib-kraus1990nonmonotonic>Sarit
+      Kraus, Daniel Lehmann<localize|, and >Menachem Magidor.
+      <newblock>Nonmonotonic reasoning, preferential models and cumulative
+      logics. <newblock><with|font-shape|italic|Artificial intelligence>,
       44(1-2):167\U207, 1990.<newblock>
 
-      <bibitem*|34><label|bib-leitgeb2001nonmonotonic>Hannes Leitgeb.
-      <newblock>Nonmonotonic reasoning by inhibition nets.
+      <bibitem*|leitgeb2001nonmonotonic><label|bib-leitgeb2001nonmonotonic>Hannes
+      Leitgeb. <newblock>Nonmonotonic reasoning by inhibition nets.
       <newblock><with|font-shape|italic|Artificial Intelligence>,
       128(1-2):161\U201, 2001.<newblock>
 
-      <bibitem*|35><label|bib-leitgeb2003nonmonotonic>Hannes Leitgeb.
-      <newblock>Nonmonotonic reasoning by inhibition nets II.
+      <bibitem*|leitgeb2003nonmonotonic><label|bib-leitgeb2003nonmonotonic>Hannes
+      Leitgeb. <newblock>Nonmonotonic reasoning by inhibition nets II.
       <newblock><with|font-shape|italic|International Journal of Uncertainty,
       Fuzziness and Knowledge-Based Systems>, 11(supp02):105\U135,
       2003.<newblock>
 
-      <bibitem*|36><label|bib-leitgeb2018neural>Hannes Leitgeb.
-      <newblock>Neural network models of conditionals. <newblock><localize|In
-      ><with|font-shape|italic|Introduction to Formal Philosophy>,
-      <localize|pages >147\U176. Springer, 2018.<newblock>
+      <bibitem*|leitgeb2018neural><label|bib-leitgeb2018neural>Hannes
+      Leitgeb. <newblock>Neural network models of conditionals.
+      <newblock><localize|In ><with|font-shape|italic|Introduction to Formal
+      Philosophy>, <localize|pages >147\U176. Springer, 2018.<newblock>
 
-      <bibitem*|37><label|bib-libkin2004elements>Leonid Libkin.
-      <newblock><with|font-shape|italic|Elements of Finite Model Theory>,
-      <localize|volume><nbsp>41. <newblock>Springer, 2004.<newblock>
+      <bibitem*|libkin2004elements><label|bib-libkin2004elements>Leonid
+      Libkin. <newblock><with|font-shape|italic|Elements of Finite Model
+      Theory>, <localize|volume><nbsp>41. <newblock>Springer, 2004.<newblock>
 
-      <bibitem*|38><label|bib-manhaeve2021neural>Robin Manhaeve, Sebastijan
-      Duman£i¢, Angelika Kimmig, Thomas Demeester<localize|, and >Luc De
-      Raedt. <newblock>Neural probabilistic logic programming in DeepProbLog.
-      <newblock><with|font-shape|italic|Artificial Intelligence>, 298:103504,
-      2021.<newblock>
+      <bibitem*|manhaeve2021neural><label|bib-manhaeve2021neural>Robin
+      Manhaeve, Sebastijan Duman£i¢, Angelika Kimmig, Thomas
+      Demeester<localize|, and >Luc De Raedt. <newblock>Neural probabilistic
+      logic programming in DeepProbLog. <newblock><with|font-shape|italic|Artificial
+      Intelligence>, 298:103504, 2021.<newblock>
 
-      <bibitem*|39><label|bib-mcculloch1943logical>Warren<nbsp>S.<nbsp>McCulloch<localize|
+      <bibitem*|mcculloch1943logical><label|bib-mcculloch1943logical>Warren<nbsp>S.<nbsp>McCulloch<localize|
       and >Walter Pitts. <newblock>A logical calculus of the ideas immanent
       in nervous activity. <newblock><with|font-shape|italic|The Bulletin of
       Mathematical Biophysics>, 5(4):115\U133, dec 1943.<newblock>
 
-      <bibitem*|40><label|bib-mcdermott1987critique>Drew McDermott.
-      <newblock>A critique of pure reason.
+      <bibitem*|mcdermott1987critique><label|bib-mcdermott1987critique>Drew
+      McDermott. <newblock>A critique of pure reason.
       <newblock><with|font-shape|italic|Computational intelligence>,
       3(3):151\U160, 1987.<newblock>
 
-      <bibitem*|41><label|bib-merrill2019sequential>William Merrill.
-      <newblock>Sequential neural networks as automata.
+      <bibitem*|merrill2019sequential><label|bib-merrill2019sequential>William
+      Merrill. <newblock>Sequential neural networks as automata.
       <newblock><with|font-shape|italic|ArXiv preprint arXiv:1906.01615>,
       2019.<newblock>
 
-      <bibitem*|42><label|bib-merrill2023expressive>William Merrill<localize|
-      and >Ashish Sabharwal. <newblock>The expresssive power of transformers
-      with chain of thought. <newblock><with|font-shape|italic|ArXiv preprint
-      arXiv:2310.07923>, 2023.<newblock>
+      <bibitem*|merrill2023expressive><label|bib-merrill2023expressive>William
+      Merrill<localize| and >Ashish Sabharwal. <newblock>The expresssive
+      power of transformers with chain of thought.
+      <newblock><with|font-shape|italic|ArXiv preprint arXiv:2310.07923>,
+      2023.<newblock>
 
-      <bibitem*|43><label|bib-merrill2020formal>William Merrill, Gail Weiss,
-      Yoav Goldberg, Roy Schwartz, Noah<nbsp>A Smith<localize|, and >Eran
-      Yahav. <newblock>A formal hierarchy of RNN architectures.
-      <newblock><with|font-shape|italic|ArXiv preprint arXiv:2004.08500>,
-      2020.<newblock>
+      <bibitem*|merrill2020formal><label|bib-merrill2020formal>William
+      Merrill, Gail Weiss, Yoav Goldberg, Roy Schwartz, Noah<nbsp>A
+      Smith<localize|, and >Eran Yahav. <newblock>A formal hierarchy of RNN
+      architectures. <newblock><with|font-shape|italic|ArXiv preprint
+      arXiv:2004.08500>, 2020.<newblock>
 
-      <bibitem*|44><label|bib-moss2007finite>Lawrence<nbsp>S Moss.
-      <newblock>Finite models constructed from canonical formulas.
+      <bibitem*|moss2007finite><label|bib-moss2007finite>Lawrence<nbsp>S
+      Moss. <newblock>Finite models constructed from canonical formulas.
       <newblock><with|font-shape|italic|Journal of Philosophical Logic>,
       36:605\U640, 2007.<newblock>
 
-      <bibitem*|45><label|bib-moura2021lean>Leonardo<nbsp>de Moura<localize|
-      and >Sebastian Ullrich. <newblock>The Lean 4 theorem prover and
-      programming language. <newblock><localize|In
+      <bibitem*|moura2021lean><label|bib-moura2021lean>Leonardo<nbsp>de
+      Moura<localize| and >Sebastian Ullrich. <newblock>The Lean 4 theorem
+      prover and programming language. <newblock><localize|In
       ><with|font-shape|italic|Automated Deduction\UCADE 28: 28th
       International Conference on Automated Deduction, Virtual Event, July
       12\U15, 2021, Proceedings 28>, <localize|pages >625\U635. Springer,
       2021.<newblock>
 
-      <bibitem*|46><label|bib-murphy2004big>Gregory Murphy.
+      <bibitem*|murphy2004big><label|bib-murphy2004big>Gregory Murphy.
       <newblock><with|font-shape|italic|The Big Book of Concepts>.
       <newblock>MIT press, 2004.<newblock>
 
-      <bibitem*|47><label|bib-oja1982simplified>Erkki Oja.
+      <bibitem*|oja1982simplified><label|bib-oja1982simplified>Erkki Oja.
       <newblock>Simplified neuron model as a principal component analyzer.
       <newblock><with|font-shape|italic|Journal of mathematical biology>,
       15:267\U273, 1982.<newblock>
 
-      <bibitem*|48><label|bib-pacuit2017neighborhood>Eric Pacuit.
-      <newblock><with|font-shape|italic|Neighborhood Semantics for Modal
-      Logic>. <newblock>Springer, 2017.<newblock>
+      <bibitem*|pacuit2017neighborhood><label|bib-pacuit2017neighborhood>Eric
+      Pacuit. <newblock><with|font-shape|italic|Neighborhood Semantics for
+      Modal Logic>. <newblock>Springer, 2017.<newblock>
 
-      <bibitem*|49><label|bib-Plaza2007PAL>Jan<nbsp>A.<nbsp>Plaza.
+      <bibitem*|Plaza2007PAL><label|bib-Plaza2007PAL>Jan<nbsp>A.<nbsp>Plaza.
       <newblock>Logics of public communications.
       <newblock><with|font-shape|italic|Synthese>, 158:165\U179,
       2007.<newblock>
 
-      <bibitem*|50><label|bib-polya1954mathematics>George Polya.
-      <newblock><with|font-shape|italic|Mathematics and Plausible Reasoning:
-      Induction and Analogy in Mathematics>, <localize|volume><nbsp>2.
-      <newblock>Princeton University Press, 1954.<newblock>
+      <bibitem*|polya1954mathematics><label|bib-polya1954mathematics>George
+      Polya. <newblock><with|font-shape|italic|Mathematics and Plausible
+      Reasoning: Induction and Analogy in Mathematics>,
+      <localize|volume><nbsp>2. <newblock>Princeton University Press,
+      1954.<newblock>
 
-      <bibitem*|51><label|bib-rumelhart1986aa>David<nbsp>E Rumelhart,
-      Geoffrey<nbsp>E Hinton<localize|, and >Ronald<nbsp>J Williams.
-      <newblock>Learning internal representations by error propagation.
-      <newblock><with|font-shape|italic|Biometrika>, 71(599-607):6,
+      <bibitem*|rumelhart1986aa><label|bib-rumelhart1986aa>David<nbsp>E
+      Rumelhart, Geoffrey<nbsp>E Hinton<localize|, and >Ronald<nbsp>J
+      Williams. <newblock>Learning internal representations by error
+      propagation. <newblock><with|font-shape|italic|Biometrika>,
+      71(599-607):6, 1986.<newblock>
+
+      <bibitem*|rumelhart1986learning><label|bib-rumelhart1986learning>David<nbsp>E
+      Rumelhart, Geoffrey<nbsp>E Hinton<localize|, and >Ronald<nbsp>J
+      Williams. <newblock>Learning representations by back-propagating
+      errors. <newblock><with|font-shape|italic|Nature>, 323(6088):533\U536,
       1986.<newblock>
 
-      <bibitem*|52><label|bib-rumelhart1986learning>David<nbsp>E Rumelhart,
-      Geoffrey<nbsp>E Hinton<localize|, and >Ronald<nbsp>J Williams.
-      <newblock>Learning representations by back-propagating errors.
-      <newblock><with|font-shape|italic|Nature>, 323(6088):533\U536,
-      1986.<newblock>
-
-      <bibitem*|53><label|bib-sarker2021neuro>Md<nbsp>Kamruzzaman Sarker, Lu
-      Zhou, Aaron Eberhart<localize|, and >Pascal Hitzler.
+      <bibitem*|sarker2021neuro><label|bib-sarker2021neuro>Md<nbsp>Kamruzzaman
+      Sarker, Lu Zhou, Aaron Eberhart<localize|, and >Pascal Hitzler.
       <newblock>Neuro-Symbolic Artificial Intelligence: Current Trends.
       <newblock><with|font-shape|italic|AI Communications>, 34, 2022
       2022.<newblock>
 
-      <bibitem*|54><label|bib-sep-frame-problem>Murray Shanahan.
-      <newblock>The frame problem. <newblock><localize|In
+      <bibitem*|sep-frame-problem><label|bib-sep-frame-problem>Murray
+      Shanahan. <newblock>The frame problem. <newblock><localize|In
       >Edward<nbsp>N.<nbsp>Zalta<localize|, editor>,
       <with|font-shape|italic|The Stanford Encyclopedia of Philosophy>.
       Metaphysics Research Lab, Stanford University, 2016.<newblock>
 
-      <bibitem*|55><label|bib-silver2017mastering>David Silver, Julian
-      Schrittwieser, Karen Simonyan, Ioannis Antonoglou, Aja Huang, Arthur
-      Guez, Thomas Hubert, Lucas Baker, Matthew Lai, Adrian Bolton
-      et<nbsp>al. <newblock>Mastering the game of Go without human knowledge.
-      <newblock><with|font-shape|italic|Nature>, 550(7676):354\U359,
-      2017.<newblock>
+      <bibitem*|silver2017mastering><label|bib-silver2017mastering>David
+      Silver, Julian Schrittwieser, Karen Simonyan, Ioannis Antonoglou, Aja
+      Huang, Arthur Guez, Thomas Hubert, Lucas Baker, Matthew Lai, Adrian
+      Bolton et<nbsp>al. <newblock>Mastering the game of Go without human
+      knowledge. <newblock><with|font-shape|italic|Nature>,
+      550(7676):354\U359, 2017.<newblock>
 
-      <bibitem*|56><label|bib-srivastava2015highway>Rupesh<nbsp>K Srivastava,
-      Klaus Greff<localize|, and >Jürgen Schmidhuber. <newblock>Training very
-      deep networks. <newblock><localize|In >C.<nbsp>Cortes,
-      N.<nbsp>Lawrence, D.<nbsp>Lee, M.<nbsp>Sugiyama<localize|, and
-      >R.<nbsp>Garnett<localize|, editors>, <with|font-shape|italic|Advances
-      in Neural Information Processing Systems>, <localize|volume><nbsp>28,
-      <localize|page >0. Curran Associates, Inc., 2015.<newblock>
+      <bibitem*|srivastava2015highway><label|bib-srivastava2015highway>Rupesh<nbsp>K
+      Srivastava, Klaus Greff<localize|, and >Jürgen Schmidhuber.
+      <newblock>Training very deep networks. <newblock><localize|In
+      >C.<nbsp>Cortes, N.<nbsp>Lawrence, D.<nbsp>Lee,
+      M.<nbsp>Sugiyama<localize|, and >R.<nbsp>Garnett<localize|, editors>,
+      <with|font-shape|italic|Advances in Neural Information Processing
+      Systems>, <localize|volume><nbsp>28, <localize|page >0. Curran
+      Associates, Inc., 2015.<newblock>
 
-      <bibitem*|57><label|bib-strobl2024formal>Lena Strobl, William Merrill,
-      Gail Weiss, David Chiang<localize|, and >Dana Angluin. <newblock>What
-      formal languages can transformers express? A survey.
+      <bibitem*|strobl2024formal><label|bib-strobl2024formal>Lena Strobl,
+      William Merrill, Gail Weiss, David Chiang<localize|, and >Dana Angluin.
+      <newblock>What formal languages can transformers express? A survey.
       <newblock><with|font-shape|italic|Transactions of the Association for
       Computational Linguistics>, 12:543\U561, 2024.<newblock>
 
-      <bibitem*|58><label|bib-tamkin2021understanding>Alex Tamkin, Miles
-      Brundage, Jack Clark<localize|, and >Deep Ganguli.
+      <bibitem*|tamkin2021understanding><label|bib-tamkin2021understanding>Alex
+      Tamkin, Miles Brundage, Jack Clark<localize|, and >Deep Ganguli.
       <newblock>Understanding the capabilities, limitations, and societal
       impact of Large Language Models. <newblock><with|font-shape|italic|ArXiv
       preprint arXiv:2102.02503>, 2021.<newblock>
 
-      <bibitem*|59><label|bib-van2007beliefrevision>Johan Van Benthem.
-      <newblock>Dynamic logic for belief revision.
+      <bibitem*|van2007beliefrevision><label|bib-van2007beliefrevision>Johan
+      Van Benthem. <newblock>Dynamic logic for belief revision.
       <newblock><with|font-shape|italic|Journal of applied non-classical
       logics>, 17(2):129\U155, 2007.<newblock>
 
-      <bibitem*|60><label|bib-van2011logicaldynamics>Johan Van Benthem.
-      <newblock><with|font-shape|italic|Logical Dynamics of Information and
-      Interaction>. <newblock>Cambridge University Press, 2011.<newblock>
+      <bibitem*|van2011logicaldynamics><label|bib-van2011logicaldynamics>Johan
+      Van Benthem. <newblock><with|font-shape|italic|Logical Dynamics of
+      Information and Interaction>. <newblock>Cambridge University Press,
+      2011.<newblock>
 
-      <bibitem*|61><label|bib-van2007prefupgrade>Johan Van Benthem<localize|
-      and >Fenrong Liu. <newblock>Dynamic logic of preference upgrade.
-      <newblock><with|font-shape|italic|Journal of Applied Non-Classical
-      Logics>, 17(2):157\U182, 2007.<newblock>
+      <bibitem*|van2007prefupgrade><label|bib-van2007prefupgrade>Johan Van
+      Benthem<localize| and >Fenrong Liu. <newblock>Dynamic logic of
+      preference upgrade. <newblock><with|font-shape|italic|Journal of
+      Applied Non-Classical Logics>, 17(2):157\U182, 2007.<newblock>
 
-      <bibitem*|62><label|bib-van2015dynamic>Johan Van Benthem<localize| and
-      >Sonja Smets. <newblock>Dynamic logics of belief change.
-      <newblock><localize|In >H.<nbsp>Van Ditmarsch, J.<nbsp>Halpern,
+      <bibitem*|van2015dynamic><label|bib-van2015dynamic>Johan Van
+      Benthem<localize| and >Sonja Smets. <newblock>Dynamic logics of belief
+      change. <newblock><localize|In >H.<nbsp>Van Ditmarsch, J.<nbsp>Halpern,
       W.<nbsp>van der<nbsp>Hoek<localize|, and >B.<nbsp>Kooi<localize|,
       editors>, <with|font-shape|italic|Handbook of Epistemic Logic>,
       <localize|pages >313\U393. College Publications, London, UK,
       2015.<newblock>
 
-      <bibitem*|63><label|bib-ditmarschDEL>Hans Van Ditmarsch, Wiebe
-      van<nbsp>Der Hoek<localize|, and >Barteld Kooi.
+      <bibitem*|ditmarschDEL><label|bib-ditmarschDEL>Hans Van Ditmarsch,
+      Wiebe van<nbsp>Der Hoek<localize|, and >Barteld Kooi.
       <newblock><with|font-shape|italic|Dynamic Epistemic Logic>,
       <localize|volume> 337. <newblock>Springer, 2007.<newblock>
 
-      <bibitem*|64><label|bib-vaswani2017attention>Ashish Vaswani, Noam
-      Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones,
+      <bibitem*|vaswani2017attention><label|bib-vaswani2017attention>Ashish
+      Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones,
       Aidan<nbsp>N.<nbsp>Gomez, Lukasz Kaiser<localize|, and >Illia
       Polosukhin. <newblock>Attention is all you need.
       <newblock><with|font-shape|italic|CoRR>, abs/1706.03762,
       2017.<newblock>
 
-      <bibitem*|65><label|bib-weiss2018practical>Gail Weiss, Yoav
-      Goldberg<localize|, and >Eran Yahav. <newblock>On the practical
+      <bibitem*|weiss2018practical><label|bib-weiss2018practical>Gail Weiss,
+      Yoav Goldberg<localize|, and >Eran Yahav. <newblock>On the practical
       computational power of finite precision RNNs for language recognition.
       <newblock><with|font-shape|italic|ArXiv preprint arXiv:1805.04908>,
       2018.<newblock>
@@ -4994,121 +5110,121 @@
 <\references>
   <\collection>
     <associate|auto-1|<tuple|1|8>>
-    <associate|auto-10|<tuple|2|22>>
-    <associate|auto-11|<tuple|3|25>>
-    <associate|auto-12|<tuple|4|28>>
-    <associate|auto-13|<tuple|5|29>>
-    <associate|auto-14|<tuple|4|34>>
-    <associate|auto-15|<tuple|1|34>>
-    <associate|auto-16|<tuple|2|34>>
-    <associate|auto-17|<tuple|3|37>>
-    <associate|auto-18|<tuple|4|38>>
-    <associate|auto-19|<tuple|5|42>>
-    <associate|auto-2|<tuple|2|14>>
-    <associate|auto-20|<tuple|6|42>>
-    <associate|auto-21|<tuple|5|43>>
-    <associate|auto-22|<tuple|1|43>>
-    <associate|auto-23|<tuple|2|43>>
-    <associate|auto-24|<tuple|3|46>>
-    <associate|auto-25|<tuple|4|47>>
-    <associate|auto-26|<tuple|5|51>>
-    <associate|auto-27|<tuple|6|52>>
-    <associate|auto-28|<tuple|1|52>>
-    <associate|auto-29|<tuple|2|52>>
-    <associate|auto-3|<tuple|1|14>>
-    <associate|auto-30|<tuple|3|54>>
-    <associate|auto-31|<tuple|4|55>>
-    <associate|auto-32|<tuple|5|57>>
-    <associate|auto-33|<tuple|6|59>>
-    <associate|auto-34|<tuple|7|60>>
-    <associate|auto-35|<tuple|7|63>>
-    <associate|auto-36|<tuple|7|63>>
-    <associate|auto-37|<tuple|1|63>>
-    <associate|auto-38|<tuple|A|63>>
-    <associate|auto-39|<tuple|A.1|63>>
-    <associate|auto-4|<tuple|2|16>>
-    <associate|auto-40|<tuple|A.2|64>>
-    <associate|auto-41|<tuple|A.2.1|64>>
-    <associate|auto-42|<tuple|A.3|66>>
-    <associate|auto-43|<tuple|A.4|70>>
-    <associate|auto-44|<tuple|A.5|70>>
-    <associate|auto-45|<tuple|A.5|71>>
-    <associate|auto-5|<tuple|2.1|20>>
-    <associate|auto-6|<tuple|3|20>>
-    <associate|auto-7|<tuple|4|20>>
-    <associate|auto-8|<tuple|3|22>>
-    <associate|auto-9|<tuple|1|22>>
-    <associate|bib-Christoff:2015aa|<tuple|17|72>>
-    <associate|bib-Plaza2007PAL|<tuple|49|73>>
-    <associate|bib-achiam2023gpt|<tuple|1|71>>
-    <associate|bib-aho1972transitive|<tuple|2|71>>
-    <associate|bib-albarghouthi2021introduction|<tuple|3|71>>
-    <associate|bib-baccini2024dynamic|<tuple|4|71>>
-    <associate|bib-bader2005dimensions|<tuple|5|71>>
-    <associate|bib-badreddine2022aa|<tuple|6|71>>
-    <associate|bib-balkenius1991nonmonotonic|<tuple|7|71>>
-    <associate|bib-baltag1998PALC|<tuple|13|71>>
-    <associate|bib-baltag2009iterated|<tuple|14|71>>
-    <associate|bib-baltag2019dynamic|<tuple|9|71>>
-    <associate|bib-baltag2019right|<tuple|11|71>>
-    <associate|bib-baltag2019socialnetworks|<tuple|8|71>>
-    <associate|bib-baltag2019tracking|<tuple|10|71>>
-    <associate|bib-besold2021neural|<tuple|15|72>>
-    <associate|bib-blutner2004nonmonotonic|<tuple|16|72>>
-    <associate|bib-ciravegna2023logic|<tuple|18|72>>
-    <associate|bib-ditmarschDEL|<tuple|63|74>>
-    <associate|bib-dubey2024llama|<tuple|21|72>>
-    <associate|bib-garcez2001symbolic|<tuple|19|72>>
-    <associate|bib-garcez2008neural|<tuple|22|72>>
-    <associate|bib-geiger2024aa|<tuple|23|72>>
-    <associate|bib-giordano2021weighted|<tuple|25|72>>
-    <associate|bib-giordano2022conditional|<tuple|24|72>>
-    <associate|bib-gross2002genealogy|<tuple|26|72>>
-    <associate|bib-harmelen2022preface|<tuple|27|72>>
-    <associate|bib-hebb-organization-of-behavior-1949|<tuple|28|72>>
-    <associate|bib-immerman1998descriptive|<tuple|29|72>>
-    <associate|bib-kisby2022logic|<tuple|30|72>>
-    <associate|bib-kisby2024hebbian|<tuple|31|72>>
-    <associate|bib-kozen1981elementary|<tuple|32|73>>
-    <associate|bib-kraus1990nonmonotonic|<tuple|33|73>>
-    <associate|bib-leitgeb2001nonmonotonic|<tuple|34|73>>
-    <associate|bib-leitgeb2003nonmonotonic|<tuple|35|73>>
-    <associate|bib-leitgeb2018neural|<tuple|36|73>>
-    <associate|bib-libkin2004elements|<tuple|37|73>>
-    <associate|bib-logicsforepistemicactions|<tuple|12|71>>
-    <associate|bib-manhaeve2021neural|<tuple|38|73>>
-    <associate|bib-mcculloch1943logical|<tuple|39|73>>
-    <associate|bib-mcdermott1987critique|<tuple|40|73>>
-    <associate|bib-merrill2019sequential|<tuple|41|73>>
-    <associate|bib-merrill2020formal|<tuple|43|73>>
-    <associate|bib-merrill2023expressive|<tuple|42|73>>
-    <associate|bib-moss2007finite|<tuple|44|73>>
-    <associate|bib-moura2021lean|<tuple|45|73>>
-    <associate|bib-murphy2004big|<tuple|46|73>>
-    <associate|bib-oja1982simplified|<tuple|47|73>>
-    <associate|bib-pacuit2017neighborhood|<tuple|48|73>>
-    <associate|bib-polya1954mathematics|<tuple|50|73>>
-    <associate|bib-rumelhart1986aa|<tuple|51|73>>
-    <associate|bib-rumelhart1986learning|<tuple|52|74>>
-    <associate|bib-sarker2021neuro|<tuple|53|74>>
-    <associate|bib-sep-computational-complexity|<tuple|20|72>>
-    <associate|bib-sep-frame-problem|<tuple|54|74>>
-    <associate|bib-silver2017mastering|<tuple|55|74>>
-    <associate|bib-srivastava2015highway|<tuple|56|74>>
-    <associate|bib-strobl2024formal|<tuple|57|74>>
-    <associate|bib-tamkin2021understanding|<tuple|58|74>>
-    <associate|bib-van2007beliefrevision|<tuple|59|74>>
-    <associate|bib-van2007prefupgrade|<tuple|61|74>>
-    <associate|bib-van2011logicaldynamics|<tuple|60|74>>
-    <associate|bib-van2015dynamic|<tuple|62|74>>
-    <associate|bib-vaswani2017attention|<tuple|64|74>>
-    <associate|bib-weiss2018practical|<tuple|65|74>>
-    <associate|eqn1|<tuple|4.1|50>>
-    <associate|eqn2|<tuple|4.2|50>>
-    <associate|figure-axioms-best|<tuple|A.2.1|64>>
-    <associate|proposition-box-boxback|<tuple|A.3.2|66>>
-    <associate|proposition-build-mcs|<tuple|A.3.3|66>>
-    <associate|theorem-model-building-classical|<tuple|A.3.7|?>>
+    <associate|auto-10|<tuple|2|23>>
+    <associate|auto-11|<tuple|3|26>>
+    <associate|auto-12|<tuple|4|29>>
+    <associate|auto-13|<tuple|5|30>>
+    <associate|auto-14|<tuple|4|35>>
+    <associate|auto-15|<tuple|1|35>>
+    <associate|auto-16|<tuple|2|35>>
+    <associate|auto-17|<tuple|3|38>>
+    <associate|auto-18|<tuple|4|39>>
+    <associate|auto-19|<tuple|5|43>>
+    <associate|auto-2|<tuple|2|15>>
+    <associate|auto-20|<tuple|6|43>>
+    <associate|auto-21|<tuple|5|44>>
+    <associate|auto-22|<tuple|1|44>>
+    <associate|auto-23|<tuple|2|44>>
+    <associate|auto-24|<tuple|3|47>>
+    <associate|auto-25|<tuple|4|48>>
+    <associate|auto-26|<tuple|5|52>>
+    <associate|auto-27|<tuple|6|53>>
+    <associate|auto-28|<tuple|1|53>>
+    <associate|auto-29|<tuple|2|53>>
+    <associate|auto-3|<tuple|1|15>>
+    <associate|auto-30|<tuple|3|55>>
+    <associate|auto-31|<tuple|4|56>>
+    <associate|auto-32|<tuple|5|58>>
+    <associate|auto-33|<tuple|6|60>>
+    <associate|auto-34|<tuple|7|61>>
+    <associate|auto-35|<tuple|7|64>>
+    <associate|auto-36|<tuple|7|64>>
+    <associate|auto-37|<tuple|1|64>>
+    <associate|auto-38|<tuple|A|64>>
+    <associate|auto-39|<tuple|A.1|64>>
+    <associate|auto-4|<tuple|2|17>>
+    <associate|auto-40|<tuple|A.2|65>>
+    <associate|auto-41|<tuple|A.2.1|65>>
+    <associate|auto-42|<tuple|A.3|67>>
+    <associate|auto-43|<tuple|A.4|71>>
+    <associate|auto-44|<tuple|A.5|72>>
+    <associate|auto-45|<tuple|A.5|73>>
+    <associate|auto-5|<tuple|2.1|21>>
+    <associate|auto-6|<tuple|3|22>>
+    <associate|auto-7|<tuple|4|22>>
+    <associate|auto-8|<tuple|3|23>>
+    <associate|auto-9|<tuple|1|23>>
+    <associate|bib-Christoff:2015aa|<tuple|Christoff:2015aa|74>>
+    <associate|bib-Plaza2007PAL|<tuple|Plaza2007PAL|76>>
+    <associate|bib-achiam2023gpt|<tuple|achiam2023gpt|73>>
+    <associate|bib-aho1972transitive|<tuple|aho1972transitive|73>>
+    <associate|bib-albarghouthi2021introduction|<tuple|albarghouthi2021introduction|73>>
+    <associate|bib-baccini2024dynamic|<tuple|baccini2024dynamic|73>>
+    <associate|bib-bader2005dimensions|<tuple|bader2005dimensions|73>>
+    <associate|bib-badreddine2022aa|<tuple|badreddine2022aa|73>>
+    <associate|bib-balkenius1991nonmonotonic|<tuple|balkenius1991nonmonotonic|73>>
+    <associate|bib-baltag1998PALC|<tuple|baltag1998PALC|73>>
+    <associate|bib-baltag2009iterated|<tuple|baltag2009iterated|73>>
+    <associate|bib-baltag2019dynamic|<tuple|baltag2019dynamic|73>>
+    <associate|bib-baltag2019right|<tuple|baltag2019right|73>>
+    <associate|bib-baltag2019socialnetworks|<tuple|baltag2019socialnetworks|73>>
+    <associate|bib-baltag2019tracking|<tuple|baltag2019tracking|73>>
+    <associate|bib-besold2021neural|<tuple|besold2021neural|74>>
+    <associate|bib-blutner2004nonmonotonic|<tuple|blutner2004nonmonotonic|74>>
+    <associate|bib-ciravegna2023logic|<tuple|ciravegna2023logic|74>>
+    <associate|bib-ditmarschDEL|<tuple|ditmarschDEL|77>>
+    <associate|bib-dubey2024llama|<tuple|dubey2024llama|74>>
+    <associate|bib-garcez2001symbolic|<tuple|garcez2001symbolic|74>>
+    <associate|bib-garcez2008neural|<tuple|garcez2008neural|74>>
+    <associate|bib-geiger2024aa|<tuple|geiger2024aa|74>>
+    <associate|bib-giordano2021weighted|<tuple|giordano2021weighted|74>>
+    <associate|bib-giordano2022conditional|<tuple|giordano2022conditional|74>>
+    <associate|bib-gross2002genealogy|<tuple|gross2002genealogy|74>>
+    <associate|bib-harmelen2022preface|<tuple|harmelen2022preface|74>>
+    <associate|bib-hebb-organization-of-behavior-1949|<tuple|hebb-organization-of-behavior-1949|74>>
+    <associate|bib-immerman1998descriptive|<tuple|immerman1998descriptive|75>>
+    <associate|bib-kisby2022logic|<tuple|kisby2022logic|75>>
+    <associate|bib-kisby2024hebbian|<tuple|kisby2024hebbian|75>>
+    <associate|bib-kozen1981elementary|<tuple|kozen1981elementary|75>>
+    <associate|bib-kraus1990nonmonotonic|<tuple|kraus1990nonmonotonic|75>>
+    <associate|bib-leitgeb2001nonmonotonic|<tuple|leitgeb2001nonmonotonic|75>>
+    <associate|bib-leitgeb2003nonmonotonic|<tuple|leitgeb2003nonmonotonic|75>>
+    <associate|bib-leitgeb2018neural|<tuple|leitgeb2018neural|75>>
+    <associate|bib-libkin2004elements|<tuple|libkin2004elements|75>>
+    <associate|bib-logicsforepistemicactions|<tuple|logicsforepistemicactions|73>>
+    <associate|bib-manhaeve2021neural|<tuple|manhaeve2021neural|75>>
+    <associate|bib-mcculloch1943logical|<tuple|mcculloch1943logical|75>>
+    <associate|bib-mcdermott1987critique|<tuple|mcdermott1987critique|75>>
+    <associate|bib-merrill2019sequential|<tuple|merrill2019sequential|75>>
+    <associate|bib-merrill2020formal|<tuple|merrill2020formal|75>>
+    <associate|bib-merrill2023expressive|<tuple|merrill2023expressive|75>>
+    <associate|bib-moss2007finite|<tuple|moss2007finite|75>>
+    <associate|bib-moura2021lean|<tuple|moura2021lean|75>>
+    <associate|bib-murphy2004big|<tuple|murphy2004big|76>>
+    <associate|bib-oja1982simplified|<tuple|oja1982simplified|76>>
+    <associate|bib-pacuit2017neighborhood|<tuple|pacuit2017neighborhood|76>>
+    <associate|bib-polya1954mathematics|<tuple|polya1954mathematics|76>>
+    <associate|bib-rumelhart1986aa|<tuple|rumelhart1986aa|76>>
+    <associate|bib-rumelhart1986learning|<tuple|rumelhart1986learning|76>>
+    <associate|bib-sarker2021neuro|<tuple|sarker2021neuro|76>>
+    <associate|bib-sep-computational-complexity|<tuple|sep-computational-complexity|74>>
+    <associate|bib-sep-frame-problem|<tuple|sep-frame-problem|76>>
+    <associate|bib-silver2017mastering|<tuple|silver2017mastering|76>>
+    <associate|bib-srivastava2015highway|<tuple|srivastava2015highway|76>>
+    <associate|bib-strobl2024formal|<tuple|strobl2024formal|76>>
+    <associate|bib-tamkin2021understanding|<tuple|tamkin2021understanding|76>>
+    <associate|bib-van2007beliefrevision|<tuple|van2007beliefrevision|76>>
+    <associate|bib-van2007prefupgrade|<tuple|van2007prefupgrade|76>>
+    <associate|bib-van2011logicaldynamics|<tuple|van2011logicaldynamics|76>>
+    <associate|bib-van2015dynamic|<tuple|van2015dynamic|77>>
+    <associate|bib-vaswani2017attention|<tuple|vaswani2017attention|77>>
+    <associate|bib-weiss2018practical|<tuple|weiss2018practical|77>>
+    <associate|eqn1|<tuple|4.1|51>>
+    <associate|eqn2|<tuple|4.2|51>>
+    <associate|figure-axioms-best|<tuple|A.2.1|65>>
+    <associate|proposition-box-boxback|<tuple|A.3.2|67>>
+    <associate|proposition-build-mcs|<tuple|A.3.4|68>>
+    <associate|theorem-model-building-classical|<tuple|A.3.7|70>>
   </collection>
 </references>
 
@@ -5273,11 +5389,11 @@
 
       odense2022ASF
 
+      ditmarschDEL
+
       van2011logicaldynamics
 
       van2015dynamic
-
-      ditmarschDEL
 
       hebb-organization-of-behavior-1949
 
@@ -5297,37 +5413,37 @@
 
       leitgeb2003nonmonotonic
 
-      giordano2022conditional
-
       giordano2021weighted
+
+      giordano2022conditional
 
       kisby2022logic
 
       kisby2024hebbian
 
-      baccini2024dynamic
-
-      baltag2019socialnetworks
-
       Christoff:2015aa
 
       baccini2024dynamic
 
-      van2011logicaldynamics
+      baltag2019socialnetworks
+
+      baccini2024dynamic
 
       ditmarschDEL
+
+      van2011logicaldynamics
 
       van2007beliefrevision
 
       van2015dynamic
 
-      baltag2019dynamic
+      baltag2009iterated
 
-      baltag2019tracking
+      baltag2019dynamic
 
       baltag2019right
 
-      baltag2009iterated
+      baltag2019tracking
 
       kraus1990nonmonotonic
 
@@ -5393,11 +5509,11 @@
 
       kraus1990nonmonotonic
 
+      Christoff:2015aa
+
       baccini2024dynamic
 
       baltag2019socialnetworks
-
-      Christoff:2015aa
 
       baccini2024dynamic
 
@@ -5410,6 +5526,12 @@
       sep-computational-complexity
 
       baltag2019socialnetworks
+
+      aho1972transitive
+
+      aho1972transitive
+
+      leitgeb2003nonmonotonic
     </associate>
     <\associate|figure>
       <tuple|normal|<surround|<hidden-binding|<tuple>|2.1>||Axioms and rules
