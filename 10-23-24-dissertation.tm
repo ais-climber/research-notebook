@@ -2680,7 +2680,8 @@
   <\definition>
     The proof system for the base modal logic over <math|<value|langClosure>>
     is given as follows: <math|<value|proves>\<varphi\>> iff either
-    <math|\<varphi\>> is one of the axioms:
+    <math|\<varphi\>> is one of the axioms: <todo|TODO replace with the table
+    for the logic of <math|<value|bestop>>!!!>
 
     <\description>
       <item*|Axioms for <math|<value|bestop>>>
@@ -2695,25 +2696,25 @@
         <item*|Trans><math|<value|bestop>\<varphi\>\<rightarrow\><value|bestop><value|bestop>\<varphi\>>
       </description>
 
-      <item*|Axioms for <math|<value|box>>>
+      <item*|Axioms for <math|\<box\>>>
 
       <\description>
-        <item*|Dual><math|<value|Diamond>\<varphi\>\<leftrightarrow\>\<neg\><value|box>\<neg\>\<varphi\>>
+        <item*|Dual><math|<value|Diamond>\<varphi\>\<leftrightarrow\>\<neg\>\<box\>\<neg\>\<varphi\>>
 
-        <item*|Distr><math|<value|box><around*|(|\<varphi\>\<rightarrow\>\<psi\>|)>\<rightarrow\><around*|(|<value|box>\<varphi\>\<rightarrow\><value|box>\<psi\>|)>>
+        <item*|Distr><math|\<box\><around*|(|\<varphi\>\<rightarrow\>\<psi\>|)>\<rightarrow\><around*|(|\<box\>\<varphi\>\<rightarrow\>\<box\>\<psi\>|)>>
 
-        <item*|Refl><math|<value|box>\<varphi\>\<rightarrow\>\<varphi\>>
+        <item*|Refl><math|\<box\>\<varphi\>\<rightarrow\>\<varphi\>>
 
-        <item*|Trans><math|<value|box>\<varphi\>\<rightarrow\><value|box><value|box>\<varphi\>>
+        <item*|Trans><math|\<box\>\<varphi\>\<rightarrow\>\<box\>\<box\>\<varphi\>>
       </description>
 
-      <item*|Interaction axioms for <math|<value|box>> and
+      <item*|Interaction axioms for <math|\<box\>> and
       <math|<value|boxback>>>
 
       <\description>
         <item*|Distr><math|<value|boxback><around*|(|\<varphi\>\<rightarrow\>\<psi\>|)>\<rightarrow\><around*|(|<value|boxback>\<varphi\>\<rightarrow\><value|boxback>\<psi\>|)>>
 
-        <item*|Back><math|\<varphi\>\<rightarrow\><value|box><value|Diamondback>\<varphi\>>
+        <item*|Back><math|\<varphi\>\<rightarrow\>\<box\><value|Diamondback>\<varphi\>>
 
         <item*|Forth><math|\<varphi\>\<rightarrow\><value|boxback><value|Diamond>\<varphi\>>
       </description>
@@ -2729,7 +2730,7 @@
 
       <item*|Nec>From <math|<proves>\<varphi\>> we can infer
       <math|<value|proves>\<box\>\<varphi\>> for
-      <math|\<box\>\<in\><around*|{|<value|box>,<value|boxback>,<value|bestop>|}>>
+      <math|\<box\>\<in\><around*|{|\<box\>,<value|boxback>,<value|bestop>|}>>
     </description>
   </definition>
 
@@ -3679,7 +3680,8 @@
   Define <math|<Rel>> to be the class of all such models, and define
   <math|<Relrefl>> to be the class of all such models where <math|R> is
   additionally reflexive and transitive. The semantics for both classes is
-  given by:
+  given by: <todo|Todo, extend to the full language of
+  <math|<value|langBest>>!>
 
   <\equation*>
     <tabular*|<tformat|<cwith|1|-1|1|1|cell-halign|l>|<cwith|1|-1|1|1|cell-lborder|0ln>|<cwith|1|-1|2|2|cell-halign|c>|<cwith|1|-1|3|3|cell-halign|l>|<cwith|1|-1|3|3|cell-rborder|0ln>|<table|<row|<cell|<Model>,w\<Vdash\>p>|<cell|<text|iff
@@ -3819,6 +3821,9 @@
       f<around*|(|<value|Model>|)>\<models\>\<varphi\><infix-iff><value|Model>\<models\><value|transl><around*|(|\<varphi\>|)>
     </equation*>
 
+    <item>I need translations to also fix the valuation <math|V>! (Only
+    translate the <with|font-shape|italic|frames>)
+
     <item>Call the translation <with|font-shape|italic|strict> if there is
     not a translation in the converse direction.
 
@@ -3929,8 +3934,8 @@
   </proof>
 
   <\proposition>
-    There is a translation from <math|<around*|(|<value|Modal>,<value|NetModel>|)>>
-    to <math|<around*|(|<value|Modal>,<value|Plaus>|)>>.
+    There is a translation from <math|<around*|(|<value|langBest>,<value|NetModel>|)>>
+    to <math|<around*|(|<value|langBest>,<value|Plaus>|)>>.
   </proposition>
 
   <\proof>
@@ -3938,15 +3943,91 @@
     the NAND construction from the Completeness proof.>
   </proof>
 
+  An easy corollary of completeness is that exactly the same axioms hold over
+  <math|<value|Plaus>> and <math|<value|NetModel>>, i.e.
+
+  <\corollary>
+    <label|corollary-theory-plaus-net><math|<value|Theory><around*|(|<value|Plaus>|)>=<value|Theory><around*|(|<value|NetModel>|)>>.
+  </corollary>
+
+  <\proof>
+    We have:
+
+    <\equation*>
+      <tabular|<tformat|<table|<row|<cell|\<varphi\>\<in\><value|Theory><around*|(|<value|Plaus>|)>>|<cell|<infix-iff>>|<cell|<value|modelsPlaus>\<varphi\>>|<cell|<text|(By
+      definition)>>>|<row|<cell|>|<cell|<infix-iff>>|<cell|<value|provesBest>\<varphi\>>|<cell|<text|(By
+      weak completeness for <value|Plaus>)>>>|<row|<cell|>|<cell|<infix-iff>>|<cell|<value|modelsNet>\<varphi\>>|<cell|<text|(By
+      weak completeness for <math|<value|NetModel>>)>>>|<row|<cell|>|<cell|<infix-iff>>|<cell|\<varphi\>\<in\><value|Theory><around*|(|<value|Plaus>|)>>|<cell|<text|(By
+      definition)>>>>>>
+    </equation*>
+
+    \;
+  </proof>
+
+  Based on this, and the completeness result, we might naturally expect that
+  there is a translation from <math|<around*|(|<value|langBest>,<value|Plaus>|)>>
+  to <math|<around*|(|<value|langBest>,<value|NetModel>|)>>. But
+  surprisingly, there is <with|font-shape|italic|no> such translation!
+
   <\theorem>
-    <dueto|<aw|hand-point-right|1fn>>There is a translation from
-    <math|<around*|(|<value|Modal>,<value|Plaus>|)>> to
-    <math|<around*|(|<value|Modal>,<value|NetModel>|)>>
+    <dueto|<aw|hand-point-right|1fn>>There is no translation from
+    <math|<around*|(|<value|langBest>,<value|Plaus>|)>> to
+    <math|<around*|(|<value|langBest>,<value|NetModel>|)>>.
   </theorem>
 
   <\proof>
-    <todo|This is the hard part!! It deserves to be a theorem, imo.>
+    <todo|First, I can prove it if <math|<value|transl><around*|(|\<varphi\>|)>=\<varphi\>>!
+    I should try to generalize this for any <math|<value|transl>>!> For
+    <math|<value|transl><around*|(|\<varphi\>|)>=\<varphi\>>, let
+    <math|f:<value|NetModel>\<rightarrow\><value|Plaus>> be any arbitrary way
+    to transform a neural net into a plausibility model. I need to show that
+    there is some net <math|<value|Net>\<in\><value|NetModel>> and some
+    formula <math|\<varphi\>\<in\><value|langBest>> such that one of
+    <math|f<around*|(|<value|Net>|)>\<models\>\<varphi\>> or
+    <math|<value|Net>\<models\>\<varphi\>> holds and the other does not. Let
+    <math|\<varphi\>=<value|bestop>p> for some proposition <math|p>, and let
+    <math|<value|Net>> be the net in Figure <todo|DIAGRAM> (a). Since
+    <math|<semantics|<value|bestop>p><rsub|<value|Model>>=<value|best><rsub|\<prec\><rsub|f<around*|(|<value|Net>|)>>><around*|(|<semantics|p>|)>>
+    and <math|<semantics|<value|bestop>p><rsub|<value|Net>>=<around*|(|<value|Closure><rsub|<value|Net>><around*|(|<semantics|p><rsup|\<complement\>>|)>|)><rsup|\<complement\>>>,
+    it's enough to show that
+
+    <\equation*>
+      <text|There is some ><semantics|p>\<in\><value|State><rsub|<value|Net>><text|
+      such that ><value|best><rsub|\<prec\><rsub|f<around*|(|<value|Net>|)>>><around*|(|<semantics|p>|)>\<neq\><around*|(|<value|Closure><rsub|<value|Net>><around*|(|<semantics|p><rsup|\<complement\>>|)>|)><rsup|\<complement\>>
+    </equation*>
+
+    Well, for this particular net we have
+    <math|<value|State><rsub|<value|Net>>=<around*|{|<around*|{|<value|bias>|}>,<around*|{|<value|bias>,a|}>,<around*|{|<value|bias>,b|}>,<around*|{|<value|bias>,a,b|}>|}>>
+    (all subsets of the nodes that contain the <math|<value|bias>> node). Any
+    <math|<semantics|p>\<in\><value|State><rsub|<value|Net>>> must be one of
+    these four sets.
+
+    Suppose for contradiction that for all such <math|<semantics|p>>,
+    <math|<value|best><rsub|\<prec\><rsub|f<around*|(|<value|Net>|)>>><around*|(|<semantics|p>|)>=<around*|(|<value|Closure><rsub|<value|Net>><around*|(|<semantics|p><rsup|\<complement\>>|)>|)><rsup|\<complement\>>>.
+    In particular, <math|<value|best><rsub|\<prec\><rsub|f<around*|(|<value|Net>|)>>><around*|(|<around*|{|<value|bias>,a,b|}>|)>=<around*|(|<value|Closure><rsub|<value|Net>><around*|(|<around*|{|<value|bias>,a,b|}><rsup|\<complement\>>|)>|)><rsup|\<complement\>>=<around*|{|<value|bias>,a,b|}>>.
+    (See the calculation in Figure <todo|DIAGRAM> (b).) But this implies that
+    <math|<value|bias>>, <math|a>, and <math|b> must all be mutually
+    incomparable via <math|\<prec\><rsub|f<around*|(|<value|Net>|)>>>. But
+    then
+
+    <\equation*>
+      <value|best><rsub|\<prec\><rsub|f<around*|(|<value|Net>|)>>><around*|(|<around*|{|<value|bias>,b|}>|)>=<around*|{|<value|bias>,b|}>\<neq\><around*|{|<value|bias>|}>=<around*|(|<value|Closure><rsub|<value|Net>><around*|(|<around*|{|<value|bias>,b|}><rsup|\<complement\>>|)>|)><rsup|\<complement\>>
+    </equation*>
+
+    (The first equality comes from <math|<value|bias>,a,b> incomparable; the
+    second follows from the calculation in Figure <todo|DIAGRAM> (b).)
   </proof>
+
+  In particular, the neural network used in the proof <todo|refer to it>
+  cannot be transformed into an equivalent plausibility model. Moreover, this
+  net isn't a particularly strange one\Vit's just an ordinary feed-forward
+  weighted net! So we have an intuition that neural networks are more general
+  in some sense. But Corollary <reference|corollary-theory-plaus-net> says
+  that no axiom <math|\<varphi\>\<in\><value|langBest>> witnesses this
+  difference. This means that there <with|font-shape|italic|is> some
+  difference between them, but <math|<value|langBest>> is not expressive
+  enough to point to it. <todo|the interesting conclusion of this
+  reasoning\Vwhat axiom can give us the difference??>
 
   <\theorem>
     <dueto|<aw|hand-point-right|1fn>>There is a strict translation from
@@ -4901,7 +4982,7 @@
     <associate|auto-24|<tuple|2|44>>
     <associate|auto-25|<tuple|2.1|45>>
     <associate|auto-26|<tuple|3|47>>
-    <associate|auto-27|<tuple|4|47>>
+    <associate|auto-27|<tuple|4|48>>
     <associate|auto-28|<tuple|5|49>>
     <associate|auto-29|<tuple|6|52>>
     <associate|auto-3|<tuple|1|14>>
@@ -4918,85 +4999,86 @@
     <associate|auto-4|<tuple|2|16>>
     <associate|auto-40|<tuple|1|62>>
     <associate|auto-41|<tuple|2|62>>
-    <associate|auto-42|<tuple|3|64>>
+    <associate|auto-42|<tuple|3|65>>
     <associate|auto-43|<tuple|4|65>>
-    <associate|auto-44|<tuple|5|67>>
-    <associate|auto-45|<tuple|6|69>>
-    <associate|auto-46|<tuple|7|70>>
-    <associate|auto-47|<tuple|8|73>>
-    <associate|auto-48|<tuple|1|73>>
-    <associate|auto-49|<tuple|2|73>>
+    <associate|auto-44|<tuple|5|68>>
+    <associate|auto-45|<tuple|6|70>>
+    <associate|auto-46|<tuple|7|71>>
+    <associate|auto-47|<tuple|8|74>>
+    <associate|auto-48|<tuple|1|74>>
+    <associate|auto-49|<tuple|2|74>>
     <associate|auto-5|<tuple|3|19>>
-    <associate|auto-50|<tuple|2.3|76>>
+    <associate|auto-50|<tuple|2.3|77>>
     <associate|auto-6|<tuple|4|19>>
     <associate|auto-7|<tuple|3|21>>
     <associate|auto-8|<tuple|1|21>>
     <associate|auto-9|<tuple|2|22>>
-    <associate|bib-Christoff:2015aa|<tuple|17|77>>
-    <associate|bib-Plaza2007PAL|<tuple|49|78>>
-    <associate|bib-achiam2023gpt|<tuple|1|76>>
-    <associate|bib-aho1972transitive|<tuple|2|76>>
-    <associate|bib-albarghouthi2021introduction|<tuple|3|76>>
-    <associate|bib-baccini2024dynamic|<tuple|4|76>>
-    <associate|bib-bader2005dimensions|<tuple|5|76>>
-    <associate|bib-badreddine2022aa|<tuple|6|76>>
-    <associate|bib-balkenius1991nonmonotonic|<tuple|7|76>>
-    <associate|bib-baltag1998PALC|<tuple|13|76>>
-    <associate|bib-baltag2009iterated|<tuple|14|76>>
-    <associate|bib-baltag2019dynamic|<tuple|9|76>>
-    <associate|bib-baltag2019right|<tuple|11|76>>
-    <associate|bib-baltag2019socialnetworks|<tuple|8|76>>
-    <associate|bib-baltag2019tracking|<tuple|10|76>>
-    <associate|bib-besold2021neural|<tuple|15|77>>
-    <associate|bib-blutner2004nonmonotonic|<tuple|16|77>>
-    <associate|bib-ciravegna2023logic|<tuple|18|77>>
-    <associate|bib-ditmarschDEL|<tuple|63|79>>
-    <associate|bib-dubey2024llama|<tuple|21|77>>
-    <associate|bib-garcez2001symbolic|<tuple|19|77>>
-    <associate|bib-garcez2008neural|<tuple|22|77>>
-    <associate|bib-geiger2024aa|<tuple|23|77>>
-    <associate|bib-giordano2021weighted|<tuple|25|77>>
-    <associate|bib-giordano2022conditional|<tuple|24|77>>
-    <associate|bib-gross2002genealogy|<tuple|26|77>>
-    <associate|bib-harmelen2022preface|<tuple|27|77>>
-    <associate|bib-hebb-organization-of-behavior-1949|<tuple|28|77>>
-    <associate|bib-immerman1998descriptive|<tuple|29|77>>
-    <associate|bib-kisby2022logic|<tuple|30|77>>
-    <associate|bib-kisby2024hebbian|<tuple|31|77>>
-    <associate|bib-kozen1981elementary|<tuple|32|78>>
-    <associate|bib-kraus1990nonmonotonic|<tuple|33|78>>
-    <associate|bib-leitgeb2001nonmonotonic|<tuple|34|78>>
-    <associate|bib-leitgeb2003nonmonotonic|<tuple|35|78>>
-    <associate|bib-leitgeb2018neural|<tuple|36|78>>
-    <associate|bib-libkin2004elements|<tuple|37|78>>
-    <associate|bib-logicsforepistemicactions|<tuple|12|76>>
-    <associate|bib-manhaeve2021neural|<tuple|38|78>>
-    <associate|bib-mcculloch1943logical|<tuple|39|78>>
-    <associate|bib-mcdermott1987critique|<tuple|40|78>>
-    <associate|bib-merrill2019sequential|<tuple|41|78>>
-    <associate|bib-merrill2020formal|<tuple|43|78>>
-    <associate|bib-merrill2023expressive|<tuple|42|78>>
-    <associate|bib-moss2007finite|<tuple|44|78>>
-    <associate|bib-moura2021lean|<tuple|45|78>>
-    <associate|bib-murphy2004big|<tuple|46|78>>
-    <associate|bib-oja1982simplified|<tuple|47|78>>
-    <associate|bib-pacuit2017neighborhood|<tuple|48|78>>
-    <associate|bib-polya1954mathematics|<tuple|50|78>>
-    <associate|bib-rumelhart1986aa|<tuple|51|78>>
-    <associate|bib-rumelhart1986learning|<tuple|52|79>>
-    <associate|bib-sarker2021neuro|<tuple|53|79>>
-    <associate|bib-sep-computational-complexity|<tuple|20|77>>
-    <associate|bib-sep-frame-problem|<tuple|54|79>>
-    <associate|bib-silver2017mastering|<tuple|55|79>>
-    <associate|bib-srivastava2015highway|<tuple|56|79>>
-    <associate|bib-strobl2024formal|<tuple|57|79>>
-    <associate|bib-tamkin2021understanding|<tuple|58|79>>
-    <associate|bib-van2007beliefrevision|<tuple|59|79>>
-    <associate|bib-van2007prefupgrade|<tuple|61|79>>
-    <associate|bib-van2011logicaldynamics|<tuple|60|79>>
-    <associate|bib-van2015dynamic|<tuple|62|79>>
-    <associate|bib-vaswani2017attention|<tuple|64|79>>
-    <associate|bib-weiss2018practical|<tuple|65|79>>
+    <associate|bib-Christoff:2015aa|<tuple|17|78>>
+    <associate|bib-Plaza2007PAL|<tuple|49|79>>
+    <associate|bib-achiam2023gpt|<tuple|1|77>>
+    <associate|bib-aho1972transitive|<tuple|2|77>>
+    <associate|bib-albarghouthi2021introduction|<tuple|3|77>>
+    <associate|bib-baccini2024dynamic|<tuple|4|77>>
+    <associate|bib-bader2005dimensions|<tuple|5|77>>
+    <associate|bib-badreddine2022aa|<tuple|6|77>>
+    <associate|bib-balkenius1991nonmonotonic|<tuple|7|77>>
+    <associate|bib-baltag1998PALC|<tuple|13|77>>
+    <associate|bib-baltag2009iterated|<tuple|14|77>>
+    <associate|bib-baltag2019dynamic|<tuple|9|77>>
+    <associate|bib-baltag2019right|<tuple|11|77>>
+    <associate|bib-baltag2019socialnetworks|<tuple|8|77>>
+    <associate|bib-baltag2019tracking|<tuple|10|77>>
+    <associate|bib-besold2021neural|<tuple|15|78>>
+    <associate|bib-blutner2004nonmonotonic|<tuple|16|78>>
+    <associate|bib-ciravegna2023logic|<tuple|18|78>>
+    <associate|bib-ditmarschDEL|<tuple|63|80>>
+    <associate|bib-dubey2024llama|<tuple|21|78>>
+    <associate|bib-garcez2001symbolic|<tuple|19|78>>
+    <associate|bib-garcez2008neural|<tuple|22|78>>
+    <associate|bib-geiger2024aa|<tuple|23|78>>
+    <associate|bib-giordano2021weighted|<tuple|25|78>>
+    <associate|bib-giordano2022conditional|<tuple|24|78>>
+    <associate|bib-gross2002genealogy|<tuple|26|78>>
+    <associate|bib-harmelen2022preface|<tuple|27|78>>
+    <associate|bib-hebb-organization-of-behavior-1949|<tuple|28|78>>
+    <associate|bib-immerman1998descriptive|<tuple|29|78>>
+    <associate|bib-kisby2022logic|<tuple|30|78>>
+    <associate|bib-kisby2024hebbian|<tuple|31|78>>
+    <associate|bib-kozen1981elementary|<tuple|32|79>>
+    <associate|bib-kraus1990nonmonotonic|<tuple|33|79>>
+    <associate|bib-leitgeb2001nonmonotonic|<tuple|34|79>>
+    <associate|bib-leitgeb2003nonmonotonic|<tuple|35|79>>
+    <associate|bib-leitgeb2018neural|<tuple|36|79>>
+    <associate|bib-libkin2004elements|<tuple|37|79>>
+    <associate|bib-logicsforepistemicactions|<tuple|12|77>>
+    <associate|bib-manhaeve2021neural|<tuple|38|79>>
+    <associate|bib-mcculloch1943logical|<tuple|39|79>>
+    <associate|bib-mcdermott1987critique|<tuple|40|79>>
+    <associate|bib-merrill2019sequential|<tuple|41|79>>
+    <associate|bib-merrill2020formal|<tuple|43|79>>
+    <associate|bib-merrill2023expressive|<tuple|42|79>>
+    <associate|bib-moss2007finite|<tuple|44|79>>
+    <associate|bib-moura2021lean|<tuple|45|79>>
+    <associate|bib-murphy2004big|<tuple|46|79>>
+    <associate|bib-oja1982simplified|<tuple|47|79>>
+    <associate|bib-pacuit2017neighborhood|<tuple|48|79>>
+    <associate|bib-polya1954mathematics|<tuple|50|79>>
+    <associate|bib-rumelhart1986aa|<tuple|51|79>>
+    <associate|bib-rumelhart1986learning|<tuple|52|80>>
+    <associate|bib-sarker2021neuro|<tuple|53|80>>
+    <associate|bib-sep-computational-complexity|<tuple|20|78>>
+    <associate|bib-sep-frame-problem|<tuple|54|80>>
+    <associate|bib-silver2017mastering|<tuple|55|80>>
+    <associate|bib-srivastava2015highway|<tuple|56|80>>
+    <associate|bib-strobl2024formal|<tuple|57|80>>
+    <associate|bib-tamkin2021understanding|<tuple|58|80>>
+    <associate|bib-van2007beliefrevision|<tuple|59|80>>
+    <associate|bib-van2007prefupgrade|<tuple|61|80>>
+    <associate|bib-van2011logicaldynamics|<tuple|60|80>>
+    <associate|bib-van2015dynamic|<tuple|62|80>>
+    <associate|bib-vaswani2017attention|<tuple|64|80>>
+    <associate|bib-weiss2018practical|<tuple|65|80>>
+    <associate|corollary-theory-plaus-net|<tuple|4.4|67>>
     <associate|eqn1|<tuple|5.1|60>>
     <associate|eqn2|<tuple|5.2|61>>
     <associate|figure-axioms-best|<tuple|2.1|22>>
