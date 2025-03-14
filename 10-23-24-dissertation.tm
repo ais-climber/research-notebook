@@ -5,16 +5,9 @@
 <\body>
   <\hide-preamble>
     \;
-
-    <assign|doc-subtitle|<macro|x|<\surround|<vspace*|0.25fn>|<vspace|0.5fn>>
-      <doc-title-block|<very-large|<doc-title-name|<arg|x>>>>
-    </surround>>>
-
-    <assign|part-numbered-title|<macro|name|<part-title-sub|<htab|0fn><part-text>
-    <the-part><htab|0fn><vspace|1fn><new-line><htab|0fn><arg|name><htab|0fn>>>>
-
-    <assign|part-title-sub|<macro|body|<new-dpage*><no-indent><assign|page-this-header|><assign|page-this-footer|><new-line><no-indent><vspace*|0.25pag><very-large|<with|font-series|bold|<arg|body>>><vspace|0.05pag><no-indent*>>>
   </hide-preamble>
+
+  <with|font-shape|italic|>
 
   <doc-data|<\doc-title>
     Neural Network Semantics
@@ -201,7 +194,8 @@
     <no-break><pageref|auto-38>
 
     <vspace*|1fn><\with|font-series|bold|math-font-series|bold>
-      Expressivity: Measuring the Modeling Power of Neural Networks
+      Expressivity: The Limitations of Neural Networks and the Logic of
+      <with|mode|math|[<with|mode|text|best>]>
     </with> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-39><vspace|0.5fn>
 
@@ -956,8 +950,8 @@
   </example>
 
   <\definition>
-    The full semantics for <math|<value|langClosure>> is given as follows.
-    For all <math|<value|Model>\<in\><value|Plaus>>, <math|w\<in\>W>,
+    The full semantics for <math|<value|langBest>> is given as follows. For
+    all <math|<value|Model>\<in\><value|Plaus>>, <math|w\<in\>W>,
 
     <\equation*>
       <tabular|<tformat|<table|<row|<cell|<value|Model>,w\<Vdash\>p>|<cell|<space|1em>iff<space|1em>>|<cell|w\<in\>V<around*|(|p|)>>>|<row|<cell|<value|Model>,w\<Vdash\>\<neg\>\<varphi\>>|<cell|<space|1em>iff<space|1em>>|<cell|<value|Model>,w<neg|\<Vdash\>>\<varphi\>>>|<row|<cell|<value|Model>,w\<Vdash\>\<varphi\>\<wedge\>\<psi\>>|<cell|<space|1em>iff<space|1em>>|<cell|<value|Model>,w\<Vdash\>\<varphi\><infix-and><value|Model>,w\<Vdash\>\<psi\>>>|<row|<cell|<value|Model>,w\<Vdash\><value|All>\<varphi\>>|<cell|<space|1em>iff<space|1em>>|<cell|<text|For
@@ -993,12 +987,12 @@
       <math|<value|proves>\<varphi\>> we can infer
       <math|<value|proves>\<psi\>>>>|<row|<cell|<with|font-series|bold|(Nec)>>|<\cell>
         From <math|<proves>\<varphi\>> we can infer
-        <math|<value|proves>\<box\>\<varphi\>>
+        <math|<value|proves><aw|stop|0.6fn>\<varphi\>>
       </cell>>|<row|<cell|>|<cell|<space|2em>for each
-      <math|\<box\>\<in\><around*|{|<value|All>,\<box\>,<value|boxback>|}>>>>>>>>>>>>|<label|figure-axioms-best>Axioms
+      <math|<aw|stop|0.6fn>\<in\><around*|{|<value|All>,\<box\>,<value|boxback>|}>>>>>>>>>>>>|<label|figure-axioms-best>Axioms
       and rules of inference for <todo|todo>>
     </float>The proof system for the base modal logic over
-    <math|<value|langClosure>> is given as follows:
+    <math|<value|langBest>> is given as follows:
     <math|<value|proves>\<varphi\>> iff either <math|\<varphi\>> is one of
     the axioms: <todo|Todo\Vmaybe I don't need to say it here, I can just
     point to the Appendix.>
@@ -1210,8 +1204,9 @@
   </lemma>
 
   <\proposition>
-    <label|proposition-box-boxback>Let <math|\<Sigma\>,\<Delta\>> be
-    maximally consistent. The following are equivalent:
+    <label|proposition-box-boxback><dueto|<todo|cite from temporal
+    logic!>>Let <math|\<Sigma\>,\<Delta\>> be maximally consistent. The
+    following are equivalent:
 
     <\enumerate>
       <item><math|\<box\>\<varphi\>\<in\>\<Sigma\>> implies
@@ -1258,7 +1253,7 @@
 
     <\itemize>
       <item><math|W<rsup|c>=<around*|{|\<Delta\><value|st>\<Delta\><text| is
-      maximally consistent over <math|<value|langSimplified>>>|}>>
+      maximally consistent over <math|<value|langBest>>>|}>>
 
       <item><math|\<Delta\><rsub|1><op|\<prec\><rsup|c>>\<Delta\><rsub|2>>
       iff <math|\<Delta\><rsub|1>\<neq\>\<Delta\><rsub|2>> and for all
@@ -1277,9 +1272,10 @@
   <math|\<prec\><rsup|c>> is irreflexive.
 
   <\proposition>
-    <label|proposition-build-mcs>Let <math|\<Delta\>> be consistent, and
-    suppose <math|<value|Diamondback><value|bestop>\<varphi\>\<in\>\<Delta\>>.
-    Then we can extend <math|\<Delta\>> to a maximally consistent set
+    <label|proposition-build-mcs><dueto|<aw|hand-point-right|1fn>>Let
+    <math|\<Delta\>> be consistent, and suppose
+    <math|<value|Diamondback><value|bestop>\<varphi\>\<in\>\<Delta\>>. Then
+    we can extend <math|\<Delta\>> to a maximally consistent set
     <math|\<Delta\><rsup|<text|max>>\<in\>W<rsup|c>> such that
     <math|<value|bestop>\<varphi\>\<in\>\<Delta\><rsup|<text|max>>> and
     <math|\<Delta\><rsup|<text|max>>\<prec\><rsup|c>\<Delta\>>.
@@ -1328,8 +1324,9 @@
   </proof>
 
   <\lemma>
-    <dueto|<aw|hand-point-right|1fn> Truth Lemma>We have, for all
-    <math|\<Delta\>\<in\>W<rsup|c>>, <math|\<varphi\>\<in\><value|langBest>>,
+    <dueto|<aw|hand-point-right|1fn> Truth Lemma for
+    <math|<value|langBest>>>We have, for all <math|\<Delta\>\<in\>W<rsup|c>>,
+    <math|\<varphi\>\<in\><value|langBest>>,
 
     <\equation*>
       <value|Model>,\<Delta\>\<Vdash\>\<varphi\><infix-iff>\<varphi\>\<in\>\<Delta\>
@@ -1466,8 +1463,9 @@
   </proof>
 
   <\proposition>
-    The canonical model <math|<value|Model><rsup|c>> is in fact a
-    plausibility model, i.e. <math|<value|Model><rsup|c>\<in\><value|Plaus>>.
+    <dueto|<aw|hand-point-right|1fn>>The canonical model
+    <math|<value|Model><rsup|c>> is in fact a plausibility model, i.e.
+    <math|<value|Model><rsup|c>\<in\><value|Plaus>>.
   </proposition>
 
   <\proof>
@@ -1521,9 +1519,8 @@
 
   <\theorem>
     <label|theorem-model-building-classical><dueto|<aw|hand-point-right|1fn>
-    Model Building for <math|<value|langClosure>> over
-    <math|\<models\><rsub|<value|Plaus>>>>For all consistent
-    <math|\<Gamma\>\<subseteq\><value|langClosure>>, there is some
+    Model Building for <math|<value|langBest>>>For all consistent
+    <math|\<Gamma\>\<subseteq\><value|langBest>>, there is some
     <math|<value|Model>\<in\><value|Plaus>> and state <math|w\<in\>W> such
     that <math|<value|Model>,w\<models\>\<Gamma\>>.
   </theorem>
@@ -1543,10 +1540,10 @@
   </proof>
 
   <\corollary>
-    <dueto|<aw|hand-point-right|1fn> Completeness for
-    <math|<value|langClosure>> over <math|\<models\><rsub|<value|Plaus>>>>For
-    all consistent <math|\<Gamma\>\<subseteq\><value|langClosure>> and all
-    formulas <math|\<varphi\>\<in\><value|langClosure>>,
+    <dueto|<aw|hand-point-right|1fn> Completeness for <math|<value|langBest>>
+    over <math|\<models\><rsub|<value|Plaus>>>>For all consistent
+    <math|\<Gamma\>\<subseteq\><value|langBest>> and all formulas
+    <math|\<varphi\>\<in\><value|langBest>>,
 
     <\equation*>
       <text|if >\<Gamma\>\<models\>\<varphi\><text| then
@@ -1637,6 +1634,16 @@
   have to build the infinite canonical model <with|font-shape|italic|first>.
   Is there a known result in modal logic that gives us an algorithm? If so, I
   should include this in a separate Appendix section and point to it here.>
+  <todo|After talking to Saul and Larry about this, I should just leave it as
+  an open question and point to Larry's work on constructively building
+  finite models from formulas. It is likely this trick will work here too.>
+
+  <\question>
+    For a given finite set of constraints
+    <math|\<Gamma\>\<subseteq\><value|langBest>>, is there a constructive
+    algorithm that produces a model <math|<value|Model>\<in\><value|Plaus>>
+    and state <math|w\<in\>W> such that <math|<value|Model>,w\<models\>\<Gamma\>>?
+  </question>
 
   <section|The Interpretation and Expressive Power of
   <math|<value|bestop>,\<box\>> and <math|<value|boxback>>>
@@ -1885,7 +1892,13 @@
 
   The neural nets I consider include feed-forward nets, as well as certain
   controlled forms of recurrence. Characterizing nets that have a unique
-  least fixed point is a big open problem.
+  least fixed point is a big open problem. <todo|Cite evidence for this!!>
+
+  <\question>
+    Is there an algebraic or topological characterization of the class of
+    recurrent nets whose closure <math|<value|Closure><around*|(|S|)>>
+    reaches a unique fixed point (i.e., does not diverge or oscillate)?
+  </question>
 
   An important feature of <math|<value|Closure>> is that it is nonmonotonic:
   it is not the case that for all <math|A,B\<in\><value|State>>, if
@@ -1957,36 +1970,36 @@
   world that we know ahead of time. Usually these are input and output
   states, although they could be intermediate \Phidden\Q states if we know
   these features ahead of time. For example, <math|p> might be the set of
-  neurons that represent the color pink. For more complex formulas,
+  neurons that represent the color pink. For more complex formulas,<todo|TODO
+  this is now a repeat of the syntax from before!>
 
   <\definition>
-    Formulas in the base modal language <math|<value|langClosure>> are given
-    by
+    Formulas in the base modal language <math|<value|langBest>> are given by
 
     <\equation*>
-      \<varphi\>,\<psi\>\<assign\>p<space|0.25em>\<mid\><space|0.25em>\<neg\>\<varphi\><space|0.25em>\<mid\><space|0.25em>\<varphi\>\<wedge\>\<psi\><space|0.25em>\<mid\><space|0.25em><value|Diamond>\<varphi\><space|0.25em>\<mid\><space|0.25em><value|Diamondback>\<varphi\><space|0.25em>\<mid\><space|0.25em><value|diabestop>\<varphi\>
+      \<varphi\>,\<psi\>\<assign\>p<value|st>\<neg\>\<varphi\><value|st>\<varphi\>\<wedge\>\<psi\><value|st><value|Exists>\<varphi\><value|st><value|Diamond>\<varphi\><value|st><value|Diamondback>\<varphi\><value|st><value|diabestop>\<varphi\>
     </equation*>
 
     <math|\<top\>,\<bot\>,\<vee\>,\<rightarrow\>,\<leftrightarrow\>> and the
-    dual modal operators <math|<value|box>,<value|boxback>,<value|bestop>>
+    dual modal operators <math|<value|All>,\<box\>,<value|boxback>,<value|bestop>>
     are defined in the usual way.
   </definition>
 
   The intended readings for these operators are as follows
-  (<math|<value|boxback>> is conceptually tricky, I will leave it out of this
-  discussion for now). <math|<value|box>\<varphi\>> reads \Pthe agent knows
+  (<math|<value|Diamondback>> is conceptually tricky, I will leave it out of
+  this discussion for now). <math|\<box\>\<varphi\>> reads \Pthe agent knows
   <math|\<varphi\>>\Q, and <math|<value|bestop>\<varphi\>> reads
   \Pbestopically <math|\<varphi\>>\Q. It is not immediately clear how these
   readings are justified; in my dissertation, I will justify these readings
   by connecting the neural network semantics I give here to more traditional
-  semantics for <math|<value|box>,<value|boxback>>, and
+  semantics for <math|<value|All>,\<box\>,<value|boxback>>, and
   <math|<value|bestop>>.
 
-  At last, here are the semantics for <math|<value|langClosure>>. For all
+  At last, here are the semantics for <math|<value|langBest>>. For all
   <math|<value|Net>\<in\><value|NetModel>>, <math|n\<in\>N>:
 
   <\equation*>
-    <tabular|<tformat|<table|<row|<cell|<value|Net>,n\<Vdash\>p>|<cell|<space|1em>iff<space|1em>>|<cell|n\<in\>V<around*|(|p|)>>>|<row|<cell|<value|Net>,n\<Vdash\>\<neg\>\<varphi\>>|<cell|<space|1em>iff<space|1em>>|<cell|<value|Net>,n<neg|\<Vdash\>>\<varphi\>>>|<row|<cell|<value|Net>,n\<Vdash\>\<varphi\>\<wedge\>\<psi\>>|<cell|<space|1em>iff<space|1em>>|<cell|<value|Net>,n\<Vdash\>\<varphi\><infix-and><value|Net>,n\<Vdash\>\<psi\>>>|<row|<cell|<value|Net>,n\<Vdash\><value|Diamond>\<varphi\>>|<cell|<space|1em>iff<space|1em>>|<cell|n\<in\><value|Reaches><around*|(|<semantics|\<varphi\>>|)>>>|<row|<cell|<value|Net>,n\<Vdash\><value|Diamondback>\<varphi\>>|<cell|<space|1em>iff<space|1em>>|<cell|n\<in\><value|Reach><around*|(|<semantics|\<varphi\>>|)>>>|<row|<cell|<value|Net>,n\<Vdash\><value|diabestop>\<varphi\>>|<cell|<space|1em>iff<space|1em>>|<cell|n\<in\><value|Closure><around*|(|<semantics|\<varphi\>>|)>>>>>>
+    <tabular|<tformat|<table|<row|<cell|<value|Net>,n\<Vdash\>p>|<cell|<space|1em>iff<space|1em>>|<cell|n\<in\>V<around*|(|p|)>>>|<row|<cell|<value|Net>,n\<Vdash\>\<neg\>\<varphi\>>|<cell|<space|1em>iff<space|1em>>|<cell|<value|Net>,n<neg|\<Vdash\>>\<varphi\>>>|<row|<cell|<value|Net>,n\<Vdash\>\<varphi\>\<wedge\>\<psi\>>|<cell|<space|1em>iff<space|1em>>|<cell|<value|Net>,n\<Vdash\>\<varphi\><infix-and><value|Net>,n\<Vdash\>\<psi\>>>|<row|<cell|<value|Net>,n\<Vdash\><value|Exists>\<varphi\>>|<cell|<space|1em>iff<space|1em>>|<cell|<semantics|\<varphi\>>\<neq\>\<emptyset\>>>|<row|<cell|<value|Net>,n\<Vdash\><value|Diamond>\<varphi\>>|<cell|<space|1em>iff<space|1em>>|<cell|n\<in\><value|Reaches><around*|(|<semantics|\<varphi\>>|)>>>|<row|<cell|<value|Net>,n\<Vdash\><value|Diamondback>\<varphi\>>|<cell|<space|1em>iff<space|1em>>|<cell|n\<in\><value|Reach><around*|(|<semantics|\<varphi\>>|)>>>|<row|<cell|<value|Net>,n\<Vdash\><value|diabestop>\<varphi\>>|<cell|<space|1em>iff<space|1em>>|<cell|n\<in\><value|Closure><around*|(|<semantics|\<varphi\>>|)>>>>>>
   </equation*>
 
   where <math|<semantics|\<varphi\>>=<around*|{|n\<mid\><value|Net>,n\<Vdash\>\<varphi\>|}>>.
@@ -2024,13 +2037,13 @@
   semantics uses conditionals <math|\<varphi\>\<Rightarrow\>\<psi\>> to
   capture neural network inference, whereas mine instead centers on the modal
   operator <math|<value|diabestop>>. Second, I include these additional
-  operators <math|<value|box>> and <math|<value|boxback>> that are not
-  mentioned in his work. Finally, Leitgeb battles with the issue of how to
-  correctly interpret negation; I sidestep this issue by using neural
-  networks for interpreting <math|<value|diabestop>\<varphi\>> (where the
-  \Paction\Q happens), but not for <math|\<neg\>> and <math|\<wedge\>>. The
-  bottom line is this: proving completeness for this logic is not necessarily
-  just a matter of importing the proof from <cite|leitgeb2018neural>.
+  operators <math|\<box\>> and <math|<value|boxback>> that are not mentioned
+  in his work. Finally, Leitgeb battles with the issue of how to correctly
+  interpret negation; I sidestep this issue by using neural networks for
+  interpreting <math|<value|diabestop>\<varphi\>> (where the \Paction\Q
+  happens), but not for <math|\<neg\>> and <math|\<wedge\>>. The bottom line
+  is this: proving completeness for this logic is not necessarily just a
+  matter of importing the proof from <cite|leitgeb2018neural>.
 
   <subsection|Why Consider this <with|font-shape|italic|Modal> Logic?>
 
@@ -2073,11 +2086,11 @@
   neural net. The DEL trick is to introduce a new \Pdynamic\Q operator
   <math|<around*|[|P|]>> which <with|font-shape|italic|changes> the net in
   response to some observed formula <math|P>. First, we extend the language
-  <math|<value|langClosure>> to <todo|todo>, which includes these dynamic
-  operators:
+  <math|<value|langBest>> to <math|<value|langUpdate>>, which includes these
+  dynamic operators:
 
   <\equation*>
-    \<varphi\>,\<psi\>\<assign\>p<space|0.25em>\<mid\><space|0.25em>\<neg\>\<varphi\><space|0.25em>\<mid\><space|0.25em>\<varphi\>\<wedge\>\<psi\><space|0.25em>\<mid\><space|0.25em><value|Diamond>\<varphi\><space|0.25em>\<mid\><space|0.25em><value|Diamondback>\<varphi\><space|0.25em>\<mid\><space|0.25em><value|diabestop>\<varphi\><space|0.25em>\<mid\><space|0.25em><around*|[|P|]>\<varphi\>
+    \<varphi\>,\<psi\>\<assign\>p<value|st>\<neg\>\<varphi\><value|st>\<varphi\>\<wedge\>\<psi\><value|st><value|Exists>\<varphi\><value|st><value|Diamond>\<varphi\><value|st><value|Diamondback>\<varphi\><value|st><value|diabestop>\<varphi\><value|st><around*|[|P|]>\<varphi\>
   </equation*>
 
   Here, <math|<around*|[|P|]>\<varphi\>> reads \Pafter the agent observes
@@ -2660,10 +2673,11 @@
 
   <\theorem>
     <dueto|Hannes Leitgeb, <cite|leitgeb2001nonmonotonic|leitgeb2003nonmonotonic>>This
-    proof system is sound; for all <math|\<Gamma\>\<subseteq\><value|langClosure>>
-    and <math|\<varphi\>\<in\><value|langClosure>>, if
+    proof system is sound; for all <math|\<Gamma\>\<subseteq\><value|langCond>>
+    and <math|\<varphi\>\<in\><value|langCond>>, if
     <math|\<Gamma\><value|proves>\<varphi\>> then
-    <math|\<Gamma\>\<models\>\<varphi\>>.
+    <math|\<Gamma\>\<models\>\<varphi\>>. <todo|Rephrase for conditionals
+    <math|\<alpha\>\<Rightarrow\>\<beta\>>!>
   </theorem>
 
   <\proof>
@@ -2678,60 +2692,10 @@
   into our modal language.
 
   <\definition>
-    The proof system for the base modal logic over <math|<value|langClosure>>
-    is given as follows: <math|<value|proves>\<varphi\>> iff either
-    <math|\<varphi\>> is one of the axioms: <todo|TODO replace with the table
-    for the logic of <math|<value|bestop>>!!!>
-
-    <\description>
-      <item*|Axioms for <math|<value|bestop>>>
-
-      <\description>
-        <item*|Dual><math|<value|diabestop>\<varphi\>\<leftrightarrow\>\<neg\><value|bestop>\<neg\>\<varphi\>>
-
-        <item*|Cumulative><math|<around*|(|<around|(|\<varphi\>\<to\>\<psi\>|)>\<wedge\><around|(|<value|bestop>\<psi\>\<to\>\<varphi\>|)>|)>\<to\><around|(|<value|bestop>\<varphi\>\<to\>\<psi\>|)>>
-
-        <item*|Refl><math|<value|bestop>\<varphi\>\<rightarrow\>\<varphi\>>
-
-        <item*|Trans><math|<value|bestop>\<varphi\>\<rightarrow\><value|bestop><value|bestop>\<varphi\>>
-      </description>
-
-      <item*|Axioms for <math|\<box\>>>
-
-      <\description>
-        <item*|Dual><math|<value|Diamond>\<varphi\>\<leftrightarrow\>\<neg\>\<box\>\<neg\>\<varphi\>>
-
-        <item*|Distr><math|\<box\><around*|(|\<varphi\>\<rightarrow\>\<psi\>|)>\<rightarrow\><around*|(|\<box\>\<varphi\>\<rightarrow\>\<box\>\<psi\>|)>>
-
-        <item*|Refl><math|\<box\>\<varphi\>\<rightarrow\>\<varphi\>>
-
-        <item*|Trans><math|\<box\>\<varphi\>\<rightarrow\>\<box\>\<box\>\<varphi\>>
-      </description>
-
-      <item*|Interaction axioms for <math|\<box\>> and
-      <math|<value|boxback>>>
-
-      <\description>
-        <item*|Distr><math|<value|boxback><around*|(|\<varphi\>\<rightarrow\>\<psi\>|)>\<rightarrow\><around*|(|<value|boxback>\<varphi\>\<rightarrow\><value|boxback>\<psi\>|)>>
-
-        <item*|Back><math|\<varphi\>\<rightarrow\>\<box\><value|Diamondback>\<varphi\>>
-
-        <item*|Forth><math|\<varphi\>\<rightarrow\><value|boxback><value|Diamond>\<varphi\>>
-      </description>
-    </description>
-
-    or <math|\<varphi\>> follows from some previously obtained formulas by
-    one of the inference rules.
-
-    <\description>
-      <item*|MP>From <math|<proves>\<varphi\>\<rightarrow\>\<psi\>> and
-      <math|<value|proves>\<varphi\>> we can infer
-      <math|<value|proves>\<psi\>>
-
-      <item*|Nec>From <math|<proves>\<varphi\>> we can infer
-      <math|<value|proves>\<box\>\<varphi\>> for
-      <math|\<box\>\<in\><around*|{|\<box\>,<value|boxback>,<value|bestop>|}>>
-    </description>
+    The proof system <math|<value|provesBest>> for neural network semantics
+    <math|<value|modelsNet>> over <math|<value|langBest>> is the very same as
+    the proof system for plausibility model semantics
+    <math|<value|modelsPlaus>>. <todo|TODO>
   </definition>
 
   These axioms are the usual complete axioms for normal modal logic over
@@ -2740,8 +2704,8 @@
   needed!>
 
   <\definition>
-    If <math|\<Gamma\>\<subseteq\><value|langClosure>> is a set of formulas
-    and <math|\<varphi\>\<in\><value|langClosure>> a formula, then
+    If <math|\<Gamma\>\<subseteq\><value|langBest>> is a set of formulas and
+    <math|\<varphi\>\<in\><value|langBest>> a formula, then
     <math|\<Gamma\><value|proves>\<varphi\>> whenever there are finitely many
     <math|\<psi\><rsub|1>,\<ldots\>,\<psi\><rsub|k>\<in\>\<Gamma\>> such that
     <math|<value|proves>\<psi\><rsub|1>\<wedge\>\<ldots\>\<wedge\>\<psi\><rsub|k>\<rightarrow\>\<varphi\>>.
@@ -2749,8 +2713,8 @@
 
   <\theorem>
     <dueto|<aw|hand-point-right|1fn>>These rules and axioms are sound; for
-    all <math|\<Gamma\>\<subseteq\><value|langClosure>> and
-    <math|\<varphi\>\<in\><value|langClosure>>, if
+    all <math|\<Gamma\>\<subseteq\><value|langBest>> and
+    <math|\<varphi\>\<in\><value|langBest>>, if
     <math|\<Gamma\><value|proves>\<varphi\>> then
     <math|\<Gamma\>\<models\>\<varphi\>>.
   </theorem>
@@ -3635,10 +3599,24 @@
   <section|Reflections on Interpretability and Alignment>
 
   <\chapter>
-    Expressivity: Measuring the Modeling Power of Neural Networks
+    Expressivity: The Limitations of Neural Networks and the Logic of
+    <math|<value|bestop>>
   </chapter>
 
   <section|Introduction>
+
+  <todo|TODO: rewrite to emphasize these main things: (1) what can neural
+  networks represent? what can they not represent? (Basically, my neural
+  networks are more powerful models than <math|<value|Plaus>> and less
+  powerful than <math|<value|Nbhd>> (i.e. neural nets as hypergraphs)) (2)
+  what can the language <math|<value|langBest>> express? (My results here
+  are: <math|<value|langBest>> can express Smoothness (cool), inference in
+  neural networks (given input <math|\<varphi\>>, what is the output
+  <math|\<psi\>>), certain properties of neural networks that correspond to
+  the <math|<value|bestop>> axioms, and also!! neural network updates such as
+  <math|<value|Hebbstar>>. Yet I prove that the axioms that separate
+  <math|<value|Plaus>> from <math|<value|Nbhd>> are not expressible in
+  <math|<value|langBest>>.)>
 
   <section|A Potpourri of Model Classes>
 
@@ -4983,8 +4961,8 @@
     <associate|auto-25|<tuple|2.1|45>>
     <associate|auto-26|<tuple|3|47>>
     <associate|auto-27|<tuple|4|48>>
-    <associate|auto-28|<tuple|5|49>>
-    <associate|auto-29|<tuple|6|52>>
+    <associate|auto-28|<tuple|5|48>>
+    <associate|auto-29|<tuple|6|51>>
     <associate|auto-3|<tuple|1|14>>
     <associate|auto-30|<tuple|7|52>>
     <associate|auto-31|<tuple|6|53>>
@@ -5000,84 +4978,84 @@
     <associate|auto-40|<tuple|1|62>>
     <associate|auto-41|<tuple|2|62>>
     <associate|auto-42|<tuple|3|65>>
-    <associate|auto-43|<tuple|4|65>>
+    <associate|auto-43|<tuple|4|66>>
     <associate|auto-44|<tuple|5|68>>
     <associate|auto-45|<tuple|6|70>>
-    <associate|auto-46|<tuple|7|71>>
-    <associate|auto-47|<tuple|8|74>>
-    <associate|auto-48|<tuple|1|74>>
-    <associate|auto-49|<tuple|2|74>>
+    <associate|auto-46|<tuple|7|72>>
+    <associate|auto-47|<tuple|8|75>>
+    <associate|auto-48|<tuple|1|75>>
+    <associate|auto-49|<tuple|2|75>>
     <associate|auto-5|<tuple|3|19>>
-    <associate|auto-50|<tuple|2.3|77>>
+    <associate|auto-50|<tuple|2.3|78>>
     <associate|auto-6|<tuple|4|19>>
     <associate|auto-7|<tuple|3|21>>
     <associate|auto-8|<tuple|1|21>>
     <associate|auto-9|<tuple|2|22>>
-    <associate|bib-Christoff:2015aa|<tuple|17|78>>
-    <associate|bib-Plaza2007PAL|<tuple|49|79>>
-    <associate|bib-achiam2023gpt|<tuple|1|77>>
-    <associate|bib-aho1972transitive|<tuple|2|77>>
-    <associate|bib-albarghouthi2021introduction|<tuple|3|77>>
-    <associate|bib-baccini2024dynamic|<tuple|4|77>>
-    <associate|bib-bader2005dimensions|<tuple|5|77>>
-    <associate|bib-badreddine2022aa|<tuple|6|77>>
-    <associate|bib-balkenius1991nonmonotonic|<tuple|7|77>>
-    <associate|bib-baltag1998PALC|<tuple|13|77>>
-    <associate|bib-baltag2009iterated|<tuple|14|77>>
-    <associate|bib-baltag2019dynamic|<tuple|9|77>>
-    <associate|bib-baltag2019right|<tuple|11|77>>
-    <associate|bib-baltag2019socialnetworks|<tuple|8|77>>
-    <associate|bib-baltag2019tracking|<tuple|10|77>>
-    <associate|bib-besold2021neural|<tuple|15|78>>
-    <associate|bib-blutner2004nonmonotonic|<tuple|16|78>>
-    <associate|bib-ciravegna2023logic|<tuple|18|78>>
-    <associate|bib-ditmarschDEL|<tuple|63|80>>
-    <associate|bib-dubey2024llama|<tuple|21|78>>
-    <associate|bib-garcez2001symbolic|<tuple|19|78>>
-    <associate|bib-garcez2008neural|<tuple|22|78>>
-    <associate|bib-geiger2024aa|<tuple|23|78>>
-    <associate|bib-giordano2021weighted|<tuple|25|78>>
-    <associate|bib-giordano2022conditional|<tuple|24|78>>
-    <associate|bib-gross2002genealogy|<tuple|26|78>>
-    <associate|bib-harmelen2022preface|<tuple|27|78>>
-    <associate|bib-hebb-organization-of-behavior-1949|<tuple|28|78>>
-    <associate|bib-immerman1998descriptive|<tuple|29|78>>
-    <associate|bib-kisby2022logic|<tuple|30|78>>
-    <associate|bib-kisby2024hebbian|<tuple|31|78>>
-    <associate|bib-kozen1981elementary|<tuple|32|79>>
-    <associate|bib-kraus1990nonmonotonic|<tuple|33|79>>
-    <associate|bib-leitgeb2001nonmonotonic|<tuple|34|79>>
-    <associate|bib-leitgeb2003nonmonotonic|<tuple|35|79>>
-    <associate|bib-leitgeb2018neural|<tuple|36|79>>
-    <associate|bib-libkin2004elements|<tuple|37|79>>
-    <associate|bib-logicsforepistemicactions|<tuple|12|77>>
-    <associate|bib-manhaeve2021neural|<tuple|38|79>>
-    <associate|bib-mcculloch1943logical|<tuple|39|79>>
-    <associate|bib-mcdermott1987critique|<tuple|40|79>>
-    <associate|bib-merrill2019sequential|<tuple|41|79>>
-    <associate|bib-merrill2020formal|<tuple|43|79>>
-    <associate|bib-merrill2023expressive|<tuple|42|79>>
-    <associate|bib-moss2007finite|<tuple|44|79>>
-    <associate|bib-moura2021lean|<tuple|45|79>>
-    <associate|bib-murphy2004big|<tuple|46|79>>
-    <associate|bib-oja1982simplified|<tuple|47|79>>
-    <associate|bib-pacuit2017neighborhood|<tuple|48|79>>
-    <associate|bib-polya1954mathematics|<tuple|50|79>>
-    <associate|bib-rumelhart1986aa|<tuple|51|79>>
-    <associate|bib-rumelhart1986learning|<tuple|52|80>>
-    <associate|bib-sarker2021neuro|<tuple|53|80>>
-    <associate|bib-sep-computational-complexity|<tuple|20|78>>
-    <associate|bib-sep-frame-problem|<tuple|54|80>>
-    <associate|bib-silver2017mastering|<tuple|55|80>>
-    <associate|bib-srivastava2015highway|<tuple|56|80>>
-    <associate|bib-strobl2024formal|<tuple|57|80>>
-    <associate|bib-tamkin2021understanding|<tuple|58|80>>
-    <associate|bib-van2007beliefrevision|<tuple|59|80>>
-    <associate|bib-van2007prefupgrade|<tuple|61|80>>
-    <associate|bib-van2011logicaldynamics|<tuple|60|80>>
-    <associate|bib-van2015dynamic|<tuple|62|80>>
-    <associate|bib-vaswani2017attention|<tuple|64|80>>
-    <associate|bib-weiss2018practical|<tuple|65|80>>
+    <associate|bib-Christoff:2015aa|<tuple|17|79>>
+    <associate|bib-Plaza2007PAL|<tuple|49|80>>
+    <associate|bib-achiam2023gpt|<tuple|1|78>>
+    <associate|bib-aho1972transitive|<tuple|2|78>>
+    <associate|bib-albarghouthi2021introduction|<tuple|3|78>>
+    <associate|bib-baccini2024dynamic|<tuple|4|78>>
+    <associate|bib-bader2005dimensions|<tuple|5|78>>
+    <associate|bib-badreddine2022aa|<tuple|6|78>>
+    <associate|bib-balkenius1991nonmonotonic|<tuple|7|78>>
+    <associate|bib-baltag1998PALC|<tuple|13|78>>
+    <associate|bib-baltag2009iterated|<tuple|14|78>>
+    <associate|bib-baltag2019dynamic|<tuple|9|78>>
+    <associate|bib-baltag2019right|<tuple|11|78>>
+    <associate|bib-baltag2019socialnetworks|<tuple|8|78>>
+    <associate|bib-baltag2019tracking|<tuple|10|78>>
+    <associate|bib-besold2021neural|<tuple|15|79>>
+    <associate|bib-blutner2004nonmonotonic|<tuple|16|79>>
+    <associate|bib-ciravegna2023logic|<tuple|18|79>>
+    <associate|bib-ditmarschDEL|<tuple|63|81>>
+    <associate|bib-dubey2024llama|<tuple|21|79>>
+    <associate|bib-garcez2001symbolic|<tuple|19|79>>
+    <associate|bib-garcez2008neural|<tuple|22|79>>
+    <associate|bib-geiger2024aa|<tuple|23|79>>
+    <associate|bib-giordano2021weighted|<tuple|25|79>>
+    <associate|bib-giordano2022conditional|<tuple|24|79>>
+    <associate|bib-gross2002genealogy|<tuple|26|79>>
+    <associate|bib-harmelen2022preface|<tuple|27|79>>
+    <associate|bib-hebb-organization-of-behavior-1949|<tuple|28|79>>
+    <associate|bib-immerman1998descriptive|<tuple|29|79>>
+    <associate|bib-kisby2022logic|<tuple|30|79>>
+    <associate|bib-kisby2024hebbian|<tuple|31|79>>
+    <associate|bib-kozen1981elementary|<tuple|32|80>>
+    <associate|bib-kraus1990nonmonotonic|<tuple|33|80>>
+    <associate|bib-leitgeb2001nonmonotonic|<tuple|34|80>>
+    <associate|bib-leitgeb2003nonmonotonic|<tuple|35|80>>
+    <associate|bib-leitgeb2018neural|<tuple|36|80>>
+    <associate|bib-libkin2004elements|<tuple|37|80>>
+    <associate|bib-logicsforepistemicactions|<tuple|12|78>>
+    <associate|bib-manhaeve2021neural|<tuple|38|80>>
+    <associate|bib-mcculloch1943logical|<tuple|39|80>>
+    <associate|bib-mcdermott1987critique|<tuple|40|80>>
+    <associate|bib-merrill2019sequential|<tuple|41|80>>
+    <associate|bib-merrill2020formal|<tuple|43|80>>
+    <associate|bib-merrill2023expressive|<tuple|42|80>>
+    <associate|bib-moss2007finite|<tuple|44|80>>
+    <associate|bib-moura2021lean|<tuple|45|80>>
+    <associate|bib-murphy2004big|<tuple|46|80>>
+    <associate|bib-oja1982simplified|<tuple|47|80>>
+    <associate|bib-pacuit2017neighborhood|<tuple|48|80>>
+    <associate|bib-polya1954mathematics|<tuple|50|80>>
+    <associate|bib-rumelhart1986aa|<tuple|51|80>>
+    <associate|bib-rumelhart1986learning|<tuple|52|81>>
+    <associate|bib-sarker2021neuro|<tuple|53|81>>
+    <associate|bib-sep-computational-complexity|<tuple|20|79>>
+    <associate|bib-sep-frame-problem|<tuple|54|81>>
+    <associate|bib-silver2017mastering|<tuple|55|81>>
+    <associate|bib-srivastava2015highway|<tuple|56|81>>
+    <associate|bib-strobl2024formal|<tuple|57|81>>
+    <associate|bib-tamkin2021understanding|<tuple|58|81>>
+    <associate|bib-van2007beliefrevision|<tuple|59|81>>
+    <associate|bib-van2007prefupgrade|<tuple|61|81>>
+    <associate|bib-van2011logicaldynamics|<tuple|60|81>>
+    <associate|bib-van2015dynamic|<tuple|62|81>>
+    <associate|bib-vaswani2017attention|<tuple|64|81>>
+    <associate|bib-weiss2018practical|<tuple|65|81>>
     <associate|corollary-theory-plaus-net|<tuple|4.4|67>>
     <associate|eqn1|<tuple|5.1|60>>
     <associate|eqn2|<tuple|5.2|61>>
@@ -5550,7 +5528,8 @@
       <no-break><pageref|auto-38>
 
       <vspace*|1fn><\with|font-series|<quote|bold>|math-font-series|<quote|bold>>
-        Expressivity: Measuring the Modeling Power of Neural Networks
+        Expressivity: The Limitations of Neural Networks and the Logic of
+        <with|mode|<quote|math>|[<with|mode|<quote|text>|best>]>
       </with> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-39><vspace|0.5fn>
 
