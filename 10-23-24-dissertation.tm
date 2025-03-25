@@ -1768,7 +1768,81 @@
     <todo|>
   </proof>
 
-  <subsection|Example: Building a Neural Network>
+  <\example>
+    <dueto|Building a Neural Network Model I>The discussion above is all very
+    formal and abstract. Let's see how the neural network model building is
+    done by example. Consider our birds example from before, where
+    <math|<value|langProp>=<around*|{|<text|bird>,<text|penguin>,<text|fly>|}>>.
+    Say we want to build a model satisfying the non-monotonic constraints
+    from before, i.e.,
+
+    <\equation*>
+      \<Gamma\>=<around*|{|<text|bird>\<Rightarrow\><text|fly>,<text|penguin>\<rightarrow\><text|bird>,<text|penguin>\<rightarrow\>\<neg\><text|fly>|}>
+    </equation*>
+
+    That is, birds typically fly, penguins are birds, but penguins do not
+    fly.
+
+    First, <math|<text|bird>\<Rightarrow\><text|fly>> is not in the language
+    of <math|<value|langBest>>, so we need to translate it. Recall that the
+    conditional <math|<text|bird>\<Rightarrow\><text|fly>> is equivalent to
+    <math|<value|All><around*|(|<value|bestop><text|bird>\<rightarrow\><text|fly>|)>>.
+    Now we need to construct a finite plausibility model
+    <math|<value|Model>\<in\><value|Plaus>>. It is always possible to
+    construct a plausibility model with constraints in
+    <math|<value|langBest>>\Vsee Appendix <todo|TODO> for the details.
+    However, the proof in Appendix <todo|TODO> is not constructive, so I do
+    not currently have an algorithm for doing this. For small examples like
+    this one, it's not too difficult to hand-craft a model.
+
+    Take the following model, illustrated by Figure <todo|> (a). Let
+    <math|W=<around*|{|<text|Tweety>,<text|Scuttle>,<text|Skipper>,<text|Nils>|}>>,
+    and let the propositional assignment <math|V> be given by
+    <math|<semantics|<text|><text|bird>>=<around*|{|<text|Tweety>,<text|Scuttle>,<text|Skipper>,<text|Nils>|}>>,
+    <math|<semantics|<text|><text|penguin>>=<around*|{|<text|Skipper>,<text|Nils>|}>>,
+    and <math|<semantics|<text|><text|fly>>=<around*|{|<text|Tweety>,<text|Scuttle>|}>>.
+    That is, Skipper and Nils are the only penguins, and Tweety and Scuttle
+    are the only birds that fly. Finally, let the plausibility order
+    <math|<around*|(|\<prec\>|)>=<around*|{|<around*|(|<text|Tweety>,<text|Skipper>|)>,<around*|(|<text|Tweety>,<text|Nils>|)>,<around*|(|<text|Scuttle>,<text|Skipper>|)>,<around*|(|<text|Scuttle>,<text|Nils>|)>|}>>.
+
+    \ In order to transform this model into a neural network, we apply the
+    NAND construction. Let <math|N=W>, <math|V=V>, <math|E=\<prec\>>, and add
+    a new node <math|<value|bias>>. Connect the <math|<value|bias>> node to
+    Skipper and Nils (since they are not <math|\<prec\>>-minimal). Then set
+    all weights to <math|W<around|(|m,n|)>=-<frac|1|3>>. Finally, pick
+    <math|A<around|(|x|)>=1> iff <math|x\<gtr\>-1>, and take an arbitrary
+    learning rate <math|\<eta\>>. The resulting neural network
+    <math|<value|Net>> is shown in Figure <todo|> (b).
+
+    Let's check that <math|<value|Net>> does in fact satisfy the constraints
+    <math|\<Gamma\>>, i.e., <math|<value|Net>\<models\>\<Gamma\>>. Well,
+
+    <\itemize>
+      <item><math|<value|Net>\<models\><text|penguin>\<rightarrow\><text|bird>>,
+      since <math|<semantics|<text|penguin>>=<around*|{|<text|Skipper>,<text|Nils>|}>\<subseteq\><semantics|<text|bird>>>
+      (for all <math|w\<in\>N>, <math|w\<Vdash\><text|penguin>> implies
+      <math|w\<Vdash\><text|bird>>).
+
+      <item>Similarly, <math|<value|Net>\<models\><text|penguin>\<rightarrow\>\<neg\><text|flies>>,
+      since <math|<semantics|<text|penguin>>=<around*|{|<text|Skipper>,<text|Nils>|}>\<subseteq\><semantics|<text|flies>><rsup|\<complement\>>>.
+
+      <item>Finally, let's check <math|<value|Net>\<models\><value|All><around*|(|<value|bestop><text|bird>\<rightarrow\><text|fly>|)>>.
+      In terms of neural network semantics, this says that for all
+      <math|w\<in\>N>, if <math|w\<in\><around*|(|<value|Closure><around*|(|<semantics|<text|bird>><rsup|\<complement\>>|)>|)><rsup|\<complement\>>>
+      then <math|w\<in\><semantics|<text|fly>>>. Observe that
+
+      <\equation*>
+        <around*|(|<value|Closure><around*|(|<semantics|<text|bird>><rsup|\<complement\>>|)>|)><rsup|\<complement\>>=
+      </equation*>
+
+      <todo|TODO ERROR!!!\Vneed to somehow ensure that <math|<value|bias>> is
+      in the closure!! This might underlie the issues I was having before!>
+    </itemize>
+  </example>
+
+  <\example>
+    <dueto|Building a Neural Network Model II><todo|TODO>
+  </example>
 
   <section|Expressive Power of Neural Network Models>
 
