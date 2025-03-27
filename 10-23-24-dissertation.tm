@@ -4,7 +4,7 @@
 
 <\body>
   <\hide-preamble>
-    \;
+    <tformat|>
   </hide-preamble>
 
   <with|font-shape|italic|>
@@ -37,9 +37,17 @@
 
   <new-page>
 
-  <abstract-data|<abstract|sdfafsfl;asjdfa;lkjf l;sdaj fl;asjf kl;asjfd
-  ;lasjf ;lkasjf ;klsajf l;ksaj f;lksajf;klasj f;klsaj f;klasj flk;asj
-  fkl;saj fl;ksaj f;lkjs a;flkj sa;lkfj s;klafj ;slakjf ;lasfj >>
+  <abstract-data|<\abstract>
+    sdfafsfl;asjdfa;lkjf l;sdaj fl;asjf kl;asjfd ;lasjf ;lkasjf ;klsajf
+    l;ksaj f;lksajf;klasj f;klsaj f;klasj flk;asj fkl;saj fl;ksaj f;lkjs
+    a;flkj sa;lkfj s;klafj ;slakjf ;lasfj
+
+    <\equation*>
+      <tabular|<tformat|<cwith|1|-1|1|-1|cell-bsep|0.25fn>|<cwith|1|-1|1|-1|cell-tsep|0.25fn>|<table|<row|<cell|dlf;jdsaflj>|<cell|>|<cell|>|<cell|>>|<row|<cell|>|<cell|>|<cell|>|<cell|>>|<row|<cell|>|<cell|>|<cell|>|<cell|>>|<row|<cell|>|<cell|>|<cell|>|<cell|>>|<row|<cell|>|<cell|>|<cell|>|<cell|>>>>>
+    </equation*>
+
+    \ 
+  </abstract>>
 
   <new-page>
 
@@ -1365,6 +1373,85 @@
     <todo|todo>
   </proof>
 
+  <\lemma>
+    Let <math|<value|Model>=\<langle\>W,\<prec\>,V\<rangle\>> be a
+    plausibility model, and <math|<value|Net>> be given by the NAND
+    construction above. For all conditional <with|font-shape|italic|terms>
+    <math|\<alpha\>\<in\><todo|<text|I need a symbol for this<text-dots>>>>,
+    <math|<semantics|\<alpha\>><rsub|<value|Net>>=<semantics|\<alpha\>><rsub|<value|Model>><rsup|\<complement\>>>
+    (the <with|font-shape|italic|complement> of
+    <math|<semantics|\<alpha\>><rsub|<value|Model>>>!)
+  </lemma>
+
+  <\proof>
+    We proceed by induction on <math|\<alpha\>>.
+
+    <todo|TODO>
+  </proof>
+
+  <\lemma>
+    Let <math|<value|Model>=\<langle\>W,\<prec\>,V\<rangle\>> be a
+    plausibility model, and <math|<value|Net>> be given by the NAND
+    construction above. For all conditional formulas
+    <math|\<alpha\>\<Rightarrow\>\<beta\>\<in\><value|lang><rsup|\<Rightarrow\>>>,
+    where <math|\<alpha\>,\<beta\>\<in\><todo|<text|todo>>>,
+
+    <\equation*>
+      <value|Net>\<models\>\<alpha\>\<Rightarrow\>\<beta\><infix-iff><value|Model>\<models\>\<alpha\>\<Rightarrow\>\<beta\>
+    </equation*>
+  </lemma>
+
+  <\proof>
+    Combining the previous two lemmas, we have
+
+    <\equation*>
+      <tabular|<tformat|<table|<row|<cell|<value|Net>\<models\>\<alpha\>\<Rightarrow\>\<beta\>>|<cell|<infix-iff>>|<cell|<semantics|\<beta\>><rsub|<value|Net>>\<subseteq\><value|Closure><around*|(|<semantics|\<alpha\>><rsub|<value|Net>>|)>>|<cell|<text|(by
+      definition)>>>|<row|<cell|>|<cell|<infix-iff>>|<cell|<semantics|\<beta\>><rsub|<value|Model>><rsup|\<complement\>>\<subseteq\><value|Closure><around*|(|<semantics|\<alpha\>><rsub|<value|Model>><rsup|\<complement\>>|)>>|<cell|<text|(by
+      Lemma <reference|lemma-closure-is-dual-of-best>)>>>|<row|<cell|>|<cell|<infix-iff>>|<cell|<semantics|\<beta\>><rsub|<value|Model>><rsup|\<complement\>>\<subseteq\><value|best><rsub|\<prec\>><around*|(|<semantics|\<alpha\>><rsub|<value|Model>>|)><rsup|\<complement\>>>|<cell|<text|(by
+      Lemma <reference|lemma-closure-is-dual-of-best>)>>>|<row|<cell|>|<cell|<infix-iff>>|<cell|<value|best><rsub|\<prec\>><around*|(|<semantics|\<alpha\>><rsub|<value|Model>>|)>\<subseteq\><semantics|\<beta\>><rsub|<value|Model>>>|<cell|<text|(flipping
+      <math|\<subseteq\>> and complementing both
+      sides)>>>|<row|<cell|>|<cell|<infix-iff>>|<cell|<value|Model>\<models\>\<alpha\>\<Rightarrow\>\<beta\>>|<cell|<text|(by
+      definition)>>>>>>
+    </equation*>
+
+    \;
+  </proof>
+
+  <\theorem>
+    <dueto|Model Building for <math|<value|lang><rsup|\<Rightarrow\>>>>For
+    all consistent <math|\<Gamma\>\<subseteq\><value|lang><rsup|\<Rightarrow\>>>,
+    there is finite <math|<Net>> such that <math|<Net>\<models\>\<Gamma\>>.
+  </theorem>
+
+  <\proof>
+    <todo|>
+  </proof>
+
+  <\corollary>
+    <dueto|Completeness for <math|<value|lang><rsup|\<Rightarrow\>>>>For all
+    consistent <math|\<Gamma\>\<subseteq\><value|lang><rsup|\<Rightarrow\>>>
+    and all conditionals <math|\<alpha\>\<Rightarrow\>\<beta\>\<in\><value|lang><rsup|\<Rightarrow\>>>,
+
+    <\equation*>
+      <text|if >\<Gamma\>\<models\>\<alpha\>\<Rightarrow\>\<beta\><text| then
+      >\<Gamma\><value|proves>\<alpha\>\<Rightarrow\>\<beta\>
+    </equation*>
+  </corollary>
+
+  <\proof>
+    <todo|>
+  </proof>
+
+  <\itemize>
+    <item>Need to also have modal logic semantics for plausibility models.
+    The big thing here is that I have to prove we can still build a finite
+    plausibility model in this setting!!!\Vcompleteness on the plausibility
+    model end is going to be the hard part, and will involve temporal logic
+    tricks.
+
+    <item>We will get a lot more mileage out of Lemma <todo|todo>!
+  </itemize>
+
   <section|Neural Network Semantics for the Modal Logic of
   <math|<value|bestop>>>
 
@@ -1604,24 +1691,57 @@
     <math|<value|Model>=\<langle\>W,\<prec\>,V\<rangle\>> be a plausibility
     model, and <math|<value|Net>> be given by the NAND construction above.
     For all <math|S\<subseteq\><value|State><rsub|<value|Net>>>,
-    <math|<value|Closure><around*|(|S|)>=<around*|(|<value|best><rsub|\<prec\>><around*|(|S<rsup|\<complement\>>|)>|)><rsup|\<complement\>>>.
+    <math|<value|Closure><rsub|<value|Net>><around*|(|S|)>=<around*|(|<value|best><rsub|\<prec\>><around*|(|S<rsup|\<complement\>>|)>|)><rsup|\<complement\>>>.
+    In a slogan:
+
+    <center|<with|font-shape|italic|<math|<value|Closure><rsub|<value|Net>><around*|(|S|)>>
+    is the dual of <math|<value|best><rsub|\<prec\>><around*|(|S|)>>.>>
   </lemma>
 
+  <\note*>
+    There is some ambiguity over what universe the complements in
+    <math|<around*|(|<value|best><rsub|\<prec\>><around*|(|S<rsup|\<complement\>>|)>|)><rsup|\<complement\>>>
+    are taken. The <math|<value|bias>> node of course occurs in <math|S>,
+    since <math|S> is a state of the net. But we should also allow for
+    <math|<value|bias>> to occur in the final complement of
+    <math|<around*|(|<value|best><rsub|\<prec\>><around*|(|S<rsup|\<complement\>>|)>|)><rsup|\<complement\>>>,
+    in order for this term to be exactly <math|<value|Closure><rsub|<value|Net>><around*|(|S|)>>.
+    So I interpret all of these complements over universe <math|N> (rather
+    than <math|W>). Explicitly, the claim is:
+
+    <\equation*>
+      <text|For all >S\<subseteq\><value|State><rsub|<value|Net>>,<value|Closure><rsub|<value|Net>><around*|(|S|)>=N\<backslash\><around*|(|<value|best><rsub|\<prec\>><around*|(|N\<backslash\>S|)>|)>
+    </equation*>
+  </note*>
+
   <\proof>
-    <todo|double-check that proof treats <math|<value|bias>> node properly>
     Once again, I will take advantage of the fact that fixed points of the
     transition function <math|F<rsub|S>> are unique. First, since
     <math|<value|Closure><around*|(|S|)>> is a fixed point under <math|S>, we
     have <math|F<rsub|S><around*|(|<value|Closure><around*|(|S|)>|)>=<value|Closure><around*|(|S|)>>.
     But I will show that <math|<around*|(|<value|best><rsub|\<prec\>><around*|(|S<rsup|\<complement\>>|)>|)><rsup|\<complement\>>>
     is <with|font-shape|italic|also> a fixed point under <math|S>, i.e.
-    <todo|<math|F<rsub|S><around*|(|<around*|(|<value|best><rsub|\<prec\>><around*|(|S<rsup|\<complement\>>|)>|)><rsup|\<complement\>>|)>=<around*|(|<value|best><rsub|\<prec\>><around*|(|S<rsup|\<complement\>>|)>|)><rsup|\<complement\>>>
-    Q: Is <math|<around*|(|<value|best><rsub|\<prec\>><around*|(|S<rsup|\<complement\>>|)>|)><rsup|\<complement\>>>
-    a state?? Can we apply <math|F<rsub|S>> to it?>. Since we assumed that
-    there is a <with|font-shape|italic|unique> fixed point under <math|S>, it
-    will follow that these two sets must be the same. In other words,
-    <math|<value|Closure><around*|(|S|)>=<around*|(|<value|best><rsub|\<prec\>><around*|(|S<rsup|\<complement\>>|)>|)><rsup|\<complement\>>>.
+    <math|F<rsub|S><around*|(|<around*|(|<value|best><rsub|\<prec\>><around*|(|S<rsup|\<complement\>>|)>|)><rsup|\<complement\>>|)>=<around*|(|<value|best><rsub|\<prec\>><around*|(|S<rsup|\<complement\>>|)>|)><rsup|\<complement\>>>.
+    Since we assumed that there is a <with|font-shape|italic|unique> fixed
+    point under <math|S>, it will follow that these two sets must be the
+    same. In other words, <math|<value|Closure><around*|(|S|)>=<around*|(|<value|best><rsub|\<prec\>><around*|(|S<rsup|\<complement\>>|)>|)><rsup|\<complement\>>>.
 
+    Recall that the type of <math|F<rsub|S>> is
+    <math|F<rsub|S>:<value|State><rsub|<value|Net>>\<rightarrow\><value|State><rsub|<value|Net>>>.
+    We need to make sure that <math|<around*|(|<value|best><rsub|\<prec\>><around*|(|S<rsup|\<complement\>>|)>|)><rsup|\<complement\>>\<in\><value|State><rsub|<value|Net>>>,
+    i.e., it is in fact a state of the neural network and we can apply
+    <math|F<rsub|S>> to it. In particular, we need to check that
+    <math|<value|bias>\<in\><around*|(|<value|best><rsub|\<prec\>><around*|(|S<rsup|\<complement\>>|)>|)><rsup|\<complement\>>>.
+    Well, <math|S\<subseteq\><value|State><rsub|<value|Net>>>, and so
+    <math|<value|bias>\<in\>S>. This means
+    <math|<value|bias><neg|\<in\>>S<rsup|\<complement\>>>, and by the
+    contrapositive of <math|<value|best>>-inclusion,
+    <math|<value|bias><neg|\<in\>><around*|(|<value|best><rsub|\<prec\>><around*|(|S<rsup|\<complement\>>|)>|)>>,
+    which is what I wanted to show. So the term
+    <math|F<rsub|S><around*|(|<around*|(|<value|best><rsub|\<prec\>><around*|(|S<rsup|\<complement\>>|)>|)><rsup|\<complement\>>|)>>
+    is well-defined.
+
+    We are now ready to show that <math|F<rsub|S><around*|(|<around*|(|<value|best><rsub|\<prec\>><around*|(|S<rsup|\<complement\>>|)>|)><rsup|\<complement\>>|)>=<around*|(|<value|best><rsub|\<prec\>><around*|(|S<rsup|\<complement\>>|)>|)><rsup|\<complement\>>>.
     For the <math|<around*|(|\<rightarrow\>|)>> direction, suppose
     <math|n\<in\>F<rsub|S><around*|(|<around*|(|<value|best><rsub|\<prec\>><around*|(|S<rsup|\<complement\>>|)>|)><rsup|\<complement\>>|)>>.
     By construction of <math|F<rsub|S>>, we have two cases:
@@ -1668,86 +1788,11 @@
   </proof>
 
   The following lemma says that the constructed net <math|<value|Net>> is in
-  fact equivalent to <math|<value|Model>>.
-
-  <\lemma>
-    Let <math|<value|Model>=\<langle\>W,\<prec\>,V\<rangle\>> be a
-    plausibility model, and <math|<value|Net>> be given by the NAND
-    construction above. For all conditional <with|font-shape|italic|terms>
-    <math|\<alpha\>\<in\><todo|<text|I need a symbol for this<text-dots>>>>,
-    <math|<semantics|\<alpha\>><rsub|<value|Net>>=<semantics|\<alpha\>><rsub|<value|Model>><rsup|\<complement\>>>
-    (the <with|font-shape|italic|complement> of
-    <math|<semantics|\<alpha\>><rsub|<value|Model>>>!)
-  </lemma>
-
-  <\proof>
-    We proceed by induction on <math|\<alpha\>>.
-
-    <todo|TODO>
-  </proof>
-
-  <\lemma>
-    Let <math|<value|Model>=\<langle\>W,\<prec\>,V\<rangle\>> be a
-    plausibility model, and <math|<value|Net>> be given by the NAND
-    construction above. For all conditional formulas
-    <math|\<alpha\>\<Rightarrow\>\<beta\>\<in\><value|lang><rsup|\<Rightarrow\>>>,
-    where <math|\<alpha\>,\<beta\>\<in\><todo|<text|todo>>>,
-
-    <\equation*>
-      <value|Net>\<models\>\<alpha\>\<Rightarrow\>\<beta\><infix-iff><value|Model>\<models\>\<alpha\>\<Rightarrow\>\<beta\>
-    </equation*>
-  </lemma>
-
-  <\proof>
-    Combining the previous two lemmas, we have
-
-    <\equation*>
-      <tabular|<tformat|<table|<row|<cell|<value|Net>\<models\>\<alpha\>\<Rightarrow\>\<beta\>>|<cell|<infix-iff>>|<cell|<semantics|\<beta\>><rsub|<value|Net>>\<subseteq\><value|Closure><around*|(|<semantics|\<alpha\>><rsub|<value|Net>>|)>>|<cell|<text|(by
-      definition)>>>|<row|<cell|>|<cell|<infix-iff>>|<cell|<semantics|\<beta\>><rsub|<value|Model>><rsup|\<complement\>>\<subseteq\><value|Closure><around*|(|<semantics|\<alpha\>><rsub|<value|Model>><rsup|\<complement\>>|)>>|<cell|<text|(by
-      Lemma <reference|lemma-closure-is-dual-of-best>)>>>|<row|<cell|>|<cell|<infix-iff>>|<cell|<semantics|\<beta\>><rsub|<value|Model>><rsup|\<complement\>>\<subseteq\><value|best><rsub|\<prec\>><around*|(|<semantics|\<alpha\>><rsub|<value|Model>>|)><rsup|\<complement\>>>|<cell|<text|(by
-      Lemma <reference|lemma-closure-is-dual-of-best>)>>>|<row|<cell|>|<cell|<infix-iff>>|<cell|<value|best><rsub|\<prec\>><around*|(|<semantics|\<alpha\>><rsub|<value|Model>>|)>\<subseteq\><semantics|\<beta\>><rsub|<value|Model>>>|<cell|<text|(flipping
-      <math|\<subseteq\>> and complementing both
-      sides)>>>|<row|<cell|>|<cell|<infix-iff>>|<cell|<value|Model>\<models\>\<alpha\>\<Rightarrow\>\<beta\>>|<cell|<text|(by
-      definition)>>>>>>
-    </equation*>
-
-    \;
-  </proof>
-
-  <\theorem>
-    <dueto|Model Building for <math|<value|lang><rsup|\<Rightarrow\>>>>For
-    all consistent <math|\<Gamma\>\<subseteq\><value|lang><rsup|\<Rightarrow\>>>,
-    there is finite <math|<Net>> such that <math|<Net>\<models\>\<Gamma\>>.
-  </theorem>
-
-  <\proof>
-    <todo|>
-  </proof>
-
-  <\corollary>
-    <dueto|Completeness for <math|<value|lang><rsup|\<Rightarrow\>>>>For all
-    consistent <math|\<Gamma\>\<subseteq\><value|lang><rsup|\<Rightarrow\>>>
-    and all conditionals <math|\<alpha\>\<Rightarrow\>\<beta\>\<in\><value|lang><rsup|\<Rightarrow\>>>,
-
-    <\equation*>
-      <text|if >\<Gamma\>\<models\>\<alpha\>\<Rightarrow\>\<beta\><text| then
-      >\<Gamma\><value|proves>\<alpha\>\<Rightarrow\>\<beta\>
-    </equation*>
-  </corollary>
-
-  <\proof>
-    <todo|>
-  </proof>
-
-  <\itemize>
-    <item>Need to also have modal logic semantics for plausibility models.
-    The big thing here is that I have to prove we can still build a finite
-    plausibility model in this setting!!!\Vcompleteness on the plausibility
-    model end is going to be the hard part, and will involve temporal logic
-    tricks.
-
-    <item>We will get a lot more mileage out of Lemma <todo|todo>!
-  </itemize>
+  fact equivalent to <math|<value|Model>>, i.e., the two satisfy exactly the
+  same formulas at exactly the same worlds over the modal language of
+  <math|<value|langBest>>. Notice that the claim is only made for worlds
+  <math|w\<in\>W> and not for the <math|<value|bias>> node, since we cannot
+  evaluate <math|<value|satisfiesPlaus>> at the <math|<value|bias>> node.
 
   <\lemma>
     <label|lemma-plaus-net-match><dueto|<aw|hand-point-right|1fn>>Let
@@ -1786,20 +1831,22 @@
         plausibility semantics>|)>>>>>>
       </equation*>
 
-      <item*|Case <math|<value|diabestop>\<varphi\>>>
+      <item*|Case <math|<value|diabestop>\<varphi\>>>In this case, we need to
+      take care to be very explicit about what universe our complements are
+      taken over. So I will write <math|N\<backslash\>S> and
+      <math|W\<backslash\>S> in place of <math|S<rsup|\<complement\>>>.
 
       <\equation*>
         <tabular|<tformat|<table|<row|<cell|<value|Net>,w<value|satisfiesNet><value|diabestop>\<varphi\>>|<cell|<infix-iff>>|<cell|w\<in\><value|Closure><around*|(|<semantics|\<varphi\>><rsub|<value|Net>>\<cup\><around*|{|<value|bias>|}>|)>>|<cell|<around*|(|<text|By
-        neural net semantics>|)>>>|<row|<cell|>|<cell|<infix-iff>>|<cell|w\<in\><value|Closure><around*|(|<semantics|\<varphi\>><rsub|<value|Model>>\<cup\><around*|{|<value|bias>|}>|)>>|<cell|<around*|(|<text|By
-        inductive hypothesis>|)>>>|<row|<cell|>|<cell|<infix-iff>>|<cell|w\<in\><value|best><rsub|\<prec\>><around*|(|<around*|(|<semantics|\<varphi\>><rsub|<value|Model>>\<cup\><around*|{|<value|bias>|}>|)><rsup|\<complement\>>|)><rsup|\<complement\>>>|<cell|<around*|(|<text|By
-        Lemma <reference|lemma-closure-is-dual-of-best>>|)>>>|<row|<cell|>|<cell|<infix-iff>>|<cell|w\<in\><value|best><rsub|\<prec\>><around*|(|<semantics|\<varphi\>><rsup|\<complement\>><rsub|<value|Model>>-<around*|{|<value|bias>|}>|)><rsup|\<complement\>>>|<cell|<around*|(|<text|Distributing
-        the inner ><rsup|\<complement\>>|)>>>|<row|<cell|>|<cell|<infix-iff>>|<cell|w\<in\><around*|(|<value|best><rsub|\<prec\>><around*|(|<semantics|\<varphi\>><rsub|<value|Model>><rsup|\<complement\>>|)>|)><rsup|\<complement\>>>|<cell|<around*|(|<text|Since
-        <math|<value|bias><neg|\<in\>><semantics|\<varphi\>><rsup|\<complement\>><rsub|<value|Model>>>>|)>>>|<row|<cell|>|<cell|<infix-iff>>|<cell|<value|Model>,w<value|satisfiesPlaus>\<neg\><value|bestop>\<neg\>\<varphi\>>|<cell|<around*|(|<text|By
+        neural net semantics>|)>>>|<row|<cell|>|<cell|<infix-iff>>|<cell|w\<in\>N\<backslash\><around*|(|<value|best><rsub|\<prec\>><around*|(|N\<backslash\><around*|(|<semantics|\<varphi\>><rsub|<value|Net>>\<cup\><around*|{|<value|bias>|}>|)>|)>|)>>|<cell|<around*|(|<text|By
+        Lemma <reference|lemma-closure-is-dual-of-best>>|)>>>|<row|<cell|>|<cell|<infix-iff>>|<cell|w\<in\>N\<backslash\><around*|(|<value|best><rsub|\<prec\>><around*|(||\<nobracket\>>|\<nobracket\>>>|<cell|>>|<row|<cell|>|<cell|>|<cell|<space|2em><around*|(|N\<backslash\><semantics|\<varphi\>><rsub|<value|Net>>|)>\<cap\><around*|(|N\<backslash\><around*|{|<value|bias>|}>|)><around*|\<nobracket\>|<around*|\<nobracket\>||)>|)>>|<cell|<around*|(|<text|Grouping
+        terms>|)>>>|<row|<cell|>|<cell|<infix-iff>>|<cell|w\<in\>N\<backslash\><around*|(|<value|best><rsub|\<prec\>><around*|(|<around*|(|N\<backslash\><semantics|\<varphi\>><rsub|<value|Net>>|)>\<cap\>W|)>|)>>|<cell|<around*|(|<text|Since
+        >W=N\<backslash\><around*|{|<value|bias>|}>|)>>>|<row|<cell|>|<cell|<infix-iff>>|<cell|w\<in\>N\<backslash\><around*|(|<value|best><rsub|\<prec\>><around*|(|W\<backslash\><semantics|\<varphi\>><rsub|<value|Net>>|)>|)>>|<cell|>>|<row|<cell|>|<cell|<infix-iff>>|<cell|w\<in\>W\<backslash\><around*|(|<value|best><rsub|\<prec\>><around*|(|W\<backslash\><semantics|\<varphi\>><rsub|<value|Net>>|)>|)>>|<cell|<around*|(|<text|Since
+        >w\<in\>W<text| and >w\<neq\><value|bias>|)>>>|<row|<cell|>|<cell|<infix-iff>>|<cell|w\<in\>W\<backslash\><around*|(|<value|best><rsub|\<prec\>><around*|(|W\<backslash\><semantics|\<varphi\>><rsub|<value|Model>>|)>|)>>|<cell|<around*|(|<text|By
+        inductive hypothesis>|)>>>|<row|<cell|>|<cell|<infix-iff>>|<cell|<value|Model>,w<value|satisfiesPlaus>\<neg\><value|bestop>\<neg\>\<varphi\>>|<cell|<around*|(|<text|By
         plausibility semantics>|)>>>|<row|<cell|>|<cell|<infix-iff>>|<cell|<value|Model>,w<value|satisfiesPlaus><value|diabestop>\<varphi\>>|<cell|>>>>>
       </equation*>
     </description>
-
-    \;
   </proof>
 
   <\theorem>
@@ -1818,7 +1865,8 @@
     exists by Theorems <todo|model building> and <todo|filtration>, see
     Appendix <todo|> for details). Now let
     <math|<value|Net>\<in\><value|NetModel>> be given by the NAND
-    construction above. We have <math|w\<in\>W=N>. By Lemma
+    construction above. We have <math|w\<in\>W\<subset\>N>, and so we can
+    evaluate <math|<value|satisfiesNet>> at <math|w\<in\>N>. By Lemma
     <reference|lemma-plaus-net-match>, <math|<value|Net>,w<value|satisfiesNet>\<varphi\>>,
     and we are done.
   </proof>
@@ -4833,135 +4881,136 @@
     <associate|page-width-margin|false>
     <associate|par-par-sep|0fn>
     <associate|par-sep|1fn>
+    <associate|par-ver-sep|0.1fn>
   </collection>
 </initial>
 
 <\references>
   <\collection>
     <associate|auto-1|<tuple|1|8>>
-    <associate|auto-10|<tuple|3|23>>
+    <associate|auto-10|<tuple|3|24>>
     <associate|auto-11|<tuple|3.1|25>>
     <associate|auto-12|<tuple|4|27>>
-    <associate|auto-13|<tuple|5|27>>
-    <associate|auto-14|<tuple|6|30>>
-    <associate|auto-15|<tuple|7|30>>
-    <associate|auto-16|<tuple|7.1|31>>
-    <associate|auto-17|<tuple|7.2|35>>
-    <associate|auto-18|<tuple|8|36>>
-    <associate|auto-19|<tuple|9|44>>
+    <associate|auto-13|<tuple|5|29>>
+    <associate|auto-14|<tuple|6|31>>
+    <associate|auto-15|<tuple|7|32>>
+    <associate|auto-16|<tuple|7.1|32>>
+    <associate|auto-17|<tuple|7.2|37>>
+    <associate|auto-18|<tuple|8|38>>
+    <associate|auto-19|<tuple|9|46>>
     <associate|auto-2|<tuple|2|14>>
-    <associate|auto-20|<tuple|4|45>>
-    <associate|auto-21|<tuple|1|45>>
-    <associate|auto-22|<tuple|2|45>>
-    <associate|auto-23|<tuple|3|46>>
-    <associate|auto-24|<tuple|4|50>>
-    <associate|auto-25|<tuple|5|53>>
-    <associate|auto-26|<tuple|6|54>>
-    <associate|auto-27|<tuple|7|54>>
-    <associate|auto-28|<tuple|8|58>>
-    <associate|auto-29|<tuple|5|59>>
+    <associate|auto-20|<tuple|4|47>>
+    <associate|auto-21|<tuple|1|47>>
+    <associate|auto-22|<tuple|2|47>>
+    <associate|auto-23|<tuple|3|48>>
+    <associate|auto-24|<tuple|4|52>>
+    <associate|auto-25|<tuple|5|55>>
+    <associate|auto-26|<tuple|6|56>>
+    <associate|auto-27|<tuple|7|56>>
+    <associate|auto-28|<tuple|8|60>>
+    <associate|auto-29|<tuple|5|61>>
     <associate|auto-3|<tuple|1|14>>
-    <associate|auto-30|<tuple|1|59>>
-    <associate|auto-31|<tuple|2|59>>
-    <associate|auto-32|<tuple|3|59>>
-    <associate|auto-33|<tuple|4|60>>
-    <associate|auto-34|<tuple|5|60>>
-    <associate|auto-35|<tuple|6|61>>
-    <associate|auto-36|<tuple|1|61>>
-    <associate|auto-37|<tuple|2|61>>
-    <associate|auto-38|<tuple|A|62>>
-    <associate|auto-39|<tuple|A.1|62>>
+    <associate|auto-30|<tuple|1|61>>
+    <associate|auto-31|<tuple|2|61>>
+    <associate|auto-32|<tuple|3|61>>
+    <associate|auto-33|<tuple|4|62>>
+    <associate|auto-34|<tuple|5|62>>
+    <associate|auto-35|<tuple|6|63>>
+    <associate|auto-36|<tuple|1|63>>
+    <associate|auto-37|<tuple|2|63>>
+    <associate|auto-38|<tuple|A|64>>
+    <associate|auto-39|<tuple|A.1|64>>
     <associate|auto-4|<tuple|2|16>>
-    <associate|auto-40|<tuple|A.2|63>>
-    <associate|auto-41|<tuple|A.2.1|64>>
-    <associate|auto-42|<tuple|A.3|67>>
-    <associate|auto-43|<tuple|A.4|70>>
-    <associate|auto-44|<tuple|A.5|72>>
-    <associate|auto-45|<tuple|A.6|73>>
-    <associate|auto-46|<tuple|<with|mode|<quote|math>|\<bullet\>>|74>>
+    <associate|auto-40|<tuple|A.2|65>>
+    <associate|auto-41|<tuple|A.2.1|66>>
+    <associate|auto-42|<tuple|A.3|69>>
+    <associate|auto-43|<tuple|A.4|72>>
+    <associate|auto-44|<tuple|A.5|74>>
+    <associate|auto-45|<tuple|A.6|75>>
+    <associate|auto-46|<tuple|<with|mode|<quote|math>|\<bullet\>>|76>>
     <associate|auto-5|<tuple|3|19>>
     <associate|auto-6|<tuple|4|19>>
     <associate|auto-7|<tuple|3|20>>
     <associate|auto-8|<tuple|1|20>>
     <associate|auto-9|<tuple|2|20>>
-    <associate|bib-Christoff:2015aa|<tuple|17|75>>
-    <associate|bib-Plaza2007PAL|<tuple|49|76>>
-    <associate|bib-achiam2023gpt|<tuple|1|74>>
-    <associate|bib-aho1972transitive|<tuple|2|74>>
-    <associate|bib-albarghouthi2021introduction|<tuple|3|74>>
-    <associate|bib-baccini2024dynamic|<tuple|4|74>>
-    <associate|bib-bader2005dimensions|<tuple|5|74>>
-    <associate|bib-badreddine2022aa|<tuple|6|74>>
-    <associate|bib-balkenius1991nonmonotonic|<tuple|7|74>>
-    <associate|bib-baltag1998PALC|<tuple|13|74>>
-    <associate|bib-baltag2009iterated|<tuple|14|74>>
-    <associate|bib-baltag2019dynamic|<tuple|9|74>>
-    <associate|bib-baltag2019right|<tuple|11|74>>
-    <associate|bib-baltag2019socialnetworks|<tuple|8|74>>
-    <associate|bib-baltag2019tracking|<tuple|10|74>>
-    <associate|bib-besold2021neural|<tuple|15|75>>
-    <associate|bib-blutner2004nonmonotonic|<tuple|16|75>>
-    <associate|bib-ciravegna2023logic|<tuple|18|75>>
-    <associate|bib-ditmarschDEL|<tuple|63|77>>
-    <associate|bib-dubey2024llama|<tuple|21|75>>
-    <associate|bib-garcez2001symbolic|<tuple|19|75>>
-    <associate|bib-garcez2008neural|<tuple|22|75>>
-    <associate|bib-geiger2024aa|<tuple|23|75>>
-    <associate|bib-giordano2021weighted|<tuple|25|75>>
-    <associate|bib-giordano2022conditional|<tuple|24|75>>
-    <associate|bib-gross2002genealogy|<tuple|26|75>>
-    <associate|bib-harmelen2022preface|<tuple|27|75>>
-    <associate|bib-hebb-organization-of-behavior-1949|<tuple|28|75>>
-    <associate|bib-immerman1998descriptive|<tuple|29|75>>
-    <associate|bib-kisby2022logic|<tuple|30|75>>
-    <associate|bib-kisby2024hebbian|<tuple|31|75>>
-    <associate|bib-kozen1981elementary|<tuple|32|76>>
-    <associate|bib-kraus1990nonmonotonic|<tuple|33|76>>
-    <associate|bib-leitgeb2001nonmonotonic|<tuple|34|76>>
-    <associate|bib-leitgeb2003nonmonotonic|<tuple|35|76>>
-    <associate|bib-leitgeb2018neural|<tuple|36|76>>
-    <associate|bib-libkin2004elements|<tuple|37|76>>
-    <associate|bib-logicsforepistemicactions|<tuple|12|74>>
-    <associate|bib-manhaeve2021neural|<tuple|38|76>>
-    <associate|bib-mcculloch1943logical|<tuple|39|76>>
-    <associate|bib-mcdermott1987critique|<tuple|40|76>>
-    <associate|bib-merrill2019sequential|<tuple|41|76>>
-    <associate|bib-merrill2020formal|<tuple|43|76>>
-    <associate|bib-merrill2023expressive|<tuple|42|76>>
-    <associate|bib-moss2007finite|<tuple|44|76>>
-    <associate|bib-moura2021lean|<tuple|45|76>>
-    <associate|bib-murphy2004big|<tuple|46|76>>
-    <associate|bib-oja1982simplified|<tuple|47|76>>
-    <associate|bib-pacuit2017neighborhood|<tuple|48|76>>
-    <associate|bib-polya1954mathematics|<tuple|50|76>>
-    <associate|bib-rumelhart1986aa|<tuple|51|76>>
-    <associate|bib-rumelhart1986learning|<tuple|52|77>>
-    <associate|bib-sarker2021neuro|<tuple|53|77>>
-    <associate|bib-sep-computational-complexity|<tuple|20|75>>
-    <associate|bib-sep-frame-problem|<tuple|54|77>>
-    <associate|bib-silver2017mastering|<tuple|55|77>>
-    <associate|bib-srivastava2015highway|<tuple|56|77>>
-    <associate|bib-strobl2024formal|<tuple|57|77>>
-    <associate|bib-tamkin2021understanding|<tuple|58|77>>
-    <associate|bib-van2007beliefrevision|<tuple|59|77>>
-    <associate|bib-van2007prefupgrade|<tuple|61|77>>
-    <associate|bib-van2011logicaldynamics|<tuple|60|77>>
-    <associate|bib-van2015dynamic|<tuple|62|77>>
-    <associate|bib-vaswani2017attention|<tuple|64|77>>
-    <associate|bib-weiss2018practical|<tuple|65|77>>
-    <associate|corollary-theory-plaus-net|<tuple|8.5|41>>
-    <associate|eqn1|<tuple|7.1|57>>
-    <associate|eqn2|<tuple|7.2|57>>
-    <associate|figure-axioms-best|<tuple|A.2.1|64>>
+    <associate|bib-Christoff:2015aa|<tuple|17|77>>
+    <associate|bib-Plaza2007PAL|<tuple|49|78>>
+    <associate|bib-achiam2023gpt|<tuple|1|76>>
+    <associate|bib-aho1972transitive|<tuple|2|76>>
+    <associate|bib-albarghouthi2021introduction|<tuple|3|76>>
+    <associate|bib-baccini2024dynamic|<tuple|4|76>>
+    <associate|bib-bader2005dimensions|<tuple|5|76>>
+    <associate|bib-badreddine2022aa|<tuple|6|76>>
+    <associate|bib-balkenius1991nonmonotonic|<tuple|7|76>>
+    <associate|bib-baltag1998PALC|<tuple|13|76>>
+    <associate|bib-baltag2009iterated|<tuple|14|76>>
+    <associate|bib-baltag2019dynamic|<tuple|9|76>>
+    <associate|bib-baltag2019right|<tuple|11|76>>
+    <associate|bib-baltag2019socialnetworks|<tuple|8|76>>
+    <associate|bib-baltag2019tracking|<tuple|10|76>>
+    <associate|bib-besold2021neural|<tuple|15|77>>
+    <associate|bib-blutner2004nonmonotonic|<tuple|16|77>>
+    <associate|bib-ciravegna2023logic|<tuple|18|77>>
+    <associate|bib-ditmarschDEL|<tuple|63|79>>
+    <associate|bib-dubey2024llama|<tuple|21|77>>
+    <associate|bib-garcez2001symbolic|<tuple|19|77>>
+    <associate|bib-garcez2008neural|<tuple|22|77>>
+    <associate|bib-geiger2024aa|<tuple|23|77>>
+    <associate|bib-giordano2021weighted|<tuple|25|77>>
+    <associate|bib-giordano2022conditional|<tuple|24|77>>
+    <associate|bib-gross2002genealogy|<tuple|26|77>>
+    <associate|bib-harmelen2022preface|<tuple|27|77>>
+    <associate|bib-hebb-organization-of-behavior-1949|<tuple|28|77>>
+    <associate|bib-immerman1998descriptive|<tuple|29|77>>
+    <associate|bib-kisby2022logic|<tuple|30|77>>
+    <associate|bib-kisby2024hebbian|<tuple|31|77>>
+    <associate|bib-kozen1981elementary|<tuple|32|78>>
+    <associate|bib-kraus1990nonmonotonic|<tuple|33|78>>
+    <associate|bib-leitgeb2001nonmonotonic|<tuple|34|78>>
+    <associate|bib-leitgeb2003nonmonotonic|<tuple|35|78>>
+    <associate|bib-leitgeb2018neural|<tuple|36|78>>
+    <associate|bib-libkin2004elements|<tuple|37|78>>
+    <associate|bib-logicsforepistemicactions|<tuple|12|76>>
+    <associate|bib-manhaeve2021neural|<tuple|38|78>>
+    <associate|bib-mcculloch1943logical|<tuple|39|78>>
+    <associate|bib-mcdermott1987critique|<tuple|40|78>>
+    <associate|bib-merrill2019sequential|<tuple|41|78>>
+    <associate|bib-merrill2020formal|<tuple|43|78>>
+    <associate|bib-merrill2023expressive|<tuple|42|78>>
+    <associate|bib-moss2007finite|<tuple|44|78>>
+    <associate|bib-moura2021lean|<tuple|45|78>>
+    <associate|bib-murphy2004big|<tuple|46|78>>
+    <associate|bib-oja1982simplified|<tuple|47|78>>
+    <associate|bib-pacuit2017neighborhood|<tuple|48|78>>
+    <associate|bib-polya1954mathematics|<tuple|50|78>>
+    <associate|bib-rumelhart1986aa|<tuple|51|78>>
+    <associate|bib-rumelhart1986learning|<tuple|52|79>>
+    <associate|bib-sarker2021neuro|<tuple|53|79>>
+    <associate|bib-sep-computational-complexity|<tuple|20|77>>
+    <associate|bib-sep-frame-problem|<tuple|54|79>>
+    <associate|bib-silver2017mastering|<tuple|55|79>>
+    <associate|bib-srivastava2015highway|<tuple|56|79>>
+    <associate|bib-strobl2024formal|<tuple|57|79>>
+    <associate|bib-tamkin2021understanding|<tuple|58|79>>
+    <associate|bib-van2007beliefrevision|<tuple|59|79>>
+    <associate|bib-van2007prefupgrade|<tuple|61|79>>
+    <associate|bib-van2011logicaldynamics|<tuple|60|79>>
+    <associate|bib-van2015dynamic|<tuple|62|79>>
+    <associate|bib-vaswani2017attention|<tuple|64|79>>
+    <associate|bib-weiss2018practical|<tuple|65|79>>
+    <associate|corollary-theory-plaus-net|<tuple|8.5|42>>
+    <associate|eqn1|<tuple|7.1|59>>
+    <associate|eqn2|<tuple|7.2|60>>
+    <associate|figure-axioms-best|<tuple|A.2.1|66>>
     <associate|figure-net-properties|<tuple|3.1|25>>
-    <associate|figure-network-model-building-example|<tuple|7.2|35>>
-    <associate|figure-network-nand-construction|<tuple|7.1|31>>
-    <associate|lemma-closure-is-dual-of-best|<tuple|7.1|32>>
-    <associate|lemma-plaus-net-match|<tuple|7.6|34>>
-    <associate|proposition-box-boxback|<tuple|A.3.2|67>>
-    <associate|proposition-build-mcs|<tuple|A.3.4|67>>
-    <associate|theorem-model-building-classical|<tuple|A.3.7|70>>
-    <associate|theorem-model-building-neural|<tuple|7.7|34>>
+    <associate|figure-network-model-building-example|<tuple|7.2|37>>
+    <associate|figure-network-nand-construction|<tuple|7.1|32>>
+    <associate|lemma-closure-is-dual-of-best|<tuple|7.1|33>>
+    <associate|lemma-plaus-net-match|<tuple|7.2|35>>
+    <associate|proposition-box-boxback|<tuple|A.3.2|69>>
+    <associate|proposition-build-mcs|<tuple|A.3.4|69>>
+    <associate|theorem-model-building-classical|<tuple|A.3.7|72>>
+    <associate|theorem-model-building-neural|<tuple|7.3|36>>
   </collection>
 </references>
 
