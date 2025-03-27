@@ -120,110 +120,102 @@
     <no-break><pageref|auto-19>
 
     <vspace*|1fn><\with|font-series|bold|math-font-series|bold>
-      A Dynamic Logic of Hebbian Learning
+      Dynamic Update in Neural Network Semantics
     </with> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-20><vspace|0.5fn>
 
     1<space|0.5fn>Introduction <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-21>
 
-    2<space|0.5fn>Dynamic Update in Neural Network Semantics
+    2<space|0.5fn>Hebbian Learning: A Simple Neural Network Update Policy
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-22>
 
-    3<space|0.5fn>Hebbian Learning: A Simple Neural Network Update Policy
+    3<space|0.5fn>Properties of <with|mode|math|<with|font-family|ss|Hebb>>
+    and <with|mode|math|<with|font-family|ss|Hebb<rsup|\<ast\>>>>
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-23>
 
-    4<space|0.5fn>Properties of <with|mode|math|<with|font-family|ss|Hebb>>
-    and <with|mode|math|<with|font-family|ss|Hebb<rsup|\<ast\>>>>
+    4<space|0.5fn>Neural Network Semantics for Hebbian Update
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-24>
 
-    5<space|0.5fn>Neural Network Semantics for Hebbian Update
+    5<space|0.5fn>A Complete Logic of Iterated Hebbian Update
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-25>
 
-    6<space|0.5fn>Reduction Axioms for Iterated Hebbian Update
+    6<space|0.5fn>Reflections on Neural Network Alignment
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-26>
-
-    7<space|0.5fn>Completeness for Iterated Hebbian Update
-    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-27>
-
-    8<space|0.5fn>Reflections on Neural Network Alignment
-    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-28>
 
     <vspace*|1fn><\with|font-series|bold|math-font-series|bold>
       Applications & Future Directions of Neural Network Semantics
     </with> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-29><vspace|0.5fn>
+    <no-break><pageref|auto-27><vspace|0.5fn>
 
     1<space|0.5fn>Introduction <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-30>
+    <no-break><pageref|auto-28>
 
     2<space|0.5fn>Neural Network Updates from Epistemic Ones
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-31>
+    <no-break><pageref|auto-29>
 
     3<space|0.5fn>The Learning Power of Hebbian Learning
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-32>
+    <no-break><pageref|auto-30>
 
     4<space|0.5fn>A Dynamic Logic of Backpropagation
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-33>
+    <no-break><pageref|auto-31>
 
     5<space|0.5fn>Neural Network Semantics for First-Order Logic
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-34>
+    <no-break><pageref|auto-32>
 
     <vspace*|1fn><\with|font-series|bold|math-font-series|bold>
       Conclusions
     </with> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-35><vspace|0.5fn>
+    <no-break><pageref|auto-33><vspace|0.5fn>
 
     1<space|0.5fn>Results <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-36>
+    <no-break><pageref|auto-34>
 
     2<space|0.5fn>Open Questions <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-37>
+    <no-break><pageref|auto-35>
 
     <vspace*|1fn><with|font-series|bold|math-font-series|bold|Appendix
     A<space|0.5fn>The Modal Logic of <with|mode|math|[<with|mode|text|best>]>>
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-38><vspace|0.5fn>
+    <no-break><pageref|auto-36><vspace|0.5fn>
 
     A.1<space|0.5fn>Syntax and Semantics <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-39>
+    <no-break><pageref|auto-37>
 
     A.2<space|0.5fn>Soundness <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-40>
+    <no-break><pageref|auto-38>
 
     A.3<space|0.5fn>Model Building and Completeness
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-42>
+    <no-break><pageref|auto-40>
 
     A.4<space|0.5fn>Building a Finite Model
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-43>
+    <no-break><pageref|auto-41>
 
     A.5<space|0.5fn>The Interpretation and Expressive Power of
     <with|mode|math|[<with|mode|text|best>],\<box\>> and
     <with|mode|math|\<box\><rsup|<with|font-series|bold|\<downarrow\>>>>
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-44>
+    <no-break><pageref|auto-42>
 
     A.6<space|0.5fn>Dynamic Updates on the Logic of
     <with|mode|math|[<with|mode|text|best>]>
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-45>
+    <no-break><pageref|auto-43>
 
     <vspace*|1fn><with|font-series|bold|math-font-series|bold|References>
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-46><vspace|0.5fn>
+    <no-break><pageref|auto-44><vspace|0.5fn>
   </table-of-contents>
 
   <chapter|Introduction>
@@ -2540,16 +2532,10 @@
   method]
 
   <\chapter>
-    A Dynamic Logic of Hebbian Learning
+    Dynamic Update in Neural Network Semantics
   </chapter>
 
   <section|Introduction>
-
-  dsafkljsdf;lkja sfl;kj as;lfj asl;fj a;slkjf ;lasj f;lasj fl;kjsa ;flkj
-  as;lkfj sa;lkfj ;alsfj ;laskjf ;laskj ;lksj afd;lksj f;lkj s;lkfj sa;lkfj
-  s;laf j;lsa fj;ls j
-
-  <section|Dynamic Update in Neural Network Semantics>
 
   <todo|I now have space to express these points more slowly, in detail.> The
   neural network semantics presented so far shows us how we can use neural
@@ -3151,7 +3137,7 @@
   (same for <math|<value|Hebbstar>>), <math|\<Gamma\><value|modelsHebb>\<varphi\>>
   (same for <math|<value|Hebbstar>>) are what you'd expect.
 
-  <section|Reduction Axioms for Iterated Hebbian Update>
+  <section|A Complete Logic of Iterated Hebbian Update>
 
   <\itemize>
     <item>In the previous section, I gave sound axioms for
@@ -3186,8 +3172,6 @@
 
   do example using single-step Hebbian learning, since iterated is a bit more
   abstract<text-dots>
-
-  <section|Completeness for Iterated Hebbian Update>
 
   <\definition>
     <todo|Term rewriting translation system>
@@ -3242,14 +3226,6 @@
       >\<Gamma\><value|proves>\<varphi\>
     </equation*>
   </theorem>
-
-  \;
-
-  \;
-
-  \;
-
-  \;
 
   <\theorem>
     <dueto|<aw|hand-point-right|1fn>>For all
@@ -4891,126 +4867,124 @@
     <associate|auto-10|<tuple|3|24>>
     <associate|auto-11|<tuple|3.1|25>>
     <associate|auto-12|<tuple|4|27>>
-    <associate|auto-13|<tuple|5|29>>
+    <associate|auto-13|<tuple|5|28>>
     <associate|auto-14|<tuple|6|31>>
-    <associate|auto-15|<tuple|7|32>>
+    <associate|auto-15|<tuple|7|31>>
     <associate|auto-16|<tuple|7.1|32>>
-    <associate|auto-17|<tuple|7.2|37>>
-    <associate|auto-18|<tuple|8|38>>
-    <associate|auto-19|<tuple|9|46>>
+    <associate|auto-17|<tuple|7.2|36>>
+    <associate|auto-18|<tuple|8|37>>
+    <associate|auto-19|<tuple|9|45>>
     <associate|auto-2|<tuple|2|14>>
-    <associate|auto-20|<tuple|4|47>>
-    <associate|auto-21|<tuple|1|47>>
+    <associate|auto-20|<tuple|4|46>>
+    <associate|auto-21|<tuple|1|46>>
     <associate|auto-22|<tuple|2|47>>
-    <associate|auto-23|<tuple|3|48>>
-    <associate|auto-24|<tuple|4|52>>
+    <associate|auto-23|<tuple|3|51>>
+    <associate|auto-24|<tuple|4|54>>
     <associate|auto-25|<tuple|5|55>>
-    <associate|auto-26|<tuple|6|56>>
-    <associate|auto-27|<tuple|7|56>>
-    <associate|auto-28|<tuple|8|60>>
-    <associate|auto-29|<tuple|5|61>>
+    <associate|auto-26|<tuple|6|59>>
+    <associate|auto-27|<tuple|5|60>>
+    <associate|auto-28|<tuple|1|60>>
+    <associate|auto-29|<tuple|2|60>>
     <associate|auto-3|<tuple|1|14>>
-    <associate|auto-30|<tuple|1|61>>
-    <associate|auto-31|<tuple|2|61>>
-    <associate|auto-32|<tuple|3|61>>
-    <associate|auto-33|<tuple|4|62>>
-    <associate|auto-34|<tuple|5|62>>
-    <associate|auto-35|<tuple|6|63>>
-    <associate|auto-36|<tuple|1|63>>
-    <associate|auto-37|<tuple|2|63>>
-    <associate|auto-38|<tuple|A|64>>
-    <associate|auto-39|<tuple|A.1|64>>
+    <associate|auto-30|<tuple|3|60>>
+    <associate|auto-31|<tuple|4|61>>
+    <associate|auto-32|<tuple|5|61>>
+    <associate|auto-33|<tuple|6|62>>
+    <associate|auto-34|<tuple|1|62>>
+    <associate|auto-35|<tuple|2|62>>
+    <associate|auto-36|<tuple|A|63>>
+    <associate|auto-37|<tuple|A.1|63>>
+    <associate|auto-38|<tuple|A.2|64>>
+    <associate|auto-39|<tuple|A.2.1|65>>
     <associate|auto-4|<tuple|2|16>>
-    <associate|auto-40|<tuple|A.2|65>>
-    <associate|auto-41|<tuple|A.2.1|66>>
-    <associate|auto-42|<tuple|A.3|69>>
-    <associate|auto-43|<tuple|A.4|72>>
-    <associate|auto-44|<tuple|A.5|74>>
-    <associate|auto-45|<tuple|A.6|75>>
-    <associate|auto-46|<tuple|<with|mode|<quote|math>|\<bullet\>>|76>>
+    <associate|auto-40|<tuple|A.3|68>>
+    <associate|auto-41|<tuple|A.4|71>>
+    <associate|auto-42|<tuple|A.5|73>>
+    <associate|auto-43|<tuple|A.6|74>>
+    <associate|auto-44|<tuple|<with|mode|<quote|math>|\<bullet\>>|75>>
     <associate|auto-5|<tuple|3|19>>
     <associate|auto-6|<tuple|4|19>>
     <associate|auto-7|<tuple|3|20>>
     <associate|auto-8|<tuple|1|20>>
     <associate|auto-9|<tuple|2|20>>
-    <associate|bib-Christoff:2015aa|<tuple|17|77>>
-    <associate|bib-Plaza2007PAL|<tuple|49|78>>
-    <associate|bib-achiam2023gpt|<tuple|1|76>>
-    <associate|bib-aho1972transitive|<tuple|2|76>>
-    <associate|bib-albarghouthi2021introduction|<tuple|3|76>>
-    <associate|bib-baccini2024dynamic|<tuple|4|76>>
-    <associate|bib-bader2005dimensions|<tuple|5|76>>
-    <associate|bib-badreddine2022aa|<tuple|6|76>>
-    <associate|bib-balkenius1991nonmonotonic|<tuple|7|76>>
-    <associate|bib-baltag1998PALC|<tuple|13|76>>
-    <associate|bib-baltag2009iterated|<tuple|14|76>>
-    <associate|bib-baltag2019dynamic|<tuple|9|76>>
-    <associate|bib-baltag2019right|<tuple|11|76>>
-    <associate|bib-baltag2019socialnetworks|<tuple|8|76>>
-    <associate|bib-baltag2019tracking|<tuple|10|76>>
-    <associate|bib-besold2021neural|<tuple|15|77>>
-    <associate|bib-blutner2004nonmonotonic|<tuple|16|77>>
-    <associate|bib-ciravegna2023logic|<tuple|18|77>>
-    <associate|bib-ditmarschDEL|<tuple|63|79>>
-    <associate|bib-dubey2024llama|<tuple|21|77>>
-    <associate|bib-garcez2001symbolic|<tuple|19|77>>
-    <associate|bib-garcez2008neural|<tuple|22|77>>
-    <associate|bib-geiger2024aa|<tuple|23|77>>
-    <associate|bib-giordano2021weighted|<tuple|25|77>>
-    <associate|bib-giordano2022conditional|<tuple|24|77>>
-    <associate|bib-gross2002genealogy|<tuple|26|77>>
-    <associate|bib-harmelen2022preface|<tuple|27|77>>
-    <associate|bib-hebb-organization-of-behavior-1949|<tuple|28|77>>
-    <associate|bib-immerman1998descriptive|<tuple|29|77>>
-    <associate|bib-kisby2022logic|<tuple|30|77>>
-    <associate|bib-kisby2024hebbian|<tuple|31|77>>
-    <associate|bib-kozen1981elementary|<tuple|32|78>>
-    <associate|bib-kraus1990nonmonotonic|<tuple|33|78>>
-    <associate|bib-leitgeb2001nonmonotonic|<tuple|34|78>>
-    <associate|bib-leitgeb2003nonmonotonic|<tuple|35|78>>
-    <associate|bib-leitgeb2018neural|<tuple|36|78>>
-    <associate|bib-libkin2004elements|<tuple|37|78>>
-    <associate|bib-logicsforepistemicactions|<tuple|12|76>>
-    <associate|bib-manhaeve2021neural|<tuple|38|78>>
-    <associate|bib-mcculloch1943logical|<tuple|39|78>>
-    <associate|bib-mcdermott1987critique|<tuple|40|78>>
-    <associate|bib-merrill2019sequential|<tuple|41|78>>
-    <associate|bib-merrill2020formal|<tuple|43|78>>
-    <associate|bib-merrill2023expressive|<tuple|42|78>>
-    <associate|bib-moss2007finite|<tuple|44|78>>
-    <associate|bib-moura2021lean|<tuple|45|78>>
-    <associate|bib-murphy2004big|<tuple|46|78>>
-    <associate|bib-oja1982simplified|<tuple|47|78>>
-    <associate|bib-pacuit2017neighborhood|<tuple|48|78>>
-    <associate|bib-polya1954mathematics|<tuple|50|78>>
-    <associate|bib-rumelhart1986aa|<tuple|51|78>>
-    <associate|bib-rumelhart1986learning|<tuple|52|79>>
-    <associate|bib-sarker2021neuro|<tuple|53|79>>
-    <associate|bib-sep-computational-complexity|<tuple|20|77>>
-    <associate|bib-sep-frame-problem|<tuple|54|79>>
-    <associate|bib-silver2017mastering|<tuple|55|79>>
-    <associate|bib-srivastava2015highway|<tuple|56|79>>
-    <associate|bib-strobl2024formal|<tuple|57|79>>
-    <associate|bib-tamkin2021understanding|<tuple|58|79>>
-    <associate|bib-van2007beliefrevision|<tuple|59|79>>
-    <associate|bib-van2007prefupgrade|<tuple|61|79>>
-    <associate|bib-van2011logicaldynamics|<tuple|60|79>>
-    <associate|bib-van2015dynamic|<tuple|62|79>>
-    <associate|bib-vaswani2017attention|<tuple|64|79>>
-    <associate|bib-weiss2018practical|<tuple|65|79>>
+    <associate|bib-Christoff:2015aa|<tuple|17|76>>
+    <associate|bib-Plaza2007PAL|<tuple|49|77>>
+    <associate|bib-achiam2023gpt|<tuple|1|75>>
+    <associate|bib-aho1972transitive|<tuple|2|75>>
+    <associate|bib-albarghouthi2021introduction|<tuple|3|75>>
+    <associate|bib-baccini2024dynamic|<tuple|4|75>>
+    <associate|bib-bader2005dimensions|<tuple|5|75>>
+    <associate|bib-badreddine2022aa|<tuple|6|75>>
+    <associate|bib-balkenius1991nonmonotonic|<tuple|7|75>>
+    <associate|bib-baltag1998PALC|<tuple|13|75>>
+    <associate|bib-baltag2009iterated|<tuple|14|75>>
+    <associate|bib-baltag2019dynamic|<tuple|9|75>>
+    <associate|bib-baltag2019right|<tuple|11|75>>
+    <associate|bib-baltag2019socialnetworks|<tuple|8|75>>
+    <associate|bib-baltag2019tracking|<tuple|10|75>>
+    <associate|bib-besold2021neural|<tuple|15|76>>
+    <associate|bib-blutner2004nonmonotonic|<tuple|16|76>>
+    <associate|bib-ciravegna2023logic|<tuple|18|76>>
+    <associate|bib-ditmarschDEL|<tuple|63|78>>
+    <associate|bib-dubey2024llama|<tuple|21|76>>
+    <associate|bib-garcez2001symbolic|<tuple|19|76>>
+    <associate|bib-garcez2008neural|<tuple|22|76>>
+    <associate|bib-geiger2024aa|<tuple|23|76>>
+    <associate|bib-giordano2021weighted|<tuple|25|76>>
+    <associate|bib-giordano2022conditional|<tuple|24|76>>
+    <associate|bib-gross2002genealogy|<tuple|26|76>>
+    <associate|bib-harmelen2022preface|<tuple|27|76>>
+    <associate|bib-hebb-organization-of-behavior-1949|<tuple|28|76>>
+    <associate|bib-immerman1998descriptive|<tuple|29|76>>
+    <associate|bib-kisby2022logic|<tuple|30|76>>
+    <associate|bib-kisby2024hebbian|<tuple|31|76>>
+    <associate|bib-kozen1981elementary|<tuple|32|77>>
+    <associate|bib-kraus1990nonmonotonic|<tuple|33|77>>
+    <associate|bib-leitgeb2001nonmonotonic|<tuple|34|77>>
+    <associate|bib-leitgeb2003nonmonotonic|<tuple|35|77>>
+    <associate|bib-leitgeb2018neural|<tuple|36|77>>
+    <associate|bib-libkin2004elements|<tuple|37|77>>
+    <associate|bib-logicsforepistemicactions|<tuple|12|75>>
+    <associate|bib-manhaeve2021neural|<tuple|38|77>>
+    <associate|bib-mcculloch1943logical|<tuple|39|77>>
+    <associate|bib-mcdermott1987critique|<tuple|40|77>>
+    <associate|bib-merrill2019sequential|<tuple|41|77>>
+    <associate|bib-merrill2020formal|<tuple|43|77>>
+    <associate|bib-merrill2023expressive|<tuple|42|77>>
+    <associate|bib-moss2007finite|<tuple|44|77>>
+    <associate|bib-moura2021lean|<tuple|45|77>>
+    <associate|bib-murphy2004big|<tuple|46|77>>
+    <associate|bib-oja1982simplified|<tuple|47|77>>
+    <associate|bib-pacuit2017neighborhood|<tuple|48|77>>
+    <associate|bib-polya1954mathematics|<tuple|50|77>>
+    <associate|bib-rumelhart1986aa|<tuple|51|77>>
+    <associate|bib-rumelhart1986learning|<tuple|52|78>>
+    <associate|bib-sarker2021neuro|<tuple|53|78>>
+    <associate|bib-sep-computational-complexity|<tuple|20|76>>
+    <associate|bib-sep-frame-problem|<tuple|54|78>>
+    <associate|bib-silver2017mastering|<tuple|55|78>>
+    <associate|bib-srivastava2015highway|<tuple|56|78>>
+    <associate|bib-strobl2024formal|<tuple|57|78>>
+    <associate|bib-tamkin2021understanding|<tuple|58|78>>
+    <associate|bib-van2007beliefrevision|<tuple|59|78>>
+    <associate|bib-van2007prefupgrade|<tuple|61|78>>
+    <associate|bib-van2011logicaldynamics|<tuple|60|78>>
+    <associate|bib-van2015dynamic|<tuple|62|78>>
+    <associate|bib-vaswani2017attention|<tuple|64|78>>
+    <associate|bib-weiss2018practical|<tuple|65|78>>
     <associate|corollary-theory-plaus-net|<tuple|8.5|42>>
-    <associate|eqn1|<tuple|7.1|59>>
-    <associate|eqn2|<tuple|7.2|60>>
-    <associate|figure-axioms-best|<tuple|A.2.1|66>>
+    <associate|eqn1|<tuple|5.1|58>>
+    <associate|eqn2|<tuple|5.2|58>>
+    <associate|figure-axioms-best|<tuple|A.2.1|65>>
     <associate|figure-net-properties|<tuple|3.1|25>>
-    <associate|figure-network-model-building-example|<tuple|7.2|37>>
+    <associate|figure-network-model-building-example|<tuple|7.2|36>>
     <associate|figure-network-nand-construction|<tuple|7.1|32>>
     <associate|lemma-closure-is-dual-of-best|<tuple|7.1|33>>
-    <associate|lemma-plaus-net-match|<tuple|7.2|35>>
-    <associate|proposition-box-boxback|<tuple|A.3.2|69>>
-    <associate|proposition-build-mcs|<tuple|A.3.4|69>>
-    <associate|theorem-model-building-classical|<tuple|A.3.7|72>>
-    <associate|theorem-model-building-neural|<tuple|7.3|36>>
+    <associate|lemma-plaus-net-match|<tuple|7.2|34>>
+    <associate|proposition-box-boxback|<tuple|A.3.2|68>>
+    <associate|proposition-build-mcs|<tuple|A.3.4|68>>
+    <associate|theorem-model-building-classical|<tuple|A.3.7|71>>
+    <associate|theorem-model-building-neural|<tuple|7.3|35>>
   </collection>
 </references>
 
@@ -5320,7 +5294,7 @@
       <with|mode|<quote|math>|x\<gtr\>-1>.>|<pageref|auto-17>>
 
       <tuple|normal|<surround|<hidden-binding|<tuple>|A.2.1>||Axioms and
-      rules of inference for <with|color|<quote|#4c4b0d>|<datoms|<macro|x|<resize|<tabular|<tformat|<cwith|1|1|1|1|cell-background|#e0dfba>|<cwith|1|1|1|1|cell-lsep|0fn>|<cwith|1|1|1|1|cell-rsep|0fn>|<cwith|1|1|1|1|cell-bsep|0.2fn>|<cwith|1|1|1|1|cell-tsep|0.2fn>|<cwith|1|-1|1|-1|cell-lborder|0ln>|<cwith|1|-1|1|-1|cell-rborder|0ln>|<cwith|1|-1|1|-1|cell-bborder|0ln>|<cwith|1|-1|1|-1|cell-tborder|0ln>|<twith|table-width|>|<twith|table-hmode|auto>|<twith|table-block|no>|<table|<row|<cell|<arg|x>>>>>>|<plus|1l|0fn>|<plus|1b|0.2fn>|<minus|1r|0fn>|<minus|1t|0.2fn>>>|[todo]>>>|<pageref|auto-41>>
+      rules of inference for <with|color|<quote|#4c4b0d>|<datoms|<macro|x|<resize|<tabular|<tformat|<cwith|1|1|1|1|cell-background|#e0dfba>|<cwith|1|1|1|1|cell-lsep|0fn>|<cwith|1|1|1|1|cell-rsep|0fn>|<cwith|1|1|1|1|cell-bsep|0.2fn>|<cwith|1|1|1|1|cell-tsep|0.2fn>|<cwith|1|-1|1|-1|cell-lborder|0ln>|<cwith|1|-1|1|-1|cell-rborder|0ln>|<cwith|1|-1|1|-1|cell-bborder|0ln>|<cwith|1|-1|1|-1|cell-tborder|0ln>|<twith|table-width|>|<twith|table-hmode|auto>|<twith|table-block|no>|<table|<row|<cell|<arg|x>>>>>>|<plus|1l|0fn>|<plus|1b|0.2fn>|<minus|1r|0fn>|<minus|1t|0.2fn>>>|[todo]>>>|<pageref|auto-39>>
     </associate>
     <\associate|toc>
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Introduction>
@@ -5392,111 +5366,103 @@
       <no-break><pageref|auto-19>
 
       <vspace*|1fn><\with|font-series|<quote|bold>|math-font-series|<quote|bold>>
-        A Dynamic Logic of Hebbian Learning
+        Dynamic Update in Neural Network Semantics
       </with> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-20><vspace|0.5fn>
 
       1<space|0.5fn>Introduction <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-21>
 
-      2<space|0.5fn>Dynamic Update in Neural Network Semantics
+      2<space|0.5fn>Hebbian Learning: A Simple Neural Network Update Policy
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-22>
 
-      3<space|0.5fn>Hebbian Learning: A Simple Neural Network Update Policy
+      3<space|0.5fn>Properties of <with|mode|<quote|math>|<with|font-family|<quote|ss>|Hebb>>
+      and <with|mode|<quote|math>|<with|font-family|<quote|ss>|Hebb<rsup|\<ast\>>>>
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-23>
 
-      4<space|0.5fn>Properties of <with|mode|<quote|math>|<with|font-family|<quote|ss>|Hebb>>
-      and <with|mode|<quote|math>|<with|font-family|<quote|ss>|Hebb<rsup|\<ast\>>>>
+      4<space|0.5fn>Neural Network Semantics for Hebbian Update
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-24>
 
-      5<space|0.5fn>Neural Network Semantics for Hebbian Update
+      5<space|0.5fn>A Complete Logic of Iterated Hebbian Update
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-25>
 
-      6<space|0.5fn>Reduction Axioms for Iterated Hebbian Update
+      6<space|0.5fn>Reflections on Neural Network Alignment
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-26>
-
-      7<space|0.5fn>Completeness for Iterated Hebbian Update
-      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-27>
-
-      8<space|0.5fn>Reflections on Neural Network Alignment
-      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-28>
 
       <vspace*|1fn><\with|font-series|<quote|bold>|math-font-series|<quote|bold>>
         Applications & Future Directions of Neural Network Semantics
       </with> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-29><vspace|0.5fn>
+      <no-break><pageref|auto-27><vspace|0.5fn>
 
       1<space|0.5fn>Introduction <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-30>
+      <no-break><pageref|auto-28>
 
       2<space|0.5fn>Neural Network Updates from Epistemic Ones
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-31>
+      <no-break><pageref|auto-29>
 
       3<space|0.5fn>The Learning Power of Hebbian Learning
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-32>
+      <no-break><pageref|auto-30>
 
       4<space|0.5fn>A Dynamic Logic of Backpropagation
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-33>
+      <no-break><pageref|auto-31>
 
       5<space|0.5fn>Neural Network Semantics for First-Order Logic
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-34>
+      <no-break><pageref|auto-32>
 
       <vspace*|1fn><\with|font-series|<quote|bold>|math-font-series|<quote|bold>>
         Conclusions
       </with> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-35><vspace|0.5fn>
+      <no-break><pageref|auto-33><vspace|0.5fn>
 
       1<space|0.5fn>Results <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-36>
+      <no-break><pageref|auto-34>
 
       2<space|0.5fn>Open Questions <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-37>
+      <no-break><pageref|auto-35>
 
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Appendix
       A<space|0.5fn>The Modal Logic of <with|mode|<quote|math>|[<with|mode|<quote|text>|best>]>>
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-38><vspace|0.5fn>
+      <no-break><pageref|auto-36><vspace|0.5fn>
 
       A.1<space|0.5fn>Syntax and Semantics
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-39>
+      <no-break><pageref|auto-37>
 
       A.2<space|0.5fn>Soundness <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-40>
+      <no-break><pageref|auto-38>
 
       A.3<space|0.5fn>Model Building and Completeness
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-42>
+      <no-break><pageref|auto-40>
 
       A.4<space|0.5fn>Building a Finite Model
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-43>
+      <no-break><pageref|auto-41>
 
       A.5<space|0.5fn>The Interpretation and Expressive Power of
       <with|mode|<quote|math>|[<with|mode|<quote|text>|best>],\<box\>> and
       <with|mode|<quote|math>|\<box\><rsup|<with|font-series|<quote|bold>|\<downarrow\>>>>
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-44>
+      <no-break><pageref|auto-42>
 
       A.6<space|0.5fn>Dynamic Updates on the Logic of
       <with|mode|<quote|math>|[<with|mode|<quote|text>|best>]>
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-45>
+      <no-break><pageref|auto-43>
 
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|References>
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-46><vspace|0.5fn>
+      <no-break><pageref|auto-44><vspace|0.5fn>
     </associate>
   </collection>
 </auxiliary>
