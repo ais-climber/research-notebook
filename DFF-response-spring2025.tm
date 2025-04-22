@@ -252,9 +252,9 @@
     a fair point.> <todo|Similarly for the role of the logics of Hebbian
     learning partly developed by the PI.>
 
-    The project has a network of excellent international collaborators; there
-    are many of them; however for most of them the collaboration might just
-    be a single visit to DTU. <with|font-series|bold|Caleb: Also a good
+    <todo|The project has a network of excellent international collaborators;
+    there are many of them; however for most of them the collaboration might
+    just be a single visit to DTU.> <with|font-series|bold|Caleb: Also a good
     point, unfortunately.> It is good that the PhD will spend a semester
     abroad (in Amsterdam), though this period might come a bit too early (the
     first half of the second year), right when the shape of the PhD goal
@@ -298,9 +298,152 @@
   The response to the hearing should be as brief as possible. It can be
   written in either Danish/Scandinavian or English.
 
-  <section*|Our Response>
+  <section*|Scrapped Text for Raw Material>
+
+  The PhD student will be <with|font-series|bold|recruited through an open
+  competition> announced widely in the communities of TCS and logic, e.g.,
+  through the Logic mailing list. Both the call and the selection procedure
+  will be very sensitive to the issue of gender balance and equal
+  opportunity. Through local (at DTU) and international (numerous summer
+  schools) teaching, the PI's research agenda is familiar to young logicians.
+  The Danish and international collaborators mentioned in the project
+  description will be consulted, but the final decision on the personnel will
+  be taken by the PI in consultation with the Postdoc. Ample time is allowed
+  for the selection procedure to succeed. The ideal candidate is envisioned
+  to have a MSc in mathematical logic or TCS.
 
   \;
+
+  <paragraph|Special justifications for DFF Project 2 in Natural Sciences.>
+
+  This project arose from the realization that the topological learning
+  perspective of the PI and the neural network semantics approach of the
+  Postdoc together form a more unified picture of computational learning. As
+  we have outlined in this proposal, the problem of reasoning about and
+  guiding learning processes cuts across many fields, including artificial
+  intelligence, TCS, dynamic epistemic logic, formal verification, social
+  networks, and cognitive science. Questions of logic design, semantics,
+  soundness, completeness, and explainability of learning processes bond the
+  Work Packages, and will put the project participants in constant dialogue.
+  The ambition, reach, and interdisciplinarity of this project fulfills the
+  requirements of DFF Project 2, as it requires a team consisting of two
+  separate full-time researchers, a PhD student and the Postdoc, and a
+  network of collaborators. A project of this size does not fit the funding
+  framework of DFF Project 1.
+
+  Apart from expanding and strengthening this international collaboration
+  network, this project will foster the PI's existing Denmark-based
+  collaboration with Roskilde University, in particular with
+  Profs.<nbsp>Blackburn and Braüner. They regularly participate in joint
+  seminars, reading groups and student supervision activities at DTU and
+  Roskilde University.
+
+  \;
+
+  <no-indent><with|font-series|bold|B.> <with|font-series|bold|Relating to
+  other neuro-symbolic approaches and implementing software.> In the second
+  part of the WP1 we will situate our dynamic logic framework and its
+  interpretation within the broader range of neuro-symbolic systems,
+  including Logic Tensor Networks <cite|badreddine2022aa>, Distributed
+  Alignment Search <cite|geiger2024aa>, DeepProbLog
+  <cite|manhaeve2021neural>, Logic Explained Networks
+  <cite|ciravegna2023logic|Balasubramaniam:2023to>, and neural network
+  fibring <cite|garcez2008neural>. We will compare our system to these other
+  frameworks using the classifications of neuro-symbolic systems provided by
+  <cite|bader2005aa|sarker2021aa|kautz2022aa|besold2021neural>. To address
+  this last point, we will develop a software suite that performs the neural
+  network verification and model building. The user will provide learning
+  constraints in a generous language of FOL alongside dynamic operators for
+  neural network updates. The suite will be implemented in Python, using
+  standard graph and neural network libraries (e.g., NetworkX
+  <cite|hagberg2008aa> and Tensorflow <cite|abadi2016aa>). This will be the
+  first such neuro-symbolic system that makes use of <em|learning>
+  constraints. The expected output of WP1B is the software suite along with
+  experiments and a survey paper that compares this system to the other
+  neuro-symbolic systems. We will submit these results for publication in the
+  following venues: NeSy, CAV, and journals AIJ, JAIR, and <em|Neurosymbolic
+  AI>.
+
+  \;
+
+  \;
+
+  <no-indent><with|color|purple|As discussed above, by interpreting dynamic
+  logic directly over neural networks we are able to express constraints on a
+  neural network's behavior before and after learning, e.g.,
+  <math|<around|(|<math-bf|T>\<varphi\>\<to\>\<psi\>|)>\<wedge\><around|[|P|]>*<around|(|<math-bf|T>\<varphi\>\<to\>\<psi\>|)>>.
+  We can then apply tools from dynamic logic to verify and build neural
+  networks that obey these constraints. So far, this has only been done in
+  somewhat simplified scenarios <cite|Kisby:2024aa>. The goal of this work
+  package is to take steps towards achieving this vision in practice.>\ 
+
+  \;
+
+  \\textcolor{purple}{
+
+  \;
+
+  The Logic of Hebbian Learning discussed above
+  <cite|Kisby:2022aa|Kisby:2024aa> demonstrated that dynamic logic can be
+  used to model a neural network learning algorithm. But the choice of update
+  was simple by design. uses dynamic logic to completely characterize a very
+  simple unsupervised learning process.
+
+  We would like to apply this method to more realistic neural network
+  learning algorithms. The goal of this work package is exactly that. We will
+  use dynamic logic to model the effects of
+
+  \;
+
+  We would like to apply this method to more realistic neural network
+  learning algorithms. The goal of this work package is exactly that. We will
+  use dynamic logic to model the effects of the most widely used neural
+  network learning algorithm: gradient descent, implemented as
+  back-propagation <cite|rumelhart1986aa>. In this logic, dynamic operators
+  <math|<around|[|P;Q|]>> will denote a single round of back-propagation,
+  where <math|P> is the input and <math|Q> is its expected answer. Note that
+  dynamic logic normally considers unary operators <math|<around|[|P|]>>,
+  i.e. updates without an expected answer. In machine learning terms, these
+  operators perform <em|unsupervised> update. But back-propagation is a
+  <em|supervised> learning process, so we will also explore the role of
+  \Psupervised\Q operators <math|<around|[|P;Q|]>> more generally in dynamic
+  logic. <with|color|purple|Finally, we consider a richer constraint
+  language: First-Order Logic (FOL). Existing neuro-symbolic systems use the
+  language of FOL to reason about and build neural networks (e.g., Logic
+  Tensor Networks <cite|badreddine2022aa>, Logical Neural Networks
+  <cite|riegel2020aa>), but it is still an open problem to prove that any
+  such neural network mapping to FOL is sound. Our approach is to lift the
+  existing (sound) semantics over the modal language to FOL, using the
+  methods from <cite|andreka1995aa>.> The expected output of WP1A is a
+  collection of theorems proving the soundness of various properties of
+  backpropagation, supervised upgrade, and FOL interpreted using neural
+  networks. We plan to submit these results for publication in the following
+  venues: AAAI, AAMAS, IJCAI, ICLR, and the journals AIJ, JAIR, and
+  <em|Neurosymbolic AI>.
+
+  \;
+
+  <with|font-series|bold|Building a topological logic of NN learning and
+  providing topological characterizations.> Characterization results in
+  learning theory usually fall into one of two categories: topological and
+  computational <cite|Case:2016aa>. We mentioned one of these topological
+  results before: learning in the limit (a central notion of computational
+  learning theory) can be captured by <math|T<rsub|d>> topological spaces
+  <cite|BGS2015>. In this part of WP2, we will further extend this idea of
+  correspondence between properties of topological spaces and properties of
+  learners. In particular, we will characterize the truth-tracking power and
+  scope of neural network learning (Hebbian learning and back-propagation)
+  topologically. The semantics of our resulting logic will be informed by the
+  existing topological approach to neural networks <cite|HEALY:1999aa>. Of
+  course, there are limits to the topological characterization of learning,
+  as some important classes of learnable concepts fail to be topologically
+  invariant (vis. finite elasticity, <cite|Brecht:2010aa>). We will prove
+  analogous results for neural network learning. The expected output of WP2B
+  is a number of theorems that show correspondences between topological
+  properties and properties of neural network learning. We plan to submit
+  these results for publication in the following venues: TARK, KR, and the
+  journals JoLLI, JLC, AIJ, JAIR, <em|Studia Logica>, and the <em|Journal of
+  Applied Non-Classical Logics>.
 </body>
 
 <\initial>
@@ -335,18 +478,56 @@
 
 <\references>
   <\collection>
-    <associate|auto-1|<tuple|?|1|../My Notes/recitation-notes-H241-spring2025.tm>>
-    <associate|auto-2|<tuple|<with|mode|<quote|math>|\<bullet\>>|1|../My
-    Notes/recitation-notes-H241-spring2025.tm>>
+    <associate|auto-1|<tuple|?|1>>
+    <associate|auto-2|<tuple|<with|mode|<quote|math>|\<bullet\>>|1>>
     <associate|auto-3|<tuple|Potential comments on the Qualifications of
-    applicant|2|../My Notes/recitation-notes-H241-spring2025.tm>>
+    applicant|2>>
     <associate|auto-4|<tuple|Potential comments on the Qualifications of
-    applicant|?|../My Notes/recitation-notes-H241-spring2025.tm>>
+    applicant|3>>
   </collection>
 </references>
 
 <\auxiliary>
   <\collection>
+    <\associate|bib>
+      badreddine2022aa
+
+      geiger2024aa
+
+      manhaeve2021neural
+
+      Balasubramaniam:2023to
+
+      ciravegna2023logic
+
+      garcez2008neural
+
+      besold2021neural
+
+      kautz2022aa
+
+      sarker2021aa
+
+      bader2005aa
+
+      hagberg2008aa
+
+      abadi2016aa
+
+      Kisby:2024aa
+
+      Kisby:2024aa
+
+      Kisby:2022aa
+
+      rumelhart1986aa
+
+      badreddine2022aa
+
+      riegel2020aa
+
+      andreka1995aa
+    </associate>
     <\associate|toc>
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Committee>
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
@@ -359,6 +540,10 @@
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Purpose
       of the Hearing> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-3><vspace|0.5fn>
+
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Scrapped
+      Text for Raw Material> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-4><vspace|0.5fn>
     </associate>
   </collection>
 </auxiliary>
