@@ -63,7 +63,7 @@
     A Sound Neural Network Semantics for First-Order Logic
   </doc-title>|<doc-author|<author-data|<author-name|Draft by Caleb Schultz
   Kisby>|<\author-affiliation>
-    <with|font-series|bold|For the audience of NeSy 2025>
+    <with|font-series|bold|For NeSy 2025, due May 30 2025>
   </author-affiliation>>>|<\doc-author>
     \;
 
@@ -94,13 +94,13 @@
     <item>Very recently, there have been many proposals for bridging neural
     network dynamics with first-order logic. List these systems here!
 
-    <item><with|font-series|bold|Contribution:> None of the existing neural
-    network semantics have any soundness guarantees! It's been an open
-    question for the foundations of neuro-symbolic AI of what sound axioms
-    could be for a neural network interpretation of first-order logic. In
-    this paper, I present what I believe is the first interpretation of
-    first-order logic in terms of neural network dynamics that has
-    <with|font-shape|italic|soundness guarantees>. I do this using a
+    <item><with|font-series|bold|Contribution:> None of the existing
+    neuro-symbolic systems that interpret FOL have any soundness guarantees!
+    It's been an open question for the foundations of neuro-symbolic AI of
+    what sound axioms could be for a neural network interpretation of
+    first-order logic. In this paper, I present what I believe is the first
+    interpretation of first-order logic in terms of neural network dynamics
+    that has <with|font-shape|italic|soundness guarantees>. I do this using a
     technical trick in modal logic which allows me to \Plift\Q the semantics
     for modal logic to first-order logic. I will then explore the question
     \Pwhat kind of quantifier does the activation closure in a neural network
@@ -465,7 +465,10 @@
     <item>The unsound ones. For each of them, I should (1) prove that it
     isn't sound with a counterexample, and (2) think about
     <with|font-shape|italic|what property of <math|<value|Closure><rsub|x>>
-    would make it true?>\ 
+    would make it true?> (Think of each of these axioms as somewhat
+    negotiable; it's perfectly fine for neural networks to model dependent
+    quantifiers <math|<value|netforall>x> rather than the classical
+    <with|font-shape|italic|independent> quantifiers.)
 
     <\description>
       <item*|(Nec)>
@@ -498,20 +501,18 @@
   </itemize>
 
   <\float|float|thb>
-    <\big-figure|<center|<tabular|<tformat|<cwith|1|1|3|3|cell-row-span|1>|<cwith|1|1|3|3|cell-col-span|6>|<cwith|1|1|3|3|cell-halign|c>|<cwith|2|2|3|-1|cell-halign|c>|<cwith|1|1|3|3|cell-bsep|0.5fn>|<cwith|7|15|3|-1|cell-halign|c>|<cwith|1|1|2|2|cell-row-span|2>|<cwith|1|1|2|2|cell-col-span|1>|<cwith|2|2|3|-1|cell-tborder|0ln>|<cwith|2|2|3|-1|cell-bborder|1ln>|<cwith|2|2|3|3|cell-lborder|0ln>|<cwith|1|2|2|2|cell-rborder|0ln>|<cwith|1|2|2|2|cell-bborder|0ln>|<cwith|7|15|2|2|cell-lborder|0ln>|<cwith|7|15|2|2|cell-rborder|1ln>|<cwith|7|15|3|3|cell-lborder|1ln>|<cwith|7|15|1|-1|cell-bsep|0.2fn>|<cwith|7|15|1|-1|cell-tsep|0.2fn>|<cwith|7|7|2|2|cell-hyphen|t>|<cwith|7|15|3|-1|cell-valign|c>|<cwith|8|8|2|2|cell-hyphen|t>|<cwith|10|10|3|6|cell-halign|c>|<cwith|10|10|3|3|cell-lborder|1ln>|<cwith|10|10|3|6|cell-bsep|0.2fn>|<cwith|10|10|3|6|cell-tsep|0.2fn>|<cwith|10|10|3|6|cell-valign|c>|<cwith|8|8|3|6|cell-halign|c>|<cwith|8|8|3|3|cell-lborder|1ln>|<cwith|8|8|3|6|cell-bsep|0.2fn>|<cwith|8|8|3|6|cell-tsep|0.2fn>|<cwith|8|8|3|6|cell-valign|c>|<cwith|8|8|3|-1|cell-tborder|0ln>|<cwith|8|8|2|2|cell-tborder|0ln>|<cwith|9|9|2|2|cell-hyphen|t>|<cwith|10|10|2|2|cell-hyphen|t>|<cwith|7|15|5|5|cell-rborder|1ln>|<cwith|1|1|3|-1|cell-bborder|0ln>|<cwith|2|2|5|5|cell-rborder|0ln>|<cwith|14|14|2|2|cell-hyphen|t>|<cwith|7|7|5|5|cell-lborder|0ln>|<cwith|7|7|4|4|cell-rborder|0ln>|<cwith|7|7|5|5|cell-rborder|0ln>|<cwith|7|7|5|5|cell-bborder|0ln>|<cwith|14|14|5|5|cell-bborder|0ln>|<cwith|8|14|5|5|cell-lborder|0ln>|<cwith|8|14|4|4|cell-rborder|0ln>|<cwith|8|14|5|5|cell-rborder|0ln>|<cwith|3|3|5|5|cell-tborder|1ln>|<cwith|2|2|5|5|cell-bborder|1ln>|<cwith|3|3|5|5|cell-bborder|0ln>|<cwith|7|7|5|5|cell-tborder|0ln>|<cwith|3|3|5|5|cell-lborder|0ln>|<cwith|3|3|4|4|cell-rborder|0ln>|<cwith|3|3|5|5|cell-rborder|0ln>|<cwith|3|3|3|3|cell-tborder|1ln>|<cwith|2|2|3|3|cell-bborder|1ln>|<cwith|3|3|3|3|cell-lborder|1ln>|<cwith|3|3|2|2|cell-rborder|1ln>|<cwith|3|3|3|3|cell-rborder|0ln>|<cwith|3|3|4|4|cell-lborder|0ln>|<cwith|3|3|3|5|cell-halign|c>|<cwith|3|3|3|5|cell-valign|c>|<cwith|4|4|3|5|cell-halign|c>|<cwith|4|4|3|5|cell-valign|c>|<cwith|4|4|3|3|cell-tborder|0ln>|<cwith|3|3|3|3|cell-bborder|0ln>|<cwith|4|4|3|3|cell-lborder|1ln>|<cwith|4|4|2|2|cell-rborder|1ln>|<cwith|4|4|3|3|cell-rborder|0ln>|<cwith|4|4|4|4|cell-lborder|0ln>|<cwith|5|6|3|5|cell-halign|c>|<cwith|5|6|3|5|cell-valign|c>|<cwith|5|5|3|3|cell-tborder|0ln>|<cwith|4|4|3|3|cell-bborder|0ln>|<cwith|6|6|3|3|cell-bborder|0ln>|<cwith|7|7|3|3|cell-tborder|0ln>|<cwith|5|6|3|3|cell-lborder|1ln>|<cwith|5|6|2|2|cell-rborder|1ln>|<cwith|5|6|3|3|cell-rborder|0ln>|<cwith|5|6|4|4|cell-lborder|0ln>|<cwith|3|14|1|2|cell-valign|c>|<table|<row|<cell|>|<cell|>|<cell|<with|font-series|bold|Semantics
-    for First-Order Logic>>|<cell|>|<cell|>>|<row|<cell|>|<cell|>|<cell|<with|font-series|bold|Neural>>|<cell|<math|<text|<with|font-series|bold|Generalized>>>>|<cell|<text|<with|font-series|bold|Classical>>>>|<row|<cell|<with|font-series|bold|(Dual)>>|<cell|<math|<value|netexists>x\<varphi\>\<leftrightarrow\>\<neg\><value|netforall>x\<neg\>\<varphi\>>>|<cell|<with|color|#34A853|<aw|check-circle|1fn>>>|<cell|<with|color|#34A853|<aw|check-circle|1fn>>>|<cell|<with|color|#34A853|<aw|check-circle|1fn>>>>|<row|<cell|<with|font-series|bold|(Rep)>>|<cell|If
-    <math|<value|proves>\<varphi\>\<leftrightarrow\>\<psi\>> then
-    <math|<value|proves><value|netforall>x\<varphi\>\<leftrightarrow\><value|netforall>x\<psi\>>>|<cell|<with|color|#34A853|<aw|check-circle|1fn>>>|<cell|<with|color|#34A853|<aw|check-circle|1fn>>>|<cell|<with|color|#34A853|<aw|check-circle|1fn>>>>|<row|<cell|<with|font-series|bold|(Nec)>>|<cell|If
-    <math|<value|proves>\<varphi\>> then <math|<value|proves><value|netforall>x\<varphi\>>>|<cell|<with|color|#EA4335|<aw|times-circle|1fn>>>|<cell|<with|color|#34A853|<aw|check-circle|1fn>>>|<cell|<with|color|#34A853|<aw|check-circle|1fn>>>>|<row|<cell|<with|font-series|bold|(CM)>>|<cell|<math|U<around*|(|<value|netforall>x\<varphi\>\<rightarrow\>\<psi\>|)>\<rightarrow\><around*|(|<value|netforall>x<around*|(|\<varphi\>\<wedge\>\<psi\>|)>\<rightarrow\><value|netforall>x\<varphi\>|)>>>|<cell|<with|color|#34A853|<aw|check-circle|1fn>>>|<cell|<with|color|#34A853|<aw|check-circle|1fn>>>|<cell|<with|color|#34A853|<aw|check-circle|1fn>>>>|<row|<cell|<with|font-series|bold|(Distr)>>|<\cell>
+    <\big-figure|<center|<tabular|<tformat|<cwith|1|1|3|3|cell-row-span|1>|<cwith|1|1|3|3|cell-col-span|6>|<cwith|1|1|3|3|cell-halign|c>|<cwith|2|2|3|-1|cell-halign|c>|<cwith|1|1|3|3|cell-bsep|0.5fn>|<cwith|6|13|3|-1|cell-halign|c>|<cwith|1|1|2|2|cell-row-span|2>|<cwith|1|1|2|2|cell-col-span|1>|<cwith|2|2|3|-1|cell-tborder|0ln>|<cwith|2|2|3|-1|cell-bborder|1ln>|<cwith|2|2|3|3|cell-lborder|0ln>|<cwith|1|2|2|2|cell-rborder|0ln>|<cwith|1|2|2|2|cell-bborder|0ln>|<cwith|6|13|2|2|cell-lborder|0ln>|<cwith|6|13|2|2|cell-rborder|1ln>|<cwith|6|13|3|3|cell-lborder|1ln>|<cwith|6|13|1|-1|cell-bsep|0.2fn>|<cwith|6|13|1|-1|cell-tsep|0.2fn>|<cwith|6|6|2|2|cell-hyphen|t>|<cwith|6|13|3|-1|cell-valign|c>|<cwith|7|7|2|2|cell-hyphen|t>|<cwith|9|9|3|6|cell-halign|c>|<cwith|9|9|3|3|cell-lborder|1ln>|<cwith|9|9|3|6|cell-bsep|0.2fn>|<cwith|9|9|3|6|cell-tsep|0.2fn>|<cwith|9|9|3|6|cell-valign|c>|<cwith|7|7|3|6|cell-halign|c>|<cwith|7|7|3|3|cell-lborder|1ln>|<cwith|7|7|3|6|cell-bsep|0.2fn>|<cwith|7|7|3|6|cell-tsep|0.2fn>|<cwith|7|7|3|6|cell-valign|c>|<cwith|7|7|3|-1|cell-tborder|0ln>|<cwith|7|7|2|2|cell-tborder|0ln>|<cwith|8|8|2|2|cell-hyphen|t>|<cwith|9|9|2|2|cell-hyphen|t>|<cwith|6|13|5|5|cell-rborder|1ln>|<cwith|1|1|3|-1|cell-bborder|0ln>|<cwith|2|2|5|5|cell-rborder|0ln>|<cwith|12|12|2|2|cell-hyphen|t>|<cwith|6|6|5|5|cell-lborder|0ln>|<cwith|6|6|4|4|cell-rborder|0ln>|<cwith|6|6|5|5|cell-rborder|0ln>|<cwith|6|6|5|5|cell-bborder|0ln>|<cwith|12|12|5|5|cell-bborder|0ln>|<cwith|7|12|5|5|cell-lborder|0ln>|<cwith|7|12|4|4|cell-rborder|0ln>|<cwith|7|12|5|5|cell-rborder|0ln>|<cwith|3|3|5|5|cell-tborder|1ln>|<cwith|2|2|5|5|cell-bborder|1ln>|<cwith|3|3|5|5|cell-bborder|0ln>|<cwith|6|6|5|5|cell-tborder|0ln>|<cwith|3|3|5|5|cell-lborder|0ln>|<cwith|3|3|4|4|cell-rborder|0ln>|<cwith|3|3|5|5|cell-rborder|0ln>|<cwith|3|3|3|3|cell-tborder|1ln>|<cwith|2|2|3|3|cell-bborder|1ln>|<cwith|3|3|3|3|cell-lborder|1ln>|<cwith|3|3|2|2|cell-rborder|1ln>|<cwith|3|3|3|3|cell-rborder|0ln>|<cwith|3|3|4|4|cell-lborder|0ln>|<cwith|3|3|3|5|cell-halign|c>|<cwith|3|3|3|5|cell-valign|c>|<cwith|3|3|3|3|cell-bborder|0ln>|<cwith|4|5|3|5|cell-halign|c>|<cwith|4|5|3|5|cell-valign|c>|<cwith|4|4|3|3|cell-tborder|0ln>|<cwith|5|5|3|3|cell-bborder|0ln>|<cwith|6|6|3|3|cell-tborder|0ln>|<cwith|4|5|3|3|cell-lborder|1ln>|<cwith|4|5|2|2|cell-rborder|1ln>|<cwith|4|5|3|3|cell-rborder|0ln>|<cwith|4|5|4|4|cell-lborder|0ln>|<cwith|3|12|1|2|cell-valign|c>|<table|<row|<cell|>|<cell|>|<cell|<with|font-series|bold|Semantics
+    for First-Order Logic>>|<cell|>|<cell|>>|<row|<cell|>|<cell|>|<cell|<with|font-series|bold|Neural>>|<cell|<math|<text|<with|font-series|bold|Generalized>>>>|<cell|<text|<with|font-series|bold|Classical>>>>|<row|<cell|<with|font-series|bold|(Dual)>>|<cell|<math|<value|netexists>x\<varphi\>\<leftrightarrow\>\<neg\><value|netforall>x\<neg\>\<varphi\>>>|<cell|<with|color|#34A853|<aw|check-circle|1fn>>>|<cell|<with|color|#34A853|<aw|check-circle|1fn>>>|<cell|<with|color|#34A853|<aw|check-circle|1fn>>>>|<row|<cell|<with|font-series|bold|(Nec)>>|<cell|If
+    <math|<value|proves>\<varphi\>> then <math|<value|proves><value|netforall>x\<varphi\>>>|<cell|<with|color|#34A853|<aw|check-circle|1fn>>>|<cell|<with|color|#34A853|<aw|check-circle|1fn>>>|<cell|<with|color|#34A853|<aw|check-circle|1fn>>>>|<row|<cell|<with|font-series|bold|(CM)>>|<cell|<math|U<around*|(|<value|netforall>x\<varphi\>\<rightarrow\>\<psi\>|)>\<rightarrow\><around*|(|<value|netforall>x<around*|(|\<varphi\>\<wedge\>\<psi\>|)>\<rightarrow\><value|netforall>x\<varphi\>|)>>>|<cell|<with|color|#34A853|<aw|check-circle|1fn>>>|<cell|<with|color|#34A853|<aw|check-circle|1fn>>>|<cell|<with|color|#34A853|<aw|check-circle|1fn>>>>|<row|<cell|<with|font-series|bold|(Distr)>>|<\cell>
       <math|<value|netforall>x<around*|(|\<varphi\>\<rightarrow\>\<psi\>|)>\<rightarrow\><around*|(|<value|netforall>x\<varphi\>\<rightarrow\><value|netforall>x\<psi\>|)>>
     </cell>|<cell|<with|color|#EA4335|<aw|times-circle|1fn>>>|<cell|<with|color|#34A853|<aw|check-circle|1fn>>>|<cell|<with|color|#34A853|<aw|check-circle|1fn>>>>|<row|<cell|<with|font-series|bold|(Refl)>>|<\cell>
       <math|<value|netforall>x\<varphi\>\<rightarrow\>\<varphi\>>
     </cell>|<cell|<with|color|#34A853|<aw|check-circle|1fn>>>|<cell|<with|color|#EA4335|<aw|times-circle|1fn>>>|<cell|<with|color|#FBBC05|<aw|circle|1fn>>>>|<row|<cell|<with|font-series|bold|(Trans)>>|<\cell>
-      <math|<value|netforall>x\<varphi\>\<rightarrow\><value|netforall>x<value|netforall>x\<varphi\>>
+      <math|<value|netforall>x\<varphi\>\<leftrightarrow\><value|netforall>x<value|netforall>x\<varphi\>>
     </cell>|<cell|<with|color|#34A853|<aw|check-circle|1fn>>>|<cell|<with|color|#EA4335|<aw|times-circle|1fn>>>|<cell|<with|color|#34A853|<aw|check-circle|1fn>>>>|<row|<cell|<with|font-series|bold|(Eucl)>>|<\cell>
       <math|<value|netexists>x\<varphi\>\<rightarrow\><value|netforall>x<value|netexists>x\<varphi\>>
     </cell>|<cell|<with|color|#EA4335|<aw|times-circle|1fn>>>|<cell|<with|color|#EA4335|<aw|times-circle|1fn>>>|<cell|<with|color|#34A853|<aw|check-circle|1fn>>>>|<row|<cell|<with|font-series|bold|(???)>>|<cell|<math|\<varphi\>\<rightarrow\><value|netforall>x\<varphi\>>
-    for <math|x> not free in <math|\<varphi\>>>|<cell|<with|color|#EA4335|<aw|times-circle|1fn>>>|<cell|<with|color|#EA4335|<aw|times-circle|1fn>>>|<cell|<with|color|#34A853|<aw|check-circle|1fn>>>>|<row|<cell|<with|font-series|bold|(Exch)>>|<cell|<math|<value|netexists>x<value|netexists>y\<varphi\>\<leftrightarrow\><value|netexists>y<value|netexists>x\<varphi\>>>|<cell|<with|color|#EA4335|<aw|times-circle|1fn>>>|<cell|<with|color|#EA4335|<aw|times-circle|1fn>>>|<cell|<with|color|#34A853|<aw|check-circle|1fn>>>>|<row|<cell|<with|font-series|bold|(PR)>>|<cell|<math|<value|netforall>x<value|netforall>y\<varphi\>\<rightarrow\><value|netforall>y<value|netforall>x\<varphi\>>>|<cell|<with|color|#EA4335|<aw|times-circle|1fn>>>|<cell|<with|color|#EA4335|<aw|times-circle|1fn>>>|<cell|<with|color|#34A853|<aw|check-circle|1fn>>>>|<row|<cell|<with|font-series|bold|(Confl)>>|<\cell>
+    for <math|x> not free in <math|\<varphi\>>>|<cell|<with|color|#EA4335|<aw|times-circle|1fn>>>|<cell|<with|color|#EA4335|<aw|times-circle|1fn>>>|<cell|<with|color|#34A853|<aw|check-circle|1fn>>>>|<row|<cell|<with|font-series|bold|(Exch)>>|<cell|<math|<value|netforall>x<value|netforall>y\<varphi\>\<leftrightarrow\><value|netforall>y<value|netforall>x\<varphi\>>>|<cell|<with|color|#EA4335|<aw|times-circle|1fn>>>|<cell|<with|color|#EA4335|<aw|times-circle|1fn>>>|<cell|<with|color|#34A853|<aw|check-circle|1fn>>>>|<row|<cell|<with|font-series|bold|(Confl)>>|<\cell>
       <math|<value|netexists>x<value|netforall>y\<varphi\>\<rightarrow\><value|netforall>y<value|netexists>x\<varphi\>>
     </cell>|<cell|<with|color|#EA4335|<aw|times-circle|1fn>>>|<cell|<with|color|#EA4335|<aw|times-circle|1fn>>>|<cell|<with|color|#34A853|<aw|check-circle|1fn>>>>>>>>>
       <label|figure-comparision>Soundness for various FOL axioms, under three
@@ -529,8 +530,7 @@
 
     Abbreviations: <with|font-series|bold|(CM)> is Cautious Monotonicity
     (from conditional logic); <with|font-series|bold|(Eucl)> is Euclidean;
-    <with|font-series|bold|(Exch)> is the standard FOL exchange law;
-    <with|font-series|bold|(PR)> is Path Reversal;
+    <with|font-series|bold|(Exch)> is the standard FOL exchange principle;
     <with|font-series|bold|(Confl)> is Confluence.
   </float>
 
@@ -605,28 +605,37 @@
   I will now explore the different possible interactions between classical
   substitution <math|<value|subst>> and neural quantifiers
   <math|<value|netforall>x>, i.e., interactions between the substitution
-  relation <math|<value|substinto>> and <math|<value|Closure><rsub|x>>. Here
-  is a list of some standard interactions drawn from classical FOL
-  <todo|cite>:
+  relation <math|<value|substinto>> and <math|<value|Closure><rsub|x>>. In
+  contrast to the axioms with quantifiers alone, I consider the
+  <math|<value|subst>> interactions to be relatively non-negotiable; in order
+  to interpret a neural network as a FOL reasoner, it's important for the
+  net's activation function <math|<value|Closure><rsub|x>> to get along with
+  substitution (the core mechanic of FOL). Here is a list of the standard
+  interactions for classical FOL (these versions with the
+  <math|<value|subst>> operator come from <todo|cite van Benthem>, who drew
+  the standard axioms from <todo|cite Enderton>):
 
-  <\itemize>
-    <item><math|<value|subst><value|netexists>x\<varphi\>\<leftrightarrow\><value|netexists>x\<varphi\>>
-
+  <\enumerate>
     <item><math|<value|subst><value|netforall>x\<varphi\>\<leftrightarrow\><value|netforall>x\<varphi\>>
 
-    <item><math|<value|subst><value|netexists>y\<varphi\>\<leftrightarrow\><todo|>>
-
-    <item><math|<value|subst><value|netforall>y\<varphi\>\<leftrightarrow\><todo|>>
-
-    <item><math|<value|subst><value|netexists>z\<varphi\>\<leftrightarrow\><value|netexists>z<value|subst>\<varphi\>>
-    for <math|z\<neq\>x,y>
-
     <item><math|<value|subst><value|netforall>z\<varphi\>\<leftrightarrow\><value|netforall>z<value|subst>\<varphi\>>
-    for <math|z\<neq\>x,y>
+    for <math|z\<neq\>x>
 
     <item><math|<value|netforall>x\<varphi\>\<rightarrow\><value|subst>\<varphi\>>,
     if <math|y> free for <math|x> in <math|\<varphi\>>
-  </itemize>
+  </enumerate>
+
+  <todo|The second axiom includes the case
+  <math|<value|subst><value|netforall>y\<varphi\>\<leftrightarrow\><value|netforall>y<value|subst>\<varphi\>>.
+  I'm not listing existential interactions such as
+  <math|<value|subst><value|netexists>x\<varphi\>\<leftrightarrow\><value|netexists>x\<varphi\>>,
+  <math|<value|subst><value|netexists>y\<varphi\>\<leftrightarrow\><value|netexists>y<value|subst>\<varphi\>>,
+  and <math|<value|subst><value|netexists>z\<varphi\>\<leftrightarrow\><value|netexists>z<value|subst>\<varphi\>>
+  for <math|z\<neq\>x,y>, since for functional <math|<value|subst>> they are
+  each equivalent to their duals.>
+
+  <todo|I'm also only interested in the <around*|(|<math|\<rightarrow\>>|)>
+  direction of (1) and (2) above, >
 
   Note that these are <with|font-shape|italic|all> sound in classical FOL,
   and in generalized FOL they are each only sound alongside frame conditions.
@@ -708,41 +717,75 @@
 
   <\proposition>
     Suppose a variable-assignment net <math|<value|Net>>
-    <with|font-shape|italic|respects> substitutions. Then the following
-    substitution interaction axioms are sound:
-
-    <\itemize>
-      <item>The <math|<around*|(|\<leftarrow\>|)>> direction of
-      <math|<value|subst><value|netexists>x\<varphi\>\<leftrightarrow\><value|netexists>x\<varphi\>>
-
-      <item>The <math|<around*|(|\<rightarrow\>|)>> direction of
-      <math|<value|subst><value|netforall>x\<varphi\>\<leftrightarrow\><value|netforall>x\<varphi\>>
-    </itemize>
+    <with|font-shape|italic|respects> substitutions. Then the
+    <math|<around*|(|\<rightarrow\>|)>> direction of the axiom
+    <math|<value|subst><value|netforall>x\<varphi\>\<leftrightarrow\><value|netforall>x\<varphi\>>
+    is sound.
   </proposition>
 
   <\proof>
-    <todo|todo>
+    Let <math|<value|Net>\<in\><todo|>> and let <math|\<alpha\>\<in\>N> be
+    any assignment. Let <math|\<beta\>> be that unique assignment such that
+    <math|\<alpha\><value|substinto>\<beta\>>. Suppose
+    <math|<value|Net>,\<alpha\>\<models\><value|subst><value|netforall>x\<varphi\>>.
+    By the semantics for substitution, <math|<value|Net>,\<beta\>\<models\><value|netforall>x\<varphi\>>,
+    and then by the semantics for <math|<value|netforall>x> we have
+    <math|\<beta\><neg|\<in\>><value|Closure><rsub|x><around*|(|<semantics|\<varphi\>><rsup|\<complement\>>|)>>.
+    Since <math|<value|Net>> respects substitutions,
+    <math|\<alpha\><neg|\<in\>><value|Closure><rsub|x><around*|(|<semantics|\<varphi\>><rsup|\<complement\>>|)>>.
+    But this means <math|<value|Net>,\<alpha\>\<models\><value|netforall>x\<varphi\>>,
+    and we are done.
   </proof>
 
   <\proposition>
     Suppose a variable-assignment net <math|<value|Net>>
-    <with|font-shape|italic|reflects> substitutions. Then the following
-    substitution interaction axioms are sound:
-
-    <\itemize>
-      <item>The <math|<around*|(|\<rightarrow\>|)>> direction of
-      <math|<value|subst><value|netexists>x\<varphi\>\<leftrightarrow\><value|netexists>x\<varphi\>>
-
-      <item>The <math|<around*|(|\<leftarrow\>|)>> direction of
-      <math|<value|subst><value|netforall>x\<varphi\>\<leftrightarrow\><value|netforall>x\<varphi\>>
-
-      <item><math|<value|netforall>x\<varphi\>\<rightarrow\><value|subst>\<varphi\>>,
-      if <math|y> free for <math|x> in <math|\<varphi\>>
-    </itemize>
+    <with|font-shape|italic|reflects> substitutions. Then the axiom
+    \P<math|<value|netforall>x\<varphi\>\<rightarrow\><value|subst>\<varphi\>>,
+    if <math|y> free for <math|x> in <math|\<varphi\>>\Q is sound.
   </proposition>
 
   <\proof>
-    <todo|todo>
+    Let <math|<value|Net>\<in\><todo|>> and let <math|\<alpha\>\<in\>N> be
+    any assignment. Let <math|\<beta\>> be that unique assignment such that
+    <math|\<alpha\><value|substinto>\<beta\>>. Suppose
+    <math|<value|Net>,\<alpha\>\<models\><value|netforall>x\<varphi\>>, and
+    suppose <math|y> is free for <math|x> in <math|\<varphi\>>. By the
+    semantics for <math|<value|netforall>x> we have
+    <math|\<alpha\><neg|\<in\>><value|Closure><rsub|x><around*|(|<semantics|\<varphi\>><rsup|\<complement\>>|)>=<value|Closure><rsub|x><around*|(|<semantics|\<neg\>\<varphi\>>|)>>.
+
+    Now, suppose for contradiction that <math|<value|Net>,\<alpha\><neg|\<models\>><value|subst>\<varphi\>>,
+    i.e., <math|\<beta\>\<in\><semantics|\<varphi\>><rsup|\<complement\>>>.
+    By Inclusion of <math|<value|Closure><rsub|x>>,
+    <math|\<beta\>\<in\><value|Closure><rsub|x><around*|(|<semantics|\<varphi\>><rsup|\<complement\>>|)>=<value|Closure><rsub|x><around*|(|<semantics|\<neg\>\<varphi\>>|)>>.
+    Since <math|y> is free for <math|x> in <math|\<varphi\>>, <math|y> is
+    free for <math|x> in <math|\<neg\>\<varphi\>>. So we can apply the fact
+    that <math|<value|Net>> reflects substitutions, which gives us
+    <math|\<alpha\>\<in\><value|Closure><rsub|x><around*|(|<semantics|\<varphi\>><rsup|\<complement\>>|)>>.
+    But this directly contradicts our hypothesis. So we must conclude that
+    <math|<value|Net>,\<alpha\>\<models\><value|subst>\<varphi\>>.
+  </proof>
+
+  <\corollary>
+    Suppose a variable-assignment net <math|<value|Net>> respects
+    substitutions. Then the <math|<around*|(|\<leftarrow\>|)>> direction of
+    the axiom <math|<value|subst><value|netforall>x\<varphi\>\<leftrightarrow\><value|netforall>x\<varphi\>>
+    is sound.
+  </corollary>
+
+  <\proof>
+    If <math|<value|Net>> respects substitutions, then
+    \P<math|<value|netforall>x\<varphi\>\<rightarrow\><value|subst>\<varphi\>>,
+    if <math|y> free for <math|x> in <math|\<varphi\>>\Q is sound. I will
+    show that the formula <math|<value|netforall>x\<varphi\>\<rightarrow\><value|subst><value|netforall>x\<varphi\>>
+    follows. Let <math|\<alpha\>\<in\>N> and suppose
+    <math|<value|Net>,\<alpha\>\<models\><value|netforall>x\<varphi\>>. By
+    the soundness of <with|font-series|bold|(Trans)>,
+    <math|<value|Net>,\<alpha\>\<models\><value|netforall>x<value|netforall>x\<varphi\>>.
+    Now, notice that <math|y> is free for <math|x> in the expression
+    <math|<value|netforall>x\<varphi\>> (since <math|x> is not free at all,
+    it is safe to substitute <math|y> for <math|x>). So by hypothesis,
+    <math|<value|Net>,\<alpha\>\<models\><value|subst><value|netforall>x\<varphi\>>,
+    which was the goal.
   </proof>
 
   <\proposition>
@@ -761,6 +804,9 @@
   <section|How to Interpret Variable-Assignment Networks>
 
   <\itemize>
+    <item>Part of my conclusion is this: In order for a variable-assignment
+    net to behave like full FOL reasoner, it must have [list of properties]
+
     <item>In addition to whatever else I do here, I should probably sanity
     check and make sure that there <with|font-shape|italic|is> actually a
     variable-assignment net that satisfies all of the properties necessary to
@@ -860,22 +906,20 @@
 <\references>
   <\collection>
     <associate|auto-1|<tuple|1|1>>
-    <associate|auto-10|<tuple|7|10>>
-    <associate|auto-11|<tuple|7|10>>
+    <associate|auto-10|<tuple|7|11>>
     <associate|auto-2|<tuple|2|1>>
     <associate|auto-3|<tuple|1|4>>
     <associate|auto-4|<tuple|3|4>>
     <associate|auto-5|<tuple|2|7>>
     <associate|auto-6|<tuple|4|7>>
-    <associate|auto-7|<tuple|5|8>>
-    <associate|auto-8|<tuple|6|9>>
-    <associate|auto-9|<tuple|7|9>>
-    <associate|bib-merrill2019sequential|<tuple|1|10>>
-    <associate|bib-merrill2020formal|<tuple|2|10>>
-    <associate|bib-weiss2018practical|<tuple|3|10>>
+    <associate|auto-7|<tuple|5|10>>
+    <associate|auto-8|<tuple|6|10>>
+    <associate|auto-9|<tuple|7|11>>
+    <associate|bib-merrill2019sequential|<tuple|1|11>>
+    <associate|bib-merrill2020formal|<tuple|2|11>>
+    <associate|bib-weiss2018practical|<tuple|3|11>>
     <associate|figure-classical-FOL-axioms|<tuple|1|4>>
     <associate|figure-comparision|<tuple|2|7>>
-    <associate|figure-comparision-substitution|<tuple|3|8>>
   </collection>
 </references>
 
@@ -912,16 +956,6 @@
         does not hold for all models in that class, and may require
         additional frame properties to make it hold.
       </surround>|<pageref|auto-5>>
-
-      <tuple|normal|<\surround|<hidden-binding|<tuple>|3>|>
-        Soundness for various FOL substitution axioms, under the three
-        different semantics. As before, <with|color|<quote|#34A853>|<with|font|<quote|Font
-        Awesome 5 Free Regular>|font-size|<quote|1fn>|\<#F058\>>> indicates
-        that the axiom is sound, and <with|color|<quote|#EA4335>|<with|font|<quote|Font
-        Awesome 5 Free Regular>|font-size|<quote|1fn>|\<#F057\>>> indicates
-        that the axiom does not hold for all models in that class (there may
-        be interaction properties with substitution that make it hold).
-      </surround>|<pageref|auto-7>>
     </associate>
     <\associate|toc>
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|1<space|1fn>Introduction>
@@ -942,22 +976,22 @@
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-6><vspace|0.5fn>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|5<space|1fn>Example:
-      Training Variable-Assignment Networks>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|5<space|1fn>How
+      to Interpret Variable-Assignment Networks>
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-8><vspace|0.5fn>
+      <no-break><pageref|auto-7><vspace|0.5fn>
 
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|6<space|1fn>Discussion>
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-9><vspace|0.5fn>
+      <no-break><pageref|auto-8><vspace|0.5fn>
 
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|7<space|1fn>Conclusions
       and Open Problems> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-10><vspace|0.5fn>
+      <no-break><pageref|auto-9><vspace|0.5fn>
 
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|References>
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-11><vspace|0.5fn>
+      <no-break><pageref|auto-10><vspace|0.5fn>
     </associate>
   </collection>
 </auxiliary>
