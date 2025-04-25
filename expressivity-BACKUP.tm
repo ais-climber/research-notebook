@@ -836,6 +836,7 @@
   <\collection>
     <associate|page-height|auto>
     <associate|page-medium|paper>
+    <associate|page-screen-margin|false>
     <associate|page-type|letter>
     <associate|page-width|auto>
   </collection>
@@ -843,20 +844,109 @@
 
 <\references>
   <\collection>
-    <associate|auto-1|<tuple|1|?>>
-    <associate|auto-10|<tuple|5|?>>
-    <associate|auto-11|<tuple|6|?>>
-    <associate|auto-12|<tuple|7|?>>
-    <associate|auto-13|<tuple|1|?>>
-    <associate|auto-14|<tuple|2|?>>
-    <associate|auto-2|<tuple|1|?>>
-    <associate|auto-3|<tuple|2|?>>
-    <associate|auto-4|<tuple|2.1|?>>
-    <associate|auto-5|<tuple|2.2|?>>
-    <associate|auto-6|<tuple|2.3|?>>
-    <associate|auto-7|<tuple|2.4|?>>
-    <associate|auto-8|<tuple|3|?>>
-    <associate|auto-9|<tuple|4|?>>
-    <associate|corollary-theory-plaus-net|<tuple|5|?>>
+    <associate|auto-1|<tuple|1|1>>
+    <associate|auto-10|<tuple|5|5>>
+    <associate|auto-11|<tuple|6|7>>
+    <associate|auto-12|<tuple|7|8>>
+    <associate|auto-13|<tuple|1|8>>
+    <associate|auto-14|<tuple|2|9>>
+    <associate|auto-2|<tuple|1|1>>
+    <associate|auto-3|<tuple|2|1>>
+    <associate|auto-4|<tuple|2.1|1>>
+    <associate|auto-5|<tuple|2.2|2>>
+    <associate|auto-6|<tuple|2.3|2>>
+    <associate|auto-7|<tuple|2.4|2>>
+    <associate|auto-8|<tuple|3|3>>
+    <associate|auto-9|<tuple|4|3>>
+    <associate|corollary-theory-plaus-net|<tuple|5|4>>
   </collection>
 </references>
+
+<\auxiliary>
+  <\collection>
+    <\associate|bib>
+      kraus1990nonmonotonic
+
+      kraus1990nonmonotonic
+
+      baccini2024dynamic
+
+      baltag2019socialnetworks
+
+      Christoff:2015aa
+
+      baccini2024dynamic
+
+      baccini2024dynamic
+
+      immerman1998descriptive
+
+      libkin2004elements
+
+      sep-computational-complexity
+
+      baltag2019socialnetworks
+    </associate>
+    <\associate|toc>
+      <vspace*|2fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|font-size|<quote|1.19>|1<space|2spc>Expressivity:
+      The Power and Limitations of Neural Network Representations>
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-1><vspace|1fn>
+
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|1<space|2spc>Introduction>
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-2><vspace|0.5fn>
+
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|2<space|2spc>A
+      Potpourri of Model Classes> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-3><vspace|0.5fn>
+
+      <with|par-left|<quote|1tab>|2.1<space|2spc>Relational Models
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-4>>
+
+      <with|par-left|<quote|1tab>|2.2<space|2spc>Plausibility Models
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-5>>
+
+      <with|par-left|<quote|1tab>|2.3<space|2spc>Social Network Models
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-6>>
+
+      <with|par-left|<quote|1tab>|2.4<space|2spc>Neighborhood Models
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-7>>
+
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|3<space|2spc>Measuring
+      Expressive Power through Translation>
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-8><vspace|0.5fn>
+
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|4<space|2spc>Expressive
+      Power of the Base Neural Network Semantics>
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-9><vspace|0.5fn>
+
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|5<space|2spc>Expressive
+      Power of Neural Network Update> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-10><vspace|0.5fn>
+
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|6<space|2spc>Neural
+      Networks and Descriptive Complexity>
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-11><vspace|0.5fn>
+
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|7<space|2spc>Reflections
+      on the Complexity Hierarchy> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-12><vspace|0.5fn>
+
+      <with|par-left|<quote|3tab>|The Graph-Reachability Construction.
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-13>>
+
+      <with|par-left|<quote|3tab>|The Social Majority Construction.
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-14>>
+    </associate>
+  </collection>
+</auxiliary>
